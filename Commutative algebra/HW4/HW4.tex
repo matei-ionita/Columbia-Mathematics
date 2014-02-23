@@ -1,0 +1,112 @@
+\documentclass[12 pt]{article}
+\usepackage{amsmath,amssymb,amsthm,fullpage,amsfonts,enumerate,textcomp, eurosym, tikz-cd, fullpage}
+\title{Commutative algebra HW4}
+\author{Matei Ionita}
+
+\DeclareMathOperator {\p} {\partial}
+\DeclareMathOperator {\R} {\mathbb{R}}
+\DeclareMathOperator {\C} {\mathbb{C}}
+\DeclareMathOperator {\Q} {\mathbb{Q}}
+\DeclareMathOperator {\Z} {\mathbb{Z}}
+\DeclareMathOperator {\fr} {\mathfrak}
+
+
+\begin{document}
+  \maketitle
+
+\subsection*{Problem 5}
+\emph{What is the dimension of the local ring of $k[x, y, z]/(x^2y^2z^2, x^3y^2z)$ at the maximal ideal $(x, y, z)$?}
+\\
+\\
+\emph{Solution}
+\\
+The dimension of $k[x,y,z]_{(x,y,z)}$ is 3. This ring is a domain, so taking a quotient by the nonzero element $x^2y^2z^2$ will decrease dimension by $1$. Therefore $\dim\big(k[x,y,z]/(x^2y^2z^2)_{(x,y,z)}\big) = 2$. If we quotient again by the zero divisor $x^3 y^2 z$, we can't tell immediately if the dimension stays 2 or drops to 1. But we can construct a chain of 3 primes, which proves that the dimension is 2. To see this, consider the following chain in $k[x,y,z]/(x^2y^2z^2)_{(x,y,z)}$:
+\[       (x) \subsetneq (x,y) \subsetneq (x,y,z)        \]
+All three primes generate the element $x^3y^2z$, so they are also primes in $k[x, y, z]/(x^2y^2z^2, x^3y^2z)_{(x,y,z)}$. Furthermore, the inclusions in the chain remain proper when we pass to the quotient, because the equation $ x^3y^2z = 0$ provides no way of solving for one of the generators $x,y,z$ in terms of the others. Thus the dimension is 2.
+
+\subsection*{Problem 6}
+\emph{What is the dimension of the local ring of $A = k[x, y, z]/(x^3 - y^2, x^5 - z^2, y^5 - z^3)$ at the maximal ideal $(x, y, z)$?}
+\\
+\\
+\emph{Solution}
+\\
+$k[x,y,z]$ is a domain, therefore modding out by $(x^3 - y^2)$ will decrease its dimension from 3 to 2. Furthermore, $(x^3 - y^2)$ is a prime in $k[x,y,z]$, and so $k[x,y,z] / (x^3 - y^2)$ is a domain. Then modding out by $(x^5 - z^2)$, a nonzerodivisor, again drops the dimension from 2 to 1. Therefore the dimension of $A$ is at most 1. To show it is at least 1, we construct the following map:
+\begin{align*}    
+\phi: A &\to k[t]   \\
+ a &\to a \text{ for }a\in k \\
+x &\to t^2 \\
+y &\to t^3 \\
+z &\to t^5
+\end{align*}   
+And the rest is defined by homomorphism properties. Let's first check that this map is well-defined, in the sense that it takes the same value for all representatives of an equivalence class in $A$. It suffices to check this for the class of $0$, as homomorphism porperties take care of the rest:
+\[         \phi(x^3 - y^2) = t^6 - t^6 = 0        \]
+\[         \phi(x^5 - z^2) = t^{10} - t^{10} = 0        \]
+\[         \phi(y^5 - z^3) = t^{15} - t^{15} = 0        \]
+Thus $\phi$ is well-defined. We claim now that $k[t]$ is integral over $A$. Any element in $k \subset k[t]$ is also an element of $A$. Then, because $2$ and $3$ are relatively prime, $t^2 = \phi(x)$ and $t^3 = \phi(y)$ generate all powers of $t$ apart from 1. Finally, $t$ satisfies the monic polynomial:
+\[      t^2 - \phi(x) = 0     \]
+And so $k[t]$ is integral over $A$. But then, by lemma 10.106.3 in the Stacks project, $\dim A \geq \dim k[t] = 1$. Then $\dim A = 1$.
+
+\subsection*{Problem 7}
+\emph{Let $k$ be a field. Let $f \in k[x, y]$ be a polynomial. Let $a, b \in k$ be elements such that $f(a, b) = 0$. Let $m = (x - a, y - b)$ be the corresponding maximal ideal in the ring $A = k[x, y]/(f)$. Prove that $A_m$ is a regular local ring if and only if one of $df/dx$, $df/dy$ doesn't vanish at $(a, b)$.}
+\\
+\\
+\emph{Solution}
+\\
+$k[x,y]$ is a domain, so $f$ is not a zero divisor. Therefore taking a qoutient by $(f)$ reduces the dimension of $(k[x,y])_m$ from 2 to 1. In order for $A_m$ to be regular, we must have $\dim_{A/(f)} m/m^2 = 1$. Let's analyze $m$ and $m^2$. First, we know that $f(x,y)$ is a polynomial that vanishes at $(a,b)$. Therefore if we Taylor expand it around $(a,b)$ there will be no constant term:
+\[     f(x,y) = \sum_{i+j\geq 1}^{\infty} c_{ij} (x-a)^i (y-b)^j \;\;\;\;, c_{ij} \in k   \]
+Note that this Taylor series must be finite, since we are dealing with a polynomial, and the degree of the LHS and RHS must be equal. By the same argument, we can write the ideal $m$ as:
+\[     m = \left\{ \sum_{i+j\geq 1} d_{ij} (x-a)^i (y-b)^j | d_{ij} \in k  \right\} \]
+Then:
+\[      m^2 = \left\{ \sum_{i+j\geq 2} d_{ij} (x-a)^i (y-b)^j | d_{ij} \in k  \right\}   \]
+\[    m/m^2 = \left\{ d_{10} (x-a) + d_{01} (y-b)  \right\}  \cong k^2  \]
+But remember that we are looking at this module in $k[x,y]/(f)$, so we must mod by $(f)$ in the above. But $(f)/m^2 = c_{10}(x-a) + c_{01} (y-b)$. If $c_{10} = f_x$ and $c_{01} = f_y$ are both 0, then the expression above is 0, so quotienting by it leaves $m/m^2 \cong k^2$, and therefore its dimension over $k$ is 2. However, if not both derivatives are 0, then $c_{10}, c_{01}$ span a line in $k^2$, and qoutienting by it leaves $m/m^2 \cong k$. In this case the dimension is 1, and we obtain the desired result.
+
+\subsection*{Problem 9}
+\emph{Let $k = \C$ be the field of complex numbers. What are the singular points of the curve C defined by $f = x^n + y^n + 1$, $f = xy^2 + x^2y$, $f = x^2 - 2x + y^3 - 3y^2 +3y$?}
+\\
+\\
+\emph{Solution}
+\\
+For $f(x,y) = x^n + y^n + 1$, singular points $(x,y)$ satisfy $x^{n-1} = y^{n-1} = 0$, so $(x,y) = (0,0)$. But this point does not belong to the curve, so we have no singular points on $C$.
+\\
+\\
+For $f(x,y) = xy^2 + x^2y$, $df/dx = df/dy = 0$ gives the unique solution $x=y=0$. This singular point clearly belongs to the curve.
+\\
+\\
+For $f(x,y) = x^2 - 2x + y^3 - 3y^2 + 3y$, $df/dx = df/dy = 0$ gives the unique solution $x=y=1$. This singular point clearly belongs to the curve.
+
+\subsection*{Problem 10}
+\emph{Let $k$ be an algebraically closed field. Let $f \in k[x, y]$ be a squarefree polynomial of degree $\leq d$. What is the maximum number of singular points the associated curve C can have? Start with $d = 1, 2, 3, \dots $ and make a guess for the general answer. To prove it in general is too hard right now.}
+\\
+\\
+\emph{Solution}
+\\
+\underline{d=1}: $f(x,y) = ax + by + c$, and for a singular point we need $\frac{\p f}{\p x} = a = 0$ and $\frac{\p f}{\p y} = b = 0$. Therefore unless $f = 0$ there will be no singular points.
+\\
+\underline{d=2}: $f(x,y) = ax^2 + b y^2 + cxy + dx + ey + g$. For a singular point we need $2ax + cy + d = 0$ and $2by + cx + e = 0$. This system has an infinite number of solutions if the two lines coincide, i.e. $2a/c = c/2b = d/e$. However, by plugging these into the expression for $f(x,y)$ and choosing $g$ such that $f = 0$ on this line, we see that $f$ becomes a square in this case, which is not allowed. Then there is a unique solution, and by choosing the parameter $f$ appropriately in the expression for $f(x,y)$ we can make this point lie on the curve. Therefore there is one singular point.
+\\
+\underline{d=3}: Here the system of equations $df/dx = 0 , df/dy = 0$ consists of two quadratic equations. After splitting the system we get a quadratic in $x$ and a quadratic in $y$, which can be solved to give 2 solutions for each. Therefore we get 4 singular points. We hope that we can somehow make all these lie on the curve.
+\\
+\underline{d arbitrary}: We expect $(d-1)^2$ singular points, because the system $df/dx = 0 , df/dy = 0$ will give equations of order $d-1$ for each variable. Even if it turns out that we can't make all these lie on the curve, $(d-1)^2$ is a decent upper bound.
+
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

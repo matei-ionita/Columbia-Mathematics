@@ -1,0 +1,109 @@
+\documentclass[12 pt]{article}
+\usepackage{amsmath,amssymb,amsthm,fullpage,amsfonts,enumerate,textcomp, eurosym, tikz-cd, fullpage}
+\title{Commutative algebra HW7}
+\author{Matei Ionita}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\CP}{\mathbb{C}\mathbb{P}}
+\newcommand{\RP}{\mathbb{R}\mathbb{P}}
+\newcommand{\Proj}{\mathbb{P}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\p}{\partial}
+\newcommand{\fr}{\mathfrak}
+
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\length}{length}
+\DeclareMathOperator{\res}{Res}
+\DeclareMathOperator{\Int}{Int}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\Lie}{Lie}
+\DeclareMathOperator{\id}{Id}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\irr}{irr}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\trdeg}{trdeg}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Nm}{Nm}
+\DeclareMathOperator{\ord}{ord}
+
+
+\begin{document}
+  \maketitle
+
+\subsection*{Problem 2}
+\emph{Let $k$ be an algebraically closed field. Let $K = k(t)$. Denote $v_c$ = $\ord_{t = c}$ the valuation corresponding to $c$ in $k$. Denote $\infty$ the valution corresponding to the point at infinity. With this notation:
+\begin{enumerate}
+\item Give a basis for $L(D)$ when $D = 2 v_0 + 3 v_1$.
+\item Give a basis for $L(D)$ when $D = 2 v_0 + 2 \infty$. 
+\end{enumerate}}
+\noindent \emph{Solution}
+\\
+When $D = 2 v_0 + 3 v_1$ we allow poles of order at most 2 at 0 and at most 3 at 1. However, we don't allow any poles at $\infty$, so the degree of the functions in $L(D)$ has to be at most 0. Then a basis for $L(D)$ is:
+\[       \left\{  1 , \frac{1}{x} , \frac{1}{x^2} , \frac{1}{x-1} , \frac{1}{(x-1)^2}, \frac{1}{(x-1)^3}  \right\}      \]
+When $D = 2 v_0 + 2 \infty$, we allow poles of order at most 2 at 0, and we allow the degree of functions in $L(D)$ to be at most 2. Then a basis is:
+\[      \left\{  1, \frac{1}{x}, \frac{1}{x^2}, x, x^2  \right\}       \]
+
+
+\subsection*{Problem 3}
+\emph{Assume $k$ does not have characteristic 2. Let $K$ be the degree 2 extension of $k(t)$ defined by $y^2 = f(t)$ for some cubic squarefree polynomial $f$. Find all the discrete valuations on $K/k$. In other words, analyze the structure of these discrete valuations as we did in the class for the field $k(t)$, but try to use as much as you can the lemmas from the lectures. (If you like you can pick a specific $f$ and a specific $k$.)}
+\\
+\\
+\emph{Solution}
+\\
+In order to simplify matters we study the case $k = \C$. In this case the polynomial $f(t)$ factors into $(t-\lambda_1)(t-\lambda_2)(t-\lambda_3)$. We will use throughout the lemma proved in the last homework, i.e. that any valuation $w_i$ on $K$ restricts to $e_i v$ for $e_i$ natural and $v$ a valuation on $k(t)$, where we have $\sum_i e_i = [K : k(t)] = 2$. This means that, for every $\lambda \in k(t)$, we have two possibilities for the valuations lying over $\lambda$. Either there is only one with ramification index 2, or there are two of them, each with ramification index 1. We also use the fact that the valuations on $k(t)$ are $\ord_{t = \lambda}$ and $\ord_{\infty}$.
+\\
+\\
+We start by analyzing the way valuations act on $(t - \lambda_i)$, for $i = 1,2,3$. This will give us all information about the valuations over $\lambda_i$ and over $\infty$. Assume that there exists some valuation $w$ such that $w(t-\lambda_i) > 0$. Then $w$ restricts on $k(t)$ to $m \ord_{t = \lambda_i}$ for some natural $m$. Using properties of valuations, we compute:
+\begin{align*}
+   2 w(y) &=  w(y^2) \\
+  &= w(t - \lambda_1) + w (t - \lambda_2) + w(t - \lambda_3)     \\
+ &= m\ord_{t=\lambda_i} (t - \lambda_1) + m\ord_{t=\lambda_i} (t - \lambda_2) + m\ord_{t=\lambda_i} (t - \lambda_3) \\
+ &= m
+\end{align*}
+We see that $m$ is a multiple of 2, but since $m$ is at most 2 we get $m = 2$. Therefore there is only one valuation over each $\lambda_i$; it is ramified and has $w(y) = 1$. Now assume there exists some valuation $w$ such that $w(\lambda_i) < 0$ for $i = 1,2$ or $3$. Then $w$ restricts to $ n \ord_{\infty}$, and we compute:
+\begin{align*}
+   2 w(y) &=  w(y^2) \\
+  &= w(t - \lambda_1) + w (t - \lambda_2) + w(t - \lambda_3)     \\
+ &= m\ord_{\infty} (t - \lambda_1) + m\ord_{\infty} (t - \lambda_2) + m\ord_{\infty} (t - \lambda_3) \\
+ &= -3m
+\end{align*}
+Which can only be fulfilled if $m=2$ and $w(y) = -3$. This means that there is only one valuation above $\infty$, which is also ramified.
+\\
+\\
+We have already found 4 ramification points for the curve $y^2 = (t-\lambda_1)(t-\lambda_2)(t-\lambda_3)$. This curve defines a torus, so its genus is 1. But there cannot be more than $2(g+1)$ ramification points on the curve, or else these would determine an additional cut, which would increase its genus. Therefore the 4 ramification points we found are the only ones, and we can conclude that above any other $\lambda$ there are two valuations, each with ramification index 1. 
+
+
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,267 @@
+\documentclass[12 pt]{article}
+\usepackage{amsmath,amssymb,amsthm,fullpage,amsfonts,enumerate,textcomp, eurosym}
+\title{Riemann surfaces final exam}
+\author{Matei Ionita}
+
+\DeclareMathOperator {\p} {\partial}
+\DeclareMathOperator {\R} {\mathbb{R}}
+\DeclareMathOperator {\C} {\mathbb{C}}
+\DeclareMathOperator {\Q} {\mathbb{Q}}
+\DeclareMathOperator {\Z} {\mathbb{Z}}
+\DeclareMathOperator {\Tr}{Tr}
+\DeclareMathOperator {\Ker}{Ker}
+\DeclareMathOperator {\End}{End}
+\DeclareMathOperator {\Coker}{Coker}
+\DeclareMathOperator {\Imag}{Im}
+\DeclareMathOperator {\Diff}{Diff}
+\DeclareMathOperator {\id}{Id}
+
+\theoremstyle{plain}
+\newtheorem{thm}{Theorem}
+\newtheorem*{thm*}{Theorem}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{prop}{Proposition}
+\newtheorem{exc}{Exercise}
+
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}
+\newtheorem{exmp}{Example}
+
+\theoremstyle{remark}
+\newtheorem*{rem}{Remark}
+
+\begin{document}
+  \maketitle
+
+\subsection*{Problem 1}
+a) We define $\theta_1: \C \to \C$ by:
+\[      \theta_1 (z | \tau) = \sum_{n \in \Z} \exp [ \pi i (n+ 1/2)^2 \tau + 2\pi i (n + 1/2) (z + 1/2) ]     \]
+The periodicity of this theta function is given by:
+\[        \theta_1 (z + 1 | \tau) = -  \theta_1 (z |\tau)      \]
+\[          \theta_1 (z + \tau | \tau) = - e^{- i \pi \tau - 2 \pi i z}  \theta_1 (z |\tau)                   \]
+\[       \theta_1 (z + m + n\tau | \tau) = e^{i\pi(m+n)-i\pi n \tau - 2 \pi i n z}  \theta_1 (z |\tau)        \]
+The sum used to define $\theta_1$ is convergent everywhere, so $\theta_1$ has no poles. Its zeros are all lattice points $z = m + n \tau$.
+\\
+\\
+b) We show existence by explicit construction. $dz$ is a holomorphic form on $\C$, which is also doubly periodic, so it descends to a holomorphic form on $\C/\Lambda$. Then we define:
+\[         \omega_{PQ} (z) = \left[ \frac{\theta_1'(z-P)}{\theta_1(z-P)} - \frac{\theta_1'(z-Q)}{\theta_1(z-Q)} \right] dz       \]
+We first show that $\omega_{PQ}$ is doubly periodic. By the transofrmation law for $\theta_1$:
+\[      \frac{\theta_1'(z-P+1)}{\theta_1(z-P+1)}  =   \frac{\theta_1'(z-P)}{\theta_1(z-P)}       \]
+\[       \frac{\theta_1'(z-P+\tau)}{\theta_1(z-P+\tau)}  =   \frac{\theta_1'(z-P)}{\theta_1(z-P)}  - 2 \pi i           \]
+\[       \Rightarrow \omega_{PQ} (z+1) = \omega_{PQ} (z+ \tau) = \omega_{PQ} (z)     \]
+Therefore $\omega_{PQ}$ is well-defined on $\C/\Lambda$. We know from complex analysis that $\theta_1'(z-P)/\theta_1(z-P)$ has a simple pole with residue 1 whenever $\theta_1(z-P)$ has zeros, which happens for $z = P$. Since $\theta_1(z-P)$ has no poles, these are all the poles of $\theta_1'(z-P)/\theta_1(z-P)$. This shows that $\omega_{PQ}$ has a simple pole with residue 1 at $P$, and a simple pole with residue -1 at $Q$.
+\\
+\\
+c) Similarly, define:
+\[       \omega_P (z) = \left( \frac{\theta_1'(z-P)}{\theta_1(z-P)}   \right) '    \]
+By the reasoning in part b), $\theta_1'/\theta_1$ is invariant under $z \to z+1$, and changes by a constant under $z \to z+ \tau$. Then its derivative is doubly periodic. Moreover, $\theta_1'/\theta_1$ has a simple pole at $P$ with residue 1. Therefore, in some small neighborhood of $P$, its Laurent expansion is:
+\[         \frac{\theta_1'(z-P)}{\theta_1(z-P)} = \frac{1}{z-P} + \text{ holomorphic }      \]
+And the expansion of its derivative is:
+\[         \left(   \frac{\theta_1'(z-P)}{\theta_1(z-P)} \right) ' = - \frac{1}{(z-P)^2} + \text{ holomorphic }      \]
+Which shows that $\omega_P (z)$ has a double pole at $P$.
+
+\subsection*{Problem 2}
+a) Given a metric $h(z)$ on $L$, we define its curvature:
+\[       F_{\bar z z} = - \p_z \p_{\bar z} \log h      \]
+Then we define the first Chern class as:
+\[       c_1(L) = \frac{i}{2\pi} \int_X F_{\bar z z} dz \wedge d \bar z      \]
+b) In class we proved the following theorem. If $\phi$ is a meromorphic section of $L$ which is not identically 0, then:
+\[         c_1(L) = \text{number of zeros of } \phi - \text{number of poles of } \phi        \]
+We see that, if $c_1(L) < 0$, then any meromorphic section must have at least a pole. Thus, no section is holomorphic.
+\\
+\\
+c) We denote the vector space of holomorphic sections of $L$ by $H^0(X, L)$. The Riemann-Roch theorem says that:
+\[            \dim H^0(X,L) - \dim H^0 (X, K \otimes L^{-1}) = c_1 (L) + \frac{1}{2} c_1(K^{-1})         \]
+We want to apply this to $L = K^n$. Note that, if $h_1, h_2$ are metrics on $L_1, L_2$, then $h_1 h_2$ is a metric on $L_1 \otimes L_2$. Then using the definition of curvature, which includes a logarithm, we see that the curvature is additive. Then $c_1$ must also be additive. In particular, $c_1(L^n) = n c_1(L)$ for all $L$. We obtain:
+\[       \dim H^0(X, K^n) - \dim H^0 (X, K^{1-n}) = -n c_1(K^{-1}) + \frac{1}{2} c_1(K^{-1})       \]
+d) In general, we know that for $n=0$ (holomorphic functions) the dimension is 1, and for $n=1$ (holomorphic 1-forms) the dimension is $g$. For all other $n$, we split the computation into 3 cases:
+
+\textbf{First case}: $c_1(K^{-1}) > 0$, which only happens when $g=0$. This is equivalent to $c_1(K) < 0$, which also shows that $c_1(K^n) = n c_1(K) <0$ for all $n>0$. Using the result of part b), we see that $\dim H^0(X, K^n) = 0$ for all $n>0$. In this case, part c) reduces to:
+\[        \dim H^0(X, K^{1-n}) = 2n-1      \]
+For convenience, we make the substitution $m = 1-n$, and we obtain that, for $m\leq 0$:
+\[        \dim H^0(X, K^m) = 1-2m     \]
+To sum up, the dimension of $H^0(X,K^n)$ is 0 for $n> 0$, and $1-2n$ otherwise.
+
+\textbf{Second case}: $c_1(K^{-1}) = 0$, which only happens when $g=1$. This implies that $c_1(K^n) = 0$ for all $n$. Using part b), we see that any meromorphic section of $K^n$ has equal number of zeros and poles. In particular, holomorphic sections have no zeros. Now consider two nontrivial sections $\phi_1, \phi_2 \in \Gamma(X, K^n)$ and evaluate them at some point $z$. Let $w_1 = \phi_1(z)$ and $w_2 = \phi_2(z)$. We construct the linear combination:
+\[    \psi =   w_1 \phi_2 - w_2 \phi_1   \in \Gamma(X, K^n)  \]
+Since $\psi(z) = 0$, $\psi$ must be the trivial section. Therefore $\phi_1, \phi_2$ are linearly dependent. This shows that $\dim H^0(X, K^n) = 1$ for all $n$.
+
+
+\textbf{Third case}: $c_1(K^{-1}) < 0$, which happens for $g\geq 2$. This implies that $c_1(K^{-n}) < 0$ for $n>0$, therefore $\dim H^0(X, K^{1-n}) = 0$ for $n>1$. In this case, part c) reduces to:
+\[        \dim H^0(X, K^n) = ( 2n - 1 ) (g-1)        \]
+To sum up, the dimension of $H^0(X,K^n)$ is $(2n-1)(g-1)$ for $n>1$, $g$ for $n=1$, 1 for $n=0$, and 0 for $n<0$.
+\\
+\\
+e) We proved in class that the dimension of the moduli space of Riemann surfaces of genus $g$ is equal to $\dim H^0(X, K^2)$. Using part d), we see that this is 0 for $g=0$, 1 for $g=1$ and $3(g-1)$ for $g\geq 2$.
+
+
+\subsection*{Problem 3}
+a) Let $\phi_1, \phi_2 \in \Gamma(X, L)$ and $\psi_1, \psi_2 \in \Gamma(X, L \otimes \bar K)$. We define:
+\[     \langle \phi_1, \phi_2 \rangle = \int_X \phi_1 \bar \phi_2 h \; g_{\bar z z}    \]
+\[     \langle \psi_1, \psi_2 \rangle = \int_X \psi_1 \bar \psi_2 h       \]
+To see that these definitions make sense, note that:
+\[       \phi_1 \bar \phi_2 h \; g_{\bar z z}   \in \Gamma(X, L \otimes \bar L \otimes L^{-1} \otimes \bar L^{-1} \otimes K \otimes \bar K) = \Gamma (X, K \otimes \bar K) \]
+\[       \psi_1 \psi_2 h \in \Gamma(X, L \otimes \bar K \otimes \bar L \otimes K \otimes L^{-1} \otimes \bar L^{-1}) = \Gamma(X, \bar K \otimes K)      \]
+Both expressions are 1-1 forms, so it makes sense to integrate them over $X$.
+\\
+\\
+b) The formal adjoint $\bar \p^{\dagger}$ is defined as:
+\[      \langle \bar \p \phi, \psi \rangle = \langle \phi, \bar \p^{\dagger} \psi \rangle \;\;\;\; \forall \phi, \psi      \]
+Writing the inner products explicitly, this becomes:
+\[          \int_X (\bar \p \phi) \bar \psi h = \int_X \phi \overline{(\bar \p^{\dagger} \psi)} h \; g_{\bar z z}      \]
+After integrating by parts on the LHS:
+\[      \int_X \phi\;  \bar \p (\bar \psi h) = \int_X \phi \overline{(\bar \p^{\dagger} \psi)} h \; g_{\bar z z}     \]
+Using $\bar h = h, \bar g^{\bar z z} = g^{\bar z z}$ and $g^{\bar z z} g_{\bar z z} = 1$, we further rewrite the LHS:
+\[      \int_X \phi h  \overline{g^{\bar z z} h^{-1} \p (\psi h)}  g_{\bar z z} =  \int_X \phi \overline{(\bar \p^{\dagger} \psi)} h \; g_{\bar z z}     \]
+Since this must hold for all $\phi$, we obtain:
+\[    \bar \p^{\dagger} \psi =  g^{\bar z z} h^{-1} \p (h \psi)           \]
+\[    \bar \p^{\dagger} \psi = g^{\bar z z} \nabla_z \psi         \]
+Where $\nabla_z : \Gamma(X, L \otimes \bar K) \to \Gamma(X, L \otimes \bar K \otimes K)$ is the covariant derivative on the bundle $L \otimes \bar K$.
+\\
+\\
+c) We first show that $\Ker \Delta_+ = \Ker \bar \p$, and the analogous statement will hold for $\Delta_-$.
+\[          \Ker \Delta_+ = \{ \phi \in \Gamma(X, L)  | \bar \p^{\dagger} \bar \p \phi = 0 \}  \subset \{  \phi | \langle \phi, \bar \p^{\dagger} \bar \p \phi \rangle = 0  \}     \]
+\[        = \{  \phi |\; ||\bar \p \phi ||^2 = 0 \} = \{   \phi | \bar \p \phi = 0  \} = \Ker \bar \p     \]
+But clearly $\Ker \bar \p \subset \Ker \bar \p^{\dagger} \bar \p = \Ker \Delta_+$, so the two are equal. Therefore:
+\[       \dim \Ker \Delta_+ - \dim \Ker \Delta_- = \dim \Ker \bar \p - \dim \Ker \bar \p^{\dagger}     \]
+We can define the action of $e^{-t \Delta_{\pm}}$ on eigenfunctions $\phi^n_{\pm}$ as:
+\[       e^{-t \Delta_{\pm}} \phi^n_{\pm} = e^{- t \lambda^n_{\pm}} \phi^n_{\pm}      \]
+We consider only eigenfunctions that satisfy $||\phi^n_{\pm}|| = 1$. Assuming that the eigenvalues are discrete, we can define the trace of the exponential as:
+\[         \Tr e^{-t \Delta_{\pm}} = \sum_n \langle \phi^n_{\pm} , e^{-t \Delta_{\pm}} \phi^n_{\pm} \rangle = \sum_{n} e^{- t \lambda^n_{\pm}}    \]
+Now note that, if $\lambda \neq 0$ is an eigenvalue for $\Delta_+$, it is also an eigenvalue for $\Delta_-$. This is because:
+\[        \bar \p^{\dagger} \bar \p \phi = \lambda \phi \Rightarrow (\bar \p \bar \p^{\dagger})( \bar \p \phi) = \lambda ( \bar \p \phi)     \]
+The converse is proved analogously. We see that the nonzero eigenvalues of $\Delta_+$ and $\Delta_-$ coincide, and therefore:
+\[           \Tr e^{-t \Delta_{+}} -  \Tr e^{-t \Delta_{-}} = \sum_{\lambda_n = 0} e^{- t \lambda^n_{+}}   - \sum_{\lambda_n = 0} e^{- t \lambda^n_{-}}    \]
+Recall that each $n$ parametrizes a unit length eigenfunction, therefore each $\lambda_n = 0$ gives a one-dimensional subspace of the kernel. This becomes:
+\[           \Tr e^{-t \Delta_{+}} -  \Tr e^{-t \Delta_{-}} =    \dim \Ker \Delta_+ - \dim \Ker \Delta_-              \]
+And combining this with our previous result:
+\[           \Tr e^{-t \Delta_{+}} -  \Tr e^{-t \Delta_{-}} =  \dim \Ker \bar \p - \dim \Ker \bar \p^{\dagger}     \]
+d) The operator $\bar \p$ is defined on $\Gamma(X, L)$ and:
+\[       \Ker \bar \p = \{ \phi \in \Gamma(X, L) |  \bar \p \phi = 0 \} = H^0(X,L)  \]
+Moreover, in part b) we showed that:
+\begin{align*}    \Ker \bar \p^{\dagger} &= \{  \psi \in \Gamma(X, L \otimes \bar K) | \p_z (h\psi) = 0   \}     \\
+&= \{ \psi \in \Gamma(X, L \otimes \bar K) | \p_{\bar z} (h \bar \psi) = 0\}
+\end{align*}
+This gives an isomorphism:
+\[          \psi \in \Ker \bar \p^{\dagger} \longleftrightarrow h\bar \psi  \in \Ker \bar \p|_{\Gamma(X, K \otimes L^{-1}) }      \]
+Which shows that $\dim \Ker \bar \p^{\dagger} = \dim H^0(X, K\otimes L^{-1})$. Together with the result of part c), we get:
+\[         \Tr e^{-t \Delta_{+}} -  \Tr e^{-t \Delta_{-}} =  \dim H^0(X,L) - \dim H^0(X, K\otimes L^{-1})      \]
+
+
+\subsection*{Problem 4}
+a) On $X_{\mu} \cap X_{\nu}$, $\phi^{\alpha}$ satisfy the glueing condition:
+\[       \phi_{\mu}^{\alpha} (z_{\mu}) = {{t_{\mu \nu}}^{\alpha}}_{\beta} (z) \phi^{\beta}_{\nu} (z_{\nu})      \]
+The transition matrix is holomorphic, $\p_{\bar j} t = 0$, therefore:
+\[        \frac{\p}{\p \bar z^j_{\mu}} \phi^{\alpha}_{\mu} (z_{\mu}) = {{t_{\mu \nu}}^{\alpha}}_{\beta} (z)   \frac{\p}{\p \bar z^j_{ \mu}} \phi^{\beta}_{\nu} (z_{\nu}) =  {{t_{\mu \nu}}^{\alpha}}_{\beta} (z) \frac{\p \bar z^k_{ \nu}}{\p \bar z^j_{ \mu}} \frac{\p}{\p \bar z^k_{ \nu}} \phi^{\beta}_{\nu} (z_{\nu})   \]
+Which shows that $\p_{\bar j} \phi^{\alpha} \in \Gamma(X, E\otimes \Lambda^{0,1})$. In the case of $\nabla_j \phi$, we have $H_{\bar \beta \gamma} \in \Gamma(X, \bar E^* \otimes E^*)$, so $H_{\bar \beta \gamma} \phi^{\gamma} \in \Gamma(X, \bar E^*)$. This is an antiholomorphic bundle, so the same reasoning as for $\p_{\bar j}$ above shows that $\p_j (H_{\bar \beta \gamma} \phi^{\gamma}) \in \Gamma(X, \bar E^* \otimes \Lambda^{1,0})$ is well-defined. Finally, since $H^{\alpha \bar \beta} \in \Gamma(X, E \otimes \bar E)$, we see that $\nabla_j \phi \in \Gamma(X, E \otimes \Lambda^{1,0})$.
+\\
+\\
+b) \[      \nabla_j \phi^{\alpha} = H^{\alpha \bar \beta} H_{\bar \beta \gamma} \p_j \phi^{\gamma} + H^{\alpha \bar \beta} \p_j H_{\bar \beta \gamma} \phi^{\gamma}   = \delta^{\alpha}_{\gamma} \p_j \phi^{\gamma} + (H^{\alpha \bar \beta} \p_j H_{\bar \beta \gamma}) \phi^{\gamma}  \]
+Therefore $A^{\alpha}_{j \gamma} = H^{\alpha \bar \beta} \p_j H_{\bar \beta \gamma}$. Now we write the commutator:
+\begin{align*}     
+  [\nabla_j , \nabla_{\bar k} ] \phi^{\alpha} &=  [\p_j , \p_{\bar k}] \phi^{\alpha} + A^{\alpha}_{j \gamma} (\p_{\bar k} \phi^{\gamma}) - \p_{\bar k} (A^{\alpha}_{j\gamma} \phi^{\gamma})  \\
+&= - (\p_{\bar k} A^{\alpha}_{j \gamma}) \phi^{\gamma}
+\end{align*}
+Therefore ${{F_{\bar k j}}^{\alpha}}_{\gamma} = - \p_{\bar k} A^{\alpha}_{j \gamma} = - \p_{\bar k} (H^{\alpha \bar \beta} \p_j H_{\bar \beta \gamma}) $.
+\\
+\\
+c) We begin by computing $dA$:
+\begin{align*}        dA &= d(A_j dz^j) = (\p_k A_j dz^k + \p_{\bar k} A_j d \bar z^k) \wedge dz^j     \\
+        &= \frac{1}{2} ( \p_k A_j - \p_j A_k) dz^k \wedge dz^j + F_{\bar k j} d \bar z^k \wedge dz^j     \\
+         &= \frac{1}{2} [ \p_k (H^{-1} \p_j H) - \p_j (H^{-1} \p_k H)] dz^k \wedge dz^j + F          \\
+        &=  \frac{1}{2}[ - H^{-1} (\p_k H) H^{-1}( \p_j H) - (j \leftrightarrow k) ] dz^k \wedge dz^j + F         \\
+         &= \frac{1}{2} ( A_j A_k - A_k A_j) dz^k \wedge dz^j + F          \\
+         &= - A \wedge A + F         
+\end{align*}
+Thus $ F = dA + A \wedge A$. We take another exterior derivative of this equation and use the fact that $d^2 =0$:
+\begin{align*}
+     dF &= d(A \wedge A) = dA \wedge A - A \wedge dA     \\
+&= ( - A \wedge A + F) \wedge A - A \wedge (- A \wedge A + F) \\
+&= F \wedge A - A \wedge F
+\end{align*}
+d) If such $\nabla_j$ exists, it has to satisfy:
+\begin{align*}
+        \phi^{\alpha} (\nabla_j \psi_{\alpha}) &= \p_j(\phi^{\alpha} \psi_{\alpha}) - (\nabla_j \phi^{\alpha}) \psi_{\alpha}        \\    
+& = (\p_j \phi^{\alpha}) \psi_{\alpha} + \phi^{\alpha} (\p_j \psi_{\alpha}) - (\p_j \phi^{\alpha}) \psi_{\alpha} - A^{\alpha}_{j \beta} \phi^{\beta} \psi_{\alpha}  \\
+& = \phi^{\alpha} (\p_j \psi^{\alpha}) - A^{\beta}_{j \alpha} \phi^{\alpha} \psi_{\beta} \\
+&= \phi^{\alpha} (\p_j \psi^{\alpha}) - \phi^{\alpha} A^{\beta}_{j \alpha} \psi_{\beta}
+\end{align*}
+On the third line we simply relabeled the dummy indices $\alpha$ and $\beta$. We see that the following definition does the job:
+\[      \nabla_j \psi_{\alpha} = \p_j \psi_{\alpha} -  \psi_{\beta} A^{\beta}_{j \alpha} \]
+\[      \nabla_j \psi = \p_j \psi - \psi A_j      \]
+For $T \in \Gamma(X, \End(E))$, we proceed similarly:
+\begin{align*}
+(\nabla_j {T^{\alpha}}_{\beta}) \phi^{\beta} &= \nabla_j ({T^{\alpha}}_{\beta} \phi^{\beta}) - {T^{\alpha}}_{\beta} (\nabla_j \phi)^{\beta} \\
+&= \p_j ({T^{\alpha}}_{\beta} \phi^{\beta} ) + A^{\alpha}_{j \gamma} {T^{\gamma}}_{\beta} \phi^{\beta} - {T^{\alpha}}_{\beta} \p_j \phi^{\beta} - {T^{\alpha}}_{\beta} A^{\beta}_{j \gamma} \phi^{\gamma} \\
+&= \p_j {T^{\alpha}}_{\beta} \phi^{\beta} + A^{\alpha}_{j \gamma} {T^{\gamma}}_{\beta} \phi^{\beta} - {T^{\alpha}}_{\gamma} A^{\gamma}_{j \beta} \phi^{\beta}  \\
+\nabla_j {T^{\alpha}}_{\beta} &= \p_j {T^{\alpha}}_{\beta} + A^{\alpha}_{j \gamma} {T^{\gamma}}_{\beta} - {T^{\alpha}}_{\gamma} A^{\gamma}_{j \beta} \\
+\nabla_j T &= \p_j T + [A_j, T]
+\end{align*}
+e) The usual exterior derivative $d$ on scalar valued forms is defined as:
+\[       d (\omega_{\bar k j} dz^j \wedge d \bar z^k ) =  (\p_l \omega_{\bar k j}) dz^l \wedge dz^j \wedge d \bar z^k  + (\p_{\bar l} \omega_{\bar k j}) d\bar z^l \wedge dz^j \wedge d \bar z^k  \]    
+We emulate this behavior and define:
+\begin{align*}
+      d_A ( F_{\bar k j} dz^j \wedge d \bar z^k ) &= (\nabla_l F_{\bar k j}) dz^l \wedge dz^j \wedge d \bar z^k  + (\nabla_{\bar l} F_{\bar k j}) d\bar z^l \wedge dz^j \wedge d \bar z^k   \\
+&= (\p_l F_{\bar k j} dz^l  + \p_{\bar l} F_{\bar k j} d \bar z^l ) \wedge dz^j \wedge d\bar z^k + (A_l F_{\bar k j} - F_{\bar k j} A_l) dz^l \wedge dz^j \wedge d\bar z^k  \\
+d_A F &= dF + A \wedge F - F \wedge A
+\end{align*}
+Together with the result of part c), this shows $d_A F = 0$.
+
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

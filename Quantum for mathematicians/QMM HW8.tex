@@ -1,0 +1,151 @@
+\documentclass[12 pt]{article}
+\usepackage{amsmath,amssymb,amsthm,fullpage,amsfonts,enumerate,textcomp, eurosym}
+\usepackage{yfonts}
+\usepackage[T1]{fontenc}
+\title{QM for Mathematicians HW8}
+\author{Matei Ionita}
+
+
+\DeclareMathOperator {\p} {\partial}
+\DeclareMathOperator {\R} {\mathbb{R}}
+\DeclareMathOperator {\C} {\mathbb{C}}
+\DeclareMathOperator {\Q} {\mathbb{Q}}
+\DeclareMathOperator {\Z} {\mathbb{Z}}
+\DeclareMathOperator {\lan} {\langle}
+\DeclareMathOperator {\ran} {\rangle}
+
+\begin{document}
+  \maketitle
+
+
+\subsection*{Problem 1}
+The Fourier transform of the propagator is:
+\[       G(k', t', k, t)  =  \lan 0 | \int \frac{dx'}{\sqrt{2\pi}}  e^{-ik'x'} \hat \psi(x', t')   \int \frac{dx}{\sqrt{2\pi}}  e^{ikx} \hat \psi (x,t) | 0 \ran   = \lan 0| a_{k'} (t') a_{k}^{\dagger} (t) |0\ran  \]
+\[      G(k', t', k, t)  = \lan k', t' | k , t \ran   =  \lan k', 0 | e^{-i k^2  (t' - t)/2m} |k,0\ran    =   e^{-i k^2  (t' - t)/2m} \delta(k' - k)   \]
+To get the propagator we Fourier transform back:
+\[      G(x', t', x, t) =    \int \frac{dk'}{\sqrt{2\pi}} \frac{dk}{\sqrt{2\pi}}  e^{i(k'x'-kx)}   e^{-i k^2  (t' - t)/2m} \delta(k' - k)  = \int  \frac{dk}{\sqrt{2\pi}}  e^{ik(x'-x)}   e^{-i k^2  (t' - t)/2m}     \]
+\[     G(x', t', x, t) =   \left(  \frac{m}{i2\pi (t'-t)} \right)^{1/2}  e^{m(x'-x)^2 / i2\pi (t'-t)}          \]
+In three spatial dimensions, the exponent of the prefactor changes:
+\[     G(x', t', x, t) =   \left(  \frac{m}{i2\pi (t'-t)} \right)^{3/2}  e^{m(x'-x)^2 / i2\pi (t'-t)}          \]
+We will work with one spatial dimension to show that this behaves as the delta function when $t'\to t$; the reasoning for extra dimensions is analogous. Note that, for $x'=x$, we have an expression proportional to $(t'-t)^{-1/2}$, which blows up. For $x'\neq x$, the complex exponential oscillates rapidly. The exponent increases faster ($(t'-t)^{-1}$) than the prefactor ($(t'-t)^{-1/2}$), so the oscillations make the propagator's integral to be 0 over any small domain. The fact that the integral of the propagator from $-\infty$ to $\infty$ is 1 follows from the properties of the usual Gaussian integral:
+\[        \int_{-\infty}^{\infty}  \left(  \frac{m}{i2\pi (t'-t)} \right)^{1/2}  e^{m(x'-x)^2 / i2\pi (t'-t)} = 1     \]
+
+\subsection*{Problem 2}
+We define the number operator and the Hamiltonian as:
+\[    \hat N = \int dx \psi^{\dagger} (x) \psi(x)    \]
+\[   \hat H_V = \int dx' \psi^{\dagger} (x') \left(-\frac{1}{2m} \frac{\p^2}{\p x'^2} + V(x') \right) \psi (x')   \]
+Then:
+\[      [\hat N, \hat H_V] = \int dx dx'  \psi^{\dagger} (x) \psi(x) \psi^{\dagger} (x') \left(-\frac{1}{2m} \frac{\p^2}{\p x'^2} + V(x') \right) \psi (x')  - \]
+\[  - \int dx dx' \psi^{\dagger} (x') \left(-\frac{1}{2m} \frac{\p^2}{\p x'^2} + V(x') \right) \psi (x') \psi^{\dagger} (x) \psi(x)   =  \]
+\[   =  [\hat N, \hat H_0] +   \int dx dx' V(x') \left[ \psi^{\dagger} (x) \psi(x) \psi^{\dagger} (x') \psi (x')  - \psi^{\dagger} (x') \psi(x') \psi^{\dagger} (x) \psi (x) \right] \]
+Where $\hat H_0$ is the free hamiltonian. The expression in the bracket gives 0, since the operators commute when evaluated at different positions. Therefore the commutator doesn't depend on the potential; we can just evaluate it when the potential is 0. In this case it's more convenient to work with creation and annihilation operators:
+\[     \hat N = \int dk' a_{k'}^{\dagger} a_{k'}      \]
+\[     \hat H_0 = \int dk \frac{k^2}{2m} a_k^{\dagger} a_k   \]
+\[     [ \hat N , \hat H_0 ] = \int dk dk' \frac{k^2}{2m} \left[ a^{\dagger}_{k'} a_{k'} a^{\dagger}_{k} a_{k} - a^{\dagger}_{k} a_{k} a^{\dagger}_{k'} a_{k'}      \right]   \]
+Which is 0 since, again, the operators commute when evaluated at different momenta. Thus the particle number is conserved.
+\\
+\\
+Consider a basis for Fock space consisting of all states of the form:
+\[               \left( \prod  a^{\dagger}_{p_i}  \right) |0\ran                   \]
+On a basis state, $\hat N$ acts as:
+\[     \hat N   \left( \prod  a^{\dagger}_{p_i}  \right) |0\ran  = \int dk a_k^{\dagger} a_k  \left( \prod  a^{\dagger}_{p_i}  \right) |0\ran  = \int dk \left[   \prod  a^{\dagger}_{p_i} a^{\dagger}_k a_k   +   \sum \delta(k - p_i) \prod  a^{\dagger}_{p_i}  \right]  |0\ran  \]
+Here we just commuted $a_k^{\dagger} a_k$ all the way to the back, creating an extra term with a delta function for every commutation. The first term in the bracket kills the vacuum, so we are left with the others. We get 1 for each integral over a delta function, and then we sum them up and get N, the number of excitations in the state:
+\[      \hat N   \left( \prod  a^{\dagger}_{p_i}  \right) |0\ran  = N   \left( \prod  a^{\dagger}_{p_i}  \right) |0\ran        \]
+Since all basis states are eigenstates, we have:
+\[     e^{i\hat N}   \left( \prod  a^{\dagger}_{p_i}  \right) |0\ran  =  e^{i N}   \left( \prod  a^{\dagger}_{p_i}  \right) |0\ran   \]
+So the action is unitary.
+
+\subsection*{Problem 3}
+\[      L_3 =  \int d^3x  (-i) \psi^* \left(   x \frac{\p}{\p y} - y \frac{\p}{\p x}  \right) \psi  \]
+\[      H = \int d^3 x' \frac{1}{2m} \left| \nabla \psi \right|^2              \]
+\[      \{L_3, H\} = \int d^3 x d^3 x' \frac{-1}{2m} \left[  x\{ \psi^* \frac{\p \psi}{\p y} , | \nabla \psi|^2\}  -  y \{ \psi^* \frac{\p \psi}{\p x} , |\nabla \psi|^2     \}   \right]    =    \]
+\[       =    \int d^3 x d^3 x' \frac{-1}{2m}  \left[   \frac{\p \psi^*}{\p x} \{  \psi^* , \frac{\p \psi}{\p x} \}+  \frac{\p \psi^*}{\p y} \{  \psi^* , \frac{\p \psi}{\p y} \} +  \frac{\p \psi^*}{\p z} \{  \psi^* , \frac{\p \psi}{\p z} \}        \right]  \left[   x  \frac{\p \psi}{\p y} - y  \frac{\p \psi}{\p x}  \right]  =   \]
+\[       =    \int d^3 x d^3 x' \frac{-1}{2m}  \left[   \frac{\p \psi^*}{\p x} \frac{\p}{\p x} \delta^{(3)} (x' - x) +  \frac{\p \psi^*}{\p y} \frac{\p}{\p y} \delta^{(3)} (x' - x)  +  \frac{\p \psi^*}{\p z} \frac{\p}{\p z} \delta^{(3)} (x' - x)         \right]  \left[   x  \frac{\p \psi}{\p y} - y  \frac{\p \psi}{\p x}  \right]  =   \]
+\[  =     \int d^3 x d^3 x' \frac{-1}{2m}  \left[  \nabla^2 \psi^* (x\frac{\p \psi}{\p y} - y \frac{\p \psi}{\p x} )   + (\frac{\p \psi^*}{\p x} \frac{\p}{\p x} + \frac{\p \psi^*}{\p y} \frac{\p}{\p y} + \frac{\p \psi^*}{\p z} \frac{\p}{\p z} ) (x\frac{\p \psi}{\p y} - y \frac{\p \psi}{\p x})   \right]            \]
+Integrating the first term by parts, we get the second term with a negative sign. Thus $ \{L_3, H\} = 0$.
+\\
+\\
+The corresponding operators are:
+\[       \hat L_3 = \int d^3 x (-i) \hat \psi^{\dagger} \left( x \frac{\p}{\p y} - y \frac{\p}{\p x}    \right)  \hat \psi      \]
+\[      \hat H = \int d^3 x'  \hat \psi^{\dagger} \left( \frac{-1}{2m} \nabla^2  \right) \hat \psi              \]
+\[    [\hat L_3 , \hat H]  =   \int d^3 x d^3 x'   \frac{i}{2m} \left(  x\frac{\p}{\p y} - y \frac{\p}{\p x}  \right)  \nabla^2 [\hat \psi^{\dagger} (x) \hat \psi (x) , \hat \psi^{\dagger} (x') \hat \psi (x') ]      \]
+Pulling differential operators out of comutators, like we just did nonchalantly, creates cross terms, but these cancel each other out, since they appear with opposite signs in the two terms. The leftover commutator is 0 because the field operators commute when $x\neq x'$, and the two terms are identical when $x = x'$.
+\\
+\\
+The commutator of two angular momenta is:
+\[      [\hat L_1, \hat L_2 ] = \int d^3 x d^3 x'  \hat \psi^{\dagger} (x) \left(    y \frac{\p \hat \psi (x)}{\p z}   - z \frac{\p \hat \psi (x)}{\p y}          \right)             \hat \psi^{\dagger} (x') \left(    z' \frac{\p \hat \psi (x')}{\p x'}   - x' \frac{\p \hat \psi (x')}{\p z'}          \right)      -     \]
+\[        -     \int d^3 x d^3 x'     \hat \psi^{\dagger} (x') \left(    z' \frac{\p \hat \psi (x')}{\p x'}   - x' \frac{\p \hat \psi (x')}{\p z'}          \right)   \hat \psi^{\dagger} (x) \left(    y \frac{\p \hat \psi (x)}{\p z}   - z \frac{\p \hat \psi (x)}{\p y}          \right)     =   \]
+\[    =      \int d^3x (-i)  \hat \psi^{\dagger} (x) \left(   x \frac{\p}{\p y} - y \frac{\p}{\p z}   \right)\hat \psi (x)  = \hat L_3   \]
+
+
+
+\subsection*{Problem 4}
+
+One way to show that $\mathfrak{so}(4,\C) \cong \mathfrak{sl}(2,\C) \times \mathfrak{sl}(2,\C)$ is to work with the operators $A_j = J_j + i K_j$ and $B_j = J_j - i K_j$. Alternatively, we can just show that, at group level, $SL(2,\C) \times SL(2,\C)$ is a double cover of $SO(4,\C)$, and then the identification of the Lie algebras follows. For this, we identify $\C^4$ with $2\times 2$ matrices as:
+\[            (z_0, z_1, z_2, z_3)  \to  \left( \begin{array}  {cc}   z_0 - iz_3 & -z_2 - iz_1  \\  z_2 - iz_1 & z_0 + iz_3    \end{array} \right)  \]
+ whose determinant is $z_0^2+z_1^2+z_2^2+z_3^2$. We can explicitly construct a cover map $\Phi: SL(2,\C) \times SL(2,\C) \to SO(4,\C)$, which maps $\Omega_1, \Omega_2$ into the transformation:
+\[   \left( \begin{array}  {cc}   z_0 - iz_3 & -z_2 - iz_1  \\  z_2 - iz_1 & z_0 + iz_3    \end{array} \right)  \to \Omega_1   \left( \begin{array}  {cc}   z_0 - iz_3 & -z_2 - iz_1  \\  z_2 - iz_1 & z_0 + iz_3    \end{array} \right)  \Omega_2                 \]
+This transofrmation is linear and preserves the determinant (and thus the dot product on $\C^4$), so it's an $SO(4)$ transformation on $\C^4$. Therefore $\Phi$ is a homomorphism from $SL(2,\C) \times SL(2,\C)$ to $SO(4,\C)$. A tricky issue is to show that $\Phi$ is surjective, i.e. that all $SO(4,\C)$ transformations can be obtained from some pair $(\Omega_1, \Omega_2)$, but I'm not sure how to address this.
+\\
+\\
+Note that $(\Omega_1, \Omega_2)$ and $(-\Omega_1, -\Omega_2)$ are mapped to the same $SO(4,\C)$ transformation. This means that $SL(2,\C) \times SL(2,\C)$ is a double cover of $SO(4)$. Actually, for all we know it may be a cover of higher order, since we didn't show that there are no other $(\Omega_1', \Omega_2')$ that map to the same transofrmation. In any case, the Lie algebras of the two groups are isomorphic.
+\\
+\\
+Sweeping under the rug the difficulty about higher order covers, the above means that, as groups, $Spin(4, \C) \cong SL(2,\C) \times SL(2,\C)$. To obtain the real forms of this group, we restrict $\C^4$ to $\R^4$ in a way that gives the desired signature of the metric. Specifically, to get $Spin(4)$ we let $z_0, z_1, z_2, z_3$ be real. To get $Spin(1,3)$ we let $z_0$ be real and all other be purely imaginary. Finally, to get $Spin(2,2)$ we let $z_0$ and $z_1$ be real and the other two purely imaginary. We showed in class that the groups that preserve these dot products are $SU(2,\C) \times SU(2,C) ; SL(2,\C) ; SL(2,\R)\times SL(2,\R)$ respectively. Therefore, regarding terms of the cartesian products as Lie subalgebras of $\mathfrak{sl}(2,\C)$:
+\[          \mathfrak{spin}(4) \cong  \mathfrak{su}(2,\C) \times \mathfrak{su}(2,\C)                   \]
+\[          \mathfrak{spin}(1,3) \cong  \{1\} \times \mathfrak{sl}(2,\C)                   \]
+\[          \mathfrak{spin}(2,2) \cong  \mathfrak{sl}(2,\R) \times \mathfrak{sl}(2,\R)                   \]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

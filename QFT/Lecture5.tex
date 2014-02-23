@@ -1,0 +1,53 @@
+\documentclass[12 pt]{article}
+\usepackage{amsmath,amssymb,amsthm,fullpage,amsfonts,enumerate,textcomp, eurosym}
+\title{Lecture 5}
+\author{Matei Ionita}
+
+\begin{document}
+  \maketitle
+
+\section*{Path integrals}
+\[ \langle q_f, t_f | q_i, t_i\rangle = \int Dq e^{iS[q]}  \]
+\[  \langle q_f, t_f | \hat q(t_1) | q_i, t_i\rangle = \langle q_f, t_f | e^{iHt_1} \hat q_S e^{-iHt_1} | q_i, t_i\rangle = \]
+\[ = \int dq' dq'' \langle q_f, t_f |q''\rangle \langle q''| e^{iHt_1} \hat q_S e^{-iHt_1} |q' \rangle \langle q' | q_i, t_i\rangle  = \]
+\[ = \int dq'   \langle q_f, t_f | e^{-iH(t_F - t')} |q'\rangle q' \langle q'| e^{-iH(t'-t_i)} | q_i, t_i\rangle = \int Dq e^{iS[q]} q_S (t_1)  \]
+In general:
+\[  \langle q_f, t_f | T \hat q(t_1) \hat q(t_2) |q_i, t_i\rangle = \int Dq e^{iS[q]|^{t_f}_{t_i}} q(t_1) q(t_2)  \]
+
+
+\[  \lim_{t\to \infty} |q_i, t_i\rangle = \lim_{t\to \infty} e^{-iHt_i} |q_i\rangle = \sum \lim_{t\to\infty} e^{-iE_n (1- i\epsilon) t} |n\rangle \langle n| q_i\rangle = |0\rangle\langle 0 | q_i\rangle  \]
+Where $|0\rangle$ is the ground state. Thus, when $t_i \to -\infty$, $|q_i, t_i\rangle \sim |0\rangle$. When $t_f \to \infty$, $\langle q_f, t_f| \sim \langle 0|$. At the level of the path integral, in order to make it converge:
+\[  S = \int dt \frac{1}{2} \dot q^2 - \frac{1}{2} \omega^2 q^2 =  \int dt \frac{1}{2} \dot q^2 - \frac{1}{2} \omega^2 (1-i\epsilon) q^2  \]
+More rigorously, do Euclideization: $t \to it$. Claim: with this $i\epsilon$ prescription, we get:
+\[  \langle 0 | T \hat q(t_1) \hat q(t_2) |0\rangle = \int Dq e^{iS[q]|^{\infty}_{-\infty}} q(t_1) q(t_2)  \]
+We assume that:
+\[ 1=\langle 0 |0\rangle = \int Dq e^{iS[q]|^{\infty}_{-\infty}}  \]
+Gaussian integral:
+\[  \int d^n x e^{-\frac{1}{2} x^T M x} = \int d^n x e^{-\frac{1}{2} \sum x_i M_{ij} x_j} = (2\pi)^{\frac{n}{2}} |M|^{-\frac{1}{2}} \]
+\[  \int d^n x e^{-\frac{1}{2} x^T M x + J^T x} = (2\pi)^{\frac{n}{2}} |M|^{-\frac{1}{2}} e^{\frac{1}{2} J^T M^{-1} J} \]
+\[  \langle x_i x_j \rangle = M^{-1}_{ij}  \]
+\[ \langle x^3 \rangle = \langle x^5 \rangle = 0 \;\;\; \langle x^4 \rangle = \frac{3}{M^2} = 3\langle x^2 \rangle     \]
+Read n-point functions, Wick's theorem, connected part of n-point functions.
+
+\subsection*{Path integral formulation of free scalar QFT}
+Read chapter 7 of Sredniki (PI treatment of SHO). Now we're doing chapter 8, PI for free scalar QFT. Zee I.3.
+\[  S_J = \int d^4 x \left[  -\frac{1}{2} (\partial \phi)^2 + \frac{1}{2} m^2 \phi^2 + J \phi \right]  \]
+Notice that J acts like a source of some sort, by writing the e.o.m.:
+\[  \partial^2 \phi - m^2 \phi = -J  \]
+\[  \langle 0|0\rangle_J = \int D\phi\; e^{iS_J}  \]
+Usually, we normalize $D\phi$ such that $\langle 0|0\rangle = 1$. Quantum version of causality: operators commute when evaluated at spacelike separations (i.e. the measurment of one does not affect the other).
+\[ \langle x_i x_j\rangle = \frac{\int d^n x x_i x_j e^{-\frac{1}{2}x^T M x}}{\int d^n x e^{-\frac{1}{2}x^T M x}} = M^{-1}_{ij} \]
+The exponent is: 
+\[  iS = i \int d^4 x \left[  -\frac{1}{2} (\partial \phi)^2 -\frac{1}{2} m^2 \phi^2 \right]  \]
+\[  = -\frac{i}{2} \int d^4 x \phi (-\partial^2 - m^2) \phi  \]
+
+\[ M_{ij} = (id^4 x) ( - \partial^2 + m^2) \delta_{ij}  \]
+\[  \sum M^{ij} M^{-1}_{ik} = \delta_{ik} \]
+\[ (i d^4 x) (-\partial^2 + m^2) M^{-1}_{ik} = \delta_{ik}  \]
+\[  i (-\partial_x^2 + m^2) M^{-1}_{xy} = \delta(x-y) \]
+$M^{-1}$ is the Green's function for the KG eq. Definition:
+\[   (-\partial_x^2 + m^2) \Delta (x-y) = \delta(x-y)  \]
+
+
+
+\end{document}

@@ -1,0 +1,190 @@
+\documentclass[12 pt]{article}
+\usepackage{amsmath,amssymb,amsthm,fullpage,amsfonts,enumerate,textcomp, eurosym}
+\title{Lie groups HW1}
+\author{Matei Ionita}
+
+\DeclareMathOperator {\p} {\partial}
+\DeclareMathOperator {\R} {\mathbb{R}}
+\DeclareMathOperator {\C} {\mathbb{C}}
+\DeclareMathOperator {\Q} {\mathbb{Q}}
+\DeclareMathOperator {\Z} {\mathbb{Z}}
+
+
+\begin{document}
+  \maketitle
+
+\subsection*{Problem 1}
+\emph{Prove that the matrix groups $SO(n)$ and $SU(n)$ are compact and connected.}
+
+\begin{proof}
+Since any topological manifold is connected if and only if it is path connected, we can show that $SO(n)$ and $SU(n)$ are connected by finding a path from the identity to an arbitrary element. For the case of $SU(n)$, we use the fact that any unitary matrix has an eigenspace decomposition, and the eigenvalues are unit length complex numbers. Take $A\in SU(n)$, then:
+\[     A = U  \left(  \begin{array} {ccc}  e^{i\theta_1} & \dots & 0  \\ \vdots & \ddots & \vdots \\ 0 & \dots & e^{i\theta_n}  \end{array} \right) U^{\dagger}     \]
+For some unitary $U$. Now consider the following family of matrices, for $0\leq t \leq 1$:
+\[     A(t) = U  \left(  \begin{array} {ccc}  e^{it\theta_1} & \dots & 0  \\ \vdots & \ddots & \vdots \\ 0 & \dots & e^{it\theta_n}  \end{array} \right) U^{\dagger}      \]
+Any $A(t)$ is unitary:
+\[     A^{\dagger}A = U   \left(   \begin{array} {ccc}  e^{-i\theta_1} & \dots & 0  \\ \vdots & \ddots & \vdots \\ 0 & \dots & e^{-i\theta_n}  \end{array} \right) U^{\dagger} U   \left(   \begin{array} {ccc}  e^{i\theta_1} & \dots & 0  \\ \vdots & \ddots & \vdots \\ 0 & \dots & e^{i\theta_n}  \end{array} \right) U^{\dagger} = 1    \]
+And has determinant 1, since det$(A) = \text{det}(U) e^{it\theta_1} ... e^{it\theta_n} \text{det}(U^{\dagger}) = e^{it(\theta_1 + ... +\theta_n)}$. Since the determinant of the original $A$ must be 1, we have $\theta_1 + ... + \theta_n = 0$, and therefore this determinant is also 1. Therefore, $A(t) \in SU(n)$. But $A(0) = 1$ and $A(t) = A$, so this is a path from $1$ to $A$.
+\\
+\\
+For $SO(n)$, we note that any matrix in $SO(n)$ is just a rotation in some appropriately chosen 2-plane. In other words, for every $A\in SO(n)$ there exists a choice of basis such that $A$ is of the form:
+\[          A = \left(  \begin{array} {cccc}   \cos(\theta) & \sin(\theta) & \dots & 0 \\ - \sin(\theta) & \cos(\theta) & \dots & 0 \\ \vdots & \vdots&\ddots &\vdots \\  0&0 &\dots & 1  \end{array} \right)       \]
+Then consider the family of $SO(n)$ matrices:
+\[      A(t) =   \left(  \begin{array} {cccc}   \cos(t \theta) & \sin(t \theta) & \dots & 0 \\ - \sin(t \theta) & \cos(t \theta) & \dots & 0 \\ \vdots & \vdots&\ddots &\vdots \\  0&0 &\dots & 1  \end{array} \right)     \]
+For $t\in[0,1]$. We have $A(0) = 1$ and $A(t) = A$, therefore this is a path from $1$ to $A$.
+\\
+\\
+Now we turn to compactness. We proceed by showing that $O(n)$ is compact, and after that come back to $SO(n)$. We can regard $O(n)$ as a subset of $\R^{n^2}$, and therefore it's compact if it's closed and bounded in $\R^{n^2}$. The fact that $O(n)$ is bounded follows from the fact that all entries of $O(n)$ matrices are $\leq 1$. To see that it's closed, take a sequence $\{A_n\} \subset O(n)$ that converges to some $A \in M(n)$. We have $A_n \to A$ and $A_n^T \to A^T$, therefore $A_n^T A_n \to A^T A$. But $A_n^T A_n = 1$ for all $n$, so $A^T A = 1$. Thus $A \in O(n)$. This completes the proof that $O(n)$ is compact. Now note that $SO(n)$ is closed in $O(n)$, because it's the inverse image of $1$ by the continuous map $\det : O(n) \to \R$. Since closed subsets of compact sets are compact, this shows that $SO(n)$ is compact. The same argument works for $SU(n)$, which is closed in $U(n)$.
+\end{proof}
+
+\subsection*{Problem 2}
+\emph{Show that $SU(n)/SU(n-1) \cong S^{2n-1}$ and $SO(n)/SO(n-1) \cong S^{n-1}$.}
+\begin{proof}
+We regard $S(n-1)$ as the set of unit length vectors in $\R^n$. Then, by the construction in problem 1, the action of $SO(n)$ on $S^{n-1}$ is transitive. Take the point $(1, 0, ... , 0) \in S^{n-1}$. Its orbit is the entire $S^{n-1}$, by transitivity. Its stabilizer is the subgroup of $SO(n)$ which only performs rotations in the hyperplane orthogonal to $(1, 0 , ... , 0)$, and since any lenght-preserving rotations in this plane are allowed, this subgroup is isomorphic to $SO(n-1)$. Then corollary 2.21 in Kirillov (a generalization for Lie groups of the orbit-stabilizer theorem) tells us that $SO(n)/SO(n-1) \cong S^{n-1}$.
+\\
+\\
+Similarly, we regard $S^{2n-1}$ as the set of unit length vectors in $\C^n$. Again, the action of $SU(n)$ on $S^{2n-1}$ is transitive. If we take the point $(1, 0, ... , 0)$, its orbit will be $S^{2n-1}$ and its stabilizer will be $SU(n-1)$. Then by the same theorem $SU(n)/SU(n-1) \cong S^{2n-1}$.
+\end{proof}
+
+\subsection*{Problem 3}
+\emph{Prove that the set of right-invariant vector fields forms a Lie algebra under the Lie bracket operation, and show that it is isomorphic to $T_1G$. Define the diffeomorphism}
+\[  \phi : g \in G \to \phi(g) = g^{-g} \in G   \]
+\emph{Show that if $X$ is a left-invariant vector field, then $d\phi(X)$ is a right-invariant vector field, whose value at $1$ is the same as that of $X$. Show that}
+\[   X \to  d\phi(X)   \]
+\emph{gives an ismorphism of the Lie algebras of left and right invariant vector fields on G.}
+
+\begin{proof}
+Let $\mathcal{R}$ denote the set of right-invariant vector fields of $G$. Derivatives are linear maps, so: 
+\[  DR_g (aX + bY) = a DR_g(X) + b DR_g(Y) = aX + bY \]
+Therefore $\mathcal{R}$ is a vector space. To show it's a Lie algebra, we just need to show it's closed under Lie brackets. By the naturality of Lie brackets (see, for example, Lee 8.30 and 8.31):
+\[    DR_g [X,Y] = [DR_g (X) , DR_g (Y)] = [X,Y]   \]
+Now define a map $\phi : T_1G \to \mathcal{R}$ by $\phi(X)|_{g} = (DR_g)|_{1} (X)$. To avoid confusion, note that $X$ represents a \emph{vector} in $T_1G$, and $\phi(X)$ represents a \emph{vector field}. We first need to show that $\phi$ is well-defined, i.e. that $\phi(X)$ is smooth and right-invariant. To show smoothness, it suffices to show that $\phi(X) f$ is smooth whenever $f$ is a smooth function. Following the proof of Lee 8.37, choose a smooth curve $\gamma: (- \delta, \delta) \to G$ such that $\gamma(0) = 1$ and $\gamma'(0) = X$. Then:
+\[      ( \phi(X) f) (g) = \phi(X)|_g f = (DR_g)|_1 (X) f = X(f\circ R_g) = \gamma'(0) (f\circ R_g) = \left.\frac{d}{dt}\right|_{t=0} (f\circ R_g \circ \gamma)(t)     \]
+Denote $f\circ R_g \circ \gamma(t)$ by $\psi(t, g)$. $\psi$ is a composition of smooth maps, so it is smooth. Also, the computation above shows that $(\phi(X) f) (g) = \frac{\p \psi}{ \p t }(0,g)$, which is smooth, since it's the partial derivative of a smooth map.
+\\
+\\
+We now need to show that $\phi(X)$ is indeed right-invariant. This means $(DR_h)|_g \phi(X)|_g = \phi(X)_(gh)$. But by the composition law of right actions:
+\[           (DR_h)|_g \phi(X)|_g =    (DR_h)|_g\circ (DR_g)|_1 (X)  = (DR_{gh})|_1 (X) = \phi(X)|_{gh}   \]
+Now all that's left to show is that $\phi$ is bijective. If $\phi(X) = \phi(Y)$, then $\phi(X) (1) = \phi(Y) (1)$, so $X = Y$. Thus $\phi$ is injective. Now take some right-invariant vector field $\tilde X$ and let $X = \tilde X|_1$. Clearly $\tilde X|_g = DR_{g} (X) = \phi(X)|_g$, and thus $\phi$ is surjective. This completes the proof that $\mathcal{R} \cong T_1 G$.
+\\
+\\
+We look now at the map $\phi:G\to G$ given by $\phi(g) = g^{-1}$. In order to show that $D\phi(X)$ is right-invariant whenever $X$ is left-invariant, we first prove that $\phi\circ L_{g^{-1}} = R_{g} \circ \phi$. Indeed, take some $h\in G$ and then:
+\[      \phi\circ L_{g^{-1}} (h) = \phi(g^{-1}h) = h^{-1}g    \]
+\[       R_{g} \circ \phi (h) = R_g (h^{-1}) = h^{-1}g   \]
+Now if we differentiate the relation $\phi\circ L_{g^{-1}} = R_{g} \circ \phi$ and act it on $X$ we obtain:
+\[         DR_{g} \circ D\phi  (X)  = D\phi \circ DL_{g^{-1}} (X)  = D\phi (X)    \]
+Which proves that $D\phi(X)$ is right-invariant. We compute its value at the identity:
+\[      D\phi(X) |_1 = \left.\frac{d}{dt}\right|_{t=0} \phi(e^{tX_1})  = \left.\frac{d}{dt}\right|_{t=0} e^{-tX_1} = -X_1  \]
+$D\phi$ is a \emph{vector space} isomorphism between left-invariant and right-invariant vector fields, since it's the derivative of a diffeomorphism. ($D\phi$ is actually its own inverse, as $\phi$ is its own inverse.) By the naturality of Lie brackets, $D\phi$ preserves the Lie bracket, so it's a Lie algebra isomorphism.
+\end{proof}
+
+
+\subsection*{Problem 4 (Kirillov 2.5)}
+\emph{Let $G(n,k)$ be the set of all dimension $k$ subspaces in $\R^n$ (usually called the Grassmanian). Show that $G(n,k)$ is a homogeneous space for the group $O(n,R)$ and thus can be identiﬁed with coset space $O(n,R)/H$ for appropriate $H$. Use it to prove that $G(n,k)$ is a manifold and find its dimension.}
+
+\begin{proof}
+Take $V, W \in G(n,k)$; then $V, W$ are $k$-dimensional vector spaces, and we can find orthonormal bases $(v_i)$ and $(w_i)$ for them. Transitivity of the $O(n)$ action then just means finding an $O(n)$ transformation that takes each $v_i \to w_i$. We can prove by induction on $k$ that such a transformation exists. First, if $k=1$ our claim reduces to taking a unit vector in $\R^n$ to another; by the transitivity of the $O(n)$ action on $\R^n$, this is always possible. For the inductive step, assume there exists $A\in O(n)$ that takes $(v_1, ... , v_{n-1}) \to (w_1, ... , w_{n-1})$. We now need a transformation $B$ that takes $v_n \to w_n$ while leaving $(w_1, ... , w_{n-1})$ unchanged. This can always be found, by the transitivity of $O(n)$ on $\R^n$, as long as $v_n$ is not in the space spanned by $(w_1, ... , w_{n-1})$. We can make sure this is the case by permuting the $v_i$ until $v_n$ is in the orthogonal complement of $(w_1, ... , w_{n-1})$. This finishes the proof that $O(n)$ acts transitively on $G(n,k)$.
+\\
+\\
+We now want to find the stabilizer of some $V\in G(n,k)$. There exists an $O(k)$ subgroup of $O(n)$ that rotates the basis vectors of $V$ inside the space; this clearly leaves $V$ unchanged. There also exists an $O(n-k)$ subgroup that rotates vectors in the orthogonal complement of $V$ but does nothing to the basis vectors of $V$; this also leaves $V$ unchanged. We come to the conclusion that the stabilizer of $V$ is $O(k) \times O(n-k)$. Since the orbit of $V$ is equal to $G(n,k)$, corollary 2.21 in Kirillov gives $G(n,k) \cong O(n) / \big(O(k) \times O(n-k)\big)$. Also:
+\begin{align*}    
+\text{dim}(G(n,k)) &= \text{dim}(O(n)) - \text{dim}\big(O(k) \times O(n-k)\big)  
+\\   &= \frac{n(n-1)}{2} - \frac{k(k-1)}{2} - \frac{(n-k)(n-k-1)}{2}  
+\\   &= k(n-k)
+\end{align*}
+\end{proof}
+
+
+\subsection*{Problem 5 (Kirillov 2.8 - 2.10)}
+\emph{Define a basis in $\mathfrak{su}(2)$ by}
+\[     i\sigma_1 = \left(  \begin{array} {cc}  0 & i \\ i & 0   \end{array} \right)  \;\;\;\;\; i\sigma_2 = \left(  \begin{array} {cc}  0 & 1 \\ -1 & 0   \end{array} \right)  \;\;\;\;\;  i\sigma_3 = \left(  \begin{array} {cc}  i &0 \\ 0 & -i   \end{array} \right) \]
+\emph{Show that the map}
+\begin{align*}       \phi: SU(2) &\to GL(3,\R)     \\
+g &\to \text{matrix of Ad } g \text{ in the basis } i\sigma_1, i \sigma_2, i\sigma_3
+\end{align*}
+\emph{Gives a morphism of Lie groups $SU(2) \to SO(3,\R)$.}
+
+\begin{proof}
+As a vector space, $\mathfrak{su}(2) \cong \R^3$, since any $X\in \mathfrak{su}(2)$ can be expressed as $X = x_1 i\sigma_1 + x_2 i\sigma_2 + x_3 i\sigma_3$ for $a,b,c\in \R$, i.e.:
+\[       X =  \left( \begin{array} {cc}  ix_3 & ix_1 + x_2 \\ ix_1 - x_2 & -ix_3  \end{array}  \right)      \]
+Notice that det$(X) = x_1^2 + x_2^2 + x_3^2$, which is the length squared of an element of $\R^3$. The adjoint representation of $SU(2)$ is a map in $GL(\mathfrak{su}(2)) \cong GL(3,\R)$:
+\[    (\text{Ad}g) X = gXg^{-1}  \]
+This map preserves det$(X)$, since det$(gXg^{-1}) = \text{det}(g) \det(X) \det(g^{-1}) = \det(X)$. Therefore it preserves the inner product of $\R^3$, and it's an $SO(3)$ map. To prove that it's a homomorphism, just note that:
+\[     \phi(gh) (X) = (gh) X (gh)^{-1} = g (hXh^{-1}) g = \phi(g) \circ \phi(h) (X)    \]
+\end{proof}
+
+\emph{Let $\phi: SU(2) \to SO(3,\R)$ be the morphism deﬁned in the previous problem. Compute explicitly the map of tangent spaces $\phi_* : \mathfrak{su}(2) \to
+\mathfrak{so}(3,\R)$ and show that $\phi_*$ is an isomorphism. Deduce from this that Ker$\phi$ is a discrete normal subgroup in $SU(2)$, and that Im$\phi$ is an open subgroup in $SO(3,\R)$.}
+
+\begin{proof}
+We want to compute the derivative of the map:
+\begin{align*}          \phi: SU(2) &\to SO(3)      \\   g &    \to \text{matrix of Ad } g  
+\end{align*}
+We begin by computing $\text{ad} Y (X)$, the derivative of $\text{Ad}g (X) = gXg^{-1}$. For this, take a curve $\gamma: (-\delta, \delta) \to SU(2)$ such that $\gamma(0) = 1$ and $\gamma'(0) = Y$. Then:
+\begin{align*}      \text{ad} Y (X) &= \left. \frac{d}{dt}\right|_{t=0}  Ad(\gamma(t))(X)  \\
+&= \left. \frac{d}{dt}\right|_{t=0} \gamma(t) X \gamma^{-1}(t) \\
+&=   \gamma(0) X (\gamma^{-1})'(0)\gamma(0) X \gamma(0) \\
+&= \gamma'(0) X \gamma(0) - \gamma(0) X\gamma^{-1}(0) \gamma'(0) \gamma^{-1}(0)  \\
+&= YX - XY\\
+&= [Y, X]
+\end{align*}
+It suffices to compute ad$Y(X)$ in the case when $Y = i\sigma_j$, one of the three generators of $\mathfrak{su}(2)$. Take $Y = i \sigma_1$ for example. Let $X$ be arbitrary, i.e. $X = x_1 i \sigma_1 + x_2 i \sigma_2 + x_3 i \sigma_3$. Then:
+\[      [Y,X] = -x_2 [\sigma_1, \sigma_2] - x_3[\sigma_1, \sigma_3] = - 2x_2 i \sigma_3 + 2x_3i \sigma_2    \]
+We have found that the map $\text{ad}(i\sigma_1)$ takes $(x_1, x_2, x_3) \to (0, 2x_3 , -2x_2)$. Therefore:
+\[  \phi_*(i\sigma_1) = \left(   \begin{array} {ccc}  & & \\ & & 2 \\ & -2 &   \end{array} \right) = 2 l_1 \]
+Similarly we find that:
+\[     \phi_*(i\sigma_2) = \left(   \begin{array} {ccc}  & & -2 \\ & &  \\ 2&  &   \end{array} \right)= 2l_2  \;\;\;\;   \phi_*(i\sigma_3) = \left(   \begin{array} {ccc}  &2 & \\ -2 & &  \\ &  &   \end{array} \right)  = 2l_3                 \]
+Where $l_j$ are the generators of $\mathfrak{so}(3)$. This proves that $\phi_*$ is an isomorphism of $\mathfrak{su}(2)$ and $\mathfrak{so}(3)$ \emph{as vector spaces}. In order to show that these are also isomorphic \emph{as Lie algebras}, we show that $\phi_*$ preserves Lie brackets:
+\[  \phi_* ([i \sigma_1 , i\sigma_2]) = \phi_* (-2i\sigma_3) = -4l_3 = 4 [l_1, l_2] = [\phi_*(i\sigma_1) , \phi_*(i\sigma_2)]   \]
+And similarly for the other 2 brackets. This concludes the proof the $\phi_* : \mathfrak{su}(2) \to \mathfrak{so}(3)$ is a Lie algebra isomorphism.
+\\
+\\
+The inverse function theorem for manifolds now tells us that, since $\phi_*$ is an isomorphism, $\phi$ is a local diffeomorphism. Take some $g\in \text{Ker}(\phi)$, and there exists a nighborhood of $g$ that is mapped diffeomorphically onto a neighborood of $0$. Then in this neighborhood there is no other $g' \in \text{Ker}(\phi)$. This shows that Ker$(\phi)$ is discrete in $SU(2)$. By the first isomorphism theorem, Ker$(\phi)$ is also a normal subgroup of $SU(2)$, and $SU(2)/\text{Ker}(\phi) \cong \text{Im}(\phi)$. Moreover, since $\phi_*$ is surjective $\phi$ is a submersion, and since all submersions are open maps, $\text{Im}(\phi)$ is an open subset of $SO(3)$.
+\end{proof}
+
+\emph{Prove that the map $\phi$ used in two previous exercises establishes an isomorphism $SU(2)/\Z_2 \to SO(3,\R)$ and thus, since $SU(2) \cong S^3$, 
+$SO(3,\R) \cong \mathbb{RP}^3$.}
+\begin{proof}
+Since $\text{Im}(\phi)$ is an open subset of $SO(3)$, Corollary 2.10 in Kirillov tells us that $\text{Im}(\phi) = SO(3)$. Then $\phi$ is a covering map, and we know from algebraic topology that covering maps are classified by subroups of the fundamental group of the target space. In this case, $\pi_1 (SO(3)) = \Z_2$, so the only possibility is Ker$(\phi) = \Z_2$. Therefore $ SO(3) \cong SU(2)/\Z_2 \cong S^3 / \Z_2 \cong \mathbb{RP}^3$. 
+\end{proof}
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

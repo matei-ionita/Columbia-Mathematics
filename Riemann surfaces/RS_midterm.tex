@@ -1,0 +1,195 @@
+\documentclass[12 pt]{article}
+\usepackage{amsmath,amssymb,amsthm,fullpage,amsfonts,enumerate,textcomp, eurosym}
+\title{Riemann surfaces midterm}
+\author{Matei Ionita}
+
+\DeclareMathOperator {\p} {\partial}
+\DeclareMathOperator {\R} {\mathbb{R}}
+\DeclareMathOperator {\C} {\mathbb{C}}
+\DeclareMathOperator {\Q} {\mathbb{Q}}
+\DeclareMathOperator {\Z} {\mathbb{Z}}
+\DeclareMathOperator {\Tr}{Tr}
+\DeclareMathOperator {\Ker}{Ker}
+
+\theoremstyle{plain}
+\newtheorem{thm}{Theorem}
+\newtheorem*{thm*}{Theorem}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{prop}{Proposition}
+\newtheorem{exc}{Exercise}
+
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}
+\newtheorem{exmp}{Example}
+
+\theoremstyle{remark}
+\newtheorem*{rem}{Remark}
+
+\begin{document}
+  \maketitle
+
+\section*{Problem 1}
+a) By reordering $a_j$ if necessary, we can assume that they are given in increasing order of their real part. (And if the real parts are equal, in increasing order of the imaginary part.) We proceed with the construction just like in class. First, do the naive thing and introduce branch cuts along the lines $[a_i , a_{i+i}]$ and $[a_5 , \infty)$; $w(z)$ clearly does not have singularities outside these cuts. Then we analyze each of these cuts to decide which are actually necessary. We first move around a contour which encloses $a_1$, but none of the other $a_j$. Writing $\sqrt{z - a_1} = e^{1/2 \ln(z-a_1)}$, we see that this gains a factor of $e^{i\pi} = -1$ upon a full revolution. However the other factors $\sqrt{z-a_j} = e^{1/2 \ln(z-a_j)}$ do not, because $\ln(z-a_j)$ is holomorphic outside of a branch cut that starts at $a_j$ and extends to $\infty$. We conclude that $w \to -w$ at opposite sides of this branch cut, and therefore the cut is necessary in order to make $w$ continuous. We can perform similar analyses for the other cuts, and we conclude that the ones on which $w$ changes sign are $[a_1, a_2] , [a_3, a_4], [a_5, \infty)$. Then $w$ is holomorphic on the complement of these cuts in $\C$. In order to create the maximal surface on which $w$ is holomorphic, we take two copies I and II of this complement and glue them along the cuts. Viewed in stereographic projection, this glueing looks like in the figure. It is a surface of genus 2, with the points $a_j$ and $\infty$ removed. 
+\vspace{5cm}
+It turns out that we can extend this surface to include these points, and thus $\hat \Sigma$ is the full surface of genus 2, on which $w$ is meromoprhic with a pole of order 5 at $\infty$. This claim is proved by constructing coordinate charts in neighborhoods of $a_j$ and $\infty$. A neighborhood of $a_j$ contains two discs, one in I and one in II. Then we need a coordinate function that rotates around the disc twice as its argument rotates once. We can use:
+\[     t(z) = \left\{  \begin{array} {c}  \sqrt{z-a_j} \text{ if } z\in I \\ -\sqrt{z-a_j} \text{ if } z\in II  \end{array} \right.      \]
+Similarly, around $\infty$ we define:
+\[      t(z) =   \left\{  \begin{array} {c}  1/\sqrt{z-a_j} \text{ if } z\in I \\ -1/\sqrt{z-a_j} \text{ if } z\in II  \end{array} \right.       \]
+Then we see that, close to $a_j$, $w$ behaves like:
+\[     w(t) = \sqrt{t^2 \prod_{i\neq j} (t^2 + a_j - a_i)}  = t \sqrt{ \prod_{i\neq j} (t^2 + a_j - a_i)}    \]
+Where the inside of the square root is holomorphic and nonvanishing for $t$ small enough. In particular, $w$ has a zero of order 1 at $a_j$ and no singularity. Close to $\infty$:
+\[     w(t) = \sqrt{\frac{1}{t^{10}} \prod_j (1 - t^2 a_j)} = \frac{1}{t^5}   \sqrt{ \prod_j (1 - t^2 a_j)} \]
+Again, the inside of the quare root is holomoprhic and nonvanishing.
+\\
+\\
+b) We write $\omega_1$ and $\omega_2$ using our expressions above for $w, z$ in terms of the coordinate $t$. First, both forms are clearly holomorphic at all points except $a_j$ and $\infty$, as $z, w$ are holomorphic there and $w$ does not have zeros. We need to check what happens at $a_j$:
+\[      \omega_1 (t) = \frac{2t dt}{ t \sqrt{ \prod_{i\neq j} (t^2 + a_j - a_i)}}  =  \frac{2 dt}{  \sqrt{ \prod_{i\neq j} (t^2 + a_j - a_i)}}    \]
+\[       \omega_2 (t) = (t^2 + a_j) \frac{2t dt}{ t \sqrt{ \prod_{i\neq j} (t^2 + a_j - a_i)}}  = (t^2 + a_j) \frac{2 dt}{  \sqrt{ \prod_{i\neq j} (t^2 + a_j - a_i)}}      \]
+Both expressions are holomorphic. Similarly, close to $\infty$:
+\[      \omega_1(t) = \frac{ - 2 \frac{1}{t^3} dt} {  \frac{1}{t^5}   \sqrt{ \prod_j (1 - t^2 a_j)} } = \frac{ - 2 t^2 dt} {    \sqrt{ \prod_j (1 - t^2 a_j)} }    \]
+\[       \omega_2(t) =   \frac{1}{t^2}  \frac{ - 2 \frac{1}{t^3} dt} {  \frac{1}{t^5}   \sqrt{ \prod_j (1 - t^2 a_j)} } = \frac{ - 2 dt} {    \sqrt{ \prod_j (1 - t^2 a_j)} }      \]
+Again both are holomorphic, and this shows that $\omega_1$ and $\omega_2$ are everywhere holomorphic.
+\\
+\\
+c) We start with the holomorphic form $\omega_1$ from part b) and add a pole at $a_1$; we get $\omega_{a_1} (z) = \frac{1}{z-a_1} \omega_1(z)$. First note that $a_1$ is the only point at which $z = a_1$ ($a_1$ doesn't have a copy on $\hat \Sigma$), and so we didn't introduce any unwanted poles. We check that the pole at $a_1$ is double. Indeed, in the chart around $a_1$:
+\[     \omega_{a_1} (t) = \frac{1}{t^2}   \frac{2 dt}{  \sqrt{ \prod_{i\neq 1} (t^2 + a_1 - a_i)}}      \]
+We also check that there are no poles at $a_j$ for $j\neq 1$:
+\[      \omega_{a_1} (t) = \frac{1}{t^2 + a_j - a_1}   \frac{2 dt}{  \sqrt{ \prod_{i\neq j} (t^2 + a_j - a_i)}}       \]
+And that there are no poles at $\infty$:
+\[      \omega_{a_1} (t) = \frac{t^2}{1-t^2 a_1}   \frac{ - 2 t^2 dt} {    \sqrt{ \prod_j (1 - t^2 a_j)} }    \]
+Therefore $\omega_{a_1}$ has the desired properties. However, there does not exist a meromorphic form on $\hat \Sigma$ with a single pole, because the sum of all residues of a meromorphic form $\omega$ must be 0. To see this, we integrate $\omega$ along a contour small enough that its interior $D$ contains no poles; we get 0. But this contour may also be regarded as enclosing $\hat \Sigma - D$, and as such it encloses all poles of $\omega$. Then the same integral gives the sum of all residues, so this sum must be 0.
+
+\section*{Problem 2}
+a) $\sigma(z)$ is holomorphic in $\C$ iff the product that we used to define it converges for every $z$. We check this by fixing $z$, making a branch cut for the $\ln$ function that does not pass through $z$, and then writing:
+\[      \ln (\sigma(z)) = \ln z + \sum_{\omega \in \Lambda^*} \ln \left( 1 - \frac{z}{\omega} \right) + \frac{z}{\omega} + \frac{z^2}{2\omega^2}     \]
+Now we want this sum to converge, because if this happens, its exponential $\sigma(z)$ will also be well-defined. We analyze the sum by separating the (finitely many) terms for which $|w|\leq |z|$. It suffices to show that the remaining part of the sum, containing terms with $|z|<|\omega|$, converges. The fact that $|z|<|\omega|$ allows us to expand $\ln(1 - \frac{z}{w})$ into a convergent power series:
+\[       \sum_{|\omega|>|z|}  - \frac{z}{\omega} - \frac{z^2}{2\omega^2} + O\left(\frac{1}{\omega^3}\right) +  \frac{z}{\omega} + \frac{z^2}{2\omega^2}  = \sum_{|\omega|>|z|} O\left(\frac{1}{\omega^3}\right)  \]
+Which converges. This finishes the proof that $\sigma(z)$ is holomorphic. It's immediate that the zeros of $\sigma(z)$ are exactly the lattice points, because a product is 0 iff one of its factors is 0. In our case, this means either $z = 0$ or $1 - \frac{z}{\omega} = 0$ for some $\omega \in \Lambda^*$.
+\\
+\\
+b) It turns out that it's easier to see how the second derivative of $\ln (\sigma(z))$ behaves under $z \to z + \omega_a$. Using the expression for $\ln (\sigma(z))$ from a, we compute:
+\[    \ln'(\sigma(z)) = \frac{1}{z} + \sum_{\omega \in \Lambda^*} \frac{1}{\omega - z} + \frac{1}{\omega} + \frac{z}{\omega^2}     \]
+\begin{align*}
+      \ln''(\sigma(z))  &= - \frac{1}{z^2} + \sum_{\omega \in \Lambda^*} \frac{1}{\omega^2} - \frac{1}{(\omega - z)^2}  \\
+                            &=  \sum_{\omega \in \Lambda^*} \frac{1}{\omega^2} - \sum_{\omega \in \Lambda} \frac{1}{(z-\omega)^2}
+\end{align*}
+This is manifestly invariant under $z \to z + \omega_a$. Therefore we can write:
+\[      \ln''(\sigma(z))  - \ln''(\sigma(z+ \omega_a)) = 0     \]
+\[          \ln'(\sigma(z))  - \ln'(\sigma(z+ \omega_a)) = \eta_a      \]
+\[        \ln(\sigma(z))  - \ln(\sigma(z+ \omega_a)) = \eta_a  z + c_a       \]
+\[        \sigma(z) = \sigma(z+\omega_a) e^{\eta_a z + c_a}       \]
+Where $\eta_a, c_a$ are some constants depending on $\Lambda$. We can easily determine $c_a$ using the observation that $\sigma(z)$ is odd. Indeed, let $z\to -z$ and $\omega \to -\omega$ in the expression for $\sigma$, and we obtain $\sigma(-z) = - \sigma(z)$. Then:
+\[            \sigma( - \omega_a /2) = \sigma(\omega_a/2) e^{-\eta_a \omega_a/2 + c_a}   = - \sigma(-\omega_a/2) e^{-\eta_a \omega_a/2 + c_a}          \]
+So we set $c_a = \eta_a \omega_a /2$. Then the transformation laws for $\sigma(z)$ are:
+\[         \sigma(z) = \sigma(z+\omega_a) e^{\eta_a ( z + \frac{\omega_a}{2})}         \]
+
+c) We can always find a meromorphic function on $\C$ which has zeros precisely at $P_i + \Lambda$ and poles precisely at $Q_j + \Lambda$. Using the properties of $\sigma(z)$ proved above, the following works:
+\[        f(z) = \frac{\prod_{i=1}^M \sigma(z - P_i)}{\prod_{j=1}^N \sigma(z - Q_j)}     \]
+This function is well-defined on $\C/\Lambda$ iff it is doubly periodic. We therefore investigate its behavior under $z \to z + \omega_a$.
+\[        f(z + \omega_a) =     \frac{\prod_{i=1}^M e^{-\eta_a(z - P_i + \frac{\omega_a}{2})} \sigma(z - P_i)}{\prod_{j=1}^N e^{-\eta_a(z - Q_j + \frac{\omega_a}{2})} \sigma(z - Q_j)}  = e^{(N-M) \eta_a (z + \frac{\omega_a}{2})} e^{\eta_a (\sum P_i - \sum Q_j)} f(z) \]
+We see that $f$ is doubly periodic iff $N=M$ and $\sum P_i = \sum Q_j$.
+
+
+
+\section*{Problem 3}
+a) We first want to show that the sum used to define $\theta_1 (z|\tau)$ is convergent. We take the absolute value of the $n$-th term:
+\[      | e^{\pi i (n+ \frac{1}{2})^2 \tau + 2\pi i (n+\frac{1}{2}) (z+ \frac{1}{2})} | =  e^{-\pi (n+\frac{1}{2})^2 \Im \tau - 2\pi(n+ \frac{1}{2}) \Im z}    \]
+We know that $\Im \tau >0$, so the terms decay like a Gaussian, which shows that the sum is convergent. Since $\theta_1(z|\tau)$ is a well-defined function of $z$ with $\p_{\bar z} \theta_1 = 0$, it is holomorphic.
+\\
+\\
+In order to find the zeros of $\theta_1$, it will be useful to understand how it behaves under translations by lattice elements:
+\[       \theta_1(z+1 | \tau) = \sum_{n\in \Z}  e^{\pi i (n+ \frac{1}{2})^2 \tau + 2\pi i (n+\frac{1}{2}) (z + \frac{1}{2})} e^{2\pi i (n+\frac{1}{2})} = - \theta_1(z | \tau)     \]
+\begin{align*}     \theta_1(z+ \tau | \tau) &= \sum_{n\in \Z}  e^{\pi i (n+ \frac{1}{2})^2 \tau + 2\pi i (n+\frac{1}{2}) (z + \frac{1}{2}) + 2\pi i (n+\frac{1}{2}) \tau}      \\
+    &=  \sum_{n\in \Z}  e^{\pi i (n+ 1+ \frac{1}{2})^2 \tau + 2\pi i (n + 1 + \frac{1}{2}) (z + \frac{1}{2})}  e^{-\pi i \tau - 2\pi i (z+\frac{1}{2})}    \\
+ &= e^{-\pi i \tau - 2\pi i (z+\frac{1}{2})} \theta_1(z, \tau)
+\end{align*}
+We see from these transformation laws that $\theta_1(z+\tau | \tau) = 0$ implies $\theta_1(w+\tau | \tau) = 0$ for all $w$ in the equivalence class of $z$. Therefore it suffices to show that $\theta_1$ has a single zero in the parallelipiped with corners $\frac{-1-\tau}{2} , \frac{1-\tau}{2} , \frac{1 + \tau}{2}, \frac{-1+\tau}{2}$, and that this zero is $z=0$. We begin with counting the number of zeros in the parallelipiped, whose boundary we denote by $C$. We have proved in class that:
+\[          \oint_C \frac{\theta_1'(z| \tau)}{\theta_1(z|\tau)} dz = 2\pi i ( \text{number of zeros} - \text{number of poles}  )       \]
+Since $\theta_1$ has no poles, this integral will just count the number of zeros. We have:
+\[       \oint_C \frac{\theta_1'(z| \tau)}{\theta_1(z|\tau)} dz = \int_{\frac{-1-\tau}{2}}^{\frac{1-\tau}{2}} \left[ \frac{\theta_1'(z| \tau)}{\theta_1(z|\tau)} - \frac{\theta_1'(z+ \tau| \tau)}{\theta_1(z+ \tau|\tau)} \right] dz  + \int_{\frac{-1+\tau}{2}}^{\frac{-1-\tau}{2}} \left[ \frac{\theta_1'(z| \tau)}{\theta_1(z|\tau)} - \frac{\theta_1'(z+ 1| \tau)}{\theta_1(z+ 1|\tau)} \right] dz   \]
+We simplify the integrands using the transformation laws proved above:
+\[         \frac{\theta_1'(z| \tau)}{\theta_1(z|\tau)} - \frac{\theta_1'(z+ \tau| \tau)}{\theta_1(z+ \tau|\tau)}   = \ln' [\theta_1(z|\tau)] - \ln'[\theta_1(z+ \tau|\tau)]   = -  \ln'[e^{-\pi i \tau - 2\pi i (z+\frac{1}{2})}]  = 2\pi i \]
+\[       \frac{\theta_1'(z| \tau)}{\theta_1(z|\tau)} - \frac{\theta_1'(z+ 1| \tau)}{\theta_1(z+ 1|\tau)}   = \ln' [\theta_1(z|\tau)] - \ln'[\theta_1(z+ 1|\tau)]        = - \ln'(e^{\pi i}) = 0 \]
+And the integral reduces to:
+\[      \oint_C \frac{\theta_1'(z| \tau)}{\theta_1(z|\tau)} dz =   \int_{\frac{-1-\tau}{2}}^{\frac{1-\tau}{2}} 2\pi i \; dz = 2\pi i   \]
+Therefore there is only one zero. Now we finally show that this zero is $z=0$. We do this by proving that $\theta_1$ is odd. Under the transformation $z\to -z$, it becomes:
+\[      \theta_1 (-z | \tau) =   \sum_{n\in \Z}  e^{\pi i (n+ \frac{1}{2})^2 \tau - 2\pi i (n+\frac{1}{2}) (z - \frac{1}{2})}   \]
+Changing the variable of summation to $m$ such that $n+\frac{1}{2} = - \left( m + \frac{1}{2} \right)$ we obtain:
+\begin{align*}          \theta_1 (-z | \tau) &=   \sum_{m\in \Z}  e^{\pi i (m+ \frac{1}{2})^2 \tau + 2\pi i (m+\frac{1}{2}) (z - \frac{1}{2})}     \\
+ &=  \sum_{m\in \Z}  e^{\pi i (m+ \frac{1}{2})^2 \tau + 2\pi i (m+\frac{1}{2}) (z + \frac{1}{2})} e^{-2\pi i (m+\frac{1}{2})} \\
+ &=  - \theta(z | \tau)
+\end{align*}
+b) It's easy to define a function on $\C$ that has zeros precisely at $P_i + \Lambda$ and poles precisely at $Q_j + \Lambda$. Using the properties of the $\theta_1$ function proved in part a, the following will work:
+\[      f(z) = \frac{\prod_{i=1}^M \theta_1(z-P_i)}{\prod_{j=1}^N \theta_1(z-Q_j)}       \]
+But if we want this to be defined on $\C/\Lambda$, we need to impose double periodicity:
+\[      f(z+1) = \frac{(-1)^M \prod_{i=1}^M \theta_1(z-P_i)}{(-1)^N \prod_{j=1}^N \theta_1(z-Q_j)}   = (-1)^{M-N} f(z)       \]
+\[      f(z+ \tau) =     \frac{\prod_{i=1}^M e^{-\pi i \tau - 2\pi i (z - P_i +\frac{1}{2})} \theta_1(z-P_i)}{\prod_{j=1}^N e^{-\pi i \tau - 2\pi i (z - Q_j +\frac{1}{2})} \theta_1(z-Q_j)}   = e^{- (M - N) (\pi i \tau + 2\pi i (z+\frac{1}{2}))}  e^{2\pi i (\sum P_i - \sum Q_j)} f(z)   \]
+We see then that $f$ is doubly periodic iff $M = N$ and $\sum_{i=1}^M P_i = \sum_{j=1}^N Q_j$.
+
+
+
+\section*{Problem 4}
+a) A smooth metric $h$ on $L$ is a strictly positive smooth section of $L^{-1} \otimes \bar L^{-1}$. In terms of local trivializations $\{X_{\alpha}\}$, it is a collection of smooth maps $h_{\alpha} : X_{\alpha} \to \R^+$ subject to the transformation law $h_{\alpha} = |t_{\alpha \beta}|^{-2} h_{\beta}$.
+\\
+\\
+Working in a trivialization, we can always define a function $\psi_{\alpha} = \frac{h'_{\alpha}}{h_{\alpha}}$. Since $h_{\alpha},h'_{\alpha}$ are strictly positive, $\psi_{\alpha}$ is smooth and strictly positive. Then $\phi_{\alpha} = - \ln \psi_{\alpha}$ is well-defined and smooth, and we obtain $h'_{\alpha} = e^{-\phi_{\alpha}} h_{\alpha}$. We can do this for all trivializations, and then we check how $\phi_{\alpha}$ and $\phi_{\beta}$ are related on $X_{\alpha} \cap X_{\beta}$.
+\[        h'_{\alpha} =  e^{-\phi_{\alpha}} h_{\alpha} =  e^{-\phi_{\alpha}} |t_{\alpha \beta}|^{-2} h_{\beta}    \]
+\[        h'_{\alpha} = e^{- \phi_{\beta}} h'_{\beta} =   e^{- \phi_{\beta}}   |t_{\alpha \beta}|^{-2} h_{\beta}      \]
+From which we conclude that $\phi_{\alpha} = \phi_{\beta}$ on $X_{\alpha} \cap X_{\beta}$, for every pair of trivializations $X_{\alpha}, X_{\beta}$. Then the map $\phi : X \to \R^+$ given by $\phi(z) = \phi_{\alpha}(z)$ for $z\in X_{\alpha}$ is well-defined. $\phi$ is smooth because it is smooth on every set of the open cover $\{X_{\alpha}\}$ of $X$. Then we can write $h' = e^{-\phi} h$.
+\\
+\\
+b) Using the relation between $h'$ and $h$ from part a we write:
+ \[      F'_{\bar z z} = - \p_{\bar z}  \p_{z} \log h' = - \p_{\bar z} \p_{z} (e^{-\phi} h) = \p_{\bar z} \p_z \phi + F_{\bar z z}      \]
+c) Let $c_1^h(L)$ and $c_1^{h'}(L)$ denote the first Chern class of $L$ WRT two different metrics. Then part b gives:
+\[    c_1^{h'}(L) - c_1^h(L) = \frac{i}{2\pi} \int_X \p_{\bar z} \p_z \phi\; dz \wedge d\bar z     \]
+The integrand is an exact form, since:
+\[      d ( - \p_z \phi dz) = - \p_{\bar z} ( \p_z \phi) d\bar z \wedge dz =  \p_{\bar z} \p_z \phi\; dz \wedge d\bar z    \]
+Therefore Stokes' theorem gives:
+\[         c_1^{h'}(L) - c_1^h(L) = 0       \]
+
+\section*{Problem 5}
+a) Let $L$ be a holomorphic line bundle over the compact Riemman surface $K$. Then:
+\[         \dim H^0(X,L) - \dim H^0 (X, K_X \otimes L^{-1}) = c_1(L) + \frac{1}{2} c_1(K_X^{-1})       \]
+b) Consider the holomorphic line bundle $L\otimes [nP]$, where $[nP]$ is the point bundle as defined in class. We compute:
+\[      c_1(L\otimes [nP]) = c_1(L) + c_1([nP])  = c_1(L) + n    \]
+Then we apply Riemann-Roch for the bundle $L\otimes [nP]$:
+\[          \dim H^0(X,L\otimes [nP]) - \dim H^0 (X, K_X \otimes L^{-1} \otimes [-nP]) = c_1(L\otimes [nP]) + \frac{1}{2} c_1(K_X^{-1})      \]
+\[           \dim H^0(X,L\otimes [nP]) = \dim H^0 (X, K_X \otimes L^{-1} \otimes [-nP]) + c_1(L) + n + \frac{1}{2} c_1(K_X^{-1})      \]
+We have the freedom to choose $n$, so we can choose it large enough such that the RHS is $>0$. Then we obtain:
+\[       \dim H^0(X,L\otimes [nP]) > 0      \]
+Which means that there exist holomorphic sections of $L\otimes [nP]$. Let $\psi$ be one such section, and let $1_{-nP}$ be the meromorphic section of $[-nP]$ given by $1$ on $X_{\infty}$ and $z^{-n}$ on $X_0$. Then $\phi = \psi  1_{-nP}$ is a nontrivial meromorphic section of $L\otimes [nP] \otimes [-nP] = L$. 
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

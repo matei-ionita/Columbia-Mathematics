@@ -1,0 +1,900 @@
+\documentclass[12 pt]{article}
+\usepackage{amsmath,amssymb,amsthm,fullpage,amsfonts,enumerate,textcomp, eurosym, tikz-cd}
+\title{Lie groups lecture notes}
+\author{Matei Ionita}
+
+\DeclareMathOperator {\p} {\partial}
+\DeclareMathOperator {\R} {\mathbb{R}}
+\DeclareMathOperator {\C} {\mathbb{C}}
+\DeclareMathOperator {\Q} {\mathbb{Q}}
+\DeclareMathOperator {\Z} {\mathbb{Z}}
+\DeclareMathOperator {\fr} {\mathfrak}
+\DeclareMathOperator {\Res} {Res}
+\DeclareMathOperator {\Hom} {Hom}
+\DeclareMathOperator {\Ind} {Ind}
+\DeclareMathOperator {\Fun} {Fun}
+\DeclareMathOperator {\End} {End}
+\DeclareMathOperator {\Ker} {Ker}
+\DeclareMathOperator {\Tr} {Tr}
+\DeclareMathOperator {\ad} {ad}
+\DeclareMathOperator {\Ad} {Ad}
+\DeclareMathOperator {\Aut} {Aut}
+
+
+\newcommand {\HH} {\mathbb{H}}
+
+
+\theoremstyle{plain}
+\newtheorem{thm}{Theorem}
+\newtheorem*{thm*}{Theorem}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{prop}{Proposition}
+\newtheorem{exc}{Exercise}
+
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}
+\newtheorem{exmp}{Example}
+
+\theoremstyle{remark}
+\newtheorem*{rem}{Remark}
+
+
+\begin{document}
+  \maketitle
+
+\section*{Lecture 6}
+
+\begin{defn}
+A Lie group homomorphism is a a map $\phi:G\times G \to G$ such that $\phi(g_1g_2) = \phi(g_1) \phi(g_2)$. This makes the set of Lie groups into a category.
+\end{defn}
+
+\begin{defn}
+A Lie algebra homomorphism is a map $f: \mathfrak{g} \times \mathfrak{g}$ such that $f([X,Y]) = [f(X), f(Y)]$. Thus Lie algebras also form a category.
+\end{defn}
+
+\begin{thm*}
+ The category of connected, simply connected Lie groups is equivalent to the category od Lie algebras. Example: $SU(2), SO(3)$ have the same Lie algebra, but only $SO(3)$ is simply connected.
+\end{thm*}
+Thus in order to understand connected Lie groups we need a theory of Lie algebras \emph{and} a theory of connections. The equivalence is given by $G\to T_1G$ and $\phi:G\to H  \Rightarrow \phi_* T_1G \to T_1H$. Hard part is how to lift $\phi:\mathfrak{g} \to \mathfrak{h}$ to $G\to H$. Philosophy of the proof can be found in Serre: Lie groups and Lie algebras, last chapter. Uses Baker-Campbell-Hausdorff formula.
+\\
+\\
+An action of $G$ on itself $g \to \phi_g \in \text{Diff}(M)$; $\phi_{g_1g_2} (m) = g_1 g_2 . m$. Also get action of $G$ on functions. Problem is that map on functions is a pull-back, and so we need an inverse:
+\[     (\pi_g f) (m) = f(g^{-1} . m)      \]
+Because this allows:
+\begin{align*}
+       (\pi_{g_1} \circ \pi_{g_2} f) (m) &= (\pi_{g_2} f)(g_1^{-1} . m)    \\
+ &= f((g_1g_2)^{-1} .m) \\
+&= (\pi_{g_1g_2} f) (m)
+\end{align*}
+Now we could define the derivatives of these maps. $\phi_* : \text{Lie} G \to $ Vector fields on $M$, can define Lie bracket to make this a Lie algebra homomorphism. For $\pi_* : \text{Lie} G \to $ all linear maps on functions, can also define Lie bracket to make this a Lie algebra homomorphism. But once we choose one, the other becomes a Lie algebra \emph{antihomomorphism}:
+\[   \pi_*([X,Y]) = - [\pi_*(X) , \pi_*(Y)]   \]
+For example, on $\R$ we can take $X = \frac{\p}{\p q}$ and then we have $\phi^t_X (q) = q+t$. Also $\phi^t_X (f(q)) = f((\phi^t_X)^{-1} q) = f(q-t)$. But ...
+For matrix groups, we always have the fact that $[X,Y] = XY-YX$.
+\\
+\\
+We saw that the action on functions on $M$ linearizes the action on $M$ as diffeomorphisms. The main theme of the class will be to study any such linear actions.
+\begin{defn}
+A \emph{representation $(\pi, V)$ of a group} $G$ on a vector space $V$ is a homomorphism $\pi:G \to GL(V)$.
+\end{defn}
+In this class, $V$ will usually be a finite dimensional vector space over $\C$.
+
+\begin{defn}
+A \emph{representation $(\phi,V)$ of a Lie algebra} $\mathfrak{g}$ on a vector space $V$ is a Lie algebra homomorphism $\phi:\mathfrak{g} \to \text{End}(V)$.
+\end{defn}
+If we have a representation of a group $G$, we can take its derivative and get a representation of $\mathfrak{g}$:
+\[       \pi'(X) = \frac{d}{dt} \left. \pi(e^{tX}) \right|_{t=0}      \]
+If a representation of $\mathfrak{g}$ is a derivative of some Lie group representation $\pi$, it is called $\emph{integrable}$.
+\\
+\\
+For any Lie group $G$, we have an action of $G$ on itself called the adjoint action, given by $g \to c(g)$, where $c(g) (h) = ghg^{-1}$. Note that, unlike the left and right action which are trnasitive, this has lots of orbits. For example, the identity is its own orbit. In order to linearlize this, cosider a map $g \to (c(g))_*$. $(c(g))_*$ is a map $TG \to TG$, $(c(g))_* (e)$ is a map $T_eG \to T_eG$.
+
+\begin{defn}
+The adjoint representation of a Lie groups $G$ is $(\text{Ad}, \mathfrak{g})$ given by $Ad(g) = (c(g))_* (e)$.
+\end{defn}
+We need to check that this is a homomorphism $\text{Ad}(g_1g_2) = \text{Ad}(g_1) \circ \text{ad}(g_2)$. This is the chain rule. (??)
+
+\begin{defn}
+The adjoint representation of the Lie algebra is $(ad, \mathfrak{g})$:
+\[     \text{ad}(X) = \text{Ad}' (e^{tX}) = \frac{d}{dt} \left. (\text{Ad}(e^{tX}))\right|_{t=0}    \]
+\end{defn}
+We claim that $\text{ad}(X) = [X, \cdot]$. We will see that this claim is equivalent to the Jacobi identity.
+
+
+\section*{Lecture 8}
+
+\subsection*{Lie algebra representations}
+We have a corresponsence between finite dimensional representations of $\mathfrak g$ and finite dimensional representations of simply connected, connected $G$. However, this statement is not true for infinite dimensional representations, and we will see later examples of this (Werner modules?). There is an alternate definition of Lie algebra represenations, which may be more interesting for algebraists. COnsider the algebra of distributions, supported at $e$, convolution $U(g)$ (think delta functions). This is an associative algebra, and a $\mathfrak g$-rep is a module for this algebra. Let's look at some examples.
+
+\begin{exmp}
+\begin{enumerate} [(1)]
+\item The trivial representation, sending everything to the identity;
+\item Finite groups act like $S_n$, the symmetric group on $n$ elements, on sets of $n$ elements by permutations;
+\item Defining representations. When $G\subset GL(n,\C)$, $\phi(g) = g$, the inclusion map;
+\item Adjoint representations. $\pi = \text{Ad} g$, with derivative $\pi' = \text{ad} X$ acting on $\mathfrak g$;
+\item If $G$ acts on some smooth manifold $M$, we get a rep on a space of functions on $M$ given by $\big(\pi(g) f\big) (m) = f(g^{-1} m)$. Note that for $M$ finite set this reduces to example (2).
+\item $SU(2)$ acts on $\C^2$ (defining rep). We look not at all functions on $\C^2$, but only at polynomials $\C[z_1, z_2]$. $\big(\pi(g) f\big) (z_1, z_2) = f\big(g^{-1} (z_1, z_2)\big)$. This takes homogenous polynomials of degree $n$ to themselves. By restriction, we get a rep of $SU(2)$ of dimension $n+1$.
+\item Use left or right action of $G$ on itself and get representation on space of functions on $G$. For Lie groups, this is $\infty$-dimensional.
+\end{enumerate}
+\end{exmp}
+Note that representations form a category Rep$(G)$, not just a set.
+
+\begin{defn}
+Hom$_G (V_1, V_2)$, where $V_1, V_2$ are representations of $G$, is a vector space of all linear maps $F$ commuting with all $g$, i.e. the following diagram commutes.
+\end{defn}
+\[
+\begin{tikzcd}
+V_1\arrow{r}{F}\arrow{d}{\pi_1(g)} & V_2\arrow{d}{\pi_2(g)} \\ 
+V_1\arrow{r}{F} & V_2
+\end{tikzcd}
+\]
+If $(\pi_1, V_1) , (\pi_2, V_2)$ are representations of $G$, define a new one to be the direct sum $(\pi_{V_1 \oplus V_2}, V_1 \oplus V_2)$:
+\[     \pi_{V_1 \oplus V_2} (g) = \left(  \begin{array} {cc}  \pi_1(g) & 0 \\ 0 & \pi_2(g)  \end{array} \right)   \]
+And similarly for a Lie algebra representation. It's easy to compose representations this way, but it's an interesting question whether we can decompose a given representation this way.
+\begin{defn}
+A \emph{suprepresentation} $(\pi_W, W)$ of $(\pi, V)$ is a rep on $W$ such that if $w\in W$ then $\pi(g) w = \pi_W (g) w, \forall g$.
+\end{defn}
+\begin{defn}
+A representation is \emph{irreducible} if it has no non-trivial subrepresentations.
+\end{defn}
+\begin{defn}
+A representation is \emph{reducible} if it has a non-trivial subrepresentation.
+\end{defn}
+\begin{defn}
+A representation is called \emph{completely reducible} if it is of the form $(\pi , V) = \oplus_i (\pi_i, V_i)$.
+\end{defn}
+Unfortunately for us, not all reducible representations are completely reducible. For example:
+
+\begin{exmp}
+Let $G = \left( \begin{array} {cc} a & b \\ 0 & c \end{array} \right)$ acting on $\R^2$ with the defining representation. We have:
+\[   \left( \begin{array} {cc} a & b \\ 0 & c \end{array} \right) \left( \begin{array} {c} x \\ y \end{array} \right) = \left( \begin{array} {c} ax+by \\ cy \end{array} \right)    \]
+Note that the $x$-axis gives a subrepresentation, but there is no complementary subspace, so we cannot make a decomposition. We could also look at $G = \R$, and get representations $\pi(t) = e^{tA}$ where $A$ is any matrix. Completely reducible iff $A$ is diagonalizable.
+\end{exmp}
+
+Usually we will place ourselves in contexts where this does not happen: for example, when the representation preserves the inner product of the vector space.
+
+\subsection*{Schur's lemma}
+We will look at Hom$_G (V,V)$ in order to get information about $V$.We claim that, for the case of $V$ irreducible, Hom$_G (V,V) = \C$.
+
+\begin{thm}
+If $F$ is any map $V\to V$ commuting with all $\pi(g)$, then $V$ irreducible implies $F = \lambda$ Id.
+\end{thm}
+
+\begin{proof}
+Let $\lambda$ be an eigenvalue of $F$. Consider $\lambda$-eigenspaces:
+\[      V_{\lambda} \subset V \;\;\; Fv = \lambda v     \]
+We claim that $V_{\lambda}$ is a suprepresentation. Since $F$ commutes with all reps, we have:
+\[        F ( \pi(g) v) = \pi(g) F v = \lambda \pi(g) v       \]
+There are two possibilities. Either $\lambda = 0$
+\end{proof}
+Note: this depends on using reps overr $\C$, as we need $F$ to e diagonalizable.
+
+
+\section*{Lecture 9}
+
+\begin{defn}
+Two representations $(\pi_1, V_1), (\pi_2, V_2)$ are \emph{equivalent} if there exists some $M\in GL(V_1)$ such that $M\pi_1(g) = \pi_2(g)M$ for all $g\in G$.
+\end{defn}
+
+\begin{lem}
+If
+\end{lem}
+\begin{proof}
+Consider such $F: V_1 \to V_2$. Commutes with group action therefore Ker$F \subset V_1$ is a subgroup, Im$F \subset V_2$ is a subgroup. If $V_1, V_2$ irreducible then Ker$F = 0, V_1$ and Im$F = 0, V_2$. Then there are two possibilities for $F$: either $F=0$ or an isomorphism.
+\end{proof}
+More generlly, if $V = \oplus_i n_i V_i$, then Hom$_G (V, V) = \oplus_i$ Hom$_G (n_i V_i , n_i V_i)$ = $\oplus_i \text{End}(\C^{n_i})$.
+
+\begin{cor}
+All irreducible reps of $G$ are 1-dimensional if $G$ is commutative.
+\end{cor}
+\begin{proof}
+$V$ irred $\Rightarrow$ all $\pi(g)$ commute with action of $G$, $\pi(g) \pi(g_0) = \pi(g_0) \pi(g)$ because $gg_0 = g_0g$. Then by Schur's lemma $\pi(g) = \lambda_g$.
+\end{proof}
+
+\begin{exmp}
+Fourier analysis. For $G = U(1)$ all irrepresentations are $\pi_n (e^{i\theta}) = e^{in\theta}$, $n\in \Z$. For $G = \R$, irreps are $\pi_k (x) = e^{ikz}$, $k\in \R$.
+\end{exmp}
+
+If $V_1, V_2$ are reps of $G$, get another representation, called tensor product representation, by doing the obvious thing:
+\[     \pi_{V_1\otimes V_2} (g) (v_1 \otimes v_2) = \pi_{V_1} (g) (v_1) \otimes \pi_{V_2} (g) (v_2)   \]
+We can ask how $V_1 \otimes V_2$ decomposes into irreducibles. In particular, if $V_1 \otimes V_2 = \oplus n_i V_i$, what can the $n_i$ be? For the Lie algebra $\mathfrak g$, the tensor product representation is a bit less obvious:
+\[    \phi_{V_1\otimes V_2} (X) = \phi_1(X) \otimes 1 + 1 \otimes \phi_2(X)     \]
+The sum here appears by taking a derivative of the tensor produt rep at group level, and using the product rule.
+\\
+\\
+Can also get a rep on Hom$_{\C} (V_1, V_2)$ (linear maps $V_1 \to V_2$):
+\[     \pi (g) (L) = \pi_{V_2}(g) L \pi_{V_1}(g)^{-1}    \]
+
+\subsection*{Unitary representations}
+We study them because they're much simpler. For example, all are completely reducible. They are also encountered often: we will see next class that for a compact group all reps are unitary.
+
+\begin{defn}
+$\pi (V)$ is \emph{unitary} if $\pi(g) \in U(n) \subset GL(n, \C)$. Alternatively, they are reps which preserve the \emph{Hermitian form}:
+\[     \langle v, w \rangle = \sum_{i=1}^n \bar v_i w_i    \]
+\end{defn}
+For a unitary Lie algebra rep, we take the derivative above to get:
+\[     \langle v, \phi(X) w \rangle + \langle \phi(X) v, w \rangle = 0     \]
+Therefore $\phi(X) = - \phi^{\dagger}(X)$.
+
+\begin{lem}
+Unitary reps are completely reducible.
+\end{lem}
+\begin{proof}
+Recall from last time that the problem with reducibility appeared when the vector space has a subrep, but its complement is not a subrep, and therefore it cannot be decomposed. (Example with upper diagonal $2\times 2$ matrices and $\R \subset \R^2$.) For unitary reps, however, if $V_1 \subset V$ is a subrep, then we let $V_2 = V_1^{\perp}$. We claim that $V_2$ is a subrep, and thus $V$ is reducible if we continue the process a finite number of times. To prove the claim, we use the fact that $V_1$ is preserved by all group elements:
+\[      \langle \pi(g) v_2 , v_1 \rangle = \langle v_2, \pi(g) v_1 \rangle = \langle v_2, v_1\rangle = 0     \]
+And thus $\pi(g) v_2 \in V_2$.
+\end{proof}
+
+\begin{cor}
+All reps of a finite group $G$ are completely reducible.
+\end{cor}
+\begin{proof}
+One can show that for finite $G$ all reps are unitary. More precisely, given a finite group representation we start with any Hermitian inner product on $V$, which we call $B(\cdot, \cdot)$. Then define an ``average'':
+\[  \langle \cdot , \cdot \rangle  = \frac{1}{|G|} \sum_{g\in G} B (\pi(g) \cdot , \pi(g) \cdot)   \]
+Then the grup action will preserve this inner product:
+\begin{align*}
+\langle \pi(h) v, \pi(h) w \rangle &= \frac{1}{|G|} \sum_{g\in G} B(\pi(g) \pi(h) w , \pi(g)\pi(h) w )   \\
+ &= \frac{1}{|G|} \sum_{g\in G} B(\pi(gh) w , \pi(gh) w )  \\
+&= \frac{1}{|G|} \sum_{g\in G} B(\pi(g) w , \pi(g) w ) 
+\end{align*}
+Because $G$ is transitive, so $gh$ is just a relabeling of the index $g$ in the sum.
+\end{proof}
+Next time we will try to adapt this argument for the case of Lie groups, where $|G|$ is infinite. It will turn out that we can do so for the case of $G$ compact.
+
+\subsection*{Characters}
+\begin{defn}
+If $(\pi, V)$ is a rep of $G$, its \emph{character} is the function on $G$:
+\[      \chi_V (g) = \text{Tr} \pi(g)      \]
+\end{defn}
+Some of its properties are:
+\begin{enumerate} [(1)]
+\item $\chi_V (hgh^{-1}) = \chi_V(g)$, i.e. characters are functions on conjugacy classes;
+\item $\chi_{V_1 \oplus V_2} = \chi_{V_1} + \chi_{V_2}$;
+\item $\chi_{V_1 \otimes V_2} = \chi_{V_1}  \chi_{V_2}$;
+\item $\chi_{1,\C} = 1$.
+\end{enumerate}
+\begin{defn}
+The \emph{representation ring} $R(G)$ of a group $G$ is the ring with elements equivalence classes of reps $[V]$ with operations:
+\[    [V_1] + [V_2] = [V_1 + V_2]     \]
+\[    [V_1] \times [V_2] = \pm [V_1 \otimes V_2]     \]
+\end{defn}
+Need to consider ``formal differences'' $[V_1] - [V_2]$, or pairs $([V_1, V_2])$ under the equivalence relation $([V_1, V_2]) \sim ([V_1] + [V] , [V_2] + [V])$.
+Next time we finish the story about finite group reps, and we ask how we construct them. We will look at all functions on the group, and find their representations. Then we generalize this to compact Lie groups. See Kirillov ch. 4.
+
+\section*{Lecture 10}
+\subsection*{More on finite groups}
+There exists a right-invariant Hermitian inner product on Fun$(G)$ given by:
+\[    \langle f_1, f_2 \rangle = \frac{1}{|G|} \sum_{g\in G} \bar f_1 (g0 f_2 (g)      \]
+Then left+right actions of Fun$(G)$ are unitary. To be proved: the $\chi_{V_i}$ for $V_i$ irreducible gives an orthonormal basis of $(\text{Fun}(G))^{|G|}$:
+\[      \langle \chi_{V_i} , \chi_{V_j} \rangle = \delta_{ij}   \]
+We make an aside claim: for $V$ irreducible representation of $G$, a vector space over the field $k$, then End$_{G} (V,V)$ is a division algebra over $k$.
+\begin{proof}
+End$_{G}(V,V)$ are an algebra over $k$, product is composition of functions. If $F\in $End$_{G}(V,V)$, then the irreducibility of $V$ implies:
+\begin{enumerate}
+\item if ker$F = \emptyset$, then $F$ is an isomorphism so it is invertible;
+\item if ker$V = V$ then $F=0$.
+\end{enumerate}
+Which shows that any nonzero element is invertible.
+\end{proof}
+This can be used to give an alternate proof of Schur's lemma: there exists only one division algebra over $\C$. For $V=\R$ though, there are three: $\R,\C, \mathbb{H}$. Thus $V$ irreducible gives 3 possibilities for End$_G(V,V)$.
+We wil show in HW3 that for $V$ irreducible:
+\[     \frac{1}{|G|} \sum_{g\in G} \chi_V (g^2) =\left\{ \begin{array} {c}  1 \text{   in the real case} \\  0 \text{   in the complex case} \\ -1 \text{   in the quaaternionic case} \end{array} \right.    \]
+\begin{cor}
+If $V = \oplus_i n_i V_i$, then:
+\[      \langle \chi_V , \chi_{V_i} \rangle = n_i =     \frac{1}{|G|} \sum_{g\in G} \overline{\chi_V (g)}  \chi_V (g)  \]
+\end{cor}
+First: show orthogonality of matrix elements. Given a basis for $V$, $\pi_V(g)$ is a dim$(V) \times$ dim$(V)$ matrix. This gives $(\text{dim}(V))^2$ functions.
+\begin{thm}
+If $(\pi^V, V) , (\pi^W,W)$ irreducible then 
+\[      \langle \pi^V_{ab} , \pi^W_{cd} \rangle = \left\{ \begin{array} {c}  0 \text{   if } V\not \sim W \\  \delta_{ac}\delta_{bd} \frac{1}{\text{dim}(V)} \text{   if } V \sim W  \end{array} \right.  \]
+\end{thm}
+\begin{proof}
+Given linear map $F:V \to W$ consider:
+\[    \tilde F = \frac{1}{|G|} \sum_{g\in G} \pi^{W}(g) F \pi^V(g^{-1})     \]
+We have $\pi^W \circ \tilde F = \tilde F \circ \pi^V$, therefore $\pi^W \circ \tilde F\circ (\pi^V)^{-1} = \tilde F$.
+By Schur's lemma, $\tilde F = 0$ if $V \not \sim W$ and $\lambda$ Id if $V \sim W$. Then $\tilde F = \frac{\text{tr} \tilde F}{\text{dim } V} $ Id. Now pick $F = F_{ac}$, then:
+\[    \tilde F_{ac} = \frac{1}{|G|} \sum_{g\in G} \pi^W (g) F_{ac} \pi^V(g^{-1}) = 0 \text{   if} V\not \sim W  \]
+Write this as a matrix formula for:
+\[     (\tilde F_{ac})_{bd} = \frac{1}{|G|} \sum_{g\in G} \pi^W_{ba}(g) \overline{\pi^V_{dc}(g)}  = 0   \]
+Which proves the claim for $V \not \sim W$. If $V\sim W$, then:
+\[      (\tilde F_{ac})_{bd} = \frac{1}{\text{dim }V} \delta_{bd} \text{Tr }(F_{ac}) = \frac{1}{\text{dim }V} \delta_{bd}\delta_{ac}   \]
+\end{proof}
+
+\begin{cor}
+For $V,W$ irreducibles:
+\[      \langle \chi_V , \chi_W \rangle = \left\{ \begin{array} {c}  0 \text{   if } V\not \sim W \\ 1 \text{   if } V \sim W  \end{array} \right.  \]
+\end{cor}
+\begin{proof}
+\[      \sum_{g\in G} \delta_{ac} \frac{1}{\text{dim }V} = 1       \]
+\end{proof}
+The remaining questions are:
+\begin{enumerate}
+\item What is the set $\hat G$ of equivalent irreps?
+\item What are the functions $\chi_{V_i}$?
+\item What are the actual representation matrices $\pi_{V_i} (g)$?
+\end{enumerate}
+Idea: find irreps inside the reps of Fun$(G)$. Fun$(G)$ carries a rep of $G\times G$ called ``the regular rep'':
+\[     \left( \pi_{\text{reg}} (g_L, g_R) f \right)  (g) = f ( g_L^{-1} g g_R  )     \]
+For any rep $(\pi_V, V)$ of $G$, have a rep of $G\times G$ on $V^* \otimes V$ by:
+\[      \Phi_V  (g_L, g_R) (v^* \otimes v) = \pi_{V^*} (g_L) v^* \otimes \pi_V(g_R) v     \]
+But note that $V^* \otimes V = $ End$(V)$. Claim: there exists an isomorphism of $G\times G$ reps given by:
+\[          \oplus_{i \in \hat G} V_i^* \otimes V_i    \longleftrightarrow   \text{Fun}(G)       \]
+The map from left to right is given by taking matrix elements. Let $m(v^*\otimes v) = v^* (\pi_V (g) v) \in \text{Fun}(g)$. We can show this is injective; for finite groups this implies surjective. We also claim that orthogonality of matrix elements implies that this is a unitary map.
+\\
+\\
+Another point of view: $\C(G)$ algebra of complex valued functions on $G$, with convolution product:
+\[   f_1 * f_2 (g) = \frac{1}{|G|} \sum_{h\in G} f_1 (gh^{-1}) f_2(h)   \]
+This is a finite dimensional associative algebra over $\C$. Wedderborn theorem says: $\C(G) = \oplus_i M(d_i, \C)$.
+\\
+\\
+Picking a right action get a rep $\pi$ on Fun$(G)$:
+\[    \pi(g) f(h) = f(gh)     \]
+This is not irreducible, and decomposes as:
+\[      \text{Fun}(G) = \oplus_{i \in \hat G} V_i \text{dim}(V_i)  = \oplus  _{i \in \hat G} V_i\otimes \text{Hom}_G(V_i, \text{Fun}G) \]
+
+
+\section*{Lecture 11}
+Let's construct the map in the other direction:
+\[           \text{Id}_{V_i}  \to \text{Tr}(\pi_{V_i}(g)) = \chi_{V_i}(g)         \]
+More generally:
+\[   f \to \pi(f) = \frac{1}{|G|} \sum_{g\in G} f(g) \left( \oplus_{i\in \hat G} \pi_i(g)  \right)  \]
+Can show that $\pi(f_1) \pi(f_2) = \pi(f_1 * f_2)$. Representation of the convolution algebra.
+
+\subsection*{$U(1)$ and Fourier analysis}
+We finally move to Lie groups. For $U(1)$ we know the representation theory: $\hat G = \Z$, and $\pi_n(e^{i\theta}) = e^{in\theta} = \chi(e^{i\theta})$, since representations are 1-d. Obvious action on $\C$, that is $(\pi_n, V_n = \C)$. On functions on $U(1) = S^1$, we have $f(\theta_0) \to f(\theta_0 - \theta)$.
+\[      \pi(e^{i\theta}) f(e^{i\theta_0}) = f(e^{i(\theta_0 - \theta)})     \]
+Fourier series: $f(\theta) = \sum_n f(n) e^{in\theta}$. Now for Lie groups instead of summing over group elements we're going to integrate over them:
+\[        \frac{1}{2\pi} \int_{0}^{2\pi}      \]
+\[       \langle f_1 , f_2  \rangle   =  \frac{1}{2\pi} \int_0^{2\pi} \overline{f_1(\theta)} f_2(\theta)  d\theta \]
+Under this inner product characters are orthogonal. The convolution is:
+\[    f_1 * f_2 (\theta) = \frac{1}{2\pi} \int_0^{2\pi} f_1(\theta - \theta_0) f_2(\theta_0) d\theta_0    \]
+\[        f = \sum_n f*\chi_n    \]
+We can still ask what's the space Fun$(U(1))$; this is called ``Harmonic analysis''. For the non-abelian case, what's the Fourier transform $f \to \tilde f$? For conjugation invariant functions $\dots$
+\[   f\in (\text{Fun}(G))^G \to \sum_{i\in \hat G} f*\chi_{V_i}   \]
+$\chi_{V_i}$ give an orthonormal basis of $\text{Fun}(G)$. For all functions:
+\[      f\in (\text{Fun}(G))  \to \pi (t) \in \oplus_{i\in \hat G} \text{End}(V_i)     \]
+\[   \tilde f(i) = \int_G f(g) \pi_i(g)     \in \text{End}(V_i)  \]
+Let's see what kind of integral we use for a general compact group. In the case of $U(1)$, we used $d\theta \in \Omega_1(S_1)$. It is invariant under $U(1)$ action. For the general case we need an $\omega \in \Omega^n(G)$. Recall that dim$_{\R}(\Lambda^n(T_m^*M)) = 1$. This has two components, $\R_+, \R_-$. All Lie groups are orientable because they are parallelizable. Indeed, given a basis of $T_1G$, left action gives a basis $X_i$ of left-invariant vector fields on $G$. We take $\omega = x_1^* \wedge \dots \wedge X_n^* \in \Omega^*(G)$. Properties of $\omega$:
+\begin{enumerate}
+\item left-invariant, so it is determined by its value at $g=1$
+\end{enumerate}
+We claim that $\int_G f \omega$ is left invariant; to see this just write:
+\[        \int_C f(hg) \omega = \int_C (f\circ L_h) \omega = \int_C f \omega     \]
+But is it right-invariant? Since left and right actions commute, $R_g^*\omega$ is left-invariant. All that could happen is to get $c(g) \omega$ for some function $c : G \to \R^+$. This is a group homomorphism; in general it's a nontrivial function called the modulus of $G$. But if $G$ is compact, the image of $c$ must be a compact subgroup of $R^+$, and the only such is $1$.
+\\
+\\
+Now we claim that there exists a unique $\omega$ such that the integral is normalized to 1. It's sometimes called ``Haar measure'' for functions on $G$.
+\[      \int_G f(hg) \omega_G = \int_G f(gh) \omega_G = \int_G f(g) \omega_G      \]
+How will we use this? We will show that all finite dim irreps of compact Lie groups are unitary, and all reps of compact groups are completely reducible. We also have that charaacters of irreps are orthonormal, orthogonality of matrix elements. The isomorphism story we did for finite groups has an analogue called the Peter-Weil theorem:
+\[       \oplus_{i\in \hat G} \text{End}(V_i) \longleftrightarrow L^2(G)       \]
+The hard part, which we don't do, is showing that taking matrix elements is surjective. (I.e. there exists no infinite dim rep laying in $L^2(G)$.) The idea of the proof is to take $G$ be a matrix group, and show that all polys on these coordinates are matrix elements. Then use Stone-Weirstrass to show that the polys are dense in $L^2$.
+
+\section*{Lecture 12}
+\subsection*{Reminder from last time}
+Peter - Weyl theorem: for $G$ compact, connected, Lie group there exists a unitary isomorphism of $G\times G$ reps:
+\[      \hat \oplus_{i \in \hat G} V_i^* \otimes V_i  \longleftrightarrow L^2(G)     \]
+The easy example that we did last time was $U(1)$, where we have:
+\[      \oplus_{i\in \Z} \C \longleftrightarrow L^2(S^1)       \]
+\[        a_n \longleftrightarrow e^{in\theta}     \]
+Now we move on to a more complicated example.
+
+\subsection*{Representations of $SU(2)$}
+\[     g \in SU(2)  \left(   \begin{array} {cc}  \alpha & \beta \\ - \bar \beta & \bar \alpha \end{array} \right)     \]
+Where $|\alpha|^2 + |\beta|^2 = 1$. We have:
+\[       g^{-1} = \bar g^T =   \left(   \begin{array} {cc}  \bar\alpha & - \beta \\  \bar \beta & \alpha \end{array} \right)    \]
+Consider the $SU(2)$ action on $\C^2 = (z_1, z_2)$ and the induced action on polynomials $\C[z_1, z_2]$:
+\[        \big( \pi(g) f \big)  \left(  \begin{array} {c} z_1 \\ z_2  \end{array} \right)   = f \left(  \begin{array} {c} \alpha z_1 - \beta z_2 \\  \bar \beta z_1 + \bar \alpha z_2  \end{array} \right)   \]
+Let $V_n = \{$ homogenous polynomials on $\C^2$ of degree $n \}$. We claim:
+\begin{enumerate}
+\item $\dim_{\C} V_n = n+1$
+\item $V_n$ is an irreducible representation
+\item the $V_n$ for $n = 0,1,2 \dots$ give all irreducible representations of $SU(2)$.
+\end{enumerate}
+1 is obvious by exhibiting a basis. We will prove 2 and 3 by Lie algebra methods in later lectures. For a general compact Lie group there will not be such a nice method of explicitly finding all irreps.
+\\
+\\
+We compute characters $\chi_n = \chi_{V_n}$. Recall that this is a function on $SU(2)$ that's conjugation invariant; more specifically, it's Tr$_{V_n} \pi(g)$. Since $SU(2)$ are diagonalizable, we can find some conjugation such that $g\in SU(2)$ looks like:
+\[      \left(   \begin{array} {cc}  e^{-i\theta} & 0 \\ 0 & e^{i\theta} \end{array} \right)      \]
+Note: there exists some $SU(2)$ matrix that interchanges $\theta \to - \theta$ by conjugation. We now try to express $\chi_{V_n}$ in function of $\theta$. We do so by computing the action of $g \in SU(2)$ on a basis of $V_n$:
+\[       \chi_{V_0} = 1      \]
+\[     \chi_{V_1} = e^{i\theta} + e^{-i\theta}     \]
+\[        \chi_{V_2} = e^{i2\theta} + 1 + e^{-2i\theta}    \]
+\[        \chi_{V_n} = e^{in\theta} + e^{i(n-2) \theta} + \dots + e^{-i(n-2)\theta} + e^{-in\theta}      \]
+There's a trick to study the behavior for large $n$:
+\[      (e^{i\theta} - e^{-i\theta} ) \chi_{V_n} = e^{i(n+1)\theta} - e^{-i(n+1)\theta}    \]
+\[        \chi_n (\theta) = \frac{e^{i(n+1)\theta} - e^{-i(n+1)\theta}}{e^{i\theta} - e^{-i\theta}}  = \frac{\sin[(n+1)\theta]}{\sin[\theta]}    \]
+What about $SO(3)$? We have a homomorphism $\Phi : SU(2) \to SO(3)$ which is also a (double) covering map. This shows that any $SO(3)$ rep is also a $SU(2)$ rep. Indeed, if $\pi : SO(3) \to GL(V)$ is a representation, then we can take $\pi \circ \Phi : SU(2) \to GL(V)$. The problem is $\Phi$ is not invertible, so the converse is not true. Then we aks which representations of $SU(2)$ are also reps of $SO(3)$.
+\[
+\begin{tikzcd}
+SU(2) \arrow{r}{\pi_n} \arrow{d}{\Phi} & U(n+1) \subset GL(n+1, \C)  \\
+SO(3) \arrow{ru}{\phi_n}
+\end{tikzcd}
+\]
+Observe that $\Phi(\pm \text{Id}) = \text{Id}$. In order for $\pi_n$ to factor through $SO(3)$, we need $\pi_n (- \text{Id}) = \text{Id}$. Then the rep of $SO(3)$ must come from even polynomials in $z_1, z_2$. Let $ l = n/2$, then the irreps of $SO(3)$ are $V_l$, where dim$(V_l) = 2l+1$. $l=0$ is the trivial rep, $l = 1$ is the defining rep of $SO(3)$. Physicists call $l$ spin; then representations of $SO(3)$ are those with integer spin, while $SU(2)$ also admits half-integer spin.
+\\
+\\
+A big goal for the class is seeing how to generalize this for an arbitary compact Lie group $G$. We will do this by analyzing certain $U(1)$ and $SU(2)$ subgroups of $G$, and then using what we've done so far to get information about the representations of $G$.
+
+\subsection*{Induced representations}
+Given an arbitrary compact Lie group $G$, all we know is that representations sit inside $L^2(G)$. Problem: $L^2(G)$ is too big, we want to explicitly find subreps, ideally $V_i$ themselves. Note that rep on $L^2(G)$ is using the \emph{left} regular representation $\pi(g) f(g_0) = f(g^{-1}g_0)$. Idea: use right action on $G$, induced right action on $L^2(G)$. If we already knew what $V_i$ was, could look at subspace where right action is as $V_i$; this is $V_i^*$. For this we can use a subgroup $H \subset G$ whose reps we know.
+
+\begin{defn}
+Given a rep $(\rho, W)$ of $H\subset G$, the induced $G$-rep os the rep on
+\[     \text{Ind}_H^G (W) = \{ f: G \to W , f(gh) = \rho(h)^{-1} f(g)   \}       \]
+Can check that this is a $G$-rep using left action.
+\end{defn}
+\begin{exmp}
+$\text{Ind}_H^G(\C)$ with $(\rho, \C)$ the trivial representation gives all complex-valued functions on $G$ invariant under $H$, or in other words functions on $G/H$.
+\end{exmp}
+We get an \emph{induction functor} that takes the category of $H$-reps to the category of $G$-reps:
+\[       \rho, W \to \text{Ind}_H^G (W)    \]
+In the language of complex $G$ modules, induction can be $W \to \C G \otimes_{\C H} W$ or $W \to \text{Hom}_{\C H} (\C G, W)$. One is called induction and the other coinduction, but people can't agree which is which. For compact Lie groups it turns out that these are the same.
+\\
+\\
+In geometry language, we have:
+\[ 
+\begin{tikzcd}
+H\arrow{r} & G\arrow{d} \\
+ & G/H
+\end{tikzcd}
+\]
+Where the base still has left $G$-action. This is an example of a principal bundle with fiber $H$. Given a rep $(\rho, W)$ of $H$, we get $E_W = G \times W / \sim$, where $\sim$ is the equivalence relation $(g, w) \sim (gh, \rho(h)^{-1} w)$. This is a vector bundle over $G/H$ with fiber $W$. On the principal bundle we didn't have nontrivial sections, but on the vector bundle we do. Denote the space of sections by $\Gamma(E_W)$, then $\Gamma(E_W)$ is isomorphic to $\text{Ind}_H^G (W)$ and carries a representation of $G$.
+
+
+\section*{Lecture 13}
+\subsection*{Frobenius reciprocity}
+Res and Ind are adjoint functors, i.e:
+\[     \Hom_G(V, \Ind_H^G W) = \Hom_H(\Res_H^G V, W)        \]
+The idea of the proof is to take $F$ that acts as $v\ to F(v)$ \dots
+\\
+\\
+For example, take $(\rho, \C)$ the trivial representation of $H$. Then:
+\[       \Ind^G_H (\C) = \{ f: G \to \C \text{ such that } f(gh) = f(g)  \}  = \{ \text{functions on } G/H\}  \]
+Frobenius reciprocity:
+\[    \Hom_G (V,  \Ind^G_H (\C)) = \Hom_H (V,\C) = [\Hom_{\C}(V, \C)]^{H} = (V^*)^H     \]
+So if $V = V_i$ irreducible, occurs in $\Fun(G/H)$ with multiplicity $\dim(V^*)^H$.
+\\
+\\
+Another example: $G = SL(2,\R)$, $H = \Gamma = SL(2, \Z)$. $V_i$ irrep of $SL(2,\R)$ then:
+\[    \Hom_G(V_i, \Ind_H^G \C) = \text{ space of modular forms }       \]
+This example is beyond the scope of our course, since $SL(2, \R)$ is noncompact.
+\\
+\\
+Yet another example. $G = SU(2)$, $H = U(1) = \left( \begin{array} {cc} e^{i\theta} & 0 \\ 0 & e^{-i\theta} \end{array} \right)$. The irreps of $U(1)$ are $(\rho_n, \C)$, $\rho_n \left( \begin{array} {cc} e^{i\theta} & 0 \\ 0 & e^{-i\theta} \end{array} \right) = e^{in\theta}$. This gives the Hopf fibration:
+\[
+\begin{tikzcd}
+U(1) \arrow{r} & SU(2) \arrow{d} \\
+ & S^2= \mathbb{CP}^1
+\end{tikzcd}
+\]
+Let $L_n$ be the induced line bundle:
+\[      L_n = SU(2) \times_{\rho_n} \C    \]
+It is a complex line bundle over $S^2$. We want to use the fact that $\Ind_{U(1)}^{SU(2)} (\rho_n, \C) = \Gamma(L_n)$. For $n=0$, these are complex valued functions on $S^2$. In general:
+\[      L_n = \{  f : \left( \begin{array} {cc} \bar\alpha & \beta \\ -\bar \beta & \alpha \end{array} \right)\to \C | f\left( \begin{array} {cc} \bar\alpha & \beta \\ -\bar \beta & \alpha \end{array} \right)\left( \begin{array} {cc} e^{i\theta} & 0 \\ 0 & e^{-i\theta} \end{array} \right) = f \left( \begin{array} {cc} e^{i\theta} \bar\alpha & e^{-i\theta} \beta \\ e^{i\theta}\bar \beta & e^{-i\theta}\alpha \end{array} \right) \}       \]
+So we actually have:
+\[    f( e^{-i\theta} \alpha , e^{-i\theta} \beta) = e^{-in\theta} f(\alpha, \beta)   \]
+Recall the construction of $SU(2)$ irreps as homogenous polynomials. Get solutions $\beta^k \alpha^{n-k}$ for $k = 1, \dots, n$, a basis for $V_n$. The ideal thing we would get from Frobenius reciprocity is that all these are induced representations. Unfortunately this doesn't work: want to understand which irreducibles occur in $\Gamma(L_n)$.
+\[     \Hom_{SU(2)} (V_n, \Gamma(L_n))   = \Hom_{U(1)} ( V_n, (\rho_n, \C))  = \text{subspace of } V_n\text{ on which }U(1)\text{ acts as } e^{in\theta}    \]
+We know $V_n$, action of $U(1)$ on homogenous polys:
+\[       z_1^k z_n^{n-k} \to e^{i\theta(-k + n-k)}  z_1^k z_n^{n-k}     \]
+Get $V_n$ in $\Gamma(L_m)$ if $m = n-2k$ for $k \in (o, \dots , n)$, all occur with multiplicity 1. Then:
+\[     \Gamma(L_m) = \oplus V_i   \text{  , where }V_i\text{ are irreducible}    \]
+To get a single irreducible, need another condition, namely of being a ``highest weight'' representation. Can get this by condition that $f\in \Gamma(L_n)$ is holomorphic. This is called Borel-Weil theory, which we may get to late in the semester.
+\\
+\\
+Let's see what this tells us about $m=0$, where $L_m$ are just complex valued functions on $S^2$. Frobenius reciprocity says that these are $\Hom_{U(1)} (V_i, \C)$. This is the subspace on which $U(1)$ acts trivially, so stuff of the form $z_1^m z_2^m$. This is a homogenous polynomial of degree $2m$. This tells us that, as an $SU(2)$ rep, these functions on $S^2$ are:
+\[    \Fun(S^2) = V_0 \oplus V_2 \oplus V_4 \oplus \dots      \]
+Notice that we could've worked with $SO(3)/SO(2) = S^2$. All $V$ above are $SO(3)$ representations. This is an analog of Fourier analysis. Tells us we can decompose functions on $S^2$ with respect to a nice basis $V_{2l}$ which behaves simply under $SO(3)$.
+\[    \Fun(S^2) = \C \oplus \C^3 \oplus \C^5 \oplus \dots    \]
+Find a basis $Y_l^m(\theta, \phi)$, where $2l+1$ is the dimension of $\C$ and $m \in \{ -l , \dots , l\}$ ($2l+1$ possibilities, coming from the $SU(2)$ action). These are spherical harmonics, and can use the to solve differential equations on $\R^3$ that have rotational symmetry.
+
+
+\section*{Lecture 14}
+\subsection*{Generalities about QM}
+\subsection*{Reps of $\mathfrak{sl} (2,\C)$}
+We found reps of $SU(2)$ in the last lecture, but we don't know that those are all. We look now at reps of $\mathfrak{su}(2)$, and we know that the finite dimensional ones are in 1-1 correspndence with those at group level. It will be more useful to complexify this Lie algebra and we will be studying the rpes of $\mathfrak{sl}(2,\C)$. We have an equivalence of the categories of representations of $\mathfrak{sl}(2,\C)$ and $\mathfrak{su}(2)$; functors are given by restriction and complexification.
+\\
+\\
+Plan: classify and construct the irreps of $\mathfrak{sl}(2,\C)$. First we see that all finite dim reps of $\mathfrak{sl}(2,\C)$ are completely reducible.
+\begin{proof}
+We can use ``Weyl's unitary trick''. Use equivalence to the reps of $SU(2)$, and since $SU(2)$ is compact these are completely reducible. A purely algebraic proof exists, but we postpone it for later.
+\end{proof}
+Notice again that this is not rrue for infinite dim irreps.
+
+\section*{Lecture 15}
+\subsection*{Discussion about real and complex representations}
+Representations over $\R$:
+\[     \Hom_G (V,V) = \R, \C, \HH     \]
+\[     \R G = \oplus_i M(d_i, \R) \oplus_j M(d_j, \C) \oplus M(d_k, \HH)    \]
+\[          \R rep \longrightarrow \C rep \longrightarrow \R rep        \]
+\[         V_0 \to V_0 \otimes \C \to V_0 \oplus V_0      \]
+\[    \C rep \longrightarrow \R rep \longrightarrow  \C rep      \]
+\[       V \to V|_{\R} \to V \oplus \bar V     \]
+
+\subsection*{Universal enveloping algebra}
+Lie algebra is not an (associative) algebra, there's no multiplication in it. For any representation $\rho : \mathfrak{g} \to \End(V)$ we can multiply by $\rho(X_1), \rho(X_2)$ and the multiplication preserves the Lie bracket. Idea: define an algebra with generators $X\in \mathfrak{g}$, subject to the relations of linearity and homomorphism property of the Lie algebra.
+\\
+\\
+We start from the construction of the tensor algebra $T(\mathfrak{g})$ for $\mathfrak{g}$ as a vector space. Then we mod by the desired equivalence:
+\[     U(\mathfrak{g}) = T(\mathfrak{g}) / (XY - YX - [X,Y])      \]
+This is called the universal enveloping algebra. Note: for $G$ commutative this gives:
+\[       U(\mathfrak{g}) = T(\mathfrak{g}) / (XY - YX)  S(\mathfrak{g})   \]
+This is the symmetric algebra, and has many nice properties. For example, it's isomorphic to polynomials on $\mathfrak{g}^*$.
+\\
+\\
+We claim that any representation $\rho : \mathfrak{g} \to \End(V)$factors through $U(\mathfrak{g})$. Lie algebra reps are therefore $U(\mathfrak{g})$ modules. We get an equivalence of categories reps of $\mathfrak{g} \longleftrightarrow U(\mathfrak{g})$ modules. Now we attempt an explicit construction of $U(\mathfrak{g})$ for $K = \R, \C$. It turns out that $U(\mathfrak{g})$ is the convolution algebra of distributions on $G$, supported at $e$. (Think derivatives of $\delta(e)$.
+\[      X \to X\delta(e)      \]
+
+\subsection*{Reps of $\mathfrak{sl}(2,\C)$}
+We investigate the apllication of the enveloping algebra to the representations of $SL(2,\C)$. While $\mathfrak{sl}(2,\C)$ has no center, $U(\mathfrak{sl}(2,\C))$ does, and it's generated by the element:
+\[       C = ef + fe + \frac{1}{2} h^2      \]
+Schur's lemma then says that $C$ acts as a scalar on irreducible reps of $\mathfrak{g}$. We can diagonalize irreps by this scalar called ``infinitesimal character''. Can prove complete reducibility for semisimple Lie algebras using this. Therefore don't need to go to $G$ and use the unitary trick. We calculate this action by letting $C$ act on a highest weight vector $v_{\lambda}$. We get:
+\[      C v_{\lambda} = (ef + \frac{1}{2}\lambda^2) v_{\lambda} = (fe + h + \frac{1}{2}\lambda^2) v_{\lambda} =  (\lambda + \frac{1}{2}\lambda^2) v_{\lambda}       \]
+
+
+\section*{Lecture 16}
+\begin{thm*} [Poincare - Birkhoff - Witt]
+Ordered monomials in $x_1, \dots , x_n$ form a basis of $\mathcal{U}_{\mathfrak{g}}$.
+\end{thm*}
+\begin{proof}
+Obvious that they span $\mathcal{U}_{\mathfrak{g}}$. By commuting they are linearly independent. (This is in fact equivalent to the Jacobi identity.)
+\end{proof}
+This leads to the idea of Grobner bases. Suppose al algebra is given as a quotient:
+\[        A = k \langle x_1, \dots , x_n \rangle / I          \]
+Or, when we add the fact that variables commute,
+\[        A = k [x_1, \dots , x_n] /I     \]
+And we want a linear basis of $A$. We introduce $E = \{$ monomials $\} = \{$ exponents $\}$. In the commutative case this is $\Z_{\geq 0}^{\otimes n}$. In the noncommutative case these are ``words''; and multiplication is just concatenation of words. Use a total or partial order on $E$ compatible with multiplication. For example, can choose lexicographical order: if $X^a < X^b$, then $X^a X^c < X^b X^c$ and $X^c X^a < X^c X^b$. In the commuttive case a populr order is the weight $wt((d_1, \dots , d_n)) = a_1 d_1 + \dots a_n d_n$. We have a subset (the set of degrees) of $E$ $m(I) = \{ d | \exists f \in I, f = x^d + \text{smaller monomials} \}$. Then we can state:
+\begin{thm*}
+$x^d$ such that $d \not \in m(I)$ form a basis of $A$.
+\end{thm*}
+\begin{proof}
+$A$ has a filtration $A = \cap A_d$ by te highest monomial. Then if I take:
+\[       A_d / \cup_{c < d} A_c        \]
+Then this is 0 if $d \in m(I)$ and $k$ otherwise.
+\end{proof}
+Then the problem of finding a basis reduces to describing $m(I)$. Suppose $I = (f_1, \dots , f_n)$. Then it's not true that $m(I) = (m(f_1), \dots , m(f_n))$. To understand this, supposse for example that $m(f_1)$ is maximal. Then $I$ doesn't change if we replace $f_2 \to f_2 + 5 f_1$, but $m(I)$ as naively defined here increases, which is a contradiction.
+\begin{defn}
+$(f_1, \dots , f_n)$ is a \textbf{Grobner basis} if $(m(f_1), \dots , m(f_n))$ generates $m(I)$.
+\end{defn}
+If $(f_1, \dots , f_n)$ is to be a Grobner basis, then it better be the case that $S(f_1, f_2)$ reduces to 0 by the procedure we already discussed: take maximal $d$ such that $a_d \neq 0$; if $d \not \in (m(f_i))$ then done, if on the other hand $x^d = x^c * m(f_k)$ substract $x_c f_k$.
+\begin{thm*}
+$(f_1, \dots , f_n)$ is a Grobner basis if $S(f_i, f_j)$ reduces to 0 by the procedure.
+\end{thm*}
+Suppose $\Gamma$ is a directed graph withouti nfinite descending chains (for us the vertices are elements of free algebra, and edges are reduction of the leading monomial). If we can complete a diamond, then (what's called ``diamond lemma'') any connected component has a unique minimum. To finish the proof, we see that the diamond lemma + $S$ pair condition say that every element of the free algebra has a unique reduction mod $f_i$.
+
+
+
+
+\section*{Lecture 17}
+\subsection*{Solvable and nilpotent Lie groups and Lie algebras}
+$G' = [G,G] \subset G$ is a subgroup of $G$ generated by $(g,h) = ghg^{-1}h^{-1}$.
+\[          1 \to G' \to G \to \text{abelian} \to 1          \]
+\begin{defn}
+$G$ is solvable if $G'''''''' = 1$.
+\end{defn}
+\begin{thm*} If $G$ simply-connected then $G'\subset G$ is a Lie subgroup with Lie algebra $\mathfrak{g}' = \text{span}[\mathfrak{g} , \mathfrak{g}]$.
+\end{thm*}
+\begin{proof}
+\[       0 \to \mathfrak{g}' \to \mathfrak{g} \to V \to 0      \]
+\[        1 \to \Ker \to G \to V \to 0           \]
+If $G,V$ are 1-connected, then by the homotopy group exat sequence $\Ker$ is connected. Any connected Lie group is generated by an arbitrarily small neighborhood of the identity, $\exp(t[\xi, \eta])$ for small $t$.
+\end{proof}
+To test our underastanding, let's do an example where $G'$ is not a Lie subgroup. We need $G$ not 1-connected.
+
+Any group $G$ that is not simply connected can be written in an exact sequence:
+\[      1 \to \Gamma \to \tilde G \to G \to 1       \]
+Where $\tilde G$ is the universal cover, and $\Gamma$ is a discrete subgroup in $Z(\tilde G)$.
+\\
+\\
+The one and only theorem about solvable Lie algebras is:
+\begin{thm*} [Lie] If $\mathfrak{g}$ is a solvable Lie algebra over an algebraically closed field $k$ and $V$ is a $\mathfrak{g}$-module then there is a basis in $V$ such that the image of $\mathfrak{g} \subset$ upper triangular matrices.
+\end{thm*}
+Note that this is the converse of an obvious fact, namely that the uppor triangular matrices are solvable. This is so because $[b,b]$ is strictly upper triangular, and therefore nilpotent. Will get 0 eventually.
+\begin{proof}
+Of course, it's enough to find an eigenvector $v$ for all $X\in \mathfrak{g}$, then apply the same reasoning to $V/\C v$. The proof of this is easy and it's in Kirillov.
+\end{proof}
+Rather than giving the details of the proof, we give it an interpetation. This is a fixed-point theorem:
+\[        v \text{ eigenvector for } \mathfrak{g} \Leftrightarrow \C v \in \mathbb{P}(V) \text{ is } \mathfrak{g}-\text{invariant}        \]
+\[          \mathfrak{g} \text{ is upper triangular in } v_1, \dots , v_n \Leftrightarrow \mathfrak{g} \text{ fixes } \C v_1 \subset \C v_1 \oplus \C v_2 \subset \dots \subset V         \]
+This sequence is a (complete) flag in $V$. Therefore $\mathfrak{g}$ fixes a point in the flag variety of $V$:
+\[         \text{Fl}(V) = \{ F_1 \subset F_2 \subset \dots \subset V , \dim F_i = i  \}      \]
+\[
+\begin{tikzcd}
+\text{Fl}(V/\C v_1) \arrow{r}\arrow{d} & \text{Fl}(V)\arrow{d}   \\
+\C v_1 \arrow{r} & \mathbb{P}(V)
+\end{tikzcd}
+\]
+\begin{thm*} (Borel-Morozov)
+$k = \bar k$, $G$ is a solvable algebraic group over $k$ (i.e. a closed subgroup of $GL(n,k)$). $G \text{ action } X =$ proper or projective. $X \subset \mathbb{P}(k^M)$ closed for some other $M'$. Then $X^G \neq \emptyset$.
+\end{thm*}
+\begin{proof}
+Let $G'$ be the commutator subgroup. We claim without proof that this is an algebraic group. By induction $Y = X^{G'} \neq \emptyset$. We claim that $Y$ is closed and $G$ -invariant. $Y$ is defined by the equations of $X$ together with $\forall g \in G', gy = y$. To show that $Y$ is $G$-invariant, we need to show that, for $g\in G, h\in G'$,
+\[           h \cdot g \cdot y = g \cdot y         \]
+\[       hgy = gh (h^{-1}g^{-1} hg) y = gh y = gy        \]
+The expression in brackets is the commutator. Therefore it is enough to prove that $G/G'$ action $Y$ has a fixed point. Note that $G/G' = A$, the product of the additive and multiplicative groups of the field. 
+\\
+\\
+This gives us a map $z \to [p_0(z) : p_M(z)] \in \mathbb{P}^M$. In particular $P(\infty) \in \mathbb{P}^M$ is well-defined and given by the top nonvanishing degree term. This point is invariant under translation by $z$.
+\end{proof}
+As an alternative discussion, consider the action of some abelian group $A$ on $Y$, proper or projective. Consider the orbits of $A$ on $Y$. Orbits of minimal dimension are closed. This is because $\bar O - O$ is an $A$-invariant set of lower dimension. If $O$ is an orbit of minimal dimension, such a thing does not exist. But closed inside projective means it's projective. But also we can write $O = A/$stabilizer of a point. This means $O$ is an linear algebraic (abelian) group, in particular affine.
+It's a basic fact of algebraic geometry that something which is both affine and projective is 0-dimensional. But that means it's a fixed point.
+
+
+\section*{Lecture 18}
+\begin{thm*} [Engel]
+Let $\mathfrak{g} \subset \mathfrak{gl}(n)$ be a Lie subalgebra. Suppose that all $X \in \mathfrak{g}$ are nilpotent. Then $\mathfrak{g}$ are all strictly upper triangular in some basis.
+\end{thm*}
+It's a trivial linear algebra fact that for each $X$ there is some basis such that it becomes strictly upper diagonal. But this theorem asserts the existence of a common basis for all $X$. We omit the proof, which is by induction. (Read it somewhere, it's not hard.) Instead we prove the analogous result for groups:
+\begin{thm*} [Kolchin]
+Let $G \subset GL(n,k)$ be a subgroup (not necessarily Lie). Suppose that every $g \in G$ is unipotent. Then there exists some basis such that all elements of $G$ are upper diagonal.
+\end{thm*}
+\begin{proof}
+It's enough to find $v \in V = k^n$ such that $g \cdot v = v$ for all $g \in G$. If we have this, then we can let $V' = V/kv$ and the result follows by induction.
+\\
+\\
+The equations $g\cdot v = v$ are linear in $v$ so we can assume that $k = \bar k$. Furthermore, we can assume that $V$ is irreducible (if there exist a $G$-invariant subspace $W$, then just apply the reasoning to it instead). But there's only one associative algebra over an algebraically closed field, with an irreducible module $V$: the algebra of endomorphisms $\End(V)$. This reduces the problem to:
+\[     G \subset GL(V), \text{Span}(G) = \End(V), \text{ all } g\in G \text{ unipotent }       \]
+Then we claim that $\dim V = 1, g = \{1\}$. On $\End(V)$ we have a pairing $(A, B) \to \Tr(AB)$:
+\[        g = 1 \Leftrightarrow g - 1 = 0 \Leftrightarrow (g-1, h) = 0,\; \forall h\in G         \]
+\[         0 = \Tr(g-1)h = \Tr gh - \Tr h        \]
+\end{proof}
+
+\subsection*{Invariant bilinear forms}
+$\mathfrak{gl}(n,k)$ has a bilinear form:
+\[     (a, b) = \Tr(ab)    \]
+which is invariant in the sense that $(a, [b,c]) = ([a,b], c)$. Now if $\mathfrak{g}$ is any Lie algebra and we have a representation $\rho : \mathfrak{g} \to \mathfrak{gl}(n)$, then we can define a bilinear form:
+\[      (a,b)_{\rho} = (\rho(a), \rho(b)) = \Tr \rho(a) \rho(b)    \]
+In particular for $\rho = ad$ this is called the Killing form. We will mainly be interested in studying two types of Lie algebras. Those for which the Killing form is nondegenerate turn out to be the semisimple Lie algebras. Those for which the Killing form is identically 0 are the solvable Lie algebras, as we prove below.
+\begin{thm*}
+$\mathfrak{g} \subset \mathfrak{gl}(V)$ is solvable $\Leftrightarrow (a, [b,c]) = \Tr a [b,c] = 0$.
+\end{thm*}
+\begin{proof}
+``$\Rightarrow$'' is the easy direction. By Lie's theorem, studied in the previous lecture, any solvable Lie algebra consists of upper triangular matrices in some basis. But then $[\mathfrak{g}, \mathfrak{g}]$ consists of strictly upper triangular matrices. Then $a[b,c]$ is strictly upper triangular, so its trace is 0.
+\\
+\\
+``$\Leftarrow$'' is a bit tricky. It suffices to prove that $[\mathfrak{g},\mathfrak{g}]$ is nilpotent. By Engel's theorem, it's enough to show that every $X$ in $[\mathfrak{g}, \mathfrak{g}]$ is nilpotent. We construct:
+\[       \tilde{\mathfrak{g}} = \{ X \in \mathfrak{gl}(n) | [X, \mathfrak{g}] \subset [\mathfrak{g}, \mathfrak{g}] \}  \supset \mathfrak{g}     \]
+\[         \tilde G = \{ h \in GL(n) | \forall a \in \mathfrak{g} , hah^{-1} = a \text{ mod } [\mathfrak{g}, \mathfrak{g}]  \}     \]
+$\tilde G$ is an algebraic subgorup of $GL(n)$. We claim without proof that a Lie algebra of an algebraic group contains together with any element $X$ its semisimple and nilpotent parts. Let $X \in [\mathfrak{g}, \mathfrak{g}]$, which means:
+\[     X = \sum_i [b_i , c_i]     \]
+We take the semisimple part, $X_s$, to mean the diagonal of $X$ when $X$ is written in upper triangular form. Similarly, the nilpotent part $X_n$ is the strictly upper triangular part. Consider $\bar X_s$, i.e. the complex conjugate of the diagonal matrix $X_s$. We compute:
+\[            \Tr( X \bar X_s)  = \sum_{\text{diagonal elements}} |\lambda|^2       \]
+On the other hand:
+\[            \Tr( X \bar X_s)  = \sum_i ([b_i, c_i] , \bar X_s) = \sum_i (b_i, [c_i , \bar X_s])       \]
+Since $[c_i , \bar X_s] \in [\mathfrak{g} , \mathfrak{g} ]$, this gives 0 by hypothesis. Therefore all diagonal elements are 0, and so $X$ is nilpotent.
+\end{proof}
+As a corollary, this statement holds for any Lie algebra $\mathfrak{g}$, not only subalgebras of $\mathfrak{gl}(V)$. To see this, consider the following short exact sequence:
+\[        0 \to \text{Center} \to \mathfrak{g} \overset{\text{ad}}{\to} \mathfrak{g}/\text{Center}  \to 0     \]
+$\mathfrak{g}/\text{Center}$ is a subset of $\End(\mathfrak{g})$. The theorem we just proved shows that the Killing form is 0 iff $\mathfrak{g}/\text{Center}$ is solvable, which happens iff $\mathfrak{g}$ is solvable.
+
+
+
+\section*{Lecture 21}
+\subsection*{Cartan subalgebras}
+Plan: classify complex simple Lie algebras. Consider adjoint rep, find constraints needed for this to be a irrep. For the first part, given $X\in \mathfrak{g}$, consider action of $\ad X$, try to diagonalize it. Try and find as many commuting $X$ as possible.
+
+\begin{defn}
+$X$ is a semisimple element of $\mathfrak{g}$ if $\ad X$ is a semisimple operator. Over $\C$, this means it's diagonalizable. 
+\end{defn}
+\begin{defn}
+$X$ is a nilpotent element of $\mathfrak{g}$ if $(\ad X)^n = 0$ for some $n$.
+\end{defn}
+Won't prove: Jordan decomposition $\ad X = (\ad X)_{\text{SS}} + (\ad X)_{\text{n}}$. Then we have a unique decomposition $X = X_{\text{SS}} + X_{\text{n}}$, with $[X_{\text{SS}}, X_{\text{n}}] = 0$.
+\begin{exmp} $\mathfrak{sl}(2,\C)$
+\[    \left( \begin{array} {cc} \alpha & \gamma \\ \beta & - \alpha \end{array} \right)     \]
+Nilpotent: $- \alpha^2 - \beta \gamma = 0$. The nilpotent cone in $\mathfrak{sl}(2,\C)$ is the $0$ matrix plus the orbit of $\left( \begin{array} {cc} 0 & 1 \\ 0 &0 \end{array} \right)$ under conjugation.
+
+On $\mathfrak{su}(2) \subset \mathfrak{sl}(2,\C)$ we have:
+\[   \left( \begin{array} {cc} ia & b+ic \\ -b+ic & - ia \end{array} \right)  \]
+Here the determinant is $a^2 + b^2 + c^2$, so it's only 0 if $a,b,c=0$. All nonzero elements are semisimple. In fact all orbits of arbitrary nonzero $M$ are spheres of radius $\sqrt{a^2 + b^2 + c^2}$. (When considering the vector representation on $\R^3$. The morale of the story is that we look for a compact Lie group in order to get rid of nilpotents.
+
+On the other hand, if we look at a noncompact real form, such as $\mathfrak{sl}(2,\R)$, this is non going to work. Matrices are of the form:
+\[ \left( \begin{array} {cc} a & b \\ c & - a \end{array} \right) \]
+So we have nilpotents when $-a^2 - bc = 0$, and there's a nontrivial nilpotent cone. Also, here not all seimisimple $M$ of fixed length are conjugate.
+\end{exmp}
+The way we classified reps of $\mathfrak{sl}(2,\C)$ actually relied on the fact that $h$ is semisimple, and the basis we worked in diagonalizes $h$. $\mathfrak{h}$, the subalgebra of multiples of $h$, is the Cartan subalgebra here.
+
+Let's see what happens if we consider $\mathfrak{sl}(n,\C)$. We have a lot more diagonal things to consider. We define the diagonal subalgebra:
+\[      \mathfrak{h} =     \left(\begin{array} {ccc}  h_1 & \dots & 0  \\ \vdots & \ddots & \vdots \\ 0 & \dots & h_n \end{array} \right) \;\;\;, \sum h_j = 0  \]
+Recall that the Jordan normal form gives that any matrix can be conjugated to a block diagonal form, where blocks are eigenspaces. The problem is that each nontrivial block may have a nilpotent part.
+\begin{defn}
+Elements $X \in \mathfrak{sl}(n,\C)$ are called regular if the have distinct eigenvalues. (sometimes ``general'')
+\end{defn}
+Note that the centralizer of a regular element is the diagonal subalgebra. I.e., $\ad X(h) = 0$ for a regular $h$ iff $X$ diagonal. Now we look at the elements that are non regular, but still diagonal. Then the orbit also consists of matrices with some blocks corresponding to each eigenvalue.
+
+Can characterize the diagonal subalgebra in al least 2 different ways. It's the maximal subalgebra of commuting semisimple elements, but also the centralizer of a regular semisimple element. In general, there are also at least 3 different definitions of a Cartan subalgebra. 
+\begin{enumerate}
+\item First we say that a subalgebra is \textbf{toral} if it's commutative and all elements are semisimple. The we say that a Cartan subalgebra is a maximal toral subalgebra. This definition is not very general; it only applies to semisimple Lie algebras.
+\item A Cartan subalgebra is a nilpotent subalgebra $\mathfrak{h} \subset \mathfrak{g}$ such that $ad X \mathfrak{h} = \mathfrak{h}$ implies $X \in \mathfrak{h}$.
+\item $X \in \mathfrak{g}$ is regular if:
+\[    \dim \{  Y \in \mathfrak{g} : (ad X)^n Y = 0 \text{ for some } n \}   \]
+is minimal. Then define a Cartan subalgebra as the centralizer of a regular semisimple element.
+\end{enumerate}
+\begin{defn}
+The dimension of a Cartan subalgebra is called the rank of $\mathfrak{g}$.
+\end{defn}
+We don't prove this, but all Cartan subalgebras are conjugate.
+
+\subsection*{Root spaces}
+When we have a Cartan subalgebra $\mathfrak{h} \subset \mathfrak{g}$, we use it to decompose $\mathfrak{g}$ into eigenspaces of the action of all elements of $\mathfrak{h}$.
+\begin{defn}
+For any representation $(\phi, V)$ of $\mathfrak{g}$, the \textbf{$\alpha$-weight space} $V_{\alpha} \subset V$ is the subspace:
+\[       V_{\alpha} = \{  v \in V : \phi(h) v = \alpha(h) v, \forall h \in \mathfrak{h}  \}     \]
+Where $\alpha \in \mathfrak{h}^*$. If $V_{\alpha} \neq 0$, $\alpha$ it is called a \textbf{weight} of the representation. For the special case of the adjoint representation, nonzero weights are called \textbf{roots}.
+\end{defn}
+
+
+
+\section*{Lecture 22}
+\textbf{Plan.} Show that, for each $\alpha$, get a copyof $\mathfrak{sl}(2,\C) \subset \mathfrak{g}$. Then classify possible ways these can fit into a simple $\mathfrak{g}$.
+
+For example, for $\mathfrak{sl}(2,\C)$, $[h,e] = 2e$, so $\alpha(h) = 2$.
+
+List of properties of roots, root spaces:
+\\
+1) $[\mathfrak{g}_{\alpha}, \mathfrak{g}_{\beta} ] \subset \mathfrak{g}_{\alpha + \beta}$. 
+\begin{proof}
+$X \in \mathfrak{g}_{\alpha} , Y \in \mathfrak{g}_{\beta}, h \in \mathfrak{h}$, then:
+\[       \ad(h)[X,Y] = [\ad(h) X, Y] + [X, \ad(h) Y] = (\alpha(h) + \beta(h) ) [X,Y]     \]
+\end{proof}
+2) $\mathfrak{g}_{\alpha}, \mathfrak{g}_{\beta}$ are orthogonal with respect to the Killing form, for $\alpha \neq \beta, \alpha \neq - \beta$.
+\begin{proof}
+Use $\ad$ invariance of $( \cdot , \cdot )$:
+\[    0 = \ad(h) (X, Y) = (\ad(h) X, Y) + (X, \ad(h) Y) = (\alpha(h) + \beta(h))(X,Y)     \]
+Therefore if $\alpha \neq - \beta$ then $(X,Y) = 0$.
+\end{proof}
+3) If $\alpha$ is a root, so is $-\alpha$. Follows from 2, otherwise $(,)$ degenerate.
+
+4) The roots $\alpha$ span $h^*$. If not, then for dimensional reasons there exists $X \in h$ such that $\alpha(X) = 0$ for all $\alpha$. Then $[X,Y] = 0$ for all $Y \in \mathfrak{g}_{\alpha}$. Then $X$ is in the center of $\mathfrak{g}$, but we assumed simplicity.
+
+5) $(,)$ is nondegenerate on $h$, 
+
+6) For any root, $[\mathfrak{g}_{\alpha}, \mathfrak{g}_{-\alpha}] \neq 0$. To prove this, we first use the fact that $([X,Y] , Z) = (X, [Y,Z])$. The reason for this is that these are traces of linear operators, so $A_x = \ad(x)$ and $\Tr((A_x A_y - A_y A_x) A_z) = \Tr(A_x (A_y A_z - A_z A_y))$, by cyclicity of the trace. (Turns out this just proves $ad$ invariance, which we could have used in the first place.) Anyway, this gives:
+\[        (h, [X,Y]) = ([h,X] , Y) = \alpha(h) (X,Y)       \]
+We know that $(X,Y) \neq 0$ and $\alpha(h) \neq 0$ in general, so $[X,Y] \neq 0$ as desired.
+
+7) If $T_{\alpha} \in h$ is the dual to $\alpha \in h^*$ under $(,)$ i.e.:
+\[     (T_{\alpha}, h) = \alpha(h)     \]
+Then $[X,Y] = (X,Y) T_{\alpha}$ for $X \in \mathfrak{g}_{\alpha}, Y \in \mathfrak{g}_{-\alpha}$. 
+\begin{proof}
+Compute:
+\[  (h, [X,Y]) = ([h,X] , Y) = \alpha(h) (X,Y) = (T_{\alpha}, h) (X,Y) = (h, (X,Y) T_{\alpha})  \]
+\end{proof}
+8) $\alpha(T_{\alpha}) \neq 0$.
+\begin{proof}
+Assume otherwise. Then Choose $X \in \mathfrak{g}_{\alpha}, Y \in \mathfrak{g}_{-\alpha}$ with $(X,Y) = c \neq 0$. Then $[X,Y] = c T_{\alpha}$. $X,Y, T_{\alpha}$ span a 3D subalgebra of $\mathfrak{g}$. If $\alpha(T_{\alpha}) = 0$, then this is a solvable subalgebra. To see this, by Lie theorem there exists a basis such that $\ad X, \ad Y, \ad T_{\alpha}$ are all upper triangular. Then $T_{\alpha} = c^{-1} [X,Y]$ is strictly upper triangular, nilpotent. But we assumed $T_{\alpha} \in \mathfrak{h}$, which is semisimple.
+\end{proof}
+9) Assume $e_{\alpha} \in \mathfrak{g}_{\alpha}$, $f_{\alpha} \in \mathfrak{g}_{-\alpha}$ are normalized such that:
+\[       (e_{\alpha} , f_{\alpha}) = \frac{2}{(\alpha, \alpha)}    \]
+Note that the inner product on $h^*$ makes sense, using the canonical isomorphism given by $(,)$. Then let $h_{\alpha} = \frac{2T_{\alpha}}{(\alpha, \alpha)}$ and then $e_{\alpha}, f_{\alpha}, h_{\alpha}$ satisfy the $\mathfrak{sl}(2,\C)$ commutation relations, so this gives $\mathfrak{sl}(2,\C) \subset \mathfrak{g}$.
+\begin{defn}
+$h_{\alpha} \in \mathfrak{h}$ is called to coroot of $\alpha$, sometimes written $\alpha^V$, and we can check that it doesn't depend on the normalization of $(,)$.
+\end{defn}
+Now we use the following facts:
+\begin{enumerate}
+\item $\mathfrak{g}$ is a representation of $\mathfrak{sl(2,\C)}_{\alpha}$ (by restriction of the adjoint representation). And we know what the finite dimesnional reps of the latter are.
+\item Any finite dimensional representation $V$ of $\mathfrak{sl}(2,\C)$ breaks up as:
+\[       V = \oplus_{\lambda}  V_{\lambda}     \]
+Get an integrality condition that $\lambda(h) \in \Z$.
+\item $\beta(h_{\alpha}) \in \Z$. 
+\[    \beta(h_{\alpha}) = \beta\left( \frac{2T_{\alpha}}{(\alpha, \alpha)} \right)  = \frac{2(\alpha, \beta)}{(\alpha, \alpha)} \in \Z    \]
+This is the weight of a $\mathfrak{g}_{\beta}$ subspace as a rep of $\mathfrak{sl}(2,\C)_{\alpha}$.
+\item \[     V = \C h_{\alpha} \oplus (g_{\alpha} \oplus g_{-\alpha}) \oplus  (g_{2\alpha} \oplus g_{-2\alpha})  \oplus ...   \]
+Is an irreducible $\mathfrak{sl}(2,\C)$ representation. Weight 0 subspace $\Rightarrow 1-d$.
+\item All $\mathfrak{g}_{\alpha}$ are 1-d.
+\end{enumerate}
+We work out through the example $\mathfrak{sl}(3,\C)$. We have $h_1, h_2, h_3$ whose sum is 0. Let $e_i$ be the duals of these; then we have 6 roots:
+\[         \pm \alpha \;\;\;\; \alpha = e_1 - e_2       \]
+\[         \pm \beta \;\;\;\; \beta = e_2 - e_3       \]
+\[         \pm \gamma \;\;\;\; \gamma = e_1 - e_3       \]
+We'll consider a real subspace $h_R^* \subset h^*$, where $(,)$ is positive definite. 
+
+
+\section*{Lecture 23}
+Consider:
+\[          \C h_{\alpha} \oplus (g_{\alpha} \oplus g_{-\alpha}) \oplus (g_{2\alpha} \oplus g_{-2\alpha}) \oplus \dots  \]
+With weights of $\mathfrak{sl}(2,\C)_{\alpha}$ given by $0, 2, -2, 4, -4 \dots$. This must be an irrep of $\mathfrak{sl}(2,\C)$. We learn that $\dim g_{\alpha} = 1$, and that if $\alpha$ is a root, the only $K\alpha$ root is for $K = -1$. We can apply the same argument to:
+\[        g_{\beta} \oplus  \oplus (g_{\beta + \alpha} \oplus g_{\beta-\alpha}) \oplus (g_{\beta + 2\alpha} \oplus g_{\beta-2\alpha}) \oplus \dots     \]
+
+\begin{defn}
+A (reduced) root system is a finite set $R \subset V$, with $V$ real vector space with positive definite inner product such that:
+\begin{enumerate}
+\item $R$ spans $V$
+\item If $\alpha, \beta \in R$, then $\frac{2(\alpha, \beta)}{(\beta, \beta)} = n_{\alpha \beta} \in \Z$
+\item If $\alpha, \beta\in R$, then $s_{\alpha}(\beta) = \beta - \frac{2(\alpha, \beta)}{(\alpha, \alpha)} \alpha \in R$
+\item (for reduced only) If $\alpha \in R$, $C \alpha \not \in R$ unless $C = \pm 1$.
+\end{enumerate}
+\end{defn}
+The roots of $\mathfrak{g}$ simple form a reduced root system. Therefore our plan is to first classify reduced root systems, and then given a RRS, can construct a Lie algebra.
+
+Notice that if $\alpha, \beta$ are roots, then $n_{\alpha \beta} = \frac{2|\alpha|}{|\beta|} \cos \theta_{\alpha, \beta} \in \Z$. Then:
+\[      n_{\alpha \beta} n_{\beta \alpha} = 4 \cos^2_{\alpha \beta}  \in \Z    \]
+\[      4 \cos^2_{\alpha \beta} = 0, 1,2,3      \]
+We treat each case.
+\begin{enumerate}
+\item $\cos^2\theta = 0$, $\theta = \pi/2$, and $n_{\alpha \beta} = n_{\beta \alpha} = 0$. All roots are orthogonal.
+\item $\cos^2 \theta = 1/4, \theta = \pi/3, 2\pi/3$.
+\end{enumerate}
+
+
+\section*{Lecture 24}
+Given simple complex Lie algebra $\mathfrak{g}$, we first choose a decomposition $R = R_+ \cup R_-$, positive and negative roots. Then find a set $\pi$ of simple roots. Then we can reconstruct $R$ as $\omega(\pi)$, using the action of the Weil group. We characterize possible choices of $\pi$ by Dinkin diagrams. Small circle for every simple root, number of lines for number of bonds between elements ($n_{\alpha \beta} n_{\beta \alpha}$, this can be 0,1,2,3). Finally arrows to indicate which root is larger. The classification theorem says that the only possibilities are $A_n, B_n, C_n, D_n, E_6, E_7, E_8, F_4, G_2$.
+
+\begin{thm*}
+The list includes all graphs $\Delta$ that satisfy:
+\begin{enumerate}
+\item Connected
+\item Number of links is 0,1,2,3
+\item The quadratic form $Q_{\Delta}$ is positive definite:
+\[        Q_{\Delta} (x_1, \dots, x_r) = 2 \sum_{i=1}^r x_i^2 - \sum_{i\neq j} \sqrt{n_{ij}} x_i x_j = 2 \left( \sum_i x_i \frac{\alpha_i}{\sqrt{(\alpha_i, \alpha_i)}} , \sum_j x_j \frac{\alpha_j}{\sqrt{\alpha_j, \alpha_j}}  \right)   \geq 0        \]
+This corresponds to a matrix $M_D$ that has 2 on the diagonal and $- \sqrt{n_{ij}}$ as nondiagonal entries. This should be positive definite because the Killing form is positive definite on the Cartan subalgebra.
+\end{enumerate}
+\end{thm*}
+If we drop the third condition we get more graphs. We can still construct an algebra out of these graphs, but not finite dimensional Lie algebras, but Kac-Moody algebras.
+
+\begin{proof}
+Define a subgraph $\Delta' \subset \Delta$ by removing either one node or one bond. Notice that all subgraphs of graphs on the list are on the list. We claim without proof that if $Q_{\Delta}$ is positive definite, then so is $Q_{\Delta'}$. To check that $Q_{\Delta}$ is positive definite for all $\Delta$, we use the following fact. A matrix $M_{\Delta}$ is positive definite iff any principal minors satisfy $\det M > 0$.
+
+Now we need to show that no other graphs will have $Q_{\Delta}$ positive definite. We claim that $\Delta$ can't have any cycles. If it did, it would have a cyclic subgraph in this list, and $\det M$ evaluates to 0 on this. Then we claim that $\Delta$ has at most one multiple bond. If not, we have a subgraph in this list which looks like $o = o$, $o = o - o = o$, etc. But we show that $\det M_{\Delta} = 0$ on these. Similarly, it cannot have a multiple bond AND a branch point. It also can't have multiple branch points. If $\Delta$ has a triple bond, it must be $G_2$, otherwise we would have subgraphs $o - o \cong o$. If it has a double bond, there's only one and has no branch point, therefore it's a chain. If the double bond is at the end of the chain, we get $B_n, C_n$. If it's not, it must be $F_4$, otherwise it's going to have $o - o = o - o - o$. For the last case, assume only single bonds (this is called simply laced). Obviously, if there are no branch points we get $A_n$. If we have 1 branch point, then this must be 3-valent, as the 4-valent one is 0 by case 4. Call the lengths of the 3 branches $l_1 \geq l_2 \geq l_3$. We have $r = l_1 + l_2 + l_3 + 1$. Must have $l_3 = 1$ and $l_2 \leq 2$. For $l_2 = 1$, we get $D_n$. If $l_2 = 2$, we can have $l_1 = 2,3,4$.
+\end{proof}
+
+For each Dynkin diagram we get:
+\begin{enumerate}
+\item simple complex Lie algebra $\mathfrak{sl}(n+1, \C)$.
+\item compact real form $\mathfrak{su}(n+1)$
+\item split real form $\mathfrak{sl}(n+1, \R)$
+\item other real forms
+\item adjoint groups $\Ad G$, connected component of $\Aut(\mathfrak{g})$. $SL(n+1, \C)$.
+\item compact, connected, simply connected real Lie group $SU(n+1)$.
+\end{enumerate}
+Get low degree isomorphism if some of these coincide. If $n=1$, get $Sp(1) = SU(2) = Spin(3)$. If $n = 2$, $D_2 = A_1 \cup A_1$. Get $\mathfrak{so}(4,\C) = \mathfrak{sl}(2,\C) \oplus \mathfrak{sl}(2,\C)$. At group level this reads $Spin(4) = SU(2) \times SU(2)$. $B_2 = C_3$, so $\mathfrak{so}(5,\C) = \mathfrak{sp}(2, \C)$. $Spin(5) = Sp(2)$.
+
+For $n=3$, we get $D_3 = A_3$, so $\mathfrak{so}(6, \C) = \mathfrak{sl}(4,\C)$. At group level this shows $Spin(6) = SU(4)$. All other classical groups are distinct.
+
+We could have done this classification from the POV of classifying compact Lie groups. We need an analog of Cartan subalgebras.
+\begin{defn}
+A Cartan subgroup or maximal torus is a subgroup $T = U(1) \times \dots \times U(1) \subset G$. 
+\end{defn}
+\begin{thm*}
+Each $g\in G$ is contained in some Cartan subgroup. All Cartan subgroups are conjugate.
+\end{thm*}
+We use the Cartan to define weights of roots. Finally, we need a notion of the Weyl group.
+\begin{defn}
+\[    N(T) = \{  g \in G | g^{-1} T g = T \}  \;\;\;\;\;\;\; W = N(T) / T   \]
+\end{defn}
+There's some nice things in this story which we don't see in the Lie algebra story. We can consider $G/T$. If, for example, $G = SU(2)$, $T = U(1)$, we get $G/T = \mathbb{CP}^1 = S^2$. For $G = U(n)$, $T = U(1)^{\times n}$, $G/T = Fl(n)$, flag manifold $= \{  \C \subset \dots \subset \C^n \}$. In general, $G/T$ is always a complex manifold (actually Kahler). Going to the Lie algebra level, we get:
+\[        T_e G = T_e T \oplus T_{[eT]} G/T        \]
+We complexify and get:
+\[        \mathfrak{g} = \mathfrak{h} \oplus (T_{[eT]} G/T \otimes \C)      \]
+Thus, using $\pm$ root decomposition, the latter splits as $n_+ \oplus n_-$. Then complexified tangent spaces on $G/T$ split into $T^{0,1} (G/T) \oplus T^{1,0} (G/T)$, i.e. split into holomorphic and antiholomorphic vectors.
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

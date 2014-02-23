@@ -1,0 +1,90 @@
+\documentclass[12 pt]{article}
+\usepackage{amsmath,amssymb,amsthm,fullpage,amsfonts,enumerate,textcomp, eurosym}
+\title{QFT Lecture 15}
+\author{Matei Ionita}
+\DeclareMathOperator {\p} {\partial}
+
+\begin{document}
+  \maketitle
+
+Last time: any theory with couplings of negative mass dim is non-renormalizable, i.e. it needs an infinite number of counterterms. In particular, in $d=4$, the only renormalizable interactions are $(\p \phi)^2 , \phi^2, \phi^3, \phi^4$. Moral of the story: quantum fluctuations force upon you types of interaction that were not present classically. Furthermore, quantum fluctuations also renormalize couplings. However, symmetry generally restricts the form of the counterterms. (Will see later.)
+
+\subsection*{Perturbation theory to all orders}
+Reference: Ch. 19
+\\
+\\
+Step 1: Assemble tools. Compute 1PI loop corrections to propagator ($i \pi(k^2)$). Compute 1PI $iV_3(k_1, k_2, k_3)$ from trees, loops etc. Compute 1PI $iV_4(k_i)$: first compute skeleton diagrams, then use full propagators and full cubic vertices for them. (Since we use $V_3$ and not $ig$ as a vertex factor, we only need the skeleton diagrams.) Similarly, compute all other vertex functions that are needed.
+\\
+\\
+Step 2: Compute the scattering amplitude for E particles (E external legs). First, write down all tree diagrams with E external legs, including fake ones (i.e. pretending that you also have $\phi^4$ interactions, so include $><$ ). Then use full propagators and full vertex functions for all tree diagrams. (For 2-2 diagrams in $\phi^3$ all tree diagrams would be $>-<$ and $><$.) This is then the full amplitude.
+\\
+\\
+Another exercise: $E=5$. Basically take regular diagrams and attach an extra leg in random places.
+
+\subsection*{Application to 2$\to$2 scattering in $\phi^3$ theory}
+Reference: Ch. 20
+\\
+\\
+(True) tree level, we have s,t,u channels and we use the free propagator and vertex function:
+\[    i\mathcal{M}_{\text{tree}} = (ig)^2 \frac{1}{i} \left[ \tilde \Delta(-s) + \tilde \Delta(-t) + \tilde \Delta (-u)  \right]   \]
+Using the four possible diagrams, s,t,u and $><$, we get:
+\[      \mathcal{M} =  \frac{1}{i} \left[   iV_3 (k_1, k_2, k_1 + k_2)  i V_3 (k_1', k_2', k_1'+k_2') \tilde \Delta_{\text{full}}(-s)   + \{ \text{ t,u channels } \} + iV_4 (k_1, k_2, k_1', k_2')  \right] \]
+
+\subsection*{Quantum effective action}
+Reference: Chapter 21
+\\
+\\
+Claim: loops somehow correspond to quantum correction. What do people mean by this? In the path integral fomralism, the classical field configuration is the one that extremizes the action. Then we want to show that loop expansion is analogous to $\hbar$ expansion of the action.
+\\
+\\
+If we restore $\hbar$, each vertex comes with an extra factor of $1/\hbar$. Then, since the KG operator has a $1/\hbar$, propagators which are Green's functions for operators have a factor of $\hbar$. Then a given diagram has $\hbar^{\text{no of internal propagators - no of vertices}}$. Our claim is then that the exponent is just the number of loops minus 1. We will show that this is true for any theory, so irrespective of the order of the vertices.
+\\
+\\
+First, note that by number of loops we mean the number of internal momenta that are integrated over. To count these, we can first naively assign an internal momentum to each internal propagator. There's obviously an overcounting here, which happens because each vertex comes with a delta function in momentum! Thus each vertex removes 1 momentum. But note that one of the delta functions takes care of conserving external momentum, so the previous statement undercounted by 1.
+\\
+\\
+Definition: Quantum effective action. Analogous of action, but includes all loop effects. This means that up to first order is just the usual action.
+\[         \Gamma(\phi)  = \sum_{n=2}^{\infty} \frac{1}{n!} \int d^d x_1 ... d^d x_n  \Gamma_{1,2,...,n} \phi_1 ... \phi_n    \]
+For $n=2$:
+\[     \Gamma_{12} = -  \Delta^{-1}_{\text{full}} (x_1 - x_2) \;\;\;\;\;\;   \Delta_{\text{full}} (x_1 - x_2)  = \int \frac{d^d k}{(2\pi)^d} \frac{e^{-ik(x_1-x_2)}}{k^2+m^2 - \pi(k^2)}\]
+\[     \Gamma_{123} = \int \frac{d^d k_1}{(2\pi)^d}\frac{d^d k_2}{(2\pi)^d}\frac{d^d k_3}{(2\pi)^d}  \delta(k_1+k_2+k_3)  V_3 (k_1, k_2, k_3)  e^{-i(k_1x_1 + k_2x_2 + k_3x_3)}  \]
+In other words, this is the Fourier transform of the n-th dimensional vertex function. One can wonder what's the use of defining this object. To maintain suspense, before giving out hte answer note that the quantum action can be rewritten as:
+\[   \Gamma(\phi) = \sum_{n=2}^{\infty} \frac{1}{n!} \int \frac{d^d k_1}{(2\pi)^d} ... \frac{d^d k_n}{(2\pi)^d} (2\pi)^d \delta(k_1+...+k_n) V_3(k_1...k_n) \phi_1 ... \phi_n   \]
+Now check that, for $n=2$, if $\pi(k^2) = 0$:
+\[    \Gamma(\phi) = - \frac{1}{2} \int d^d x \phi (-\p^2 + m^2) \phi   \]
+Which is just the usual action! Thus $\Gamma(\phi)$ encodes additional quantum effects. More precisely, a process computed using all loops with the classical action is equivalent to computing the quantum action to tree level. This statement is just a repackaging of our previous argument including skeleton diagrams.
+\\
+\\
+Now we know that the generating function is:
+\[   Z[J] = \int D\phi  e^{i(S[\phi] + \int d^d x J \phi)}  = e^{iW[J]}  \]
+Question: how is $W[J]$ related to $\Gamma(\phi)$? It turns out that they are related by a Legendre transform, so we will interpret J as a momentum for $\phi$. But we will show it next time.
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,118 @@
+\documentclass[12 pt]{article}
+\usepackage{amsmath,amssymb,amsthm,fullpage,amsfonts,enumerate,textcomp, eurosym, tikz-cd, fullpage}
+\title{Commutative algebra HW8}
+\author{Matei Ionita}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\CP}{\mathbb{C}\mathbb{P}}
+\newcommand{\RP}{\mathbb{R}\mathbb{P}}
+\newcommand{\Proj}{\mathbb{P}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\p}{\partial}
+\newcommand{\fr}{\mathfrak}
+
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\length}{length}
+\DeclareMathOperator{\res}{Res}
+\DeclareMathOperator{\Int}{Int}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\Lie}{Lie}
+\DeclareMathOperator{\id}{Id}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\irr}{irr}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\trdeg}{trdeg}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Nm}{Nm}
+\DeclareMathOperator{\ord}{ord}
+
+
+\begin{document}
+  \maketitle
+
+
+\subsection*{Problem 2}
+\emph{Let $k$ be an algebraically closed field. Let $A = k[x, y]/(f)$ where $f$ is an irreducible polynomial. Let $K$ be the fraction field of $A$. Let $C = \{(s, t) \in k^2 | f(s, t) = 0\}$. Recall that the maximal ideals of $A$ correspond 1-1 with points of the curve C.}
+\begin{enumerate} [(a)]
+\item \emph{Show that if every point of C is nonsingular, then the valuations of $K$ centered on $A$ are in 1-1 correspondence with points of C. (Hint: Above you showed that the local rings of $A$ are regular at nonsingular points. You may use that a regular local ring of dimension 1 is a discrete valuation ring and hence gives rise to a discrete valuation, see for example Lemma Tag 00PD.)}
+\item \emph{Give an example to show this is false when C is singular.}
+\end{enumerate}
+\vspace{5mm}
+\emph{Solution}
+\\
+(a) In HW4 we showed that, at nonsingular points $(s,t) \in C$, $A_{(x-s, y-t)}$ is a regular local ring. Also, $A_{(x-s, y-t)}$ has dimension 1 because it's the qoutient by a prime ideal of a dimension 2 ring. Therefore points on $C$ are in 1-1 correspondence with regular local rings of dimension 1. By Lemma Tag 00PD, the latter are DVRs, and thus give rise to a discrete valuation. To see explicitly how this valuation is constructed, we follow the notes in http://www.math.nmsu.edu/$\sim$pmorandi/math601f01/DiscreteValuationRings.pdf . We can first use Nakayama's lemma to show that the maximal ideal $\fr m = (x-s, y-t)$ is principal in $A_{\fr m}$, and then use this fact to show that any ideal of $A_{\fr m}$ is equal to $\fr m^n$ for some natural power $n$. This allows us to define a valuation $v$ on $A_{\fr m}$ by setting $v(a) = n$ iff $(a) = \fr m^n$. $v$ can be extended to $K = f.f. (A_{\fr m}) = f.f. (A)$ by setting $v(a/b) = v(a) - v(b)$. Then it's easy to see that $\mathcal{O}_v = A_{\fr m} \supset A$, and therefore $v$ is centered on $A$. Moreover, $v$ is the projection map from $K^*$ to $K^*/A_{\fr m}^*$, so it's the unique valuation on the DVR $A_{\fr m}$.
+\\
+\\
+b) Consider $f = y^2 - x^3 - x^2$. The curve C, depicted in the figure, is singular at $(0,0)$. For all points of $C$ except for $(0,0)$, the argument of part (a) applies and we get 1-1 correspondence between these points and discrete valuations centered on $A$. However, we will see that at $(0,0)$ we can define multiple valuations that are centered on $A$.
+\\
+\\
+Consider the map $\phi : k[t] \to A = k[x,y]/(y^2 - x^3 - x^2)$ given by $\phi(t) = x+y$. We want to show that $\phi$ is an inclusion map, i.e. that it's injective. Assume there's some polynomial in $t$ such that:
+\[       a_n t^n + \dots + a_1 t + a_0 = g(x,y) (y^2 - x^3 - x^2)        \]
+Then we need to show that all $a_i = 0$. By factoring $y^2 - x^2$ we can rewrite the above as:
+\[          a_n t^n + \dots + a_1 t + a_0 = g(x,y) (x+y)(x-y) - g(x,y) x^3        \]
+In particular, if we set $t = x+y = 0$, this reduces to:
+\[       a_0 = - g(x, -x) x^3     \]
+Which can only hold if $a_0 = g(x, -x) = 0$. Then we have $a_0 = 0$ and $g(x,y)$ is divisible by $x+y$, and then we can divide the relation by $t$ and obtain:
+\[        a_n t^{n-1} + \dots + a_1 = h(x,y) (y^2 - x^3 - x^2)           \]
+Proceeding by induction it follows that all $a_i = 0$ as desired. Then $\phi$ is a ring extension. Viewed as an extension of fraction fields, it has degree 3, because we can rewrite:
+\[               (x+y)(x-y) - x^3 = 0             \]
+\[        \Leftrightarrow - (x+y)(x+y) + 2(x+y) x - x^3 = 0      \]
+Which is the degree 3 minimal polynomial for $x$ over $k[t]$. Then we know that the valuation $\ord_{t=0}$ on $k[t]$ extends to a valuation $v_1$ on $A$ such that $v_1(x+y) = e \cdot 1$, where $e \in \{1,2,3\}$. 
+\\
+\\
+Recall now that our goal is to construct 2 distinct valuations over the point $(x,y) = (0,0)$. The way we plan to do that is by constructing a similar map $\psi : k[s] \to A$, this time given by $\psi(s) = x-y$. This will produce a valuation $v_2$ such that $v_2(x-y) = e \cdot 1$. The key observation is that $\phi$ and $\psi$ are related by the automorphism of $A$ that takes $y \to -y$. Therefore $v_1(x+y) = v_2(x-y)$ and viceversa. Therefore it suffices to prove that $v_1(x+y) \neq v_1(x-y)$, as this implies that the two valuations are distinct. We do this by analyzing separately the cases $e = 1,2,3$. For each case we will make use of the properties:
+\begin{enumerate} [(i)]
+\item $v_1(x+y) + v_1(x-y) = 3v_1(x)$
+\item $2x(x+y) + x^3 = (x+y)^2$
+\end{enumerate}
+\textbf{Case 1.} e = 1. Then by (i) $v_1(x-y) \equiv 2$ mod $3$. Then $v_1(x-y) \neq 1$.
+\\
+\textbf{Case 2.} e = 2. Then by (i) $v_1(x-y) \equiv 1$ mod $3$. Then $v_1(x-y) \neq 2$.
+\\
+\textbf{Case 3.} e = 3. Assume first that $v_1(x) = 1$, then (ii) implies, by evaluating both sides, that 3=6, which is a contradiction. Then $v_1(x)\geq 2$, so $3 + v_1(x) < 3 v_1(x)$. Then by (ii) $3+ v_1(x) = 6$, so $v_1(x) = 3$. Then by (i) we have $v_1(x-y) = 9-3 = 6$, so again it's not equal to $v(x+y)$. This finishes the proof.
+
+
+\subsection*{Problem 3}
+\emph{Let $k = \C$ be the field of complex numbers. Let $f = 1 + x^n + y^n$ for some positive integer $n$. Let $K$ be the fraction field of $A = k[x, y]/(f)$.}
+\begin{enumerate} [(a)]
+\item \emph{How many valuations of $K/k$ are not centered on $A$?}
+\item \emph{What would you guess is the number of ``missing'' valuations when you have a general irreducible $f \in k[x, y]$?}
+\item \emph{Give an example to show that your guess is wrong!}
+\end{enumerate}
+\vspace{5mm}
+\emph{Solution}
+\\
+a) In problem 2a we proved that the valuations of $K/k$ centered on $A$ are in 1-1 correspondence with the points on the curve $C$. Therefore the only valuation left is the valuation at $\infty$, which is quite obviously not centered on $A$. For example, $\infty(x) = e \cdot \ord_{\infty} x = -e$ for some $e\geq 1$, therefore $\infty(x) <0$.
+\\
+\\
+b) Judging by problem 2b, we expect to get extra valuations centered on $A$ when we have a singular point. In 2b, we had one singular point and that gave one extra valuation apart from the usual counting via the 1-1 correspondence. A fair guess then is that the valuations centered on $A$ that we missed in the counting are in 1-1 correspondence with the number of singular points.
+\\
+\\
+c) Consider $f = y^2 - x^3 $, which gives rise to the cuspital curve. Here the point $(0,0)$ is singular, so by our guess from part b we should get two distinct valuations centered on $A$ corresponding to $(0,0)$. However, it's easy to show, using the methods from HW7, problem 3, that the only valuation we get has ramification index 2 over $k[x]$ and is given by:
+\[     v(x) = 2 \;\;\;\;\;\; v(y) = 3      \]
+Therefore we have no missing valuations here, contrary to our guess in part b.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

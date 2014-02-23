@@ -1,0 +1,40 @@
+\documentclass[12 pt]{article}
+\usepackage{amsmath,amssymb,amsthm,fullpage,amsfonts,enumerate,textcomp, eurosym}
+\title{Statistical mechanics HW1}
+\author{Matei Ionita}
+
+\DeclareMathOperator {\p} {\partial}
+
+
+\begin{document}
+  \maketitle
+
+\section*{Problem 2}
+c) \[      \rho(y,y') = (\alpha/\pi)^{1/2} e^{-\alpha/2 (y^2 + y'^2)}    \]
+\[     \rho(Q+r/2, Q-r/2) =   (\alpha/\pi)^{1/2} e^{-\alpha/2 (2Q^2 + r^2/4)}   \]
+\[    W(Q,P) =  (\alpha/\pi)^{1/2} \int dr e^{ipr/\hbar} e^{- \alpha (Q^2 + r^2/4)}      \]
+\[     W(Q,P) =  (\alpha/\pi)^{1/2} e^{- \alpha Q^2} e^{-  p^2/\alpha\hbar^2} \int dr e^{- \alpha/4 (r - 2ip/\alpha \hbar)^2} \]
+\[      W(Q,P) = 2  e^{- \alpha Q^2} e^{-  p^2/\alpha\hbar^2}    \]
+
+\section*{Problem 6}
+\[  Z = \sum_n e^{- \hbar \omega (n+ 1/2) /T} = e^{- \hbar \omega/2T} \frac{1}{1-e^{-\hbar \omega/T}}  \]
+\[   F(T) = - T \text{ln}(Z) = \hbar\omega/2 + T \text{ln}(1- e^{-\hbar\omega/T})   \]
+\[     S(T) = - \frac{dF}{dT} = - \text{ln}(1- e^{-\hbar\omega/T}) + \frac{\hbar\omega}{T} \frac{1}{e^{\hbar\omega/T} - 1}   \]
+\[     C_V (T) = - T \frac{dS}{dT} = - \frac{\hbar\omega}{T} \frac{2}{e^{\hbar\omega/T} - 1} + \left(\frac{\hbar\omega}{T}\right)^2  e^{\hbar\omega/T} \frac{1}{(e^{\hbar\omega/T} - 1)^2}    \]
+\[      E(T) = \hbar\omega \left( \frac{1}{2} + \frac{1}{e^{\hbar\omega/T} - 1}  \right)      \]
+
+
+\section*{Problem 8}
+a)
+\[  \Gamma(x) = \int_{-\infty}^{\infty} dy y^{x-1} e^{-y} = \int_{-\infty}^{\infty} dy e^{-y+(x-1)\text{ln}y}  \]
+\[      f'(y) = (y - (x-1)\text{ln}(y) )' = 1 - \frac{x-1}{y}   \Rightarrow y_0 = x-1    \]
+\[       f''(y_0) =\left. \frac{x-1}{y^2} \right|_{y_0} = \frac{1}{x-1}   \]
+\[      \Gamma(x) = e^{-(x-1)} (x-1)^{(x-1)} \sqrt{2\pi(x-1)}   \]
+
+b) \[ K_0(x) = \int_0^{\infty} dy e^{-x \cosh(y)}\]
+\[      f'(y)   = \sinh(y) = 0 \Rightarrow y_0 = 0  \]
+\[       K_0(x) = e^{-x} \sqrt{2\pi/x}    \]
+
+c) 
+
+\end{document}

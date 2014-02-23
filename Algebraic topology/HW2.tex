@@ -1,0 +1,122 @@
+\documentclass[12 pt]{article}
+\usepackage{amsmath,amssymb,amsthm,fullpage,amsfonts,enumerate,textcomp, eurosym, tikz-cd, fullpage}
+\title{Algebraic topology HW2}
+\author{Matei Ionita}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\CP}{\mathbb{C}\mathbb{P}}
+\newcommand{\RP}{\mathbb{R}\mathbb{P}}
+\newcommand{\Proj}{\mathbb{P}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\p}{\partial}
+\newcommand{\fr}{\mathfrak}
+
+\DeclareMathOperator{\Mor}{Mor}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\length}{length}
+\DeclareMathOperator{\res}{Res}
+\DeclareMathOperator{\Int}{Int}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\Lie}{Lie}
+\DeclareMathOperator{\id}{Id}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\irr}{irr}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\trdeg}{trdeg}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Nm}{Nm}
+\DeclareMathOperator{\ord}{ord}
+
+\begin{document}
+  \maketitle
+
+\subsection*{Problem 1}
+Let $f : X \to \{y\}$ be a homotopy equivalence, and $g: \{y\} \to X$ be the inverse equivalence. We construct a homotopy equivalence $F: X \times [0,1] \to [0,1]$ as follows:
+\[        F(x, t) = t \;, \forall x \in X    \]
+To see that this is indeed a homotopoy equivalence, consider the map $G: [0,1] \to X\times [0,1]$ given by:
+\[      G(t) = ( g(y) , t)     \]
+We see that $F \circ G = \id_{[0,1]}$, and that $(G\circ F) (x,t) = (g(y), t)$. $G\circ F$ is the identity on the second component, and is equal to $g\times f$ on the first component. This shows that $G\circ F \simeq \id_{X\times [0,1]}$, as desired.
+
+Now note that $F$ descends to a map on the suspension $SX$, since $F(x,0) = F(y, 0)$ for all $x,y \in X$, and similarly $F(x,1) = F(y,1)$. Therefore, denoting by $\tilde F$ the induced map $SX \to [0,1]$, we see that $\tilde F$ is a homotopy equivalence. The fact that $[0,1]$ is contractible then implies that $SX$ is contractible.
+
+
+\subsection*{Problem 2}
+We view $\mathbb{RP}^n$ as the closed disk $D^n$ with antipodal boundary points identified, and denote by $\phi$ the quotient map $\p D^n \to \mathbb{RP}^{n-1}$. By translating the punctured point if necessary, we can assume that it lies in the origin of $D^n$. Then consider the family of maps $f_t : D^n - \{0\} \to \p D^n$ given by:
+\[     f_t (\mathbf{x}) = \frac{\mathbf{x}}{1 - t + t|\mathbf{x}|}  \]
+As discussed in class, $f_t$ is a deformation retraction, which shows that $D^n - \{0\}$ and $\p D^n$ are homotopy equivalent, and the retraction $f_1$ is a homotopy equivalence, whose inverse equivalence is the inclusion map $i : \p D^n \to D^n - \{0\}$. Let $\tilde f_1, \tilde i$ be the maps on the quotients given by the following diagrams:
+
+\[ \begin{tikzcd}
+D^n - \{0\}\arrow{r}{f_1}\arrow{d}{\phi} & \p D^n\arrow{d}{\phi} \\
+\mathbb{RP}^n - \{0\}\arrow{r}{\tilde f_1} & \mathbb{RP}^{n-1}
+\end{tikzcd} 
+\begin{tikzcd}
+D^n - \{0\}\arrow{d}{\phi} & \p D^n\arrow{d}{\phi}\arrow{l}{i} \\
+\mathbb{RP}^n - \{0\} & \mathbb{RP}^{n-1}\arrow{l}{\tilde i}
+\end{tikzcd} 
+\]
+
+Then $(\tilde f_1 \circ \tilde i) (\tilde x) = (\phi \circ f_1 \circ i)(x)$, where $\tilde x \in \mathbb{RP}^{n-1}$ is an equivalence class, and $x$ is any representative. Since $f_1 \circ i \simeq \id_{\p D^n}$, we obtain $\tilde f_1 \circ \tilde i \simeq \id_{\mathbb{RP}^{n-1}}$. We proceed similarly for $\tilde i \circ \tilde f_1$, and we obtain that $\mathbb{RP}^n - \{0\} \simeq  \mathbb{RP}^{n-1}$. 
+
+
+\subsection*{Problem 3}
+We prove the result by induction on $n$. The statement for $n=0$ is just $S^2 \simeq S^2$, which is true. For the inductive step, we consider attaching $X_1 = D^2$ to $X_0 = \bigvee_n S^2$. We consider the attaching maps $f, g: \p X_1 \to X_0$, where the image of $f$ is a circle and the image of $g$ is the center of that circle. $f$ and $g$ are clearly homotopic, via maps $f_t$ which attach $\p X_1$ to circles of decreasing radius. Then, by the second criterion for homotopy equivalence discussed in class, we obtain $X_1 \sqcup_f X_0 \simeq X_1 \sqcup_g X_0$. But $ X_1 \sqcup_g X_0$ is homotopy equivalent to $\bigvee_{n+1} S^2$, by simply translating the point to which $D^2$ was attached. Therefore $X_1 \sqcup_f X_0 \simeq \bigvee_{n+1} S^2$, as desired.
+
+
+\subsection*{Problem 4}
+Let $D$ be the disc encolesd by the circle in which the bottle self-intersects. Since $D$ is contractible, $X/D \simeq X$. Now consider the space $Y$ pictured below; we have $Y \simeq X/D$, because $X/D$ is the quotient of $Y$ by a contractible line. Moreover, $Y$ is homeomorphic to $Z$ pictured to the right; the homeomorphism simply pushes the line $a$ to the bottom of the sphere.
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+But $Z$ is homotopy equivalent to $S^2 \vee S^1 \vee S^1$, by translating the point $x_1$ to $x_2$. Therefore $X \simeq S^2 \vee S^1 \vee S^1$.
+
+
+\subsection*{Problem 5}
+Let $X$ be a CW complex and assume that $X = X_1 \cup X_2$, with $X_1, X_2, X_1 \cap X_2$ contractible. Using the first criterion for homotopy equivalence discussed in class, we see that the quotient map:
+\[      X \to X/X_1    \]
+is a homotopy equivalence. When we contract $X_1$ to a point, a part of the remaining $X_2$ is also contracted, specifically $X_1 \cap X_2$. Then we have:
+\[      X \simeq X/X_1 = X_2 / (X_1 \cap X_2)      \]
+We apply again the criterion for homotopy equivalence, to get:
+\[      X_2 \simeq  X_2 / (X_1 \cap X_2)          \]
+Putting these two relations together, we obtain $X \simeq X_2$, and therefore $X$ is contractible.
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,573 @@
+\documentclass[12 pt]{article}
+\usepackage{amsmath,amssymb,amsthm,fullpage,amsfonts,enumerate,textcomp, eurosym}
+\title{Statistical mechanics lecture notes}
+\author{Matei Ionita}
+
+\DeclareMathOperator {\p} {\partial}
+
+
+\begin{document}
+  \maketitle
+
+\section*{Lecture 7}
+\subsection*{Thermodynamics}
+The free energy is a thermodynamic potential:
+\[     dF = -SdT - P dV     \]
+The saddle point equation gives $E = F + TS$; this determines $T$ as a function of $E$, we get:
+\[     dE = TdS - PdV       \]
+The next statistical ensemble which we know is constant pressure:
+\[    \rho = A^{-1}(W,P) = "\delta\big(W - H(V) - pV\big)"     \]
+The canonical distribution for this ensemble is:
+\[      \rho(\beta, P) = e^{\beta \phi(\beta, P) - \beta(H+PV)}    \]
+The saddle point is $W = \phi + TS$, and this characterizes $W$ as a thermodynamical potential:
+\[      dW = TdS + VdP        \]
+The system is characterized by the thermodynamic potentials, in the sense that knowing 2 of the thermodyniamic variables $(V,S,P,T)$ allows us to determine the other 2 by taking derivatives of the potential. If we fix $T$, get isothermal process, fix $S$, get adiabatic process. These are lines in a $P-V$ diagram. Interesting question in the 19th century: how many points can you have on the intersection of these? It turned out that only one, since existence of the second would violate the law of increase of entropy. Fix $P$, get isobar line; fix $V$, get isochore line.
+\\
+\\
+Consider 3 systems, $(E_i, V_i, S_i)$. Let $T_i >0$, $V_3<<V_1, V_2$, $T_1 > T_2$. Call 1 heater, 2 cooler and 3 working body. Suppose we perform a cycle, i.e. the state of the working body is not changed at the end of the process.
+\begin{align*}      E_1(S_1, V_1) &\to E_1(S_1 - \Delta S , V_1)      \\
+E_2 (S_2, V_2) &\to E_2(S_2 + \Delta S - \Delta S_2 , V_2)
+\end{align*}
+We know $\Delta S_2>0$, otherwise we violate the second law of thermodynamics.
+\[        E_1(S_1, V_1) + E_2(S_2, V_2) - E_1(S_1 - \Delta S , V_1) - E_2(S_2 + \Delta S - \Delta S_2 , V_2) = R         \]
+Where $R$ is the work done by system. The problem of 19th century thermodynamics is how to maximize this work. The only parameter we can vary is $\Delta S_2$.
+\[     \frac{dR}{d\Delta S_2} = - \frac{1}{T_2} < 0     \]
+Thus, we maximize $R$ if $\Delta S_2 = 0$. Now we can expand the energy conservation equation in terms of $\Delta S$ (small):
+\[        R = \Delta S  [  T_1 - T_2  ]   = (\Delta S T_1) [ 1 - T_2/T_1]  = \Delta Q [1 - T_2/T_1]  \]
+Where $\Delta Q$ is the heat that we use from the heater. Therefore the maximum efficiency for a cycle is $1 - T_2/T_1$. This was derived by Carnot in 1824, when the notion of entropy didn't exist.
+
+\subsection*{Scaling of thermodynamic potentials}
+Instead of talking about extensive quantities, we prefer to talk about intensive quantities, i.e. densities:
+\[        n = \frac{N}{V},  \;\;\; s = \frac{S}{V},  \;\;\; w = \frac{W}{V}, \;\;\; \epsilon = \frac{E}{V},  \;\;\; \text{etc}       \]
+Intensive quantities can only be a function of other intensive quantities. Therefore we write:
+\[       \epsilon(s,n) , \;\;\; w(s, P) , \;\;\; \phi(T,P), \;\;\; f(T,n)      \]
+The last equation, $f = f(T,n)$, hides the important notion of indistinguishability of particles; we will see this next week.
+
+\subsection*{Grand canonical distribution}
+This can be derived from microcanonical also, but we prefer to derive it from canonical here. Fix volume and compute free energy:
+\[     e^{-\beta F(\beta,V,N)}  = \text{Tr}\; e^{-\beta H(N)}   \]
+We multiply the RHS by 1:
+\begin{align*}     e^{-\beta F(\beta,V,N)}  &= \text{Tr}\; e^{-\beta H(N)}  \sum_{m=0}^{\infty} \delta_{m,N}   = \sum_{m=0}^{N} \delta_{m,N} \text{Tr} \; e^{-\beta H(m)}  \\  
+&= \sum_{m} \int_{-i\pi T}^{i\pi T} \frac{\beta d\mu}{2\pi i} e^{\beta \mu (m-N)} \text{Tr} e^{-\beta H}  \\
+&= \int_{-i\pi T}^{i\pi T} \frac{\beta d\mu}{2\pi i} e^{-\beta \mu N} \sum_{m}  \text{Tr} e^{-\beta (H- \mu m)}
+\end{align*}
+The Lagrange multiplier $\mu$ is called \emph{chemical potential}. We introduce a new thermodinamic potential $\Omega$, which has the unfortunate name of \emph{the thermodynamic potential}:
+\[   e^{- \beta \Omega(\beta , \mu,V)} = \text{Tr} \; e^{i\beta (H - \mu N)}    \]
+The grand canonical distribution:
+\[    \rho(\beta, V, N) = e^{\beta(\Omega - H + \mu N)}      \]
+Note that $\Omega(T, \mu, V) = \Omega (T,\mu + 2\pi i , V)$. We also have:
+\[       e^{-\beta F} =     \int_{-i\pi T}^{i\pi T} \frac{\beta d\mu}{2\pi i} e^{- \beta \mu N - \beta \Omega(T,\mu,V)}   \]
+Saddle point method will give us an equation for $\mu$:
+\[       N = - \left( \frac{\p \Omega}{\p \mu} \right)_{V,T}       \]
+We can do scaling of $\Omega$. $\Omega(T,\mu, V) = V \omega(T, \mu)$. This quantity turns out ot be very funny and very useful. To see this, suppose we want to compute pressure from:
+\[       d\Omega = - S dT - p dV - N d\mu       \]
+\[     P = - \left( \frac{\p \Omega}{\p V} \right)_{T,\mu}  = - \omega(T, \mu)   \]
+In plasma physics one is interested in finding equations of state, i.e. $P(n,T)$. The thermodynamic potential gives this to us for free.
+
+\subsection*{Equilibrium in (smooth) external fields}
+An external field means:
+\[    H \to H + \int d^d r U(r) n(r)     \]
+\[     e^{-\beta \Omega(\beta, \mu, V)} = \text{Tr} \; \text{exp}\left[\beta \int n d^d r - \beta \int d^d r U(r) n - \beta H \right]  \to e^{- \beta \int d^d r\; \omega(\beta, \mu - U(r))}   \]
+\[   \Omega = \int d^d r \omega(\mu - U(r), \beta)  \]
+\[       \frac{\p}{\p \mu} \omega(\mu - U(r) , \beta) = n(r)     \]
+
+
+\section*{Lecture 8}
+
+\subsection*{Roadmap}
+\[    \hat H = \sum_{j=1}^N \frac{\hat p_j^2}{2m} + \frac{1}{2} \sum_{i,j} V(r_i - r_j)     \]
+We first study the ideal gas, which assumes $V = 0$ and high-temperature limit. We will find out that the system is almost entirely classical. We will use a high-temperature expansion, valid up to some point, to go towards lower temperature. To find this point, we can only compare temperature to some other intensive quantity. For the ideal gas, the only one is the density $n$. If we let $\lambda_T = \hbar/\sqrt{mT}$, the critical point is $(n\lambda_T^3) \cong 1$. We will perform the so-called virial expansion, in powers of $(n\lambda_T^3)$. Then we move towards $V \sim T$, and we find that the expansion is pretty much the same. We will also find a line of mathematical singularities (or line of phase transition) beyond which the expansion is no longer valid: is separates gas from liquid. There's also a line further apart separating liquids from solids. We will see that the liquid line can be finite, but the solid one cannot. Finally, we will do low temperature expansion.
+
+\subsection*{Ideal gas in high tempetature expansion}
+\[        \hat H = \sum_{j=1}^N \frac{\hat p_j^2}{2m}     \]
+\[    e^{-\hat H/T} \to e^{-H(p)/T}     \]
+\[    Z  = \int \frac{dPdQ}{(2\pi\hbar)^{3N}}   e^{-H(p)/T} =  \left( \int \frac{dp dx}{2\pi\hbar} e^{-p_x^2}{2mT} \right)^{3N}   = \left( V \big( mT/2\pi\hbar \big)^{3/2}  \right)^N  = \left( \frac{V}{\lambda_T^3} \right)^N \]
+\[      F = - NT\; \text{ln}\; V \left( \frac{mT}{2\pi\hbar} \right)^{3/2}       \]
+\[      P = - \frac{\p F}{\p V} = \frac{NT}{V}  \;\;\;\;\;\; \text{or } P = nT    \]
+\[       C_V = - T \frac{\p^2 F}{\p T^2} = \frac{3N}{2}       \]
+This is the equipartition theorem of classical stat mech: each (quadratic) degree of freedom brings $1/2$ to specific heat.
+\[      S = - \frac{\p F}{\p T} = N \left[  \frac{3}{2} + \text{ln} V (mT/2\pi\hbar)^{3/2}  \right]    \]
+Gibbs paradox: these formulas must be wrong, since $F,S$ do not scale linearly with $V$. We made this mistake because we treated all particles as distinguishable when raising everything to power $N$. The overcounting is $N!$, permutations of particles. We get:
+\[         F = - NT\; \text{ln}\; V \left( \frac{mT}{2\pi\hbar} \right)^{3/2}   + T\text{ln} N!        \]
+From the Stirling formula for large $N$ we have: $N \to \sqrt{2\pi N} (N/e)^N$. So:
+\[      F = - NT \text{ln} \frac{eV}{N \lambda_T^3}       \]
+This is better, but doesn't distinguish between bosons and fermions. We retrace our steps and try to correct this. For the netire distribution:
+\[       \rho_D =   \prod_{j=1}^N \rho (r'_j , r_j)   \]
+\[       \rho_{F,B} = \frac{1}{N!} \sum_P (\pm 1)^P \rho_D(r'_j, r_j)      \]
+\[     Z_{F,B} = \text{Tr} \rho_{F,B} = \int dr_1 \dots dr_n \frac{1}{N!} \sum_P (\pm 1)^P \prod_j  \rho_j (r'_j, P( r_j))   \]
+In the sum over all permutations we first look at the identity permutation:
+\[        = \frac{1}{N!}  \left[ \int   dr_1 \rho_1(r,r)  \right]^N  = \frac{1}{N!} V/\lambda_T^3 \]
+The next permutations we look at are transpositions:
+\[     (\pm) \frac{N(N-1)}{2} \left( \int dr \rho(r,r) \right)^{N-2}  \int dr_1 dr_2 \rho_1(r_1, r_2) \rho(r_2, r_1)        \]
+We introduce the notation: $\tilde \rho(r_1, r_2) = \rho(r_1, r_2) / \rho(r,r)$. Then we have:
+\[      \frac{1}{N!} \left(  \frac{V}{\lambda_T^3}^{3/2}  \right)^N \left[  1 \pm \frac{N(N-1)}{2}  \int dr_1 dr_2 \tilde \rho (r_1, r_2) \tilde \rho(r_2, r_1) \right]  \]
+\[       \tilde \rho(r_1, r_2) = \int \frac{d^3 p}{(2\pi \hbar)^3} e^{ip(r_1-r_2)/T} e^{- p^2 /2mT}   /  \int \frac{d^3 p}{(2\pi \hbar)^3} e^{- p^2 /2mT} = \text{exp} \left(  - \frac{mT(r_1 - r_2)^2}{2\hbar^2} \right)     \]
+
+
+\section*{Lecture 9}
+\subsection*{High temperature expansion, linked cluster expansion}
+Ideal gas last time:
+\[       e^{-\beta F_{B,F}} = \left(  V (mT/2\pi \hbar^2)^{3/2} \right)^N \frac{1}{N!} \sum_P (-1)^P \int \frac{d^d r_1 \dots d^d r_N}{V^N} \prod_{j=1}^N \tilde \rho(r_j, P r_j)    \]
+\[    =    \left(  V (mT/2\pi \hbar^2)^{3/2} \right)^N \frac{1}{N!} \left[  1 \pm \frac{N(N-1)}{2}\int \frac{dr_1 dr_2}{V^2} \tilde \rho(r_1, r_2) \tilde \rho(r_2, r_1)  \right] + ...  \]
+We compute the second term:
+\[        \int \frac{dr_1 dr_2}{V^2} \left[  \exp(mT/2\hbar^2 (r_1 - r_2)^2) \right]^2     \]
+The center of mass integral gives $V$, and we are left with:
+\[      \int \frac{dr}{V} \exp\left( - \frac{mTr^2}{\hbar^2} \right) = \frac{1}{V} \left( \frac{\pi \hbar^2}{mT} \right)^{3/2}     \]
+Thus we obtain:
+\[     \left(  V (mT/2\pi \hbar^2)^{3/2} \right)^N \frac{1}{N!} \left[  1 \pm  \frac{N^2}{2V} \big( \pi \hbar^2 / mT \big)^{3/2}  \right]     \]
+Note that the second term scales like $N$, which is a problem: for large $N$, it seems to be dominant. We ignore this for the moment and approximate log$(1+x) = x$:
+\[        F = -T \left[  N \text{ln} ( eV/N (mT/2\pi \hbar^2)^{3/2})   \pm \frac{N}{2} \frac{N}{V}   ( \frac{\pi \hbar^2}{mT} )^{3/2}  \right]  \]
+\[      = - TN \left [  \text{ln} ( eV/N (mT/2\pi \hbar^2)^{3/2})   \pm \frac{1}{2} \frac{N}{V}   ( \frac{\pi \hbar^2}{mT} )^{3/2}  \right]      \]
+Even though the derivation is wrong, the answer looks ok, so we try to get some physics out of it:
+\[      P = - \left( \frac{\p F}{\p V} \right)_T = NT \left(  1 \mp  N/2V  (\pi \hbar^2 / m T)^{3/2}  \right)      \]
+This is a first order correction to the equation of state. For fermions this gives positive pressure everywhere, so it's ok. For bosons something interesting's going to happen, since pressure seems to be negative below a certain temperature. Actually what happens is a phase transition, to the Bose-Einstein condensate.
+\[      C_V = - T \left( \frac{\p^2 F}{\p T^2}  \right)_V  = N \left[ \frac{3}{2} \pm \frac{3}{8} \frac{N}{V} (\pi \hbar^2/mT)^{3/2}  \right]   \]
+Again for fermions this is easy, it goes to $0$ as $T\to 0$. For bosons it tends to increase at first when you decrease $T$, but note that entropy at $\infty$, which is $\int_0^{\infty} dT C_V /T$, is conserved, so the integral under $C_V$ should be finite, therefore it comes down to $0$ somehow.
+\\
+\\
+Now we investigate what happens with our weird logarithm approximation. If we let:
+\[   F = N (f^0 + f^1 + \dots)     \]
+\[  e^{-NF} = e^{-Nf_0} \left( 1 + Nf^1 + N^2 f^2 + \dots  \right)  \]
+Now we do some diagram stuff. To a point we associate $\int dr/V = 1$. To 5 points (or \emph{one particle clusters}) we associate $1/5!$. If we have a line between two points, we write:
+\[            \tilde \rho(r_1, r_2) = \exp\left( - \frac{mT (r_1 - r_2)^2}{2\hbar^2}  \right)    \]
+If we have 3 points and a cluster of 2 particles with a cycle of lines, we write a $(5-2)!$ for the points and a $1/2$ for the 2-point cluster because of symmetry. We also put a $(\pm)^{j-1}$ where $j$ is the number of particles. Therefore the differences between bosons and fermions arise at even number. Therefore this gives us exactly the second term in the expansion for the partition function. Now we go on to compute the next:
+\[     \frac{1}{(N-3)!} \frac{1}{3} \int \frac{dr^1 dr^2 dr^3}{V^3} \tilde \rho(r_1, r_2) \tilde \rho(r_2, r_3) \tilde \rho(r_3, r_1)   \]
+For a cluster of 4, we have two diagrams: a square and two 2-cycles. Now let's try to write a general pictorial expression. We denote the point by $\alpha_1 = 1$, the 2-cycle by $\alpha_2$, the triangle by $\alpha_3$ and so on. $\alpha_j$ are called link cluster coefficients. Coming back to our expression:
+\[    e^{-\beta F} =   \left(  V (mT/2\pi \hbar^2)^{3/2} \right)^N \sum_{k_j = 0}^{\infty} \frac{\alpha_1^{k_1} \alpha_2^{k_2} \dots}{k_1! k_2! \dots}  \]
+Note that the total number of particles is conserved, so we must impose the constraint $\sum_{j=0}^{\infty} j k_j = N$. This is a pain: without this constraint, the sums would break up and each would give an exponential. To avoid the constraint, we use the grand canonical ensemble of 2 lectures ago.
+\[     e^{-\beta \Omega(\mu)} = \sum_N e^{\beta(\mu N - \beta F(N))}   = \sum_{k_j = 0}^{\infty} \left[ V (mT/2\pi\hbar^2)^{3/2} e^{\beta \mu}  \right]   ^{\sum_{j=0}^{\infty} j k_j}  \frac{\alpha_1^{k_1} \alpha_2^{k_2} \dots}{k_1! k_2! \dots} \]
+\[      =  \sum_{k_1 = 0}^{\infty}   \left[ V (mT/2\pi\hbar^2)^{3/2} e^{\beta \mu} \right]^{k_1} \frac{\alpha_1^{k_1}}{k_1!}  \sum_{k_1 = 0}^{\infty}   \left[ V (mT/2\pi\hbar^2)^{3/2} e^{\beta \mu} \right]^{2k_1} \frac{\alpha_1^{k_1}}{k_1!}  \]
+\[     = \exp  \sum_{j=0}^{\infty}\left[ V (mT/2\pi\hbar^2)^{3/2} e^{\beta \mu}  \right] ^j \alpha_j    \]
+\[    \Omega = -T   \sum_{j=0}^{\infty} \alpha_j \left[ V (mT/2\pi\hbar^2)^{3/2} e^{\beta \mu}  \right] ^j    \]
+\[    P = - \frac{\Omega}{V} = \frac{T}{V}  \sum_{j=0}^{\infty} \alpha_j \left[ V (mT/2\pi\hbar^2)^{3/2} e^{\beta \mu}  \right] ^j    \]
+This equation must be supplied with the equation for the chemical potential:
+\[     N = - \left(  \frac{\p \Omega}{\p \mu} \right)_T      \]
+Which is a sadle point equation for $\mu$.
+\[       N = \sum_{j=1}^{\infty} \alpha_j j  \left[ V (mT/2\pi\hbar^2)^{3/2} e^{\beta \mu}  \right] ^j        \]
+We need to solve this iteratively, which we'll attempt now just for fun.
+\[      1 =   \sum_{j=1}^{\infty} \alpha_j j  \left[ V/N (mT/2\pi\hbar^2)^{3/2} e^{\beta \mu}  \right] ^j N^{j-1}   \]
+Let $y =  V/N (mT/2\pi\hbar^2)^{3/2} e^{\beta \mu}$, then:
+\[     P = \frac{TN}{V} \sum_{j=1}^{\infty} (\alpha_j N^{j-1}) y^j      \]
+\[    1 =     \sum_{j=1}^{\infty} j (\alpha_j N^{j-1}) y^j     \]
+But note that $N^{j-1} \alpha_j = c (N\lambda_T^3 /V)^{j-1} = c (n\lambda_T)^{j-1}$, where $c$ is a number. Iterations:
+\begin{enumerate} [(0)]
+\item $y=1$
+\item $ y = 1 - 2(\alpha_2 N)$, $P = \frac{NT}{V} \left( 1 - \alpha_2 N \right)$.
+\end{enumerate}
+
+\section*{Lecture 10}
+\subsection*{Linked cluster expansion. Interacting classical gas.}
+
+Recall our result from last time:
+\[      PV = - \Omega = NT \sum_{j=1}^{\infty} (\alpha_j N^{j-1}) y^j      \]
+\[    1 =     \sum_{j=1}^{\infty} j (\alpha_j N^{j-1}) y^j     \]
+For quantum effects:
+\[   \tilde \rho(r_1 - r_2) = \exp \left( - \frac{MT(r_1 - r_2)^2}{2\hbar^2} \right)    \]
+Is a line in our diagram, and gives us $\alpha_j$. When we add interactions, we will consider that the formula for the equation of state still holds, and just change $\tilde \rho$ and $\alpha_j$. Let's see how this works. Consider a classical system with:
+\[    H(P,Q) = \sum_{j=1}^N \frac{p_j^2}{2m} + \frac{1}{2} \sum_{j\neq i} U(r_i - r_j)  \]
+$Z$ contains a $p$ integral which we already performed, and a new part:
+\[  Z = \left(  \int \frac{dp}{(2\pi\hbar)^3} e^{-p^2/2mT}  \right)^N \frac{V^N}{N!} \int \frac{dr_i dr_j}{V^N} e^{- \sum_{j\neq 1} U(r_i - r_j) /2T} = Z_{\text{ideal}} Z_{\text{interaction}}  \]
+To figure out how to compute $Z_{\text{interaction}}$, we frist look at two particles:
+\[     \int{dr_1dr_2}{V^2}  e^{-U(r_1 - r_2)/2T}  =   \int{dr_1dr_2}{V^2}  \left( e^{-U(r_1 - r_2)/2T} - 1 \right) +  \int{dr_1dr_2}{V^2}  \]
+The first term we call the cluster function $f_{12}$ of the interaction and the second is just 1. Again we draw diagrams and lines (squigly) will have value $f_{ij}$. We also introduce a dashed line which represets $ - U(r_1 - r_2)/T$. Therefore we have the Taylor expansion (see figure).
+\[     Z_{\text{int}} =\frac{1}{N!} \int \frac{dr_1 \dots dr_N}{V^N} \prod_{i\neq j}^N \exp \left(  - \frac{U(r_1 - r_2)}{2T} \right)  =  \frac{1}{N!}  \int \frac{dr_1 \dots dr_N}{V^N} \prod_{i\neq j}^N   (1+f_{ij}) \]
+\[   = \frac{1}{N!} + \frac{1}{(N-2)!}\frac{1}{2} \int \frac{dr_1 dr_2}{V^2} f_{12}  + \frac{1}{6(N-3)!} \int \frac{dr_1 dr_2 dr_3}{V^3} \left[ f_{12}f_{23}f_{31} + f_{12}f_{23} + f_{13}f_{32} + f_{31}f_{12}  \right]  \]
+
+
+\section*{Lecture 11}
+\subsection*{Addendum to cluster expansion}
+The equation of state is:
+\[       PV = - \Omega = \sum_{j=1}^{\infty} N^{j-1} \alpha_j y^j      \]
+Where the $y$ satisfy the constraints:
+\[     N = \sum_{j=1}^{\infty} \alpha_j N^{j-1} j y^j       \]
+For the case of not interaction, $\alpha_j \sim (\lambda_T^3 / V)^{j-1}$, a Kosher virial expansion. For interaction, we get the Mayer-Mayer coefficients, $\alpha_j \sim (r_T^3 /V)^{j-1}$, where $r_T$ satisfies $U(r_T) = T$. Now we would like to have both quantum effects and interaction. We would write
+\[       \alpha_j = (\lambda_T^3 / V)^{j-1} \sigma_j (\lambda_t / r_T)    \]
+We know the behavior of $\sigma_j(x)$ when $x\to 0 $ and $x \to \infty$. If we had a computer that can compute partition functions for small number of particles, we would compute:
+\[   Z_1 =  (V/\lambda_T^3)   \]
+\[  Z_2 = (V/\lambda_T^3) ^2 (1/2! + \alpha_2)  = (V/\lambda_T^3) \sum_n e^{- E_n/T} = (V/\lambda_T^3) \left[F_b + \text{ number } + 1/2 V/\lambda^3_T \right] \]
+We find that $\alpha_2$ describes bound states, plus the number coming from the correction due to scattering of one particle on the other. Similarly, $\alpha_3$ will describe bound states of 3 particles, plus scattering of one particle on 2.
+
+\subsection*{Vad der Waals equation of state}
+Last time we started looking at $U = \infty$ for $r<r_0$ and $U = - U_{\text{min}} (r_0/r)^6$ otherwise. We compute:
+\[     \alpha_2 = \int \frac{dr_1}{V} \frac{dr_2}{V} f_{12} = \int \frac{dr}{V} f(r)    \]
+Where $f(r) = -1$ for $r<r_0$ and $f(r) = -  U_{\text{min}}/T (r_0/r)^6$. (????) So:
+\[      \alpha_2 = \frac{1}{2V} \left[ 4\pi \int_0^{r_0} (-1) r^2 dr  - \frac{4\pi U_{\text{min}}}{T} \int_{r_0}^{\infty} r^2 dr (r_0/r)^6  \right]    \]
+\[    \alpha_2 = \frac{1}{2V} \left[  - \frac{4\pi r_0^3}{3} - \frac{U_{\text{min}}}{T} \frac{4\pi r_0^3}{3}  \right]   \]
+With this, we compute the next iteration in the equation of state:
+\[      y = 1 - 2 \alpha_2 N       \]
+\[   PV = NT( y  + \alpha_2 N) = NT(1 - \alpha_2 N) = NT \left[ 1 - \frac{N}{2V}  \big( \frac{4\pi r_0^3}{3} + \frac{U_{\text{min}}}{T} \frac{4\pi r_0^3}{3}  \big)  \right]   \]
+\[     PV = NT \left( 1 + \frac{N}{V} \frac{2\pi r_0^3}{3}  \right)   + U_{\text{min}} \frac{N^2}{V} \frac{2\pi r_0^3}{3}  \]
+Historically the coefficients here are denoted by $b= 2\pi r_0^3 /3$ and $a = U_{\text{min}}  2\pi r_0^3 /3$. Then we get:
+\[      \left( P + a \frac{N^2}{V^2} \right) V = NT \left( 1 + \frac{bN}{V}   \right)     \]
+Now we make an approximation $bN/V \to 0$, such that $ 1 + bN/V = (1 - bN/V)^{-1}$. Then:
+\[      \left( P + a \frac{N^2}{V^2} \right) =    \frac{NT}{V - bN}   \]
+This is called \emph{Van der Waals gas model}. It was very popular until recently, since it describes the fact that the volume cannot decrease below the ``crystal packing of hard balls''. However the coefficient $b$ is wrong, as we will see in homework when we compute $\alpha_3$. The change in pressure also makes sense, because pressure is kind of like kinetic energy, and should decrease due ot the interaction of the particles. Then:
+\[     F_W = - NT \text{ln} \left[ \frac{e (V - bN)}{N} \lambda_T^{-3/2}  \right]  + \frac{aN^2}{V}    \]
+At many points in history people tried to get better equations of state, by trying to find coefficients such that:
+\[       \left( P + a \frac{N^2}{V^2} \right) =    \frac{NT}{V - bN}  \frac{1 + c_1 (N/V) + \dots}{1 + b_1 (N/V) + \dots}      \]
+
+\subsection*{Thermodynamics of classical plasma}
+Take atoms and study the electrons. They have bound states, and at low $T$ only the lowest ones will be populated. For high temperature, free states can be reached. We therefore get 2 types of particles: atoms and electrons. The conservation of number of particles looks like $N_{a+} + N_e = N_0$, $N_e = N_i$.
+\[     E_a (p) = \frac{p_a^2}{2m_a} - E_i   \]
+\[    E_{e, i} = \frac{p_e^2}{2m_{e,i}}   \]
+For $N_a/V \to 0$, small density, there exists some temperature $T^*$ such that $N_a(T^*) = N_0/2$. The claim is that in the limit of small density $T^* \to 0$. To see this, note that equal numbers of atoms and electrons means that their partition functions are roughly equal. Then we get:
+\[   1 = e^{- E_i/T^*} V \left( \frac{m_im_e}{m_{at}}  \big( T^*/2\pi\hbar^2  \big)^{3/2}  \right)   \]
+Thus if we let $V\to \infty$ we get $T^* \to 0$.
+
+
+\section*{Lecture 12}
+\subsection*{Classical plasma}
+Topics for the day:
+\begin{enumerate}
+\item Saha formula, which deals with thermodynamics of chemical reactions.
+\item Cluster expansion.
+\item Try to get equation of state, but OOPS.
+\item Debye screening.
+\end{enumerate}
+
+\subsection*{Saha formula}
+\[     E_a (p) = \frac{p_a^2}{2m_a} - E_i   \]
+\[    E_{e, i} = \frac{p_e^2}{2m_{e,i}}   \]
+We have a process $at\to e + i$, subject to the conservation constraints $N_{at} + N_e = \text{const} = N_0$ and $N_e = N_i$. Suppose for the moment that there is no interaction among different types of particles. Then we write:
+\[      Z = \sum_{N_e = N_i ;N_{at} + N_e = N_0 } Z_{at} (N_{at})  Z_{e} (N_{e}) Z_{i} (N_{i})  = e^{-\beta F}    \]
+As usual when we have constraints, we introduce Lagrange multipliers:
+\[     e^{-\beta \Omega(\mu)} = \sum_{N_e = N_i}  Z_{at} (N_{at})  Z_{e} (N_{e}) Z_{i} (N_{i}) e^{\beta \mu (N_a + N_e)}   \]
+\[    = \sum_{N_e, N_i, N_{at}} \int_{-i\pi T}^{i\pi T} \frac{d\mu_1}{2\pi i} e^{\beta \mu_1 (N_e - N_i)}   Z_{at} (N_{at})  Z_{e} (N_{e}) Z_{i} (N_{i}) e^{\beta \mu (N_a + N_e)}    \]
+\[      e^{- \beta \Omega(\mu)} = \beta \int_{-i\pi T}^{i\pi T} \frac{d\mu_1}{2\pi i} e^{-\beta \Omega_{at}(\mu)-\beta \Omega_e(\mu_e) - \beta \Omega_i(\mu_i)}      \]
+Where we have defined $-\mu_1 = \mu_i, \mu_1 + \mu = \mu_e$. Of course, we do saddle point method and we get:
+\[   \Omega(\mu) = \Omega_{at}(\mu) + \Omega_e(\mu_e) + \Omega_i(\mu_i)    \]
+\[       \mu_e + \mu_i = \mu_{at}   \]
+\[     \frac{\p \Omega_e}{\p \mu_e} = \frac{\p \Omega_i}{\p \mu_i}    \]
+The last ocndition is just expressing the fact that $N_e = N_i$. Remeber that we also have the usual condition for the grand canonical ensemble, $\frac{\p \Omega}{\p \mu} = - N_0$.
+\[      \Omega_{at} = - T \left[ V (m_{at}T/2\pi \hbar^2)^{3/2} \right] e^{\beta(\mu - E_i)}   \]
+\[      \Omega_{e,i} = - T \left[ V (m_{e,i}T/2\pi \hbar^2)^{3/2} \right] e^{\beta \mu_{e,i}}   \]
+\[    N_{e,i} =   \left[ V (m_{e,i}T/2\pi \hbar^2)^{3/2} \right] e^{\beta \mu_{e,i}}   \]
+\[      N_{at} =   \left[ V (m_{at}T/2\pi \hbar^2)^{3/2} \right] e^{\beta(\mu - E_i)}   \]
+We do the trick $N_e = N_i = \sqrt{N_e N_i}$ and get:
+\[     N_e = N_0 \left[ \frac{V}{N_0}  (\sqrt{m_e m_i}T/2\pi \hbar^2)^{3/2} e^{\beta \mu_{at} /2} \right]    = N_0 y   \]
+\[    N_{at} = e^{-\beta E_i}  V (m_{at}T/2\pi \hbar^2)^{3/2} y^2 \left[  \frac{N_0}{V} (2\pi \hbar^2 / \sqrt{m_em_i} T)^{3/2} \right]^2   \]
+\[    \frac{N_{at}}{N_0} = y^2 e^{E_i/T}  \frac{N_0}{V} \left( \frac{2\pi \hbar^2 m_{at}}{m_e m_i T}  \right)^{3/2}   \]
+We denote the factor after $y^2$ by $x$; then conservation of particles says:
+\[    y^2 x + y = 1      \]
+We have the following limit cases:
+\[      x\to 0, T>> T^* \;\;\;\;\; y\to 1 \text{ ionized plasma}    \]
+\[      x \to \infty, y = 1/\sqrt{x} <<1 \text{ mostly bound}          \]
+\[      y =  \left[  V/N_0 (m_e m_i T/2\pi \hbar^2 m_{at})^{3/2} \right]^{1/2}  e^{-E_i/2T}  \]
+To find the critical temperature:
+\[        e^{E_i/T^*}  \frac{N_0}{V} \left( \frac{2\pi \hbar^2 m_{at}}{m_e m_i T^*}  \right)^{3/2}  = 1         \]
+Taking a log and iterating, we get nested logs which are very small. Then this becomes the Saha formula:
+\[       \frac{T^*}{E_i} = \text{ln} \left( \frac{V}{N_0 \lambda_T^3} (\text{ number})  \right)     \]
+If you compute that log you get around 30.
+
+\subsection*{Cluster expansion}
+We introduce Coulomb interaction between the charged particles.
+\[     H_{int} = \frac{1}{2} \sum_{i\neq j} U_{ee} (r_i^e - r_j^e)  +  \frac{1}{2} \sum_{i\neq j} U_{ei} (r_i^e - r_j^i) + \frac{1}{2} \sum_{i\neq j} U_{ii} (r_i^i - r_j^i)    \]
+To simplify formulas, we introduce the notation $\sigma_{1,2} = e,i$ and then we write $(\sigma_1, r_1)$ and $(r_2, \sigma_2)$ to specify which kind of particle we have. Then:
+\[       \alpha_2 = \exp \left( - \frac{U_{\sigma_1 \sigma_2} (r_1 - r_2)}{T}  \right) - 1     \]
+\[    y_{e,i} = \left( \frac{m_{e,i} T}{2\pi \hbar^2}\right)^{3/2}  e^{\beta \mu_{e,i}}   \]
+\[    - PV = \Omega(\mu_e, \mu_i) = - T \left( \sum_{j_e, j_i = 0}^{\infty} \alpha_{j_ej_i} N_e^{j_e} N_i^{j_i} y_e^{j_e} y_i^{j_i}  \right)    \]
+Notice that we have $\alpha_{01} = \alpha_{10} =1$ and this reduces to the non-interacting case if we only consider these. This equation has to be supplied with the constraints:
+\[       N_e = N_i = N_0    \]
+\[     N_e = \sum_{j_e, j_i = 0}^{\infty} j_e \alpha_{j_ej_i}  y_e^{j_e} y_i^{j_i}      \]
+\[    N_i = \dots    \]
+Now we compute some $\alpha$'s:
+\[       \alpha_{11} = \int \frac{d^3 r}{V} \left[ \exp(e^2/r T) - 1  \right]   =  \int \frac{d^3 r}{V} \left[ \exp(r_T/r) - 1  \right]   \]
+This diverges at $r\to 0$. At large distances we can expand the exponent:
+\[     \int \frac{d^3 r}{V} \frac{r_T}{r}    \]
+Which again diverges. For now we just pretend to compute this and get $e^2/L$, where $L$ is the size of the system. If we do the same for $\alpha_{20}, \alpha_{02}$ we get $- e^2/2L$. Then:
+\[       \Omega(\mu) = - T \left[ y_e + y_i - \frac{e^2}{2L} (y_e N_e - y_i N_i)^2  \right]      \]
+In the first iteration, $y_e = y_i = 1$, this becomes:
+\[     - \frac{e^2}{2L} (N_e - N_i)^2 = - \frac{Q^2}{2C}  \]
+Since the size of the system is some sort of capacitance. For a neutral system charge is 0, so all the divergences canceled out and we get 0. The OOPS happens when we take the next terms in the expansion, which are squared and add instead of cancelling out.
+
+
+\section*{Lecture 13}
+\subsection*{Summation of leading divergences in classical plasma}
+We will talk about Debye screening and summation of ring diagrams. We will see that the physics of plasma is very similar to that of the noninteracting gas. Last time we had:
+\[   - PV =   \Omega_{\mu_e, \mu_i} = -T \sum_{j_e, j_i} \alpha_{j_e, j_i} N_e^{j_e} N_i^{j_i} y_e^{j_e} y_i^{j_i}     \]
+\[         N_e = \sum_{j_e, j_i}     \alpha_{j_e, j_i} N_e^{j_e} N_i^{j_i} y_e^{j_e} y_i^{j_i}  j_e     \]
+\[         N_i = \sum_{j_e, j_i}     \alpha_{j_e, j_i} N_e^{j_e} N_i^{j_i} y_e^{j_e} y_i^{j_i}  j_i     \]
+This is all very simple, the problem is computing the coefficients $\alpha_{j_e, j_i}$. Before recalling what we did last itme, let's simplify our lives by writing:
+\[      f_{\sigma_1 \sigma_2}(r_{12}) = \exp\left( - \frac{r_T}{r} \sigma_1 \sigma_2 \right) -1   \]
+Where $\sigma = 1$ for ions and $-1$ for electrons. Note that $\alpha_{j_e, j_i} = \alpha_{j_i, j_e}$. Since $N_e = N_i$, the expressions above also give $y_e = y_i$. Adding $N_e$ and $N_i$ we get:
+\[    2N = \sum_j \alpha_j N^j y^j j       \]
+Provided that $\alpha_j = \sum_{j_e + j_i = j} \alpha_{j_e, j_i}$. This looks exactly the same as the noninteracting gas, with the exception of the fact that $\alpha_1 = 2$.
+\[   \alpha_j = \frac{1}{2} \sum_{\sigma_1 , \sigma_2} \int \frac{dr_1 dr_2}{V_2}  f_{\sigma_1 \sigma_2} (r_{12})   \]
+This diverges at $r>>r_T$. We take the dashed line in diagrams to mean $- \frac{r_T}{r}\sigma_1 \sigma_2$. All terms which have an odd number of lines give 0, for reasons discussed last time. The ring gives:
+\[     \frac{1}{4} 4 \int \frac{d^3 r_1}{d^3 r_2}{V^2} \frac{r_T^2}{r_{12}^2} = \frac{1}{V} 2\pi \int dr r^2 \frac{r_T^2}{r^2}      \]
+Which is proportional to $r_T^2 L$, where $L$ is the size of the system. We consider all other particles in the smooth field created by the 2 that interact as above.
+\[       \Omega_e = - V \left( \frac{m_e T}{2\pi \hbar^2} \right)^{3/2} e^{\beta(\mu_e - e \phi(r))}     \]
+\[       \Omega_i = - V \left( \frac{m_i T}{2\pi \hbar^2} \right)^{3/2} e^{\beta(\mu_i + e \phi(r))}     \]
+\[     n_e = - \frac{\p \omega_e}{\p \mu_e}   = \left( \frac{m_e T}{2\pi \hbar^2} \right)^{3/2} e^{\beta \mu_e} e^{- e\phi(r)/T}  = n e^{- e\phi(r)/T} \]
+\[     n_e = - \frac{\p \omega_i}{\p \mu_i}   = \left( \frac{m_i T}{2\pi \hbar^2} \right)^{3/2} e^{\beta \mu_i} e^{ e\phi(r)/T} = n e^{ e\phi(r)/T}  \]
+The charge density is:
+\[    \rho = - 2en_0 \sinh(e\phi(r)/T)     \]
+Let's add some charge $Z$ in the plasma, at $r=0$ then:
+\[    - \nabla^2 \phi = 4\pi \left( \delta(r) Z - 2en_0 \sinh(e\phi(r)/T)  \right)    \]
+\[       - \nabla^2 \phi + 8en_0  \sinh(e\phi(r)/T) = 4\pi \delta(r) Z    \]
+This is the nonlinear screening equation. Why screening? To see, expand to see linear screening equation:
+\[    \left[ - \nabla^2 \phi + \frac{8\pi e^2 n_0}{T} \phi  \right] = 4\pi Z \delta(r)  \]
+\[     \frac{1}{r_D^2} = \frac{8\pi e^2 n_0}{T} = 8\pi r_T n_0  \]
+Where $r_D$ is called the Debye radius. 
+\[    \phi(r) = \frac{Z}{r} e^{- r/r_D}      \]
+We see thati nteraction basically stops over distances much larger than $r_D$; therefore we can take $L = r_D$ in the divergent integral. We get (up to a numerical constant in the second term):
+\[      \Omega(\mu) = - T \left(  2N + \frac{N^2}{V} r_T^2 r_D \right)  = - 2NT \left( 1 + (n r_T^3) \frac{r_D}{r_T}  \right)  = -2NT(1 + \sqrt{nr_T^3})    \]
+We got a nonanalytic function by summing over the divergences. Let's see mathematically how this works.
+\\
+\\
+We examine $\lim_{x_0 \to 0} \sqrt{x + x_0}$. We take $x$ small such that this is analytic:
+\[    \sqrt{x + x_0}  = \sqrt{x} \left( 1 + \frac{1}{2} \frac{x}{x_0} - \dots  \right)   \]
+\[     - \sqrt{x_0} \sum_{n=1}^{\infty} \frac{(-1)^n}{n!} \frac{(2n-1)!}{(n-1)! 2^{n-1}} \frac{x^n}{(2x_0)^n}      \]
+We now have a convergent series, we can try to do analytic continuation beyond the radius of convergence of the series, then we send $x_0$ to 0. The way we do this for plasma is assumming that the potential is screened a little bit from the beginning, and at the end take the limit of the screening to 0. The ring gives:
+\[       \frac{1}{V} \int dr^3 \frac{r_T^2}{r^2} e^{-2Q_0 r}  \sim \frac{1}{V} \frac{r_T^2}{Q_0}   \]
+We therefore see that we need to put a $r_T$ for each line, and get the correct powers of $Q_0$ by dimensional analysis. For the triangle we get:
+\[     \frac{1}{V^2} \frac{r_T^3}{Q_0^3}    \]
+For a figure eight:
+\[         \frac{1}{V^2} \frac{r_T^4}{Q_0^2}      \]
+This has a lower power of $Q_0$, so it's formally divergent, but it's weaker. It does not belong to the leading divergence, square root, but it's a term in the subleading divergence, which is a log. For the square:
+\[   \frac{1}{V^3} \frac{r_T^4}{Q_0^5}    \]
+For the triple figure eight, we get $Q_0^3$ which is subleading so we don't care. We don't care about others as well, the bottom line is that the only contributing one is the one with the smallest number of lines, which is the ring. Thus the leading divergence only gives the sum of rings, which explains the ismilarity with the noninteracting gas. We will perform the sum next time, and as a by-product we will also get the complete formula of the thermodynamic potential for the noninteracting quantum gas.
+
+\section*{Lecture 14}
+\subsection*{Classical plasma - continuation}
+\[    - PV = \Omega = - NT \sum_{j=1}^{\infty} \alpha_j N^j y^j    \]
+We expected $\alpha_2 = r_T^3/V$, but it turned out that the coefficient in front of it diverges. This means that $\alpha_2$ is not analytic as a function of $r_T^3$. We found that $\alpha_i$ should just equal to the $i$-th ring diagram.
+\[     \alpha_n = \frac{2^n}{2n} \int \frac{dr_1}{V_1} \dots \frac{dr_n}{V_n} \left( - \frac{r_T}{r_{12}} \right)\left( - \frac{r_T}{r_{23}} \right) \dots \left( - \frac{r_T}{r_{n1}} \right)  \exp[-Q_0(r_{12}+ \dots + r_{n1})]  \]
+We have a convolution, which we can compute with hte help of Fourier transforms.
+\[   \alpha_n = \frac{2^n}{2n} (-1)^n r_T^n \frac{1}{V^{n-1}}  \int \frac{d^3 Q}{(2\pi)^3} [U(Q)]^n \]
+Where $U(Q)$ is the FT of $\frac{1}{r} e^{-Q_0 r}$. Recall that the potential satisfies the equation:
+\[     \left(  - \nabla^2 + Q_0^2  \right) \frac{1}{r} e^{-Q_0 r} = 4\pi \delta(r)       \]
+Taking a FT of this equation gives:
+\[  U(Q) = \frac{4\pi}{Q^2 + Q_0^2}    \]
+\[       \alpha_n = \frac{(-1)^n}{2n} \frac{(8\pi r_T)^n}{V^{n-1}} \int \frac{d^3 Q}{(2\pi)^3} \left( \frac{1}{Q^2 + Q_0^2}  \right)^n       \]
+If we perform the integral now, the sum will diverge; what we do instead is do the sum first and then integrate:
+\[      \Omega(y) = -T \left( 2N y + \sum_{n=2}^{\infty} \frac{y^n N^n}{V^{n-1}} (-1)^n \frac{1}{2n} (8\pi r_T)^n      \int \frac{d^3 Q}{(2\pi)^3} \big( \frac{1}{Q^2 + Q_0^2}  \big)^n \right)  \]
+We use the fact that $\frac{8\pi r_T N}{V} = \frac{1}{r_D^2}$. Then:
+\[      \Omega(y) = - 2TNy - \frac{V}{2} \int \frac{d^3Q}{(2\pi)^3} \sum_{n=2}^{\infty} \frac{(-1)^n}{n} \big( \frac{ y}{r_D^2 (Q^2 + Q_0^2)}   \big)^n  \]
+\[   = - 2TNy  + \frac{V}{2}  \int \frac{d^3Q}{(2\pi)^3}  \left[   \big( \frac{y}{r_D^2 (Q^2 + Q_0^2)}  \big) - \log \big( 1 + \frac{y}{r_D^2 (Q^2 + Q_0^2)}  \big)  \right]       \]
+Now that we performed the sum we can drop $Q_0$.
+\[      \Omega(y) = - 2TNy - \frac{V}{2} \frac{4\pi}{(2\pi)^3} \int Q^2 dQ   \left[   \big( \frac{y}{r_D^2 Q^2 }  \big) - \log  \frac{y/r_D^2 + Q^2}{Q^2}   \right]         \]
+Make the change of variables $Q^2 = k^2 y/ r_D^2$.
+\[      \Omega(y) =     - 2TNy - T\frac{V}{4\pi^2} \left( \frac{y}{r_D^2} \right)^{3/2}  \int dk k^2 \left[ \frac{1}{k^2} - \log(k^2 + 1/k^2)  \right]  \]
+\[    \Omega(y) = - 2TNy + T \frac{V}{12\pi}  \left( \frac{y}{r_D^2}  \right)^{3/2}    \]
+\[      \Omega(y) = -2TN \left[ y + \frac{1}{24 \pi n_0} \big( y/r_D^2  \big)^{3/2}  \right]     \]
+The equation for $y$ is:
+\[      2N = - \frac{1}{T} \frac{\p \Omega}{\p y} y = 2N \left[ 1+ \frac{3}{2} \frac{1}{24\pi n_0} \big( y/r_D^2 \big)^{3/2}  \right]     \]
+By iterations we get:
+\[     PV = 2NT \left[ 1 - \frac{1}{48\pi n_0 r_D^3}  \right]  = 2NT \left[  1 - \frac{1}{6} (nr_T^3) (8\pi/n_0r_T^3)^{1/2}  \right]     \]
+
+\subsection*{Low temperature expansion}
+Problem is that the number of terms we have ti include in the virial expansion is of the order of $n_0 \lambda_T^3$, and for $T\to 0$ this becomes huge. However, in low temperature expansion the occupied states are mostly low energy, and we can hope to count the occupied ones.
+
+\subsection*{Quantum ideal gas}
+\[      E = \sum_{\alpha} \epsilon_{\alpha} n_{\alpha}       \]
+Where $n_{\alpha}$ is the occupation number. For fermions, $n_{\alpha} = 0,1$. For bosons, $n_{\alpha} = 0, 1, \dots, N$.
+\[  Z = \sum_{\sum n_{\alpha}= N} \exp[   - E(\{n_{\alpha}\})/T  ]  \]
+We go to grand canonical ensemble:
+\[   \Omega = -T \log \sum_{n_{\alpha}} \exp \left[  - \frac{E(\{n_{\alpha}\}) - \sum_{\alpha} n_{\alpha} \mu}{T}  \right]   \]
+\[    \Omega = -T \sum_{\alpha} \log \sum_{n_{\alpha}} \exp[ - n_{\alpha}(\epsilon_{\alpha} - \mu) /T  ]     \]
+For fermions we have:
+\[    \Omega = -T \sum_{\alpha} \log \left( 1 + \exp(-(\epsilon_{\alpha}- \mu)/T)  \right)     \]
+For bosons we have a geometric series; the bottom line is:
+\[         \Omega = \pm T \sum_{\alpha} \log \left( 1 \mp \exp(-(\epsilon_{\alpha}- \mu)/T)  \right)        \]
+Now if we let $\sum_{\alpha} \to V \int \frac{d^3 p}{2\pi \hbar}^d$ and $\epsilon_{\alpha} \to \frac{p^2}{2m}$ we get:
+\[   \Omega = - TV \sum_{j=1}^{\infty} \frac{(\mp)^{j+1}}{j} \int \frac{d^3 p}{2\pi \hbar)}  \exp ( - (\epsilon_p - \mu)/T)   \]
+
+
+\section*{Lecture 15}
+\subsection*{Low T properties of Bose gases}
+\[    \Omega_B = T \nu(T) \int d \epsilon \left( \frac{\epsilon}{T}  \right)^{1/2} \ln(1 - e^{\mu - \epsilon/T})  \]
+\[       N = - \frac{\p \Omega}{\p \mu}  = \nu(T) \int_0^{\infty} d \epsilon   \left( \frac{\epsilon}{T}  \right)^{1/2} \frac{1}{e^{\epsilon - \mu / T} - 1}  \]
+Where the occupation number:
+\[      n(\epsilon) =   \frac{1}{e^{\epsilon - \mu / T} - 1}   \]
+Is called the Bose-Einstein distribution (1924). If we do the same for Fermions we get the Fermi-Dirac distribution:
+\[       n(\epsilon) =   \frac{1}{e^{\epsilon - \mu / T} + 1}       \]
+For $\mu = 0$ we get the Plank distribution:
+\[         n(\epsilon) =   \frac{1}{e^{\epsilon / T} - 1}       \]
+And for large energy we get the Boltzmann distribution of classical gases:
+\[        n_B = e^{- (\epsilon - \mu)/T}      \]
+Note that $\mu<0$, otherwise the occupation number in the Bose distribution becomes negative for certain energy levels. If it's exactly 0.
+\[     N   = \nu(T) \int_0^{\infty} d \epsilon   \left( \frac{\epsilon}{T}  \right)^{1/2} \frac{1}{e^{\epsilon - \mu / T} - 1} \leq \nu(T) \int_0^{\infty} d \epsilon   \left( \frac{\epsilon}{T}  \right)^{1/2} \frac{1}{e^{\epsilon  / T} - 1}   \]
+This integral is convergent. If we introduce dimensionless units $\epsilon = xT$:
+\[      N \leq \nu(T) T \int_0^{\infty} dx x^{1/2} \frac{1}{e^x - 1}        \]
+To compute the remaiinng integral, we introduce:
+\[     \alpha(n) = \int dx x^n \frac{1}{e^x-1} =  \int dx x^n  \sum_{j=1}^{\infty} e^{-xj}  = \sum_{j=1}^{\infty} \frac{1}{j^{n+1}} \Gamma(n+1)  \]
+Note that $ \sum_{j=1}^{\infty} \frac{1}{j^{n+1}}  = \zeta (n+1)$. Coming back to our problem:
+\[    N \leq \nu(T) T \Gamma(3/2) \zeta(3/2)    \]
+The RHS is an increasing function of temperature, therefore we obtained a lower bound for T, $T_{BEC}$ which is determined from:
+\[      N = \nu(T_{BEC}) T_{BEC} \Gamma(3/2) \zeta(3/2)       \]
+To see what happens For $T<T_{BEC}$, we see what happens for $T=0$. The ground state $n_0 = N$, and all other occupation numbers are 0. Let's suppose now $T>0$, but still $<<T_{BEC}$. Non-gorund states will have some small nonzero occupation number. We claim that these occupation numbers are given by a Planck distribution: the particle number (of the excited states) is not conserved, so $\mu = 0$. We see that only the ground state is occupied by a number proportional to volume. We can therefore replace all others by an integral.
+\[   N = N_0 + \int d\epsilon \frac{\nu(\epsilon)}{e^{\epsilon/T} - 1}   \]
+\[    N = N_0 + \nu(T)   \int_0^{\infty} d \epsilon   \left( \frac{\epsilon}{T}  \right)^{1/2} \frac{1}{e^{\epsilon  / T} - 1}   \]
+\[    N = N_0 + \nu(T) T \gamma(3/2) \zeta(3/2)   =   N_0 + \nu(T_{BEC}) T_{BEC} \gamma(3/2) \zeta(3/2)  \left( \frac{T}{T_{BEC}} \right)^{3/2}  \]
+\[   N_0 = N - N  \left( \frac{T}{T_{BEC}} \right)^{3/2}   \]
+The behavior of this as $T\to T_{BEC}$ shows that there's a singularity, so there's a phase transition at $T = T_{BEC}$.
+\[      \Omega(T) = \epsilon_{GS} N_0  + T \int_0^{\infty} d\epsilon \nu(\epsilon) \ln(1 - e^{-\epsilon/T})   \]
+\[      \Omega(T) = \epsilon_{GS} N_0  + T \nu(T) \int_0^{\infty} d\epsilon \left( \frac{\epsilon}{T} \right) \ln(1 - e^{-\epsilon/T})     \]
+\[     \Omega(T) = \epsilon_{GS}  + T^2 \nu(T) \int_0^{\infty} dx x^{1/2} \ln(1 - e^{-x})  \]
+\[      \Omega(T) = \epsilon_{GS}  - T^2 \nu(T)  \Gamma(3/2) \zeta(5/2)   \]
+\[      \Omega(T) = \epsilon_{GS} N_0 - N \frac{T^{5/2}}{T_{BEC}^{3/2}} \frac{\zeta(5/2)}{\zeta(3/2)}     \]
+We can throw the first term away. $N_0$ is proportional to volume, but $\epsilon_{GS}$ goes as $1/L^2$, therefore the first term goes as $V^{1/3}$. Then for thermodynamics we write:
+\[     \Omega(T) = -  N \frac{T^{5/2}}{T_{BEC}^{3/2}} \frac{\zeta(5/2)}{\zeta(3/2)}    \]
+\[      PV = NT \left(  \frac{T^{3/2}}{T_{BEC}^{3/2}} \frac{\zeta(5/2)}{\zeta(3/2)}  \right)   = T N_{\text{excitations}}   \]
+Compare this with the expression for high temperature, $PV = NT$, where basically everything is excited. We get $P\to 0$ as $T\to 0$, but this is just an artifact of the model! If we introduce even the smallest interaction, that will introduce some pressure which is nonzero. Then we can compute:
+\[       S(T) = \frac{5}{2}    \frac{T^{3/2}}{T_{BEC}^{3/2}} \frac{\zeta(5/2)}{\zeta(3/2)}   \]
+\[    C_V =    \frac{15}{4}    \frac{T^{3/2}}{T_{BEC}^{3/2}} \frac{\zeta(5/2)}{\zeta(3/2)}  \]
+
+
+
+\section*{Lecture 17}
+\subsection*{Planck distribution (1900)}
+\[    \hat   H = \sum_{\alpha} \epsilon_{\alpha} \hat n_{\alpha}      \]
+For example for harmonic oscillator we have:
+\[      \epsilon_n = (n + \frac{1}{2}) \hbar \omega = \epsilon_{\text{ground}} + \hbar \omega n        \]
+\[        \hat H = E_{GS} + \sum_{\alpha} \hbar \omega_{\alpha} \hat n_{\alpha}     \]
+We consider the harmonic oscillator potential to be an approximation for some effective potential; then the higher order terms don't conserve the number of particles. That's why we don't have Bose-Einstein condensation for photons or phonons.
+\[      \nu(\epsilon) = \sum_{\alpha} \delta(\epsilon - \hbar\omega_{\alpha})      \]
+\[        F = \Omega = T \int   d \epsilon \ln(1 - e^{-\epsilon/T} )    \]
+The simplest example of a harmonic oscillator we know is the EM field in vacuum.
+\[        \left(  \frac{\p^2}{\p t^2} - c^2 \nabla^2  \right) E  = 0   \]
+\[        E \sim e^{i\omega t - i k r}       \]
+\[        \omega^2 = c^2 k^2       \]
+And we have a double degeneracy. The occupation function is then:
+\[        \nu(\epsilon) = 2 \sum_k \delta(\epsilon - \hbar c k)   = 2 \int \frac{d^3 k}{(2\pi \hbar)^3} \delta(\epsilon - \hbar c k)   \]
+\[         \nu(\epsilon) \sim \left( \frac{\epsilon}{T} \right)^2      \]
+\[         F = T \nu(T) \int d \epsilon  \left( \frac{\epsilon}{T} \right)^2 \ln (1 - e^{-\epsilon/T})         \]
+Integral is convergent, we introduce dimensionless variables and compute:
+\[        F = - T^2 \nu(T) \int dx x^2 ( - \ln(1 - e^{-x}))      \]
+\[        F = - T^2 \nu(T) \frac{\pi^4}{45}      \]
+\[        F = - T^4 \frac{\pi^2}{45 \hbar^3 c^3} V            \]
+\[        S =     T^3 \frac{4 \pi^2}{45 \hbar^3 c^3} V      \]
+Notice that $T/\hbar$ is the frequency of oscillation, then $T/\hbar c = 1/\lambda_T$. Also, this whole constant is historically written as $16 \sigma / 3c$, where $\sigma$ is Stefan's constant from blackbody radiation.
+\[      C_V = \frac{4\pi^2}{15} T \nu(T) = V \frac{16 \sigma}{c} T^3     \]
+This is the Stefan-Boltzmann law. We also compute the total energy:
+\[       E = \sum_{\alpha} \epsilon_{\alpha} \langle n_{\alpha} \rangle  = \sum_{\alpha} \epsilon_{\alpha} \frac{1}{e^{\epsilon/T} - 1}  = \int d\epsilon \nu(\epsilon) \frac{\epsilon}{e^{\epsilon/T} - 1} \]
+\[       E = \frac{V}{\pi^2 c^3} \int d\omega \omega^2 \left( \frac{\hbar \omega}{e^{\hbar \omega/T} - 1} \right)    \]
+We define the spectral density of energy:
+\[     e(\omega) =  \omega^2 \left( \frac{\hbar \omega}{e^{\hbar \omega/T} - 1} \right)     \]
+Wien studied experimentally this for $\omega >> T$, which gives (since polynomial prefactor is impossible to determine from fit):
+\[      e(\omega) \sim e^{-\hbar \omega/T}     \]
+The maximum of $e(\omega)$ is achieved at $\hbar \omega_{\text{max}} \sim 2.8 T$, and this is called the Wien dispersion law.
+\\
+\\
+It turns out that one can measure something about the ground state energy. Consider having photons inside two metal plates, then varying the distance between them. One can measure the Casimir force (1948):
+\[      F = - \frac{\p}{\p x} \sum \frac{\hbar\omega}{2}      \]
+In the simplest case, if we replace each plate with a molecule, we get the Van der Waals interaction between them. Then the Casimir force can be reduced to the sum of Van der Waals interaction between all molecules of the plates.
+\\
+\\
+Now we look at atoms with strong interaction (kinetic energy negligible) in the limit $T\to 0$. This is a crystal. In other words, we pin the system in 3 points, and the only way any particle can move is by paying an increase of energy of the chemical bonds. We study vibrations, or smooth variations of the shape of the crystal.
+\[        R_{j_1, j_2, j_2} = a_1 j_1 + a_2 j_2 + a_3 j_3 + u(j_1, j_2, j_3)      \]
+\[       u(j_1, j_2, j_3) = \frac{1}{2} A^{\alpha \beta}_{j_1, j_2} (u^{\alpha}_{j_1} - u^{\alpha}_{j_2})(u^{\beta}_{j_1} - u^{\beta}_{j_2} )     \]
+\[            u = \frac{1}{2} \int d^3r E_{\alpha \beta \gamma \delta} \left( \frac{\p u^{\alpha}}{\p x^{\beta}}  \right) \left(  \frac{\p u^{\alpha}}{\p x^{\beta}}  \right)         \]
+
+
+\section*{Lecture 18}
+\subsection*{Themrodynamics of acoustic phonons}
+We already imposed last time the translation invariante of the potential energy. Now we look at what happens when we rotate the crystal as a whole. We take:
+\[       x \to x - y  \theta        \]
+\[       y \to y+ x \theta      \]
+Then $\frac{\p u_x}{\p y} = - \theta$, $\frac{\p u_y}{\p x} =  \theta$. This shows that $\frac{\p u_x}{\p y} + \frac{\p u_y}{\p x} = 0$, so the coefficients $\Theta$ are symmetric.
+\[      \frac{1}{2} \left(  \frac{\p u_{\alpha}}{\p \beta} + \frac{\p u_{\beta}}{\p \alpha} \right)   \]
+Then $\Xi_{\alpha \beta \gamma \delta}$ is a tensor called the \textbf{elastic moduli tensor}. This in general has 81 components, but because of symmetry:
+\[      \Xi_{\alpha \beta \gamma \delta} =  \Xi_{\beta \alpha  \gamma \delta} = \Xi_{ \gamma \delta \alpha \beta}    \]
+These reduce to 21. Let's consider a cubic crystal and compute a few of these terms:
+\[        U(u_{\alpha}(r)) = \frac{1}{2} \int d^3 r \left[  \Xi_1 (u_xx + u_yy + u_zz)^2 + \Xi_2 u^2_{\alpha \beta} + \Xi_3 (u_{xx}^2 + u_{yy}^2 + u_{zz}^2)  \right]        \]
+$\Xi_1$ can be shown to be the compressibility, which is just the same for liquids or gases. The second is the shear modulus, which appears only for solids. FInally, the third is what differentiates the cube from other shapes. In practice, we have $\Xi_1 >> \Xi_2 >> \Xi_3$, so these differences are not that significant.
+\[     H_{kin}  = \frac{1}{2} \int d^3 r   \frac{p^{\alpha}(F) p^{\alpha}(F)}{\rho}     \]
+Where $p^{\alpha}$ is momentum density and $\rho$ is mass density. Therefore the total hamiltonian is:
+\[       H =     \int d^3 r  \left[   \frac{p^{\alpha}(F) p^{\alpha}(F)}{2\rho} + \frac{1}{2} \Xi_{\alpha \beta \gamma \delta} u_{\alpha \beta}(r) u_{\gamma \delta}(r)   \right]  \]
+\[     \frac{\p u_{\alpha}}{\p t} = \frac{i}{\hbar} \left[  H, u_{\alpha} \right]   = \frac{i}{\hbar} \int d^3 r  \left[ \frac{ p_{\alpha}^2(r_1)}{2\rho} , u_{\alpha}  \right] = \frac{p_{\alpha}}{\rho} \]
+\[      \frac{\p p_{\alpha}}{\p t} = \frac{\p}{\p r_{\beta}} \Xi_{\alpha, \beta, \gamma, \delta} u_{\gamma \delta} (r)      \]
+Combine these to get:
+\[     \frac{\p^2 u_{\alpha}}{\p t^2} + \frac{1}{\rho} \Xi_{\alpha, \beta, \gamma, \delta} \frac{\p^2}{\p \beta } u_{\gamma \delta} = 0  \]
+Which is an equation for sound propagation in solids. As with any linear DE, we solve with Fourier transforms.
+\[         \omega^2 u_{\alpha} = \frac{1}{\rho} \Xi_{\alpha \beta \gamma \delta} k_{\beta} k_{\gamma} u_{\delta}      \]
+\[            \omega^2 u_{\alpha} = k^2 \frac{1}{\rho} \Xi_{\alpha \beta \gamma \delta} n_{\beta} n_{\gamma} u_{\delta}      \]
+Denote the eigenvalues of $\frac{1}{\rho} \Xi_{\alpha \beta \gamma \delta} n_{\beta} n_{\gamma}$ by $s_1^2, s_2^2, s_3^2$. Then we have $\omega_j^2 = k^2 s_j^2(n)$. There are 3 modes. Now we try to understand what we nned to change in:
+\[       \nu(T) = \frac{\epsilon^2}{2\pi^2\hbar^3} \frac{2}{c^3}     \]
+$2/c^3$ was obtained from:
+\[       \int \frac{d n}{4\pi}  \frac{2}{c^3} \to  \int \frac{d n}{4\pi} \left( \frac{1}{s_1^3} + \frac{1}{s_2^3} + \frac{1}{s_3^3}  \right)   \]
+Then we can compute specific heat:
+\[        C_V = V \frac{2\pi^2}{15 \hbar^3} \frac{3}{\bar s^3} T^3       \]
+
+
+\section*{Lecture 19}
+\subsection*{Low T expansion in Fermi systems}
+Recall what we did for bosons. Start at $T=0$, find GS and analyze excitations. Important that the number of excitations is not conserved. We get $C_V \sim \nu(T) T$, where $\nu(T)$ counts excitations. For fermions:
+\[       \hat H = \sum_{\alpha} \epsilon_{\alpha} n_{\alpha}    \]
+Where $n_{\alpha} = 0,1$. We obtained:
+\[      \Omega = - T \sum_{\alpha} \ln(1 + e^{(\mu - \epsilon_{\alpha})/T} )    \]
+\[         N = \sum_{\alpha} \langle n_{\alpha} \rangle = \sum_{\alpha} \frac{1}{e^{(\mu - \epsilon_{\alpha})/T}+1}    \]
+If we let $T\to 0$, there's a special notation for the chemical potential $\mu(T=0) = \epsilon_F$; this is called \textbf{Fermi energy}. Then we see that the ground state has $n_{\alpha} = 1$ for $\epsilon_{\alpha} \leq \epsilon_F$ and $n_{\alpha} = 0$ otherwise. The equation for $\epsilon_F$ is:
+\[      N = \int_0^{\epsilon_F} d\epsilon \nu(\epsilon)    \]
+The surface that separates the filled states from empty ones is called Fermi surface; the interior is called Fermi sea. We would like to analyze $T<<\epsilon_F$ (note that this works just fine for metals, say, where $\epsilon_F \sim 10^4 K$).
+
+
+
+
+\section*{Lecture 20}
+\subsection*{Phase transitions}
+Example: BEC. In ground state, $N_{BEC} = N$, and $T>>T_{BEC}$, $N_{BEC} = 0$, and you can't have analytic functions from $0$ to $\neq 0$. The plan is:
+\begin{enumerate}
+\item 2 models: Van der Waals gas and magnetic systems
+\item general theory of continuous phase transitions (Landau, 1937)
+\item why (2) is not the final solution: topological defects, fluctuations, scaling
+\end{enumerate}
+Suppose you want to calculate:
+\[      e^{- \Phi(P,T)} = \int dV \exp [ - (F(T,V) + PV)/T ]     \]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

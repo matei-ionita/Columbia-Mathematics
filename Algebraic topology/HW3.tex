@@ -1,0 +1,138 @@
+\documentclass[12 pt]{article}
+\usepackage{amsmath,amssymb,amsthm,fullpage,amsfonts,enumerate,textcomp, eurosym, tikz-cd, fullpage}
+\title{Algebraic topology HW3}
+\author{Matei Ionita}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\CP}{\mathbb{C}\mathbb{P}}
+\newcommand{\RP}{\mathbb{R}\mathbb{P}}
+\newcommand{\Proj}{\mathbb{P}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\p}{\partial}
+\newcommand{\fr}{\mathfrak}
+
+\DeclareMathOperator{\Mor}{Mor}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\length}{length}
+\DeclareMathOperator{\res}{Res}
+\DeclareMathOperator{\Int}{Int}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\Lie}{Lie}
+\DeclareMathOperator{\id}{Id}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\irr}{irr}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\trdeg}{trdeg}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Nm}{Nm}
+\DeclareMathOperator{\ord}{ord}
+
+\begin{document}
+  \maketitle
+
+\subsection*{Problem 1 (1.1.1 in Hatcher)}
+Since $g_0 \simeq g_1$ by some homotopy $g_t$, $\bar g_0 \simeq \bar g_1$ by the homotopy $g_{1-t}$. Let $h_t$ be a homotopy between $f_0 \bullet g_0$ and $f_1 \bullet g_1$. Using the fact that path products preserve homotopy equivalence, we obtain a homotopy $h_t \bullet g_{1-t}$ between $f_0 \bullet g_0 \bullet \bar g_0$ and $f_1 \bullet g_1 \bullet \bar g_1$. Then we have:
+\[         f_0 \simeq   f_0 \bullet g_0 \bullet \bar g_0 \simeq  f_1 \bullet g_1 \bullet \bar g_1 \simeq f_1      \]
+
+\subsection*{Problem 2 (1.1.2 in Hatcher)}
+The change of basepoint homomorphism is defined by:
+\begin{align*}
+\beta_h : \pi_1 (X, x_1) &\to \pi_1 (X, x_0) \\
+ [f] &\mapsto [h \bullet f \bullet \bar h]
+\end{align*}
+Consider two homotopic paths $h_0 \simeq h_1$ from $x_0$ to $x_1$, and denote the homotopy by $h_t$. Since path products preserve homotopy equivalence, $h_t \bullet f \bullet \bar h_t$ is a homotopy between $h_0 \bullet f \bullet \bar h_0$ and $h_1 \bullet f \bullet \bar h_1$. Then:
+\[        \beta_{h_0} [f] = [ h_0 \bullet f \bullet \bar h_0 ] = [h_1 \bullet f \bullet \bar h_1] = \beta_{h_1} [f]    \]
+
+\subsection*{Problem 3 (1.1.3 in Hatcher)}
+Assume first that $\pi_1(X)$ is abelian, i.e. $[f\bullet g] = [g\bullet f]$ for all $f,g$ loops at some $x_1 \in X$. Consider two paths $h_0, h_1$ from $x_0$ to $x_1$. Then $\bar h_1 \bullet h_0$ is a loop at $x_1$. Take any other loop $f$ at $x_1$, and by hypothesis we have:
+\[      \bar h_1 \bullet h_0 \bullet f \simeq f \bullet \bar h_1 \bullet h_0        \]
+By taking a product with $h_1$ on the left side and with $\bar h_0$ on the right side, this is equivalent to:
+\[        h_0 \bullet f \bullet \bar h_0 \simeq h_1 \bullet f \bullet \bar h_1         \]
+Which is to say $\beta_{h_0} [f] = \beta_{h_1} [f]$, for any paths $h_0, h_1$ with common endpoints.
+
+Conversely, assume $\beta_{h_0} [f] = \beta_{h_1} [f]$. Take $h_0$ to be the constant loop at $x_1$, and $h_1$ an arbitrary loop at $x_1$. Then, given another arbitrary loop $f$ at $x_1$, the hypothesis becomes:
+\[      f \simeq  h_0 \bullet f \bullet \bar h_0 \simeq h_1 \bullet f \bullet \bar h_1    \]
+We take a product with $h_1$ on the right, and obtain:
+\[       f \bullet h_1 \simeq h_1 \bullet f    \]
+In other words, any two arbitrary loops at $x_1$ commute, so $\pi_1 (X, x_1)$ is abelian. Since $\pi_1(X,x)$ are isomorphic for all $x \in X$, the fundamental group is abelian irrespective of basepoint.
+
+
+\subsection*{Problem 4 (1.1.5 in Hatcher)}
+(a) $\Rightarrow$ (b) Consider $f: S^1 \to X$; by (a), there exists a homotopy $f_t$ between $f$ and $x_0$, where the latter is interpreted as the constant map at $x_0 \in X$. Define:
+\begin{align*}
+g : D^2 &\to X \\
+(r, \theta) &\mapsto f_r(\theta)
+\end{align*}
+$g$ is well-defined in the origin, because $f_0(\theta) = x_0$ for all $\theta$. Moreover, it is continuous by definition of the homotopy $f_t$. $g|_{S^1} = g(1, \theta) = f_1(\theta) = f(\theta)$, so $g$ indeed extends $f$.
+\\
+\\
+(b) $\Rightarrow$ (c) Consider a loop $f : S^1 \to X$, which represents a homotopy class in $\pi_1(X,x_1)$ for $x_1 = f(0) = f(1)$. By (b), there exists a map $g: D^2 \to X$ such that $g|_{S^1} = f$, and this map satisfies $g(0, \theta) = x_0$ for all $\theta$, as shown in the proof of the previous part. Define:
+\begin{align*}
+f_t : S^1 &\to X \\
+\theta &\mapsto g(t, \theta)
+\end{align*}
+We see that $f_0 = x_0$, the constant map at $x_0$, and $f_1 = f$. Moreover, $g$ is continuous by assumption, so the family $f_t$ is continous. However, $f_t$ is not a homotopy of paths, because its endpoints are not independent of $t$. This can be fixed by considering any family $h_t$ of paths from $g(t,0)$ to $x_1$, and constructing $\tilde f_t = \bar h_t \bullet f_t \bullet h_t$. Now $\tilde f_t$ is a homotopy of paths from the constant loop at $x_1$ to $f$. Indeed, the endpoints of each $\tilde f_t$ are at $x_1$ by construction, $\tilde f_1 \simeq f_1$ and $\tilde f_0 = \bar h_0 \bullet x_0 \bullet h_0 \simeq x_1$. Therefore $[x_1]$ is the unique homotopy class in $\pi_1(X, x_1)$, so $\pi_1 (X,x_1) = 0$.
+\\
+\\
+(c) $\Rightarrow$ (a) Consider a map $f : S^1 \to X$, then $[f] \in \pi_1 (X, f(0))$. But $\pi_1(X, f(0)) = 0$ by hypothesis, so $f\simeq f(0)$, where the latter is the constant path at $f(0)$. Since any homotopy of paths is a homotopy of maps, (a) follows.
+\\
+\\
+Note that (a) is equivalent to the statement that all maps $S^1 \to X$ are homotopic. For, if $f:S^1 \to X$ is homotopic to the constant map at $x_0$ and $g:S^1 \to X$ is homotopic to the constant map at $x_1$, the constant maps are homotopic by translation along a path from $x_0$ to $x_1$. This shows that $f \simeq g$. This fact, together with $(a) \Leftrightarrow (c)$, means that $X$ is simply connected iff all maps $S^1 \to X$ are homotopic.
+
+
+
+\subsection*{Problem 5 (1.1.7 in Hatcher)}
+First the easy part: we explicitly show a homotopy between $f$ and the identity, that is stationary on $S^1 \times \{0\}$ but not on $S^1 \times \{1\}$:
+\begin{align*}
+f_t : S^1 \times I &\to S^1 \times I \\
+(\theta , s) &\mapsto (\theta + 2\pi t s, s)
+\end{align*}
+Now assume that there exists a homotopy $g_t$ that is stationary on both $S^1 \times \{0\}$ and $S^1 \times \{1\}$. For a fixed $\theta_0$, this means that $g_t (\theta_0, 0) = g_t(\theta_0, 1) = \theta_0$. Let $P : S^1 \times I \to S^1$ denote the projection onto the first factor; then $P \circ g_t|_{\{\theta_0\}\times I}$ is a homotopy of paths between the two loops $P \circ f|_{\{\theta_0\}\times I}$ and $\theta_0$. (The latter is the constant loop at $\theta_0$.) But, using the notation from class, $P \circ f|_{\{\theta_0\}\times I} = \omega_1$ and $\theta_0 = \omega_0$. We showed that the map $\Phi : \Z \to \pi_1(S^1)$ that takes $n$ to $[\omega_n]$ is injective, therefore $\omega_0 \simeq \omega_1$ implies $0 = 1$, and we reach a contradiction.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

@@ -1,0 +1,93 @@
+\documentclass[12 pt]{article}
+\usepackage{amsmath,amssymb,amsthm,fullpage,amsfonts,enumerate,textcomp, eurosym}
+\title{Lecture 6}
+\author{Matei Ionita}
+
+\begin{document}
+  \maketitle
+
+\subsection*{Two-point function for free theory}
+we showed that the two-point function can be computed as:
+\[ \langle \phi_1 \phi_2 \rangle =  \langle 0 | T \hat \phi(x_1) \hat \phi(x_2) |0 \rangle = \frac{\int D\phi\; e^{iS} \phi (x_1) \phi(x_2)}{\int D \phi\; e^{iS}} \]
+We looked at S with no J, i.e. no source. If we want a source, we add a term $J \phi$ and call the action $S_J$. Often we choose the implicit normalization of the measure such that the denominator is 1. For free theory, we worked this out to be:
+\[  e^{iS} = e^{-\frac{1}{2} \int d^4 x i \phi (-\partial^2 + m^2) \phi} \]
+\[  \langle \phi_1 \phi_2\rangle = \frac{1}{i} \Delta(x_1 - x_2)  \]
+Where $\Delta_{12}$ is the Green's function for the Klein Gordon eq.:
+\[ ( -\partial^2_{1} + m^2 ) \Delta_{12} = \delta^{(4)} (x_1-x_2) \]
+Comment:
+\[   \int D\phi e^{iS} = (2\pi)^{\frac{n}{2}} \left|\frac{\Delta}{i}\right|^{\frac{1}{2}} \]
+Using the Fourier space to find the Green's function:
+\[  \Delta_{12} = \int \frac{d^4 k}{(2\pi)^4} f(k) e^{ik(x_1 - x_2)} \]
+\[  \int \frac{d^4 k}{(2\pi)^4} (k^2+m^2 -i\epsilon) f(k) e^{ik(x_1 - x_2)} = \delta(x_1-x_2) \]
+\[  \Delta(x_1 - x_2) = \int \frac{d^4 k}{(2\pi)^4} \frac{e^{ik(x_1-x_2)}}{k^2+m^2 - i \epsilon}  \]
+We integrate over $d k^0$, so k is not (yet) on-shell. The denominator is:
+\[ - (k^0 - (- \omega_k + i\epsilon))(k^0 - (\omega_k - i \epsilon)) \]
+We use $-i\epsilon$ and NOT $i\epsilon$ because this is what makes the path integral converge (see argument with the Hamiltonian from last time).
+\[  \Delta(x_1-x_2) = i \int \frac{d^3 k}{(2\pi)^3} e^{i\mathbf{k (x_1-x_2)}} \left( \theta(t_1 - t_2) \frac{e^{-i\omega_k (t_1-t_2)}}{2\omega_k} + \theta(t_2 - t_1) \frac{e^{i\omega_k(t_1-t_2) }} {2\omega_k} \right)  \]
+Changing variables from k to -k in the second integral:
+\[  \langle \phi_1 \phi_2 \rangle = \int \frac{d^3 k}{(2\pi)^3 2\omega_k} \left( \theta(t_1 - t_2) e^{i\mathbf{k (x_1-x_2)}} e^{-i\omega_k (t_1-t_2)} + \theta(t_2 - t_1) e^{-i\mathbf{k (x_1-x_2)}} e^{i\omega_k(t_1-t_2) } \right)  \]
+If we let $k^0 = \omega_k$:
+\[ \langle 0| T \hat \phi_1 \hat \phi_2|0 \rangle = \int \frac{d^3 k}{(2\pi)^3 2\omega_k} \left( \theta(t_1 - t_2) e^{ik (x_1-x_2)} + \theta(t_2 - t_1) e^{-ik (x_1-x_2)} \right)   \]
+We derived this result using path integrals. In the HW, we will check it using canonical quantization.
+\\
+\\
+Classically we would have:
+\[ \phi(x) = \int d^4 x' \Delta_{xx'} J(x') \]
+Where $\Delta$ is a retarded Green function. But ours is half retarded and half advanced. This is called Feynman Green's function. Check causality: $[\hat \phi_1 , \hat \phi_2] = 0$ when 1 and 2 are spacelike separated.
+\\
+\\
+For free theory, $\langle \phi_1 ... \phi_m \rangle = $ Wick pairs, for example:
+\[  \langle \phi_1 \phi_2 \phi_3 \phi_4 \rangle = \langle \phi_1 \phi_2 \rangle \langle \phi_3 \phi_4 \rangle + \langle \phi_1 \phi_3 \langle \phi_2 \phi_4 \rangle + \langle \phi_1 \phi_4 \rangle \langle \phi_2 \phi_3 \rangle \]
+For even number, the n-point function is 0.
+
+\subsection*{n-point function for J}
+\[  Z[J] = \int D\phi e^{iS_J}  \]
+Is called the generating function of the n-point function because:
+\[   \frac{\delta Z[J] }{\delta iJ(x_1)} = \int D\phi \phi(x_1) e^{iS_{J}} \]
+Where, implicitly, $\frac{\delta J(x)}{\delta J(x_1)} = \delta(x-x_1)$. Therefore we get:
+\[ \left.  \frac{\delta Z[J] }{\delta iJ(x_1)}\right|_{J=0} = \langle \phi(x_1) \rangle  \;\;\;\;\;\;\;\; \left.  \frac{\delta^n Z[J] }{\delta iJ(x_1) ... \delta iJ(x_n)}\right|_{J=0} = \langle \phi(x_1) ... \phi(x_n)\rangle \]
+
+\subsection*{Static source}
+$J = J(x) $. Let's solve the classical problem:
+\[  (-\partial^2_x +m^2)\phi_x = J_x  \]
+\[ \phi_x = \int d^4 x' J(\mathbf{x'}) \int \frac{d^4 k}{(2\pi)^2} \frac{e^{ik(x-x')}}{k^2+m^2} \]
+\[  \phi_x = \int d^3 x' J(\mathbf{x'}) \int \frac{d^3 k}{(2\pi)^3}  \frac{e^{i\mathbf{k(x-x')}}}{\mathbf{k}^2+m^2} = \frac{1}{4\pi} \frac{e^{-m|\mathbf{x-x'}|}}{|\mathbf{x-x'}|} \]
+This is the Yukawa potential. Behaves like $\frac{1}{|\mathbf{x-x'}|}$ when $|\mathbf{x-x'}| << \frac{1}{m}$, and is exponentially supressed when $|\mathbf{x-x'}| >> \frac{1}{m}$. We will see later why we call this 'potential'. Now let's compute the energy of our $\phi(x)$ configuration:
+\[  \mathcal{H} = \frac{1}{2} (\partial_t \phi)^2 + \frac{1}{2} (\nabla \phi)^2 + \frac{1}{2} m^2 \phi^2 - J\phi \]
+
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

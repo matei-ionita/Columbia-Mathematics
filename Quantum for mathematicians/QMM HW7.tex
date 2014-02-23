@@ -1,0 +1,155 @@
+\documentclass[12 pt]{article}
+\usepackage{amsmath,amssymb,amsthm,fullpage,amsfonts,enumerate,textcomp, eurosym}
+\usepackage{yfonts}
+\usepackage[T1]{fontenc}
+\title{QM for Mathematicians HW7}
+\author{Matei Ionita}
+
+\begin{document}
+  \maketitle
+
+\subsection*{Problem 1}
+Let's first find the commutation relations for $L_{jk}$. Note that we can express $L_{jk}$ as outer products of vectors $|e_j\rangle$ in the usual basis for $M(n)$:
+\[  L_{jk} = - |e_j\rangle\langle e_k| + |e_k\rangle\langle e_j|   \]
+Now the commutator is:
+\[  [L_{jk} , L_{mp}] =  ( - |e_j\rangle\langle e_k| + |e_k\rangle\langle e_j|)( - |e_m\rangle\langle e_p| + |e_p\rangle\langle e_m|) - ( - |e_m\rangle\langle e_p| + |e_p\rangle\langle e_m|)( - |e_j\rangle\langle e_k| + |e_k\rangle\langle e_j|)  \]
+Using the fact that $\langle e_j|e_k\rangle = \delta_{jk}$ we get:
+\[  [L_{jk} , L_{mp}] =  |e_j\rangle\langle e_p| \delta_{km} - |e_j\rangle\langle e_m| \delta_{kp} - |e_k\rangle\langle e_p| \delta_{jm} + |e_k\rangle\langle e_m| \delta_{jp} - \]
+\[ - |e_m\rangle\langle e_k| \delta_{jp} + |e_m\rangle\langle e_j| \delta_{kp} + |e_p\rangle\langle e_k| \delta_{jm} - |e_p\rangle\langle e_j| \delta_{km}\]
+\[   [L_{jk},L_{mp}] = - L_{jp} \delta_{km} + L_{jm}\delta_{kp} + L_{kp} \delta_{jm} - L_{km} \delta_{jp}  \]
+Since $L_{jk} = - L_{kj}$, we can rewrite this for future convenience:
+\[     [L_{jk},L_{mp}] = - L_{jp} \delta_{mk} - L_{mj}\delta_{kp} + L_{kp} \delta_{jm} + L_{mk} \delta_{jp}    \]
+For the generators of $\mathfrak{sp}$(n):
+\[  [ 1/2 \gamma_j \gamma_k , 1/2 \gamma_m \gamma_p ] = \frac{1}{4} \gamma_j\gamma_k\gamma_m\gamma_p - \frac{1}{4} \gamma_m\gamma_p\gamma_j\gamma_k  \]
+Using $\gamma_j\gamma_k = - \gamma_k\gamma_j + 2\delta_{jk}$ twice in the second term, we bring $\gamma_m$ to the front. Then, using it two more times, we bring $\gamma_p$ to the second position.
+\[   [ 1/2 \gamma_j \gamma_k , 1/2 \gamma_m \gamma_p ] = \frac{1}{4} \gamma_m\gamma_j\gamma_k\gamma_p - \frac{1}{4} \gamma_m\gamma_p\gamma_j\gamma_k  - \frac{1}{2} \gamma_j \gamma_p \delta_{mk} + \frac{1}{2} \gamma_k \gamma_p \delta_{jm}  \]
+\[   [ 1/2 \gamma_j \gamma_k , 1/2 \gamma_m \gamma_p ] = \frac{1}{4} \gamma_m\gamma_p\gamma_j\gamma_k - \frac{1}{4} \gamma_m\gamma_p\gamma_j\gamma_k  - \frac{1}{2} \gamma_j \gamma_p \delta_{mk} + \frac{1}{2} \gamma_k \gamma_p \delta_{jm} - \frac{1}{2} \gamma_m \gamma_j \delta_{kp} + \frac{1}{2} \gamma_m \gamma_k \delta_{jp} \]
+The first two terms cancel out and we are left with an expression analogous with the one we got for the generators of $\mathfrak{so}$(n):
+\[    [ 1/2 \gamma_j \gamma_k , 1/2 \gamma_m \gamma_p ] =  - \frac{1}{2} \gamma_j \gamma_p \delta_{mk} - \frac{1}{2} \gamma_m \gamma_j \delta_{kp} + \frac{1}{2} \gamma_k \gamma_p \delta_{jm}  + \frac{1}{2} \gamma_m \gamma_k \delta_{jp}   \]
+Comparing this with the above expression for the commutator of $L_{jk}$, we see that they are identical.
+
+\subsection*{Problem 2}
+We use the fact, proved in the notes, that:
+\[   e^{\theta/2 \gamma_j \gamma_k} = \cos (\theta/2) + \gamma_j \gamma_k \sin(\theta/2)  \]
+We have:
+\[   e^{-\theta/2 \gamma_j \gamma_k} (v_j \gamma_j + v_k \gamma_k)   e^{\theta/2 \gamma_j \gamma_k} = \left[ \cos (\theta/2) - \gamma_j \gamma_k \sin(\theta/2) \right] (v_j \gamma_j + v_k \gamma_k)   \left[ \cos (\theta/2) + \gamma_j \gamma_k \sin(\theta/2) \right]  = \]
+\[  =  \cos^2(\theta/2) v_j \gamma_j  + \cos(\theta/2)\sin(\theta/2) v_j \gamma_j^2 \gamma_k  + \cos^2(\theta/2) v_k \gamma_k  +  \cos(\theta/2)\sin (\theta/2) v_k \gamma_k \gamma_j \gamma_k  -  \]
+\[  - \cos(\theta/2)\sin(\theta/2) v_j \gamma_j \gamma_k \gamma_j  - \sin^2(\theta/2) v_j \gamma_j\gamma_k \gamma^2_j \gamma_k  - \sin(\theta/2)\cos(\theta/2) v_k \gamma_j\gamma_k^2  - \sin^2(\theta/2) v_k \gamma_j\gamma_k^2\gamma_j\gamma_k  \]
+Now we can exploit the fact that $j\neq k$ to use $\gamma_j^2=\gamma_k^2=1$ and $\gamma_j\gamma_k = -\gamma_k\gamma_j$, and get:
+\[  \cos^2(\theta/2) v_j \gamma_j  + \cos(\theta/2)\sin(\theta/2) v_j  \gamma_k  + \cos^2(\theta/2) v_k \gamma_k  -  \cos(\theta/2)\sin (\theta/2) v_k  \gamma_j   +  \]
+\[  + \cos(\theta/2)\sin(\theta/2) v_j  \gamma_k  - \sin^2(\theta/2) v_j \gamma_j  - \sin(\theta/2)\cos(\theta/2) v_k \gamma_j - \sin^2(\theta/2) v_k \gamma_k  = \]
+\[  = \cos(\theta) v_j\gamma_j + \sin(\theta) v_j\gamma_k  + \cos(\theta) v_k\gamma_k -\sin(\theta) v_k \gamma_j =  \]
+\[  = [\cos(\theta) v_j - \sin(\theta) v_k ]\gamma_j + [\sin(\theta) v_j + \cos (\theta)v_k]\gamma_k    \]
+So conjugation by exp$[\theta/2 \gamma_j\gamma_k]$ gives a rotation by angle $\theta$ in the j-k plane.
+
+\subsection*{Problem 3}
+Consider first the case $n=4$, i.e. two fermionic variables. We have 4 basis elements for the spinors: $|0\rangle , a_1^{\dagger}|0\rangle, a_2^{\dagger}|0\rangle, a_1^{\dagger}a_2^{\dagger}|0\rangle$. Since all these are energy eigenstates, the action that the Hamiltonian generates on them is:
+\[   e^{iH\theta} |0\rangle = e^{iE_0 \theta} |0\rangle = e^{-i\theta} |0 \rangle    \]
+\[   e^{iH\theta} a_1^{\dagger}|0\rangle = e^{iE_1 \theta} a_1^{\dagger}|0\rangle =  a_1^{\dagger}|0 \rangle    \]
+\[   e^{iH\theta} a_2^{\dagger}|0\rangle = e^{iE_2 \theta} a_2^{\dagger}|0\rangle =  a_2^{\dagger}|0 \rangle    \]
+\[   e^{iH\theta} a_1^{\dagger}a_2^{\dagger}|0\rangle = e^{iE_{12} \theta} a_1^{\dagger}a_2^{\dagger}|0\rangle = e^{i\theta} a_1^{\dagger}a_2^{\dagger}|0 \rangle    \]
+Therefore, on a generic spinor the action is:
+\[   e^{iH\theta} \to \left( \begin{array} {cccc}     e^{-i\theta} & & & \\ & 1 & & \\ & & 1 & \\ & & & e^{i\theta}      \end{array} \right)  \]
+Which is a unitary representation. The Hamiltonian also generates an action on vectors $v_1 \gamma_1 + v_2 \gamma_2 + v_3 \gamma_3 + v_4 \gamma_4$ by conjugation. To see this, we first express H in terms of $\gamma_j$:
+\[   H = a_1^{\dagger}a_1 + a_2^{\dagger}a_2 - 1 = \frac{1}{4}(\gamma_1+ i \gamma_2)(\gamma_1 - i\gamma_2) + \frac{1}{4}(\gamma_3 + i\gamma_4)(\gamma_3 - i\gamma_4) -1  \]
+\[   H = \frac{i}{4}(\gamma_2\gamma_1 - \gamma_1\gamma_2 + \gamma_4\gamma_3 - \gamma_3\gamma_4) = i \left(  \frac{\gamma_2\gamma_1}{2} + \frac{\gamma_4\gamma_3}{2}  \right) \]
+Then we can conjugate any vector by:
+\[   e^{-iH\theta} (v_1 \gamma_1 + v_2 \gamma_2 + v_3 \gamma_3 + v_4 \gamma_4) e^{iH\theta} = e^{-\theta/2 \gamma_1\gamma_2} e^{-\theta/2\gamma_3\gamma_4} (v_1 \gamma_1 + v_2 \gamma_2 + v_3 \gamma_3 + v_4 \gamma_4) e^{\theta/2 \gamma_1\gamma_2} e^{\theta/2\gamma_3\gamma_4}    \]
+We were able to factor the exponential because $[\gamma_2\gamma_1 , \gamma_4\gamma_3] = 0$. Using the result of problem 2, note that this represents two rotations, one in the 1-2 plane and the other in the 3-4 plane:
+\[   [\cos \theta v_1 - \sin\theta v_2 ]\gamma_1 + [\sin\theta v_1 + \cos\theta v_2] \gamma_2  +  [\cos \theta v_3 - \sin\theta v_4 ]\gamma_3 + [\sin\theta v_3 + \cos\theta v_4] \gamma_4  \]
+\\
+For a rotation in the j-k plane, problem 1 shows that we need to consider the element $\frac{1}{2}\gamma_j\gamma_k$. We will work with two cases. The first is when $\gamma_j$ and $\gamma_k$ correspond to the same copy of $\mathbb{C}$, i.e. they are the "coordinate" and "momentum" of the same fermionic variable. We choose $\gamma_1$ and $\gamma_2$ to illustrate this situation. The second case is when $\gamma_j$ and $\gamma_k$ correspond to different fermionic variables, and we will treat $\gamma_1$ and $\gamma_3$. Thus, for the first case:
+\[    e^{\theta/2 \gamma_1 \gamma_2} =  \cos(\theta/2) + \sin(\theta/2) \gamma_1\gamma_2 =  \cos(\theta/2) + \sin(\theta/2) i (a_1 + a_1^{\dagger})(a_1-a_1^{\dagger})  \]
+\[  e^{\theta/2 \gamma_1 \gamma_2} = \cos(\theta/2) + i \sin(\theta/2)  (2N_1 - 1)  \]
+Where $N_1$ is the number of fermions of type 1. So the action on spinors is:
+\[  e^{\theta/2 \gamma_1 \gamma_2} \to  \left( \begin{array} {cccc}     e^{-\theta/2} & & & \\ &e^{-\theta/2} & & \\ & &e^{\theta/2} & \\ & & & e^{-\theta/2}      \end{array} \right)   \]
+For the second case:
+\[   e^{\theta/2 \gamma_1\gamma_2} = \cos(\theta/2) +  \sin(\theta/2) (a_1 a_3 + a_1a_3^{\dagger} + a_1^{\dagger}a_3 + a_1^{\dagger}a_3^{\dagger})    \]
+Thus the action is:
+\[  e^{\theta/2 \gamma_1 \gamma_3} \to  \left( \begin{array} {cccc}     \cos(\theta/2) & & & \sin(\theta/2) \\ &\cos(\theta/2) & \sin(\theta/2) & \\ & \sin(\theta/2) &\cos(\theta/2) & \\ \sin(\theta/2) & & & \cos(\theta/2)      \end{array} \right)   \]
+Which is not unitary.
+\\
+\\
+Now let's do the same calculation for $n=6$ (3 fermionic variables). The action that the Hamiltonian generates on the 8 basis elements is:
+\[         e^{iH\theta} \to \left( \begin{array} {cccccccc} e^{-3\theta/2} & & & & & & & \\  &e^{-\theta/2} & & & & & & \\ & & e^{-\theta/2} & & & & & \\ & & &e^{-\theta/2} & & & & \\ & & & &e^{\theta/2} & & & \\ & & & & &e^{\theta/2} & & \\ & & & & & &e^{\theta/2} & \\ & & & & & & & e^{3\theta/2}         \end{array}  \right)            \]
+To see the action by conjugation of H on vectors, we write it in terms of $\gamma_j$:
+\[   H =  i \left(  \frac{\gamma_2\gamma_1}{2} + \frac{\gamma_4\gamma_3}{2} + \frac{\gamma_6\gamma_5}{2}  \right)       \]
+\[    e^{-iH\theta} (v_1 \gamma_1 + v_2 \gamma_2 + v_3 \gamma_3 + v_4 \gamma_4 + v_5\gamma_5 + v_6\gamma_6) e^{iH\theta}  =   \]
+\[  =     [\cos \theta v_1 - \sin\theta v_2 ]\gamma_1 + [\sin\theta v_1 + \cos\theta v_2] \gamma_2  +  [\cos \theta v_3 - \sin\theta v_4 ]\gamma_3 + [\sin\theta v_3 + \cos\theta v_4] \gamma_4 + \]
+\[ +    [\cos \theta v_5 - \sin\theta v_6 ]\gamma_5 + [\sin\theta v_5 + \cos\theta v_6] \gamma_6       \]
+\\
+\\
+For rotations in the j-k plane, we work once again with two cases. For $\gamma_1$ and $\gamma_2$ we have:
+\[  e^{\theta/2 \gamma_1 \gamma_2} = \cos(\theta/2) + i \sin(\theta/2)  (2N_1 - 1)  \]
+\[  e^{\theta/2 \gamma_1 \gamma_2} \to  \left( \begin{array} {cccccccc}     e^{-\theta/2} & & & & & & & \\ &e^{\theta/2} & & & & & & \\ & &e^{-\theta/2} & & & & & \\ & & & e^{\theta/2} & & & & \\ & & & &e^{-\theta/2} & & & \\ & & & & &e^{\theta/2} & & \\ & & & & & & e^{-\theta/2} & \\ & & & & & & & e^{\theta/2}     \end{array} \right)   \]
+For the $\gamma_1$ and $\gamma_3$ case:
+\[  e^{\theta/2 \gamma_1 \gamma_2} = \cos(\theta/2) +  \sin(\theta/2)  (a_1 a_3 + a_1a_3^{\dagger} + a_1^{\dagger}a_3 + a_1^{\dagger}a_3^{\dagger})  \]
+The action on each basis element is:
+\[  e^{\theta/2 \gamma_1 \gamma_3} |0\rangle = \cos(\theta/2) |0\rangle + \sin(\theta/2) a_1^{\dagger}a_3^{\dagger} |0\rangle \]
+\[  e^{\theta/2 \gamma_1 \gamma_3} a_1^{\dagger}|0\rangle = \cos(\theta/2) a_1^{\dagger}|0\rangle + \sin(\theta/2) a_3^{\dagger} |0\rangle \]
+\[  e^{\theta/2 \gamma_1 \gamma_3} a_2^{\dagger}|0\rangle = \cos(\theta/2) a_2^{\dagger}|0\rangle + \sin(\theta/2) a_1^{\dagger} a_2^{\dagger} a_3^{\dagger} |0\rangle \]
+\[  e^{\theta/2 \gamma_1 \gamma_3} a_3^{\dagger}|0\rangle = \cos(\theta/2) a_3^{\dagger}|0\rangle + \sin(\theta/2) a_1^{\dagger} |0\rangle \]
+\[  e^{\theta/2 \gamma_1 \gamma_3} a_1^{\dagger}a_2^{\dagger}|0\rangle = \cos(\theta/2) a_1^{\dagger}a_2^{\dagger}|0\rangle + \sin(\theta/2) a_2^{\dagger}a_3^{\dagger} |0\rangle \]
+\[  e^{\theta/2 \gamma_1 \gamma_3} a_1^{\dagger}a_3^{\dagger}|0\rangle = \cos(\theta/2) a_1^{\dagger}a_3^{\dagger}|0\rangle + \sin(\theta/2) |0\rangle \]
+\[  e^{\theta/2 \gamma_1 \gamma_3} a_2^{\dagger}a_3^{\dagger}|0\rangle = \cos(\theta/2) a_2^{\dagger}a_3^{\dagger}|0\rangle + \sin(\theta/2) a_1^{\dagger}a_2^{\dagger} |0\rangle \]
+\[  e^{\theta/2 \gamma_1 \gamma_3} a_1^{\dagger}a_2^{\dagger}a_3^{\dagger}|0\rangle = \cos(\theta/2) a_1^{\dagger}a_2^{\dagger}a_3^{\dagger}|0\rangle + \sin(\theta/2) a_2^{\dagger} |0\rangle \]
+
+\[  e^{\theta/2 \gamma_1 \gamma_3} \to  \left( \begin{array} {cccccccc}     \cos(\theta/2) & & & & &\sin(\theta/2)  & & \\ &\cos(\theta/2) & &\sin(\theta/2)  & & & & \\ & &\cos(\theta/2) & & & & & \sin(\theta/2) \\ & \sin(\theta/2)  & & \cos(\theta/2) &   & & & \\ & & & &\cos(\theta/2) & & \sin(\theta/2)  & \\ & & & & \sin(\theta/2)  &\cos(\theta/2) & & \\ \sin(\theta/2)  & & & & & &\cos(\theta/2) & \\ &  & \sin(\theta/2)  & & & & &\cos(\theta/2)   \end{array} \right)   \]
+Which is not only nonunitary, but also quite ugly.
+
+\subsection*{Problem 4}
+In class, starting from the Grassman algebra we define "complex" variables $\psi_j = \theta_1 + i \theta_2$. Then the operators $\psi_j$ and $\frac{\partial}{\partial \psi_j}$, acting on polynomials of $\psi_1, ... , \psi_m$ satisfy:
+\[    \left\{  \frac{\partial}{\partial \psi_i} , \psi_j   \right\}_{+}  = \delta_{ij}  \]
+\[    \left\{  \psi_i , \psi_j   \right\}_{+}  = 0 =    \left\{  \frac{\partial}{\partial \psi_i} , \frac{\partial}{\partial \psi_j}  \right\}_{+}   \]
+So they are good classical analogs of $a_F^{\dagger}$ and $a_F$. The classical spinors that they act on are all polynomials in $\psi_j$, which are spanned by the basis:
+\[   1  , \psi_i , \psi_i \psi_j , ... , \psi_1\psi_2...\psi_m  \]
+The analog of the Bargmann-Fock inner product we can define for these polynomials is:
+\[   \langle f_1|f_2\rangle = \int \overline{f_1(\psi)} f_2(\psi) e^{\overline \psi \psi} d\psi d\overline\psi    \]
+Where the integral used is the Berezin integral. We can extend this to m variables as:
+\[     \langle f_1|f_2\rangle = \int \overline{f_1(\psi_1, ... , \psi_m)} f_2(\psi_1, ... , \psi_m) e^{\sum \overline \psi_j \psi_j} \Pi d\psi_j d\overline\psi_j    \]
+In order to see that $\psi_j$ and $\frac{\partial}{\partial \psi_j}$ are adjoints with respect to this inner product, we have to show that:
+\[       \langle f_1 | \psi_j | f_2 \rangle = \langle f_2 |  \partial /\partial \psi_j |f_1 \rangle^*      \]
+Let's proceed from the RHS:
+\[   \langle f_2 |  \partial /\partial \psi_i |f_1 \rangle^* = \left( \int \overline{f_2(\psi_1, ... , \psi_m)} \frac{\partial}{\partial \psi_i}  f_1(\psi_1, ... , \psi_m) e^{\sum \overline \psi_j \psi_j} \Pi d\psi_j d\overline\psi_j \right)^* = \]
+\[ =   \int {f_2(\psi_1, ... , \psi_m)} \frac{\partial}{\partial \overline \psi_i}  \overline{ f_1(\psi_1, ... , \psi_m)} e^{\sum \overline \psi_j \psi_j} \Pi d\psi_j d\overline\psi_j       \]
+We don't have to worry about the ordering of $\psi_j$ and $\overline \psi_j$ after we take a complex conjugate, because they commute. Now we can integrate by parts, which in the Berezin integral does not bring a minus sign:
+\[    \langle f_2 |  \partial /\partial \psi_i |f_1 \rangle^* =   \int {f_2(\psi_1, ... , \psi_m)}  \overline{ f_1(\psi_1, ... , \psi_m)} \frac{\partial}{\partial \overline \psi_i} e^{\sum \overline \psi_j \psi_j} \Pi d\psi_j d\overline\psi_j    =  \]
+\[ =    \int \overline{f_1(\psi_1, ... , \psi_m)} f_2(\psi_1, ... , \psi_m) \psi_j e^{\sum \overline \psi_i \psi_j} \Pi d\psi_j d\overline\psi_j  = \langle f_1|\psi_i|f_2\rangle \]
+Which is the desired result.
+
+
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

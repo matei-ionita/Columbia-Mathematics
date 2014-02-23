@@ -1,0 +1,97 @@
+\documentclass[12 pt]{article}
+\usepackage{amsmath,amssymb,amsthm,fullpage,amsfonts,enumerate,textcomp, eurosym}
+\title{QFT Lecture 10}
+\author{Matei Ionita}
+
+\begin{document}
+  \maketitle
+
+Now that we know how to compute $Z[J]$, let's see how we get scattering amplitudes. We take derivatives of the generating function and use the LSZ formula. We have:
+\[   Z[J] = e^{iW[J]}  \]
+Throwing away bubbles and tadpoles in $W[J]$. Let's start with the 2-point function, the simplest n-point function that is not 0.
+\[   \langle \phi_1 \phi_2 \rangle = \frac{1}{i} \Delta_{exact}  \]
+We denote the interaction propagator by $\Delta_{exact}$, and the free propagator by $\Delta$.
+\[   \langle \phi_1 \phi_2 \rangle =  \left. \frac{\delta Z[J]}{\delta i J_2 \delta i J_1} \right|_{J=0} = \frac{\delta}{\delta iJ_2}\left. e^{iW[J]}\frac{\delta i W[J]}{ \delta i J_1} \right|_{J=0} =\left. \frac{\delta iW}{\delta iJ_1 \delta i J_2} \right|_{J=0}  \]
+\[  =  \frac{\delta }{\delta iJ_1 \delta i J_2} \left[  *-* + *-O-* + ...   \right] \]
+Where the first diagram is $O(g^0)$, the second is $O(g^2)$ etc.
+\[  *-* = \frac{1}{2} \int d^4 x d^4 y (iJ_x) (iJ_y) \frac{\Delta_{xy}}{i}   \]
+\[   \frac{\delta }{\delta iJ_1 \delta i J_2}  *-* = \frac{1}{i} \Delta_{xy}  \]
+To the lowest order in g, we get the free 2-point function, which makes sense. Let's do the next term.
+\[   *-O-* = \frac{1}{4} \int d^4 x d^4 y d^4 a d^4 b (iZ_g g)^2 \left(  \frac{\Delta_{xy}}{i}   \right)^2 \frac{\Delta_{xa}}{i} \frac{\Delta_{yb}}{i} (iJ_a) (iJ_b) \]
+We'll see next week that $Z_g = 1 + O(g^2)$, so for the purposes of the $O(g^2)$ term it's 1.
+\[    \frac{\delta }{\delta iJ_1 \delta i J_2} *-O-* = \frac{(ig)^2}{2} \int d^4 x d^4 y \left( \frac{\Delta_{xy}}{i} \right)^2 \frac{\Delta_{1x}}{i} \frac{\Delta_{2y}}{i} = \frac{\Delta_{12}^{full}}{i} \]
+Note that "full" may not be the best word here, since it's just the $O(g^2)$ term. Also note that, whenever we have a loop in the diagram, the integral diverges. We will see next week why this happens and how we can deal with it.
+\\
+\\
+Now let's do the 4-point function, which we will use to compute 2-2 scattering.
+\[  \frac{\delta }{\delta iJ_1 \delta i J_2 \delta iJ_3 \delta i J_4} e^{iW[J]} =   \frac{\delta }{\delta iJ_4 \delta i J_3} \left(  e^{iW} \frac{\delta i W[J]}{ \delta i J_1} \frac{\delta i W[J]}{ \delta i J_1} + e^{iW} \frac{\delta i W[J]}{ \delta i J_1 \delta i J_2}  \right)  =  \]
+\[   = \frac{\delta i W[J]}{ \delta i J_1 \delta i J_2 \delta i J_3 \delta i J_4}  +  \frac{\delta i W[J]}{ \delta i J_1 \delta i J_2} \frac{\delta i W[J]}{ \delta i J_3 \delta i J_4} + \frac{\delta i W[J]}{ \delta i J_1 \delta i J_3} \frac{\delta i W[J]}{ \delta i J_2 \delta i J_4} + \frac{\delta i W[J]}{ \delta i J_1 \delta i J_4} \frac{\delta i W[J]}{ \delta i J_2 \delta i J_3}   \]
+Note that the last 3 terms are products of 2-point functions. The first term we usually denote as:
+\[  \langle \phi_{1'} \phi_{2'} \phi_1 \phi_2 \rangle _C   \]
+Where the C stands for "connected"; a different type of connectedness than that of connected diagrams. The term that we have corresponds (to lowest order) to:
+\[   :>-<: \]
+It is a tree diagram (no loops); we'll focus on it for the rest of this lecture.
+\[  :>-<: = \frac{(ig)^2}{2} \int d^4 x d^4 y d^4 a d^4 b d^4 c d^4 e (iJ_a) (iJ_b) (iJ_c) (iJ_e) \frac{\Delta_{xy}}{i} \frac{\Delta_{xa}}{i} \frac{\Delta_{xb}}{i} \frac{\Delta_{cy}}{i} \frac{\Delta_{dy}}{i} \]
+We have three topologically distinct pairings:
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+Now let's put these into the LSZ formula and compute the scattering amplitude. Recall the formula:
+\[   _{OUT}\langle k_{1'} k_{2'} | k_1 k_2 \rangle_{IN} -  \{\rm{trivial\;scattering}\} =  i^4 \int d^4x_1 d^4 x_2 d^4 x_{1'} d^4 x_{2'} e^{i(k_1x_1 + k_2x_2 - k_{1'}x_{1'} - k_{2'}x_{2'})}\]
+\[   (-\partial_1^2 +m^2) (-\partial_2^2 +m^2) (-\partial_{1'}^2 +m^2) (-\partial_{2'}^2 +m^2) \langle \phi_1 \phi_2 \phi_{1'} \phi_{2'} \rangle \]
+Remark: we neglected the 2-point function terms above, but it turns out they give 0 in the LSZ formula anyway. This makes sense, since they only have 2 coupling vertices, so they couldn't represent an interesting interaction between two particles. The reason they vanish in LSZ is that the $k^2+m^2$'s are just zeros for real particles. But the Fourier transform of the interesting n-point functions has poles which cancel out the zeros. This doesn't happen for the 2-point functions. Let's check for free theory:
+\[   \int d^4x_1 d^4 x_2 d^4 x_{1'} d^4 x_{2'} e^{i(k_1x_1 + k_2x_2 - k_{1'}x_{1'} - k_{2'}x_{2'})} \left[  \frac{\Delta{12}}{i}\frac{\Delta{1'2'}}{i} + \frac{\Delta{11'}}{i}\frac{\Delta{22'}}{i} + \frac{\Delta{12'}}{i}\frac{\Delta{21'}}{i} \right]   \]
+Each propagator has a $q^2+m^2$ in the denominator, so we have 2 poles and 4 zeros, i.e. 0 overall. No nontrivial scattering for free theory - this is good. The claim is that 2-point functions give 0 even for interacting theories, but we will prove that later. The Fourier transform of the connected 4-point function is:
+\[    \int d^4x_1 d^4 x_2 d^4 x_{1'} d^4 x_{2'} e^{i(k_1x_1 + k_2x_2 - k_{1'}x_{1'} - k_{2'}x_{2'})} \frac{(ig)^2}{i^5} \int d^4x d^4 y  \]
+\[   \int \frac{d^4 p_a}{(2\pi)^4} \frac{e^{ip_a(x-y)}}{p_a^2+m^2} \int \frac{d^4 p_b}{(2\pi)^4} \frac{e^{ip_b(x-1)}}{p_b^2+m^2} \int \frac{d^4 p_c}{(2\pi)^4} \frac{e^{ip_c(x-2)}}{p_c^2+m^2} \int \frac{d^4 p_d}{(2\pi)^4} \frac{e^{ip_d(1'-y)}}{p_a^2+m^2} \int \frac{d^4 p_e}{(2\pi)^4} \frac{e^{ip_e(2'-y)}}{p_e^2+m^2} =  \]
+\[ =    \frac{(ig)^2}{i^5} \int d^4x d^4 y  \int \frac{d^4 p_a}{(2\pi)^4} \frac{e^{ip_a(x-y)}}{p_a^2+m^2} \int \frac{d^4 k_1}{(2\pi)^4} \frac{e^{ik_1(x-1)}}{k_1^2+m^2} \int \frac{d^4 k_2}{(2\pi)^4} \frac{e^{ik_2(x-2)}}{k_2^2+m^2} \int \frac{d^4 k_{1'}}{(2\pi)^4} \frac{e^{ik_{1'}(1'-y)}}{k_{1'}^2+m^2} \]
+\[ \int \frac{d^4 k_{2'}}{(2\pi)^4} \frac{e^{ik_{2'}(2'-y)}}{k_{2'}^2+m^2}  =  \]
+\[  = (2\pi)^4 \delta(k_1+k_2 - k'_1 - k'_2) (ig)^2 \frac{1}{i} \frac{1}{(k_1+k_2)^2 + m^2 - i \epsilon}   \]
+Notice that the leftover propagator can be thought of as the mediating particle between the vertices. The other 4 propagators were canceled out by the LSZ formula. Note that the mediating particle is a "virtual particle", i.e. it is not on-shell. Feynman rules:
+\\
+i) always get a delta function enforcing momentum conservation
+\\
+ii) always have a propagator for the internal particle
+\\
+iii) always get the coupling constant at the appropriate (i.e. no of particles) power
+\\
+By thinking about the mediating particle, we can write the propagators for the other 2 tree diagrams in the process:
+\[  (2\pi)^4 \delta(k_1+k_2 - k'_1 - k'_2) (ig)^2 \left[ \frac{1}{i} \frac{1}{(k_1+k_2)^2 + m^2 - i \epsilon}  + \frac{1}{i} \frac{1}{(k_1-k_1')^2 + m^2 - i \epsilon} +\right. \]
+\[ \left. + \frac{1}{i} \frac{1}{(k_1-k_2')^2 + m^2 - i \epsilon} \right] \]
+We can redefine the scattering amplitude as the above with the delta function removed:
+\[    _{OUT}\langle k_{1'} k_{2'} | k_1 k_2 \rangle_{IN} -  "1" = (2\pi)^4 \delta(k_1+k_2 - k'_1 - k'_2) i\mu    \]
+Now we compute the cross-section from the scattering amplitude (see Srednicki 11).
+
+
+
+
+
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

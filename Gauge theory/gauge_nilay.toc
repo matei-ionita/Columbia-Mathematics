@@ -1,0 +1,18 @@
+\contentsline {chapter}{\numberline {0}Introduction}{5}{chapter.0}
+\contentsline {chapter}{\numberline {1}Principal Bundles}{7}{chapter.1}
+\contentsline {section}{\numberline {1.1}Definition and examples}{7}{section.1.1}
+\contentsline {section}{\numberline {1.2}Morphisms and sections}{11}{section.1.2}
+\contentsline {section}{\numberline {1.3}Pullback bundles}{13}{section.1.3}
+\contentsline {section}{\numberline {1.4}Associated bundles}{13}{section.1.4}
+\contentsline {section}{\numberline {1.5}References}{15}{section.1.5}
+\contentsline {section}{\numberline {1.6}Exercises}{15}{section.1.6}
+\contentsline {chapter}{\numberline {2}Connections and Curvature}{17}{chapter.2}
+\contentsline {section}{\numberline {2.1}Basic definitions}{17}{section.2.1}
+\contentsline {section}{\numberline {2.2}The BPST connection: a first example}{23}{section.2.2}
+\contentsline {section}{\numberline {2.3}Curvature}{25}{section.2.3}
+\contentsline {section}{\numberline {2.4}Local descriptions}{26}{section.2.4}
+\contentsline {section}{\numberline {2.5}References}{26}{section.2.5}
+\contentsline {section}{\numberline {2.6}Exercises}{26}{section.2.6}
+\contentsline {chapter}{\numberline {3}Yang-Mills Theory and Instantons}{27}{chapter.3}
+\contentsline {section}{\numberline {3.1}References}{27}{section.3.1}
+\contentsline {section}{\numberline {3.2}Exercises}{27}{section.3.2}

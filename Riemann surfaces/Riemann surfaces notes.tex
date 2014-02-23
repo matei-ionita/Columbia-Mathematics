@@ -1,0 +1,1021 @@
+\documentclass[12 pt]{article}
+\usepackage{amsmath,amssymb,amsthm,fullpage,amsfonts,enumerate,textcomp, eurosym, tikz-cd}
+\title{Riemann surfaces notes}
+\author{Matei Ionita}
+
+\DeclareMathOperator {\p} {\partial}
+\DeclareMathOperator {\R} {\mathbb{R}}
+\DeclareMathOperator {\C} {\mathbb{C}}
+\DeclareMathOperator {\Q} {\mathbb{Q}}
+\DeclareMathOperator {\Z} {\mathbb{Z}}
+\DeclareMathOperator {\Tr}{Tr}
+\DeclareMathOperator {\Ker}{Ker}
+\DeclareMathOperator {\End}{End}
+\DeclareMathOperator {\Coker}{Coker}
+\DeclareMathOperator {\Imag}{Im}
+\DeclareMathOperator {\Diff}{Diff}
+\DeclareMathOperator {\id}{Id}
+
+\theoremstyle{plain}
+\newtheorem{thm}{Theorem}
+\newtheorem*{thm*}{Theorem}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{prop}{Proposition}
+\newtheorem{exc}{Exercise}
+
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}
+\newtheorem{exmp}{Example}
+
+\theoremstyle{remark}
+\newtheorem*{rem}{Remark}
+
+
+
+\begin{document}
+  \maketitle
+
+\section*{Lecture 7}
+Recall from last time that we were trying to find a correspondence between surfaces $\hat \Sigma$ and lattices $(1, \tau)$ in the complex plane. For this we use the existence of holomorphic forms $\omega = dz/w$ on the torus. Recall also that any path on the torus can be written as $\gamma' = \gamma + m A + n B$. (See figure 7.1) By definition, the sum above means that for all forms $\eta$:
+\[         \int_{\gamma'} \eta = \int_{\gamma} \eta + m \int_A \eta + n \int_B \eta    \]
+This suggests defining the lattice $\Lambda = (\int_A \omega, \int_B \omega)$ and then the \emph{Abel map}, the fundamental map in the study of Riemann surfaces, is well-defined:
+\[       p \in \hat \Sigma  \to \int_{\gamma} \omega \;\;\; (\text{mod } \Lambda) \;\;\; \in \C/\Lambda  \]
+We now need to check a few facts:
+\begin{enumerate} [(1)]
+\item $\omega_A$ and $\omega_B$ are linearly independent over $\R$, which makes the lattice nondegenerate
+\item the Abel map is holomorphic, 1-1 and onto
+\end{enumerate}
+
+One useful technique is the \emph{Riemann bilinear relation}, or \emph{Abelian integral}. Take the torus $\hat \Sigma$ and cut it along the two generating curves (see figure 7.2). We ask whether there exists a holomorphic function $f$ such that $\omega = df$. We can always obtain $f$ by integration on the (simply connected) cut space of the torus, but we need to keep track on the values of $f$ at the points that we identify. Now we let:
+\[         f(p) = \int_{p_0}^{p} \omega       \]
+Clearly a holomorphic function on $\hat \Sigma_{\text{cut}}$. Now if $z, z'$ are two points on the $B$ edges that need to be identified, we write $z' = z + B$. Then $f(z') = f(z) + \omega_B$, and similarly for $A$. Next we consider:
+\[   i  \int_{\hat \Sigma} \omega \wedge \bar \omega = i \int_{\hat \Sigma_{\text{cut}}} \omega \wedge \bar \omega   =  i  \int_{\hat \Sigma_{\text{cut}}} d (f(z) \bar \omega)    \]
+Note that actually $d (f(z) \bar \omega) = \omega \wedge \bar \omega - f(z) d\bar \omega$, but the second term is 0 since:
+\[    d \bar \omega = \overline{d(\phi(t) dt)} = \overline{d\phi \wedge dt} = (\p_t \phi dt + \p_{\bar t} \phi d\bar t) \wedge dt = 0      \]
+Therefore by using Stokes we get:
+\[       i  \int_{\hat \Sigma} \omega \wedge \bar \omega = i \left( \int_A f(z) \overline{\omega(z)} + \int_B f(z+A) \overline{\omega(z+A)}   - \int_A f(z+B) \overline{\omega(z+B)} -  \int_B f(z) \overline{\omega(z)}   \right)  \]
+\[    =  i \left(  \int_A (- \int_B \omega(z)) \overline{\omega(z)}  + \int_B ( \int_A \omega(z)) \overline{\omega(z)} \right)     \]
+\[     = - 2 \text{Im} \left( \int_A \omega(z) \overline{\int_B  \omega(z)}  \right)      \]
+But the LSH is $>0$, since $\omega\wedge \bar \omega = |f(z)|^2 dz\wedge d\bar z$, therefore the two quantities are linearly independent over $\R$.
+\\
+\\
+Next we want to show that the Abel map is 1-1 and onto, a result which is known in literature as the \textbf{Jacobi inversion theorem}. Surjectiveness is actually easy to prove: the Abel map is holomorphic, so its image is open. But since $\hat \Sigma$ is compact, the image is compact, and therefore closed. But $\C / \Lambda$ is connected, and therefore the image must be the whole $\C/\Lambda$. Injectiveness is harder. It suffices to show the following:
+\\
+\\
+\textbf{Abel's theorem}: given two sets of points $p_i$, $q_i$ there exists a meromorphic map $f$ on $\hat \Sigma$ which has its zeros at $p_i$ and its poles at $q_i$ iff the number of zeros is equal to the number of poles and $A(p_1) + ... + A(p_n) = A(q_1) + ... + A(q_n)$. Compare this with the analogous result for the sphere: as long as $M=N$, we can just construct $f(z) = \prod (z-p_i) / \prod (z-p_j)$. This doesn't work for the torus, because its complex structure is somehow more restrictive.
+\\
+\\
+We first show that Abel's theorem completes the proof of Jacobi inversion. Assume the map is not 1-1, then let $P$ and $Q$ be two points at which $A(P) = A(Q)$. Then by Abel's theorem there exists a meromorphic function $f$ such that $z=0$ at $P$ and $f$ has a simple pole at $Q$. Consider $\tilde \omega = \omega f(z)$, which is a meromorphic form, since $\omega$ is holomorphic. Since $\omega$ has no zeros, $\tilde \omega$ has a simple pole at $Q$. We claim that such a thing does not exist. This is because of the following observation: for a meromorphic form $\tilde \omega$ on $\hat \Sigma$, the sum over all poles of the residues of $\tilde \omega$ is 0. To prove this observation, take two cycles at opposite ends of the Riemann surface. The integral of $\tilde \omega$ over each of these is 0, but one can obtain one cycle from the other by just passing over some poles. (See figure 7.3)
+\\
+\\
+Now we turn to the proof of Abel's theorem. We observe that, if $f$ meromorphic exists with these zeros and poles, then $f'/f$ is also meromorphic, and has residues +1 at the zeros of $f$ and -1 at the poles of $f$. Then $df/f$ is a meromorphic form with poles with residue 1 at $p_i$ and residue -1 at $q_i$. Our strategy for finding $f$ is constructing $df/f$ first. Our first simple model is: given 2 points P and Q, construct $\omega_{PQ}(z)$ with pole at $P$ with residue 1, and pole at $Q$ with residue -1. Take our original holomorphic form $dz/w$ and do the naive thing:
+\[        \frac{1}{(z-z(p))(z-z(q))} \frac{dz}{w}     \]
+The problem with this is that it has not 2 poles, but 4, since there are two copies of the complex plane in $\hat \Sigma$. Therefore we want to choose $\alpha, \beta, \gamma$ such that $\alpha w + \beta z + \gamma$ vanishes at $P'$ and $Q'$, and then the following works:
+\[      \frac{\alpha w + \beta z + \gamma}{(z- z(p))(z-z(q))} \frac{dz}{w}       \]
+
+
+\section*{Lecture 8}
+We continue with the construction of $\omega_{PQ}$ where we left off last time. For $s\in \hat \Sigma$ we try:
+\[     \omega_{PQ}(s) = \frac{1}{(z(s) - z(Q))(z(s) - z(P))} \frac{dz(s)}{w(s) }     \]
+But this has 4 poles, at $P,P',Q,Q'$. We stick in the function $w$ which is odd, and try:
+\[      \omega_{PQ}(s) = \frac{w(s) + \alpha z(s) + \beta}{(z(s) - z(Q))(z(s) - z(P))}  \frac{dz(s)}{w(s) }    \]
+We want to choose $\alpha, \beta$ such that $w(s) + \alpha z(s) + \beta = 0$ when $z=P', Q'$. This gives a system of 2 equations and 2 unknowns, which is solvable as long as:
+\[    \Delta = \left| \begin{array} {cc} z(P') & 1 \\ z(Q') & 1 \end{array}  \right|   \neq 0   \]
+The fact that $w$ is odd provides for the fact that this polynomial will not be $0$ in $P , Q$ for the same $\alpha, \beta$ that make it $0$ in $P', Q'$. Before we prove Abel's theorem, we do a useful normalization:
+\[       \omega = \frac{dz}{w} \to \omega = \frac{1}{\oint_A \frac{dz}{w}} \frac{dz}{w}     \]
+Now we have $\oint_A \frac{dz}{w} = 1$ and we define $\tau = \oint_B \frac{dz}{w}$. Recall that our lattice is $\Lambda = \{ m + n \tau | m,n \in \Z\}$.
+
+\subsection*{Proof of Abel's theorem}
+$(\Rightarrow)$ Suppose that the function $f$ exists; we look at $df/f$ which has poles at $P_i$ with residues $1$ and at $Q_i$ with residues $-1$. Since the sum of all residues of a meromorphic form is $0$, we get for free the fact that $m=n$. Note that:
+\[      \frac{df}{f} - \sum_{i=1}^N \omega_{P_i Q_i}  = c \omega   \]
+Where $\omega$ is a holomorphic form. We claim that the space of holomorphic forms is 1-D, so that the $\omega$ here coincides with our old friend $dz/w$. (If we assume that the space is 2-D, then some linear combination of the two is non-periodic; left as an exercise to figure out why this is a contradiction.) Thus:
+\[      2\pi i m = \oint_A \frac{df}{f} = \sum_{i=1}^N \oint_A \omega_{P_i Q_i}  + c\oint_A \omega      \]
+Actually we can normalize $\omega_{PQ}$ such that $\oint_A \omega_{P_i Q_i} = 0$. The way we do this is by adding $\lambda \omega$ to $\omega_{PQ}$, and we have the freedom of choosing $\lambda$. Thus the above relation says that $c = 2\pi i m$. Next:
+\[       2\pi i m = \oint_B \frac{df}{f} = \sum_{i=1}^N \oint_B \omega_{P_i Q_i}  + c\oint_B \omega        \]
+We have that $\oint_B \omega = \tau$. We want the sum in the statement of Abel's theorem to appear in the sum over the $B$ cycle integrals of $\omega_{PQ}$. So we compute by Abelian integrals:
+\[      h(z) = \int_{P_0}^z \omega  \;\;\;\;\;\; \text{on } \hat \Sigma_{\text{cut}}     \]
+\[       h(z+A) - h(z) =   \oint_A \omega = 1   \]
+\[       h(z+B) - h(z) =   \oint_B \omega = \tau   \]
+Consider:
+\[         2\pi i \sum_{PQ} \text{Res} (h\omega) = \oint_C h(z) \omega_{PQ} (z)        \]
+Where $C$ is a closed curve that encircles both $P$ and $Q$. We rewrite the LHS as:
+\[         2\pi i [ h(P) - h(Q) ] = 2\pi i \left( \int_{P_0}^P \omega - \int_{P_0}^Q \omega  \right)     \]
+We rewrite the RHS as:
+\[       \oint_{\p \hat \Sigma_{\text{cut}}} h(z) \omega_{PQ} (z) =   - \oint_A \left( h(z+B) - h(z)  \right) \omega_{P,Q} (z) + \oint_B \left(  h(z+A) - h(z) \right)  \omega_{PQ} (z) \]
+\[  = 1 \oint_B \omega_{PQ} - \tau \oint_A \omega_{PQ}  = \oint_B \omega_{PQ}  \;\;\;\;\;\; \text{by normalization} \]
+Thus:
+\[      \sum_{i=1}^N \int_{P_0}^P \omega -  \sum_{i=1}^N \int_{P_0}^Q \omega  = n - m\tau \in \Lambda \]
+Which completes the proof of the $(\Rightarrow)$ direction.
+\\
+\\
+$(\Leftarrow)$ Guess:
+\[      \frac{df}{f} =   \sum_{i=1}^N \omega_{P_i Q_i}  + c \omega  \]
+Then we try:
+\[      f(z) = \text{exp} \left( \int_{P_0}^z \sum_{i=1}^N \omega_{P_i Q_i}  + c \omega  \right)      \]
+With $c$ a constant to be chosen. To simplify matters we work on $\hat \Sigma_{\text{cut}}$. We have to first worry about what happens if we choose different paths from $P_0$ to $z$. If deforming a path from another passes through a pole, then we gain some multiple of $2\pi i$, as the residues are integers. Therefore in the exponential this doesn't matter. Next we wonder if the function defined on $\hat \Sigma_{\text{cut}}$ is well-defined on the torus, i.e. if it's doubly periodic. Let's see what happens if we change $z\to z+A$ in the expression in parantheses: it shifts by $c$, since the integral of $\omega$ is normalized to $1$. Therefore we enforce $c \in 2\pi i \Z$. Now if we change $z \to z+B$, we gain:
+\[     \oint_B \sum \omega_{PQ} + c\omega  = 2\pi i \left( \sum \int_{P_0}^{P} \omega - \int_{P_0}^Q \omega    \right)  + c \tau    \]
+Now we use the hypothesis, i.e. the expression in brackets is $a + b\tau$. Now if we let $c = -2\pi i b$, so that overall we gain $2\pi a$, which doesn't matter in the exponential.
+
+\subsection*{Summary}
+So far we have shown that $w = \sqrt{z(z-1)(z-\lambda)}$ is well-defined and holomorphic on $\hat \Sigma = (I) \cup (II) \cup \{0,1,\lambda, \infty\}$. By Jacobi inversion the tori $\hat \Sigma$ are in 1-1 correspondence with tori given by lattices $\Lambda$. The correspondence is:
+\[     \Lambda = \left\{ m + n \tau | m,n\in \Z ; \tau =  \frac{\oint_B dz/w}{\oint_A dz/w} \right\}      \]
+
+
+\subsection*{Function theory on $\C/\Lambda$}
+The next question we want to ask is what's the correspondence between algebraic equations and Riemann surfaces.
+\begin{enumerate}
+\item Weirstrass theory
+\item Jacobi theory (POV of algebraic geometry)
+\item POV of partial differential equations
+\end{enumerate}
+We start with:
+
+
+\subsection*{Weirstrass theory}
+For $\omega_1, \omega_2$ linearly independent over $\R$, define the lattice $\Lambda = \{ m_1 \omega_1 + m_2 \omega_2 | m_1, m_2 \in \Z  \}$. A function on $\C/\Lambda$ is just a doubly periodic function on $\C$: $f(z + m_1 \omega_1 + m_2 \omega_2) = f(z)$. Notice that $\omega = dz$ is invariant, and thus defines a holomorphic form on $\C/\Lambda$. Since this form is nonzero and regular everywhere, we can write any form on the quotient space as $\omega_{PQ} = f_{PQ}(z)\; \omega$.
+\\
+\\
+We begin rather by constructing a form $\omega_P (z)$ with a double pole at $P$. This is a sort of analog of the function $1/z^2$; by integrating it twice we get the log function, from which we can get any function. Write $\omega_p(z) = \mathcal{P}(z) dz$, where $\mathcal{P}(z)$ is the \emph{Weirstrass p-function}. We want this to look like $1/z^2$, but this is not periodic, so we define:
+\[     \mathcal{P}(z) = \sum_{\omega \in \Lambda, \omega\neq 0} \left[ \frac{1}{(z+\omega)^2} - \frac{1}{w^2}  \right]   + \frac{1}{z^2}   \]
+
+
+
+\section*{Lecture 9}
+\subsection*{Weirstrass theory continued}
+If $\Lambda^* = \Lambda - \{(0,0)\}$, recall that we defined the Weirstrass p-function as:
+\[      \mathcal{P}(z) = \sum_{\omega \in \Lambda^*} \left[ \frac{1}{(z+\omega)^2} - \frac{1}{w^2}  \right]   + \frac{1}{z^2}     \]
+For $|z| < |\omega|$ we write:
+\[    \frac{1}{(z+\omega)^2} = \frac{1}{\omega^2} \frac{1}{(1 + z/\omega)^2}  = \frac{1}{\omega^2} (1 + O(z/\omega) )      \]
+Therefore:
+\[     \frac{1}{(z+\omega)^2} - \frac{1}{\omega^2}   = O (1/\omega^3)    \]
+Therefore $\mathcal{P} (z)$ converges, and is clearly meromorphic, with poles at $z\in \Lambda$. Now we claim that it is doubly periodic. We compute:
+\[      \mathcal{P}' (z) = - \frac{2}{z^3} - 2 \sum_{\omega \in \Lambda^*} \frac{1}{(z+\omega)^3} =  - 2 \sum_{\omega \in \Lambda} \frac{1}{(z+\omega)^3}  \]
+Therefore $\mathcal{P}' (z + \omega_1) = \mathcal{P}' (z)$ and $\mathcal{P}' (z + \omega_2) = \mathcal{P}' (z)$, and so, by integrating, $\mathcal{P} (z + \omega_1) = \mathcal{P} (z) + c$. But note that $\mathcal{P}$ is even, and therefore:
+\[      \mathcal{P}(\omega_1/2) =  \mathcal{P}(-\omega_1/2) + c  \Rightarrow c =0     \]
+Which finishes the proof that $\mathcal{P}$ is doubly periodic.
+\\
+\\
+In order to have a correspondence between $\hat \Sigma$ and the lattice, as in the case of $w = \sqrt{z(z-1)(z-\lambda)}$, we need an even function on $\C/\Lambda$ (we have $\mathcal{P}$), an odd one (we have $\mathcal{P}'$) and a relation between them of the form $\mathcal{P}' (z) ^2 = \text{poly} (\mathcal{P}(z) )$. Since the torus is compact, meromorphic functions are characterized by their poles, so it suffices to analyze the poles in order to find this.
+
+
+\subsection*{Formulation of $\mathcal{P}(z)$ in terms of Eisenstein series}
+\[     \frac{1}{(z-\omega)^2} = \frac{1}{\omega^2 (1 - z/\omega)^2} =   \frac{1}{\omega^2} \sum_{n=0}^{\infty} (n+1) \left(\frac{z}{\omega} \right)^n   \]
+\[       \mathcal{P} (z) = \frac{1}{z^2} + \sum_{\omega \in \Lambda^*} \sum_{n=1}^{\infty} (n+1)   \frac{z^n}{\omega^{n+2}}        \]
+Note that the odd terms cancel out for some reason, and we are left with:
+\[     \mathcal{P} (z) =    \frac{1}{z^2} + \sum_{\omega \in \Lambda^*} \sum_{k=1}^{\infty} (2k+1)   \frac{z^{2k}}{\omega^{2k+2}}       \]
+We can exchange order of summation and write this more neatly in terms of $G_k(\Lambda) = \sum_{\omega \in \Lambda^*} \frac{1}{\omega^{2k+2}}$. We get what is called the \emph{Eisenstein series}:
+\[      \mathcal{P}(z) = \frac{1}{z^2} + \sum_{k=1}^{\infty} G_k (\Lambda) (2k+1) z^{2k}     \]
+Now, in order to get the desired relation between $(\mathcal{P}')^2$ and $\mathcal{P}^3$, we do an expansion of $\mathcal{P}^3$ around 0:
+\[        \mathcal{P} (z) = \frac{1}{z^2} + 3G_1 z^2 + 5 G_2 z^4 + O(z^6)     \]
+\[         \mathcal{P}' (z)  = - \frac{2}{z^3} + 6 G_1 z + 20 G_2 z^3 + O(z^5)       \]
+\[       (\mathcal{P}')^2 (z) = \frac{4}{z^6} - 24 G_1 \frac{1}{z^2} - 80 G_2 + O(z^2)     \]
+\[       \mathcal{P}^3(z) = \frac{1}{z^6} + 9G_1 \frac{1}{z^2} + 15 G_2   + O(z^2)   \]
+Now we cancel the leading terms by computing:
+\[ ( \mathcal{P}')^2 - 4(\mathcal{P})^3 = - 60 G_1 \frac{1}{z^2} - 140 G_2 + O(z^2)     \]
+\[      ( \mathcal{P}')^2 - 4(\mathcal{P})^3 + 60 G_1 \mathcal{P} (z) + 140 G_2 = O(z^2) = 0       \]
+Since holomorphic functions on the compact torus are constant, in this case 0. Therefore we found an equation whose Riemann surface is the given torus. Denote $g_1 = 60 G_1$, $g_2 = 140 G_2$. Then:
+\[     \int \frac{\mathcal{P}' (z)}{\sqrt{4\mathcal{P}^3(z) - g_1 \mathcal{P}(z) - g_2}} dz  =  \int dz    \]
+Change variables to $u = \mathcal{P} (z)$; this becomes:
+\[     \int_{\infty}^{\mathcal{P}(z)} \frac{du}{\sqrt{4u^3 - g_1 u - g_2}}  = \int_0^z dz = z  \]
+Let $E(u)$ denote the integral on the LHS, note that this implies $E(\mathcal{P}(z)) = z$, so this defines the inverse of the Weirstrass p-function. This explains the fact mentioned in calculus classes that elliptic integrals cannot be solved in terms of elementary functions. The interested reader can find more about this in \emph{Siegel, ``Topics in complex function theory''}.
+
+\subsection*{Abel's theorem from the POV of Weirstrass}
+\[    f(z) = \frac{\prod (z- P_i)}{\prod (z - Q_j)}    \]
+is the explicit expression for a function with given zeros and poles. We need for $\C/\Lambda$, an analogue $\sigma(z)$ of the function $z$: $\sigma(z)$ holomorphic on $\C$, $\sigma(z) = 0$ at exactly one point, and $\sigma(z)$ transforms in a reasonable matter under $z \to z + \omega_1$, $z \to z + \omega_2$. Observe that $\mathcal{P}$ behaves like $1/z^2$, then $\zeta(z) = - \int \mathcal{P} (z) dz$ behaves like $1/z$, then we can integrate and exponentiate to get a candidate for $\sigma(z)$.
+\[       \zeta(z) = \frac{1}{z} + \sum_{\omega \in \Lambda^*} \frac{1}{(z + \omega)} + \frac{1}{\omega^2} z    \]
+We need to check that $\zeta$, formally defined in this way, converges. We see that
+\[     \frac{1}{z-\omega} + \frac{z}{\omega^2} = - \frac{1}{\omega} + O(1/\omega^3)      \]
+The $1/\omega$ term does not converge, but it is just a constant, so we can modify our definition of $\zeta$ accordingly:
+\[        \zeta(z) = \frac{1}{z} + \sum_{\omega \in \Lambda^*} \left( \frac{1}{z-\omega} + \frac{1}{\omega} + \frac{1}{\omega^2} z  \right)       \]
+Just note that this cannot be doubly periodic, because then it would define a meromorphic form on the torus with a single simple pole, which is impossible. We're not going to worry and just go along with that. We analyze the periodicity of $\zeta$:
+\[      \zeta' (z+ \omega) - \zeta'(z) = 0     \]
+\[      \zeta (z+ \omega_1) - \zeta(z) = \eta_1     \]
+\[      \zeta (z+ \omega_2) - \zeta(z) = \eta_2     \]
+Where $\eta$ are some invariants of the lattice. Now we go on with the plan and integrate:
+\[      \int \zeta(z) dz = \text{ln} z + \sum_{\omega \in \Lambda^*} \text{ln} (z-\omega) + \frac{1}{\omega} z + \frac{1}{2\omega^2} z^2     \]
+\[     \exp \left(    \int \zeta(z) dz \right) = z \prod_{\omega \in \Lambda^*} (z+\omega) \exp \left(- \frac{1}{\omega}z + \frac{1}{2\omega^2} z^2  \right)       \]
+In order for the infinite product to converge, the factors must conerge to 1, which is not the case here. We fix this by defining instead:
+\[     \sigma(z) = \prod_{\omega \in \Lambda^*} \left(1 + \frac{z}{\omega} \right)  \exp \left( - \frac{1}{\omega} z + \frac{1}{2\omega^2} z^2  \right)     \]
+It is left as a simple exercise to show that this converges. Hint: take the log and show that it converges.
+
+
+\section*{Lecture 10}
+Recall that we defined:
+\[     \sigma(z) = \prod_{\omega \in \Lambda^*} \left(1 + \frac{z}{\omega} \right)  \exp \left( - \frac{1}{\omega} z + \frac{1}{2\omega^2} z^2  \right)     \]
+And it's easy to show that it is holomorphic in the entire plane. (Just take the log and expand the exponential into a power series; you will notice that terms are $O(1/\omega^3)$, and therefore the series converges.) Now we want to check the behavior of $\sigma$ when we move between lattice points. We constructed $\sigma$ such that:
+\[      \p_z \text{log} \sigma(z+\omega_a) - \p_z \text{log} \sigma(z) = \zeta(z + \omega_a) - \zeta(z) = \eta_a  \]
+Where $a = 1,2$. Thus:
+\[  \sigma(z + \omega_a) = \sigma(z) e^{\eta_a z + c_a}   \]
+We need to compute the constants $c_a$. We do this by evaluating the expression above at $z = - \omega_a/2$:
+\[      \sigma(\omega_a/2) = \sigma(-\omega_a/2) e^{- \eta_a \omega_a /2 + c_a}    \]
+Since $\sigma$ is odd, we get $e^{c_a} = - e^{\eta_a \omega_a /2}$. We therefore obtain:
+\[     \sigma(z + \omega_a) = - \sigma(z) e^{\eta_a( z + \omega_a/2)}    \]
+Now that we worked hard to develop this function, we use it to give a much simpler proof of Abel's theorem. Recall the statement. There exists a meromorphic $f$ with zeros at $P_1, \dots, P_N$ and poles at $Q_1, \dots, Q_M$ iff $M=N$ and $\sum A(P_i) = \sum A(Q_j)$. Here $A$ is the Abel map:
+\[       p \in \C/\Lambda \to A(p) = \int_{p_0}^p \omega  \text{ mod the lattice spanned by } \oint_A \omega, \oint_B \omega     \]
+We have the liberty of choosing $p_0$, so we choose $p_0 = 0$ to keep things simple. Also holomorphic forms on $\C$ are spanned by $\omega = dz$. Define $\omega_1 = \oint_A \omega$ and $\omega_2 = \oint_B \omega$. We see then that $A(P) = \int_0^P dz = P$ mod $\Lambda$. We can therefore restate the second condition in Abel's theorem as $\sum P_i = \sum Q_j$.
+\\
+\\
+Now we can prove Abel's theorem by simply exhibiting a function with the desired properties. We denote by $\hat P$ one (any) representative of the point $P$ on the torus. Same for $\hat Q$. The we define:
+\[    f(z) = \frac{\prod \sigma(z - \hat P_i)}{\prod \sigma(z - \hat Q_i) }     \]
+This has zeros at all representatives $\hat P_i$ and poles at all representatives $\hat Q_i$. The only issue is that, as of now, this is a function defined on the complex plane. We want to check if it is well-defined on the torus, i.e. if it is doubly periodic. When we let $z \to z + \omega_a$:
+\[     f(z + \omega_a) = f(z)  \frac{\prod e^{\eta_a (z - \hat P_i)}}{\prod e^{\eta_a (z - \hat Q_i)}} = f(z) \exp \left[ \sum \eta_a (\hat Q_i - \hat P_i)  \right]    \]
+Therefore $f$ is doubly periodic iff the sum in the square brackets is 0.
+
+\subsection*{Summary of Weirstrass theory}
+\begin{enumerate}
+\item surface $\C/\Lambda$
+\item holomorphic form $\omega = dz$
+\item meromorphic form with 2 poles $\omega_0(z) = \mathcal{P}(z) dz$
+\item $\p_z \text{log} \sigma(z) = \zeta(z)$, where $\zeta'(z)  = -\mathcal{P}(z)$
+\item $\omega_{PQ} (z) = \left( \zeta(z-P) - \zeta(z-Q) \right) \omega = \p_z \text{log} \frac{\sigma(z-p)}{\sigma(z-Q)} dz$
+\item $f(z) = \frac{\prod \sigma(z - \hat P_i)}{\prod \sigma(z - \hat Q_i) }    $
+\end{enumerate}
+Now we switch to the third point of view, namely the Jacobi theory of theta functions.
+
+\subsection*{Jacobi theory}
+We have a torus $\C/\Lambda$, with the lattice normalized such that $\omega_1 = 1$ and $\omega_2 = \tau$. The imaginary part of $\tau$ cannot be 0, and WLOG we choose it to be positive. Define:
+\[    \theta (z, \tau) = \sum_{n\in \Z} \exp \left( \pi i n^2 \tau + 2\pi in z  \right)    \]
+We will try to understand why this is an analogue of the function $\sigma$ in Weirstrass theory. The genius of this theta function is that its dependence of the lattice is explicit, unlike that of $\mathcal{P}(z)$. We now analyze the properties of $\theta$.
+\\
+\\
+First, $\theta(z, \tau)$ is holomorphic for $z\in \C$, since the series converges for all $z$. Next, it's obvious that $\theta(z, \tau) = \theta(z+1, \tau)$. Also:
+\[    \theta(z + \tau, \tau) = \sum \exp\left[\pi i n^2 \tau + 2\pi in z  + 2\pi i n \tau  \right] \]
+\[  =  \sum \exp\left[\pi i (n+1)^2 \tau + 2\pi i(n+1) z  - \pi i \tau - 2\pi i z  \right]    \]
+\[      \dots \text{fill this in} \]
+The next claim is that $\theta$ vanishes at exactly one point, modulo the lattice. For this, recall one of the theorems proved in the beginning of class:
+\[   \oint_C \frac{\theta'(z,\tau)}{\theta(z, \tau)}  dz   = 2\pi i \left(\text{number of zeros} - \text{number of poles}  \right) \]
+Since $\theta$ has no poles, this just counts zeros. Now we choose the boundary of one cell as the contour of integration, and we get:
+\[       \oint_C \frac{\theta'(z,\tau)}{\theta(z, \tau)}  dz  =  \oint_B \left( - \frac{\theta'(z,\tau)}{\theta(z, \tau)} + \frac{\theta'(z+1,\tau)}{\theta(z+1, \tau)} \right) dz   +  \oint_A \left( \frac{\theta'(z,\tau)}{\theta(z, \tau)} - \frac{\theta'(z+ \tau,\tau)}{\theta(z+ \tau, \tau)} \right) dz           \]
+\[    2\pi i \oint_A dz = 2\pi i      \]
+Therefore there is exactly one zero. Now we claim that the location of the zero is $z_0 = 1+\theta/2$, the center of the lattice cell. We prove this with the help of a trick. Consider:
+\[    \theta\left( z + \frac{1+\tau}{2} , \tau \right) = \sum_{n\in \Z} \exp \left[ \pi i n^2 \tau + 2\pi i n z + \pi i n + \pi i n \tau  \right]   \]
+\[       =   \sum_{n\in \Z} \exp \left[ \pi i (n + 1/2)^2 \tau - \pi i \tau/4 + 2\pi i (n + 1/2)z - \pi i z + \pi i n   \right]   \]
+\[       =     \sum_{n\in \Z} \exp \left[  \pi i (n + 1/2)^2 \tau + 2\pi i (n + 1/2) (z+ 1/2) + \pi i /2 - \pi i z - \pi i \tau/4  \right]    \]
+\[      =  i e^{- \pi i \tau/4 - \pi i z} \sum_{z \in \Z} \exp \left[  \pi i (n+1/2)^2 \tau + 2\pi i (n+1/2)(z+ 1/2)  \right]   \]
+We denote the sum above by $\theta_1(z, \tau)$, and denote the exponent by $*$. We claim that $\theta_1$ is an odd function, which obviously implies that $\theta_1(0) = 0$ as desired. Under $z\to -z$, $*$ becomes:
+\[   \pi i (n+1/2)^2 \tau + 2\pi i (n+1/2)(-z+ 1/2)      \]
+We change the variable of summation such that $n+ 1/2 = - (m+1/2)$. Then $*$ becomes:
+\[      \pi i (m+1/2)^2 \tau + 2\pi i (m+1/2)(z - 1/2)      \]
+Therefore the change in $\theta_1$ is $e^{-2\pi i (m+1/2)} = -1$, which completes the proof. The vague statement that we made before, that $\theta$ is kind of like the function $\sigma$ of Weirstrass theory, can now be made precise. $\theta_1$ is exactly $\sigma$: odd, holomorphic everywhere and only vanishes at $z=0$.
+
+
+\section*{Lecture 11}
+We saw last time that $\theta(z, \tau) = 0$ iff $z = (1+\tau)/2$ mod $\Lambda$. Recall also that $\theta(z+1, \tau) = \theta(z,\tau)$ and $\theta(z+\tau, \tau) = e^{-\pi i \tau - 2\pi i z} \theta(z, \tau)$, so it's not exactly doubly periodic, but it transforms quite nicely when we change the lattice point. We also introduced $\theta_1$, which is $\theta$ shifted such that it's centered over the zero in the fundamental cell:
+\[       \theta_1 (z, \tau) = \sum_{n\in \Z} e^{\pi i (n+ 1/2)^2 \tau + 2\pi i (n+1/2)(z+1/2)}     \]
+We showed that $\theta_1$ is odd. It's an easy exercise to check that $\theta_1 (z+1, \tau) = - \theta_1 (z, \tau)$ and $\theta_1(z+\tau, \tau) = e^{-\pi i \tau - 2\pi i z} \theta_1(z, \tau)$. Now we want to show that $\theta$ functions enable us to do everything we had done with Weirstrass theory or the construction of Riemann surfaces.
+
+\subsection*{Function theory}
+We will give yet another proof of Abel's theorem. We construct the candidate function as:
+\[   f(z) = \frac{\prod_{i=1}^N \theta_1(z - P_i)}{\prod_{i=1}^N \theta_1(z - Q_i)}     \]
+We just need to check that this is doubly periodic. Using the periodicity conditions, we get that this happens iff the sum of Abel map values for $P$ is equal to the sum of Abel map values for $Q$.
+\\
+\\
+Now we want to construct meromorphic forms with poles at prescribed values:
+\[      \omega_{PQ} = \p_z \text{log} \frac{\theta_1(z - P)}{\theta_1(z - Q)} dz     \]
+This is doubly periodic, since:
+\[   \frac{\theta_1(z + \tau - P)}{\theta_1(z + \tau - Q)} = \frac{e^{-2\pi i (z-P)}}{e^{-2\pi i (z-Q)}} \frac{\theta_1(z - P)}{\theta_1(z - Q)}   \]
+Under the log, these differ by an additive constant, which is killed by the derivative.
+\\
+\\
+Left as an exercise to show that a meromorphic form with a double pole at $P$ looks like:
+\[  \omega_P = \p_z^2 \text{log} \frac{\theta_1(z - P, \tau)}{\theta_1'(0,\tau)}  \]
+Note that under periodicity transofrmations the log will differ by some linear term, which is killed by the two derivatives, and so this is well-defined on the quotient space.
+
+\subsection*{Product expansions of $\theta(z, \tau)$}
+We want to show now that Jacobi theory actually goes further than the theories we studied so far. 
+
+\begin{thm}
+\[  \theta(z, \tau) = \prod_{n=1}^{\infty} (1 - q^{2n}) (1 + q^{2n-1} e^{2\pi i z}) (1 + q^{2n-1} e^{-2\pi i z})  \]
+Where $q = e^{\pi i \tau}$.
+\end{thm}
+\begin{proof}
+Denote the RHS by $T(z, \tau)$. We first do the easy part: we claim that $T(z, \tau) = 0$ exactly when $z = (1+\tau)/2$ mod $\Lambda$. The product vanishes iff one of the factors vanishes, i.e:
+\[    q^{2n-1} e^{2\pi i z} = -1 \Leftrightarrow z = \frac{1+\tau}{2} + n\tau + k  \;\;\;\;\;\;\; n,k\in \Z  \]
+We want to show that the product is well-defined on the torus; the only nontrivial check is:
+\[      T(z+\tau, \tau) =  \prod_{n=1}^{\infty} (1 - q^{2n}) \prod_{n=1}^{\infty} (1 + q^{2n+1} e^{2 \pi i z}) (1 + q^{2n-3} e^{-2\pi i z})      \]
+\[    =   \prod_{n=1}^{\infty} (1 - q^{2n}) \frac{ \prod_{n=1}^{\infty} (1 + q^{2n-1} e^{2 \pi i z})}{1+ q e^{2\pi i z}} \left[ \prod_{n=1}^{\infty} (1 + q^{2n-1} e^{-2 \pi i z}) \right] ( 1+ q^{-1} e^{-2\pi i z})  \]
+\[     = T(z, \tau) q^{-1} e^{-2\pi i z}     \]
+Which is exactly the way $\theta$ transforms. Now, since the ratio:
+\[    \frac{\theta(z, \tau)}{T(z,\tau)}   \]
+Is a holomorphic, doubly-periodic function, it must be a constant $c_{\tau}$. It's much harder to show that $c_{\tau} = 1$; in principle, it could be any function of $\tau$. The trick we use is showing $c_{\tau} = c_{4\tau}$. After we prove this, we can iterate this to obtain $c_{\tau} = c_{4^k \tau}$. Taking limit, we get $c_{\tau} = \lim_{k\to \infty} c_{4^k \tau}$. By inspection of the formula for $T(z, \tau)$, we can see that $|q| \to 0$ as Im$(\tau) \to \infty$, and thus $T(z, \tau) \to 1$. Similarly for $\theta$, and therefore $c_{\tau} = 1$.
+\\
+\\
+Now we show that indeed $c_{\tau} = c_{4\tau}$. Take $z = 1/2$:
+\[   \theta(1/2, \tau) = \sum_{n\in \Z} e^{\pi i n^2 \tau} (-1)^n    \]
+\[   T(1/2, \tau) = \prod_{n=1}^{\infty} (1 - q^{2n}) (1 - q^{2n-1}) (1 - q^{2n-1}) =\prod_{n=1}^{\infty} (1 - q^{n}) (1 - q^{2n-1})  \]
+\[     c(\tau) = \frac{ \sum_{n\in \Z} e^{\pi i n^2 \tau} (-1)^n  }{\prod_{n=1}^{\infty} (1 - q^{n}) (1 - q^{2n-1})}     \]
+Now take $z = 1/4$:
+\[        \theta(1/4, \tau) = \sum_{n\in\Z} e^{\pi i n^2 \tau}  i^n  = \sum_{k \in \Z} e^{\pi i 4k^2 \tau} (-1)^k + \sum_{k \in \Z} e^{\pi i {2k+1}^2 \tau} i^{2k+1} \]
+We want to show that the second sum gives 0. We show this by changing summation index $k = -l - 1$, whereby the sum will become minus itself, so it's zero. This shows that:
+\[     \theta(1/4, \tau) = \sum_{k \in \Z} e^{\pi i 4k^2 \tau} (-1)^k    \]
+Now we look at:
+\[    T(1/4, \tau) = \prod_{n=1}^{\infty} (1 - q^{2n}) (1 + q^{2n-1} i) (1 - q^{2n-1} i)  = \prod_{n=1}^{\infty} (1 - q^{2n}) (1 + q^{4n-2})  \]
+\[    =    \prod_{n=1}^{\infty} (1 - q^{4n}) (1 - q^{4n-2}) (1 + q^{4n-2}) = \prod_{n=1}^{\infty} (1 - q^{4n}) (1 - q^{8n-4})  \]
+Therefore:
+\[    c_{\tau} = \frac{\theta(1/4, \tau)}{T(1/4, \tau)} = c_{4\tau}  \]
+\end{proof}
+
+\subsection*{Modular transformations of $\theta(z, \tau)$}
+Take $\Lambda = \{ m + n \tau | m,n\in \Z \}$. A change of basis for the lattice $\Lambda$ can be obtained by transformations on $\tau$ of the following kind:
+\begin{enumerate}
+\item $ \tau \to \tau + 1$, i.e. change generators to $(1, \tau + 1)$;
+\item $\tau \to - 1/\tau$, i.e. interchange the roles of $1$ and $\tau$.
+\end{enumerate}
+We would like our functions to be invariant under these transformations, i.e. basis independent. What we actually get is the transformation:
+\[   \theta(z, -1/\tau) = \sqrt{\tau/i} \exp(\pi i \tau z^2)\theta(z\tau, \tau)  \]
+\begin{proof}
+It suffices to consider $\tau = i \tau_2$, $\tau_2>0$, i.e. $\tau$ is purely imaginary, and $z\in \R$. Then the identity to be proved is:
+\[      \sum_{n\in \Z}  \exp(- \pi n^2 /\tau_2 + 2\pi i nz)  = \tau_2^{1/2} \exp(-\pi \tau_2z^2) \sum_{n\in \Z} \exp(-\pi n^2 \tau_2 - 2\pi n z \tau_2)  \]
+Manipulating the RHS gives:
+\[       \sum_{n\in \Z}  \exp(- \pi n^2 /\tau_2 + 2\pi i nz) = \tau_2^{1/2} \sum_{n\in \Z} \exp(-\pi \tau_2(z+n)^2)    \]
+This is a well-known result known as the Poisson summation formula. We will prove it next time.
+\end{proof}
+You should think until next time about the transformations under $\tau \to \tau + 1$; it's surpirsingly nontrivial. What's gonna happen is that we consider a group of theta functions, and they transform into one another.
+
+\section*{Lecture 13}
+\subsection*{General theory}
+We define a Riemann surface as a countable union of topological spaces $X_{\alpha}$ which are homeomorphic to some open set in $\C$. We want holomorphicity to mean the same thing no matter what chart we use, so we impose holomorphicity on the map that takes $\phi_{\alpha}(X_{\alpha} \cap X_{\beta}) \to \phi_{\beta}(X_{\alpha} \cup X_{\beta})$. This map is just $\phi_{\beta} \circ \phi_{\alpha}^{-1}$. If we denote local coordinates on each chart by $z_{\alpha}$ and $z_{\beta}$ respectively, this simply means that we have $z_{\beta} = z_{\beta}(z_{\alpha})$ holomorphic with $ \frac{\p z_{\beta}}{\p z_{\alpha}} \neq 0$.
+\\
+\\
+For $z\in X$ and a function $f(z) \in \C$, we take some local coordinate chart $\phi_{\alpha}$ and then $f(z) = (f \circ \phi_{\alpha}^{-1})(z_{\alpha})$. By an abuse of notation we call this $f(z_{\alpha})$. Then we take derivatives of $f$ as $\frac{\p f}{\p z_{\alpha}} (z_{\alpha})$ on $X_{\alpha}$. Note that this is only well-defined for $z \in X_{\alpha}$, and if we go to some other coordinate chart we get $\frac{\p f}{\p z_{\beta}} (z_{\beta})$. The catch is that these are not a priori equal, but it turns out there's a nice relation between them. We use the chain rule to get:
+\[     \frac{\p f}{\p z_{\alpha}} = \frac{\p f}{\p z_{\beta}} \frac{\p z_{\beta}}{\p z_{\alpha}}     \]
+This leads to the notion of a line bundle.
+
+\subsection*{``Geometry is in the eye of the beholder''}
+
+\begin{defn}
+A \textbf{line bundle} $L$ on $X$ is defined by:
+\[     L \longleftrightarrow  \{ t_{\alpha \beta} (z)   \text{ functions on } X_{\alpha} \cap X_{\beta} | t_{\alpha \alpha} = 1 , t_{\alpha \gamma} = t_{\alpha \beta} t_{\beta \gamma} \}     \]
+The \textbf{sections} of a line bundle are defined by:
+\[  \Gamma(X,L) \in \phi \longleftrightarrow \{ \phi_{\alpha}(z) \text{ on } X_{\alpha} \text{ satisfying } \phi_{\alpha}(z) = t_{\alpha \beta}(z) \phi_{\beta}(z) \text{ on } X_{\alpha} \cap X_{\beta}  \}    \]
+\end{defn}
+\begin{exmp}
+$t_{\alpha \beta} = \frac{\p z_{\beta}}{\p z_{\alpha}}$ defines a line bundle, which is usually called the \textbf{canonical bundle} $K_X$ of $X$.
+\end{exmp}
+\begin{exmp}
+One can check in a few lines of computations that multiplying the transition functions of two different line bundles gives aother line bundle.
+\end{exmp}
+We say that $L$ is holomorphic if $t_{\alpha \beta} (z)$ are holomorphic. We say that $L$ is anti-holomorphic if $\overline{t_{\alpha \beta}} (z)$ are holomorphic. In light of this definition, we summarize our earlier discussion about derivatives by saying that $\left\{ \frac{\p f}{\p z^{\alpha}}  \right\} \in \Gamma(X, K_X)$. Similarly, we can show that $\left\{ \frac{\p f}{\p \bar z^{\alpha}}  \right\} \in \Gamma(X, \bar K_X)$.
+\\
+\\
+Suppose now that we want to take second derivatives; this leads us to differentiating the sections of a holomorphic line bundle $L$ on $X$. Naively we can try:
+\[     \frac{\p }{\p z_{\alpha}} \phi_{\alpha}  = t_{\alpha \beta} \frac{\p \phi_{\beta}}{\p z_{\alpha}}  + \frac{\p t_{\alpha \beta}}{\p z_{\alpha}} \phi_{\beta}  = \left( t_{\alpha \beta}  \frac{\p z_{\beta}}{\p z_{\alpha}} \right)\frac{\p \phi_{\beta}}{\p z_{\beta}}  + \frac{\p t_{\alpha \beta}}{\p z_{\alpha}} \phi_{\beta}  \]
+The first term is what we want, but the second is garbage. However, we are able to define $\frac{\p \phi_{\alpha}}{\p \bar z_{\alpha}}$ in this way: since the transition functions are holomorphic, the $\bar z_{\alpha}$ derivetive will kill the unwanted term.
+\\
+\\
+To deal with other derivatives, we introduce a \textbf{metric} on $L$:
+\[     h \longleftrightarrow   h\in \Gamma(X, L^{-1} \otimes \bar L^{-1} ) \text{ such that } h = h_{\alpha} \text{ on } X_{\alpha}, h_{\alpha} >0    \]
+Notice that on $X_{\alpha}$ we have:
+\[    h_{\alpha} (z) = t_{\alpha \beta}^{-1} (z) \bar t_{\alpha \beta}^{-1} (z) h_{\beta}(z) = |t_{\alpha \beta} (z)|^{-2}h_{\beta}(z)  \text { on } X_{\alpha} \cap X_{\beta} \]
+Given a metric $h$ on $L$ we can define the length of sections of $L$ by:
+\[   \phi \in \Gamma(X,L) \to \phi_{\alpha} (z) \text{ on } X_{\alpha}   \]
+\[     |\phi|^2_{h} = \phi_{\alpha} \bar \phi_{\alpha} h_{\alpha}  \Leftrightarrow  |\phi|^2_{h_{\alpha}} = |\phi|^2_{h_{\beta}} \]
+Given $L$ holomorphic and $h$ a metric on $L$ we define the Chern unitary connection on $L$ by:
+\[    \nabla_z \phi = h_{\alpha}^{-1} \p_{z_{\alpha}} (h_{\alpha} \phi_{\alpha})  \in \Gamma(X, L \otimes K_X)  \]
+A few words about terminology. People use the name Chern when the derivative in the $\bar z$ direction is just usual partial differentiation. We can rewrite this as:
+\[       \nabla_z \phi = \p_z \phi + (h^{-1} \p_z h) \phi     \]
+The last term is called a \textbf{connection} $A$, which can be rewritten as $\p_z \log\phi$. Now we want to check if our definitions satisfy one of the key principles of calculus, which is that the partial derivatives commute. The answer will turn out to be no, but don't despair! We'll just compute by how much commutation fails, and then keep track of it.
+
+\subsection*{Commutation rules for covariant derivatives}
+\[ [\nabla_z , \nabla_{\bar z}] \phi = \nabla_z (\nabla_{\bar z} \phi) - \nabla_{\bar z} (\nabla_z \phi)  = \p_z(\p_{\bar z} \phi) + A_z (\p_{\bar z} \phi) - \p_{\bar z} (\p_z \phi + A_z \phi)  \]
+\[     =  - (\p_{\bar z} A_z) \phi = F_{\bar z z} \phi     \]
+Where we have defined the \textbf{curvature} $F_{\bar z z} =  - \p_{\bar z} A_z = - \p_z \p_{\bar z} \log h$. Curvature is a section of $K_X \otimes \bar K_X$.
+
+\begin{thm*}
+Let $\phi$ be a meromorphic section of a holomorphic bundle $L$ which is not identically 0. Then:
+\[      \frac{i}{2\pi} \int_X F_{\bar z z} dz \wedge d\bar z = \text{number of zeros of } \phi - \text{number of poles of } \phi      \]
+\end{thm*}
+This is something pretty deep, since the LHS does not depend on the choice of $\phi$, and the RHS does not depend on the choice of metric. The object on the LHS is called $c_1 (L)$, \textbf{the first Chern class}. This is a baby version of the Chern-Weyl theorem, which is the modern analogue of the Gauss-Bonnet theorem. The way to prove this is by noticing that:
+\[      - (\p_{\bar z} \p_{z} \log h) dz \wedge d \bar z = d ( - \p_{\bar z} \log h d\bar z)      \]
+We are tempted to use Stokes and conclude that the integral of the LHS is 0, since the surface has no boundary. However this is wrong, since the form inside of $d$ is not globally well-defined. Consider instead:
+\[         - (\p_{\bar z} \p_{z} \log |\phi|^2_h) dz \wedge d \bar z  = d   ( - \p_{\bar z} \log |phi|^2_h d\bar z)     \]
+Now this is well defined globally, and we haven't changed the expression (check this). However this is not smooth, since the log has singularities wherever $|\phi|^2$ has zeros or singularities. We therefore remove some small discs around each singularity, and Stokes will give us some contour integrals around the singularities. Left as an exercise to show that this ends up counting zeros and poles.
+
+
+\section*{Lecture 14}
+Last time we considered a metric $h$ on a hol'c line bundle $L$ and defined:
+\[      \nabla_{\bar z} \phi = \p_{\bar z} \phi        \]
+\[      \nabla_{ z} \phi = h^{-1} \p_z(h \phi)        \]
+These don't commute, and we define the curvature as the commutator:
+\[     F_{\bar z z} \phi = [ \nabla_{z} , \nabla_{\bar z} ] \phi      \]
+\[     F_{\bar z z} = - \p_z \p_{\bar z} \log h   \]
+\begin{thm*}
+Let $\phi$ be a meromorphic section of $L$, $\phi \neq 0$. Then:
+\[      \frac{i}{2\pi} \int_X F_{\bar z z} dz \wedge d\bar z = \text{number of zeros of } \phi - \text{number of poles of } \phi      \]
+\end{thm*}
+Any closed form, such as the integrand, defines a cohomology class. This particular class is not exact, otherwise we would get 0 when we integrate it. We will try to understand why it is not exact.
+\begin{proof}
+\[    F_{\bar z z} = - \p_z \p_{\bar z} \log h = - \p_z \p_{\bar z} \log |\phi|^2_h    \]
+This happens because $\log$ splits into $\log \phi$, $\log \bar \phi$ and $\log h$. The partial derivatives kill the first two, and we are left with the LHS. But we can only do this away from the poles, thus the RHS is not a regular expression. We cut some open discs around each singularity and write:
+\[        \int_X F_{\bar z z} dz \wedge d\bar z = \lim_{\delta \to 0} \int_{X - \bigcup_{i=1}^N D(z_i, \delta)}   ( - \p_z \p_{\bar z} \log |\phi|^2_h) dz\wedge d\bar z    \]
+By Stokes:
+\[     \int_{X - \bigcup_{i=1}^N D(z_i, \delta)}   ( - \p_z \p_{\bar z} \log |\phi|^2_h) dz\wedge d\bar z = \sum_{i=1}^N \oint_{\p D(z_i, \delta)} \p_{\bar z} \log(|\phi|^2_h) d bar z       \]
+Let's take each integrand apart:
+\[     \p_{\bar z} \log(|\phi|^2_h) dz   =   \p_{\bar z} \log \bar \phi + \p_{\bar z} \log h    \]
+But the second term is smooth, and therefore integrating over it gives 0. This is how we get rid of the $h$ dependence. Now say that $\phi(z) = (z-z_i)^{N_i} u(z)$. Such that $u(z_i) \neq 0$. Then:
+\[      \frac{\p_z \phi}{\phi} = \frac{N_i}{z-z_i} + \p_z \log \phi(z)   \]
+Again the second term is $C^{\infty}$. Putting all this together:
+\[      \int_X F_{\bar z z} dz \wedge d\bar z  =  \sum_{i=1}^N N_i \oint_{|z-z_i| = \delta} \frac{d\bar z}{\bar z - \bar z_i}  = - 2\pi i \sum_{i=1}^N N_i  \]
+\[      \frac{i}{2\pi}       \int_X F_{\bar z z} dz \wedge d\bar z  = \sum_{i=1}^N N_i   \]
+As desired.
+\end{proof}
+There is a danger that this statement is vacuous, i.e. that there are no meromorphic sections for some line bundles. We shall show however that any holomorphic line bundle admits non-trivial meromprhic sections. Note that, if $c_1(L) < 0$, there are no holomorphic sections, since the theorem implies that the number of poles is always larger than the number of zeros, so it cannot be zero. This tells us that the sign of the curvature gives information about the existance of holomorphic sections.
+\\
+\\
+Now we study the most important theorem in the general theorem of Riemann surfaces. Let $L \to X$ be a holomorphic line bundle over $X$. When does $L$ admit non-trivial holomorphic sections? We introduce some notation:
+\[       H^0 (X, L) = \{  \phi \in \Gamma(X,L) , \phi_{\alpha}(z) \text{ is hol'c on } X_{\alpha}  \}      \]
+We want to compute the dimension of the vector space. There is no short or easy answer to this, but the start is \textbf{the Riemann-Roch theorem}:
+\[     \dim H^0(X,L) - \dim H^0(X, K_X \otimes L^{-1})   = c_1(L) + \frac{1}{2} c_1(K_X^{-1})       \]
+In addition, we shall show that, if $X$ is a surface with $g$ holes (or handles) then:
+\[      c_1(K_X^{-1}) = 2 - 2g     \]
+Which is the \textbf{Gauss-Bonnet theorem}. Before proving Riemann-Roch, we study some of its applications, so that we get a feeling for what it says.
+
+\subsection*{Corrollaries of Riemann-Roch}
+We look at holomorphic forms. Let $L = K_X$, then $H^0(X,L)$ is the space of holomorphic forms. For the torus, we saw that this is 1-dimensional. Apply RR with $L = K_X$, then sections of $K_X \otimes K_X^{-1}$ are functions. The holomorphic ones are just constants, so they are 1-dimensional. Then we get:
+\[         \dim H^0(X,K_X^{-1}) - 1 = c_1(K_X) + \frac{1}{2} c_1(K_X^{-1})   = - \frac{1}{2} c_1(K_X^{-1}) = -1 + g  \]
+\[      \dim H^0(X,K_X^{-1}) = g        \]
+\\
+\\
+For the next application, we prove the fact stated earlier that any $L$ admits meromorphic sections. In the process, we will develop the formalism of divisors. In this course we will call divisors \textbf{point bundles}. Take a point $p$ on a Riemann surface. We define a line bundle $[p]$ in the following way. We want to write $X = X_0 \cup X_{\infty}$, where we define $X_{\infty}$ to be the complement of $p$. Then:
+\[      [p] \longleftrightarrow t_{o\alpha} (z) = z \text{ on } X_0 \cup X_{\infty}      \]
+A section $\phi \in \Gamma(X, [p])$ is given by $\phi_0(z)$ and $\phi_{\infty}(z)$ such that $\phi_0(z) = z \phi_{\infty}(z) $ on $X_0 \cup X_{\infty}$. Note that, as defined, $X_{\infty}$ is not a coordinate chart, but we could just have defined transition functions to be the identity on all other overlaps. So we don't car about this. Also note that $X_0 \cup X_{\infty}$ is a punctured disc. Now suppose that I choose $\phi_{\infty} = 1$, then we are forced to take $\phi_0 (z) = z$. This is the clearly a holomorphic section, which we denote by $1_p$. This shows that $c_1([p]) = 1$. Clearly $[p]$ can be generalized to $\otimes[n_i p_i]$ for a finite number of points. The Chern class of this will be $c_1(\otimes[n_i p_i]) = \sum n_i$.
+\\
+\\
+Now we use this to prove the existence of meromorphic sections. We apply Riemann-Roch with $L \to L \otimes [NP]$. Then we get:
+\[       \dim H^0 (X,    L \otimes [NP]) - \dim H^0 (X, K_X \otimes ( L \otimes [NP] )^{-1}) = c_1 ( L \otimes [NP]) + \frac{1}{2} c_1(K_X^{-1})    \]
+We can rewrite the RHS as $c_1(L) + N +$ some constant of the surface, which is positive if we choose $N$ large enough. Then:
+\[     \dim H^0 (X,  L \otimes [NP]) > 0    \]
+Take $\psi$ a hol'c section of $L \otimes [NP]$, and set:
+\[       \phi = 1_{-NP}  \psi     \]
+And we are done. Left as an exercise to prove, for every $P \neq Q$, existence of the meromorphic form $\omega_{PQ}(z)$ with simple poles at $P, Q$. Using Riemann-Roch. This can be done by applying Riemann-Roch with $L$ replaced by $L \otimes [P+Q]$.
+
+\subsection*{Setup of index theorems}
+How we would prove the Riemann-Roch theorem? The simplest proof uses sheaf cohomology, and we do that in the second semester. What we do instead this semester is prove it using the proof of index theorems. The basic setup is as follows. Consider $H_1, H_2$ Hilbert spaces and an operator $T : H_1 \to H_2$. How do we define the spectrum of such an operator? $\lambda$ is an eigenvalue if we can find $v\neq 0$ such that $Tv = \lambda v$. But $Tv \in H_1$ and $v\in H_2$, so we cannot make sense of this equality. We don't discuss this just for the sake of generality. Some of the most important operators in physics are of this type. This phenomenon is called chirality. One trick that we can do is introduce $\Delta^{+} = T^{\dagger}T :H_2 \to H_1$. We could also consider $\Delta^{-} = TT^{\dagger} :H_1 \to H_2$. It turns out that the nonzero eigenvalues of these operators are in 1-1 correspondence, but the zero ones are not. Therefore we are interested in studying the kernel of these operators. We will get:
+\[      \Tr(e^{-t\Delta^+}) - \Tr(e^{-t\Delta^-})   = \dim \Ker(T) - \dim \Ker(T^{\dagger})   \]
+
+
+\section*{Lecture 15}
+\subsection*{Index theorems}
+Let $H_j$ be Hilbert spaces and an operator $T:H_1 \to H_2$. Last class we defined:
+\[     \Delta_+ = T^{\dagger}T \;\;\;\;\;\; \Delta_- = T T^{\dagger}     \]
+These are important because of the following observation. Let $\lambda \neq 0$ be an eigenvalue of $\Delta_+$; then it is an eigenvalue of $\Delta_-$:
+\[     T^{\dagger}T \phi = \lambda \phi \Rightarrow (TT^{\dagger}) T \phi = \lambda T \phi     \]
+Thus $T \phi$ is an eigenvector of $\Delta^-$ with eigenvalue $\lambda$. The only discrepancy that we get is that between the kernels of $\Delta^+$ and $\Delta^-$. We want to measure this discrepancy, which we call the \textbf{index}.
+\[     \dim \Ker \Delta_+ - \dim \Ker \Delta_- = \dim \Ker T - \dim \Ker T^{\dagger}     \]
+A way to measure this is to consider:
+\[    \Tr(e^{-t\Delta_+}) - \Tr(e^{-t\Delta_-})    \]
+To understand what the exponential of an operator is, we take a basis of eigenfunctions $\{\phi_{\lambda}\}$. Then we get $\Delta_+^n = \lambda^n \phi_{\lambda}$. Then we can define any (analytic) function of the operator $\Delta_+$ by $f(\Delta_+) \phi_{\lambda} = f(\lambda) \phi_{\lambda}$. It's a bit nontrivial to show that this converges, but we will show later that in case of a negative exponential there is no trouble. Then:
+\[     \Tr(e^{-t\Delta_+}) - \Tr(e^{-t\Delta_-}) = \sum_{\lambda \text{ of } \Delta_+} e^{-t\lambda} -  \sum_{\lambda \text{ of } \Delta_-} e^{-t\lambda}  =  \dim \Ker \Delta_+ - \dim \Ker \Delta_- \]
+Since all the nonzero eigenvalues are paired. The LHS can be computet explicitly; we view it as a solution of the PDE:
+\[      \left( \frac{\p}{\p t} + \Delta_+  \right) e^{-t\Delta_+}  = 0   \]
+\[    \left.   e^{-t\Delta_+} \right|_{t=0} = 1     \]
+Claim: $e^{-t\Delta_+}$ can be evaluated for $0<t<<1$. This is not that bad to compute because the difference in traces is an integer (difference of dimensions of the kernels), and therefore upon perturbing it it doesn't change. Now we restrict our attention to some particular spaces and operators; we hope that this will let us prove Riemann-Roch.
+
+\subsection*{Proof of Riemann-Roch}
+Consider $\phi \in \Gamma(X,L)$; then $\bar \p \phi = \p_{\bar z} \phi \in \Gamma(X, L\otimes \bar K_X)$. Index theorems deal with Hilbert spaces, and as of now these line bundles are not Hilbert spaces. To correct this, we equip $L$ with a metric which will give a norm to the line bundles. We also pick a metric $g_{\bar z z}$ on $K_X^{-1}$; $g_{\bar z z}$ will be a 1-1 form.
+\[     ||\phi ||^2 =  \int_X  \phi \bar \phi h \; g_{\bar z z}  \]
+Set $H_1 = \overline{\Gamma(X,L)}$, the completion of $\Gamma(X,L)$ with respect to the norm $||\phi ||^2$. Now we do the same thing for $\psi \in \Gamma(X, L\otimes \bar K_X)$:
+\[     || \psi ||^2 = \int_X \psi \bar \psi h     \]
+And we define $H_2 =  \overline{\Gamma(X,L\otimes \bar K_X)}$. One could worry about the fact that $\bar \p$ only acts well on smooth functions and the completion need not be smooth (for example, $L^2$ is not a smooth completion of $\R$). But we'll show later that the action of $\bar \p$ is well-defined in terms of distributions. Also, a deeper question we will want to address is whether or not these concepts depend on the specific metrics that we choose. With these definitions, note that:
+\[      H^0(X,L) = \Ker \bar \p |_{\Gamma(X,L)}      \]
+Now \textbf{we claim that}:
+\[       \dim \Ker \bar \p^{\dagger} = \dim H^0 (X, K_X \otimes L^{-1})      \]
+i.e. the kernel itself depends on the choice of metric, but its dimension does not. We need to work out what $\bar \p ^{\dagger}$ means. It is defined by:
+\[       \langle \bar \p \phi , \psi \rangle = \langle \phi , \bar \p^{\dagger} \psi  \rangle      \]
+Careful with the fact that the two inner products belong to different spaces, we write:
+\[        \int (\p_{\bar z} \phi) \bar \psi h = \int \phi \overline{(\bar \p^{\dagger} \psi)}    h \; g_{\bar z z}         \]
+We integrate by parts on the LHS:
+\[     \int (\p_{\bar z} \phi) \bar \psi h =   - \int \phi \overline{\p_z(h\psi)}  = - \int \psi \overline{(g_{\bar z z}^{-1}) h^{-1} \p_z(h\psi)} h \; g_{\bar z z}    \]
+By denoting $(g_{\bar z z}^{-1}) = g^{\bar z z}$ and equating this with the RHS we find:
+\[     \bar \p^{\dagger} \psi = - g^{\bar z z} h^{-1} \p_z(h \psi)     \]
+One can trace the bundles that each object belongs to and convince oneself that this can be rewritten in terms of the covariant derivative on the bundle $L\otimes \bar K_X)$.
+\[         \bar \p^{\dagger} \psi = - g^{\bar z z} \nabla_z \psi    \]
+This is a manifestation of a more general (and comforting) phenomenon: whatever computation we do, if we work correctly we get a covariant expression. Now we can write down the kernel of $\bar \p^{\dagger}$:
+\[        \Ker   \bar \p^{\dagger} = \{ \psi \in \Gamma(X, L\otimes \bar K_X ) | \p_z(h\psi) = 0 \}   \]
+\[         \Ker   \bar \p^{\dagger} = \{ \psi \in \Gamma(X, L\otimes \bar K_X ) | \p_{\bar z}(h \bar \psi) = 0 \}     \]
+Thus there is an isomorphism:
+\[        \psi \in \Ker \bar \p^{\dagger} \longleftrightarrow h\bar \psi \in \Ker \bar \p |_{\Gamma(X, K_X \otimes L^{-1})}     \]
+\[           \dim \Ker \bar \p^{\dagger} = \dim H^0 (X, K_X \otimes L^{-1})             \]
+As desired. Now the \textbf{key remaining step} is as follows. Let the setup be as just described, then:
+\[         \Tr(e^{-i\Delta_+}) - \Tr(e^{-i\Delta_-}) = c_1(L) + \frac{1}{2} c_1(K_X^{-1})       \]
+
+\subsection*{Integral formulas for linear operators}
+In finite dimensions, an operator $A$ can be expressed:
+\[    (Av)_i  = \sum_{j=1}^n A_{ij} v_j     \]
+For function spaces, an operator can be expressed:
+\[      (A \phi) (z) = \int_X K(z, w) \phi(w)     \]
+For this to make sense in the case $\phi(w) \in \Gamma(X, L_w)$, $\phi(z) \in \Gamma(X, L_z)$, we need: 
+\[     K \in \Gamma(X, L_z \otimes L_w^{-1} \otimes K_w \otimes K_{\bar w})   \]
+To ease notation, we redefine $K(z,w)$ as $\tilde K(z,w) g_{\bar w w}$, and now $\tilde K(z,w) \in \Gamma(X, L_z \otimes L^{-1}_w)$. We obtain:
+\[      \Tr A = \int_X \tilde K(w,w) g_{\bar w w}      \]
+We want to apply this to $A_+ = e^{-t\Delta_+}$, $A_- = e^{-t\Delta_-}$. Let $K_t^+(z,w)$ and $K_t^-(z,w)$ be $\tilde K$ in these cases. \textbf{Claim}: one can compute $K_t^{\pm} (w,z)$ for $t$ small, and in particular the diagonal expressions are simple. We find:
+\[         g_{\bar z z} K_t^{\pm} (z,z) = \frac{4\pi}{t} + a_{\pm} \mathcal{R}_{\bar z z} + b_{\pm} F_{\bar z z} + O(t)     \]
+Where $\mathcal{R}_{\bar z z} = - \p_z \p_{\bar z} \log g_{\bar z z}$ and $F_{\bar z z}  = - \p_z \p_{\bar z} \log h_{\bar z z}$, and $a,b$ are universal coefficients. Next time we fill in some more details and finish the proof.
+
+\section*{Lecture 16}
+\subsection*{Proof of Riemann-Roch: resumed}
+We first check that the claim we made at the end of last class:
+\[         g_{\bar z z} K_t^{\pm} (z,z) = \frac{4\pi}{t} + a_{\pm} \mathcal{R}_{\bar z z} + b_{\pm} F_{\bar z z} + O(t)     \]
+Finishes the proof of RR, and then come back and prove this claim. We write the LHS of RR as:
+\[       \lim_{t\to 0^+} \int_X  [  g_{\bar z z} K_t^{+} -  g_{\bar z z} K_t^{-} ]  = (a_+ - a_-) \int_X \mathcal{R}_{\bar z z} + (b_+ - b_-) \int_X F_{\bar z z}  \]
+\[     = b c_1(L) + a c_1(K_X^{-1})     \]
+To determine $a,b$, let's first exchange $L \to K_X \otimes L^{-1}$. Then we get:
+\[     \dim H^0 (X, K_X \otimes L^{-1}) - \dim H^0 (X, L) = b c_1(K_X \otimes L^{-1}) + a c_1 (K_X^{-1})    \]
+Thus:
+\[       bc_1(L) + ac_1(K_X^{-1}) = - bc_1(K_X) + bc_1(L) - a c_1(K_X^{-1})      \]
+Thus $a = b/2$, which is consistent with what we expect. Now let's apply RR with $X = S^2$. Then, by Gauss-Bonnet, $c_1(K_X^{-1}) = 2 - 2g = 2$. This also means that $c_1 (K_X) = -2$, and this implies that $\dim H^0 (S^2, K_{S^2}) = 0$. Then the statement of RR is:
+\[      \dim H^0 (S^2, K_{S^2}) - \dim H^0 (S^2, 1)  = b (-2 + 1)   \]
+\[         0 - 1 = -b       \]
+Which shows that we have $b = 1$ and $a = b/2$. Now we go back and prove rigorously the claims made.
+\\
+\\
+\textbf{Fact 1.} The operators $\Delta^{\pm}$ have discrete spectra $0 \leq \lambda_{\pm} \to \infty$ and the space $H_1 = \overline{\Gamma(X, L)}$ admits an orthonormal basis of eigenfunctions $\{ \phi_{\lambda_+}\}$. This allows us to define:
+\[        e^{-t \Delta_+} \phi) = \sum_{\lambda_+} e^{-t\lambda_+} c_{\lambda_+} \phi_{\lambda_+}     \]
+Where $c_{\lambda_+} = \langle \phi , \phi_{\lambda_+} \rangle$. Observe that the RHS is well-defined in view of the Riesz-Fischer theory.
+\\
+\\
+\textbf{Computation of $K_t^+ (z,w)$}. We solve the equation:
+\[   \left(   \frac{\p}{\p t} + \Delta \right)  e^{- t \Delta} = 0   \]
+\[       e^{-t \Delta} |_{t=0} = 1      \]
+We need to work in local coordinates $z$. Recall that $\Delta = \bar \p^{\dagger} \bar \p$. Then:
+\[     \Delta \phi = - g^{\bar z z} \nabla_z (\p_{\bar z} \phi)     = - g^{\bar z z} ( \p_z + \Gamma^h_z) (\p_{\bar z} \phi)    \]
+Where the connection $\Gamma^h_z = \p_z \log h$. Thus:
+\[       \Delta \phi = - g^{\bar z z} \p_z \p_{\bar z} \phi - g^{\bar z z}   \Gamma_z^h \p_{\bar z} \phi      \]
+We don't need to solve this exactly, but only for small $t$, so we can use an assymptotic expansion. By the Fourier transform on $\C$:
+\[       \hat u(w) = \int  e^{- i (w \bar z + \bar w z)}  u(z) d^2 z  \]
+\[    (e^{-t\Delta} u )   (z) = \int e^{i(z\bar w + \bar z w)/2} a(t,z,\bar z, w, \bar w)  \hat u(w) d^2 w        \]
+Where $a$ is called the ``symbol'', and the initial value condition gives $a(t=0) = 1$. Choice of the symbol:
+\[    0 = (\p_t + \Delta) (e^{-t\Delta})       \]
+\[    0 = (\p_t + \Delta) [ e^{i(z\bar w + \bar z w)/2} a(t,z,\bar z, w, \bar w)  ]     \]
+This can be solved recursively, without solving a PDE, by writing:
+\[       a  = \sum_{k=0}^{\infty} a_k (t, z, \bar z, w, \bar w)       \]
+With the condition:
+\[       |a_k (t, z, \bar z, w, \bar w)| \leq c_k (1 + |w| + t^{-1/2} )^{-k}       \]
+(And similar estimates on their derivatives.) The series for $a$ doesn't converge, but it converges assymptotically, in the sense that:
+\[        | a - \sum_{k=0}^N a_k | \leq c (1 + |w| + t^{-1/2})^{-(N+1)}       \]
+
+
+
+\section*{Lecture 18}
+\subsection*{Model version of asymptotic series}
+Fix $m$. Let $a_j(\xi)$ be smooth functions satisfying $|a_j(\xi)|\leq C_j (1+|\xi|)^{m-j}$. Then we \textbf{claim} that there exists $a(\xi)$ smooth such that:
+\[          | a(\xi) - \sum_{j\leq N} a_j(\xi) | \leq C_N (1 + |\xi|)^{m-N-1}         \]
+We say that $a(\xi) \sim \sum_{j=1}^{\infty} a_j(\xi)$ asymptotically. Note that this works for any constants $C_j$, even when we don't have pointwise convergence. The key notion that helps us is the grading.
+\\
+\\
+Let $\chi(\xi)$ be a smooth function such that $\chi(\xi) = 0$ for $|\xi|\leq 1$ and $\chi(\xi) = 1$ for $|\xi| \geq 2$. Pick $\epsilon_j \to 0$ extremely fast (will be made precise later) and set $A_j(\xi) = \chi(\epsilon_j \xi) a_j(\xi)$. We get that $A_j(\xi) = 0$ when $|\xi| \leq \frac{1}{\epsilon_j}$, and is equal to $a_j(\xi)$ when $|\xi| \geq \frac{2}{\epsilon_j}$. Then we see that $a(\xi) = \sum_{j=0}^{\infty} A_j (\chi)$ is convergent. Now consider:
+\[        a(\xi) - \sum_{j\leq N} a_j(\xi) = \sum_{j\leq N} (A_j(\xi) - a_j(\xi)) + \sum_{j>N} A_j(\xi)     \]
+The first sum trivially satisfies the bounds, since it's zero outside a compact set. We inverstigate the second sum:
+\[       |A_j(\xi)| \leq |\chi| |a_j(\xi)| \leq |\chi| C_j (1 + |\xi|)^{m-j}  \leq |\chi| |\xi|^{-1} C_j (1+ |\xi|)^{m-j+1}  \leq |\chi| \epsilon_j C_j (1+ |\xi|)^{m-j+1}  \]
+Therefore we choose $\epsilon_j$ such that $\epsilon_j C_j \leq 2^{-j}$. Then:
+\[      \sum_{j\geq N}   |A_j(\xi)| \leq  (1+ |\xi|)^{m-N+1} \sum_{j\geq N} 2^{-j}  \leq  (1+ |\xi|)^{m-N+1}  \]
+Now replace $N$ by $N+2$ and we obtain:
+\[             | a(\xi) - \sum_{j\leq N} a_j(\xi) |  \leq   (1+ |\xi|)^{m-N-1}   \]
+Which finishes the proof.
+\\
+\\
+As an \textbf{exercise}, assume $a_j (x, \xi)$ satisfy:
+\[       | \p_x^{\alpha} \p^{\beta}_{\xi} a_j(x, \xi)  |  \leq C_{\alpha \beta j} (1 + |\xi|)^{m - j - |\beta|}     \]
+Then there exists $a(x, \xi)$ smooth and satisfying:
+\[  \left| \p_x^{\alpha} \p_{\xi}^{\beta}    \big[  a - \sum_{j\leq N} a_j (x, \xi) \big]  \right| \leq C'_{\alpha \beta N} (1 + |\xi|)^{m - N - 1 - |\beta|}    \]
+
+\subsection*{Proof of Riemann-Roch: resumed}
+Now we return to the construction of $Q(t)$. After finding $b_k(t,z,\zeta)$, we define
+\[     a \sim e^{-\frac{1}{4}t} g^{z\bar z} \zeta \bar \zeta \left(\sum_k b_k \right)      \]
+Where the sum converges asympototically. But as of now our construction is local. To define $Q$ globally, we use a partition of unity. [Blank here, didn't bother.]
+\\
+\\
+But now we \textbf{claim} that the operator $Q(t)$ constructed in this manner satisfies:
+\[           \left( \frac{\p}{\p t} + \Delta \right) Q(t) = E(t)         \]
+For some nonzero function $E(t)$. This is the error we commit by making all these choices and cutoffs. We show tha $E(t)$ is a bounded operator with uniform bounds in $t$:
+\[        H_{(-N)} (X,L) \to H_{(+N)} (X, L)       \]
+Where $H_{(s)}(X,L)$ is a \textbf{Sobolev space} given by:
+\[     \overline{  \{ \phi \in \C^{\infty}(X,L) : ||\phi||_{(s)}^2 = \sum_{\lambda} (1+ \lambda)^s| \langle \phi, \phi \rangle_{\lambda}|^2 \} }  \]
+Roughly speaking, $H_{(s)}$ is the space of functions that admit $s$ derivatives. Then $E$ is an operator that takes very rough functions and smoothens them out. Assume all this for a moment, and let's see how we would use it. We compare $Q(t)$ to $e^{-t\Delta}$, a short computation shows that:
+\[     Q(t) = e^{-t\Delta} + \int_0^t e^{-(t-s) \Delta} E(s) ds      \]
+We claim that this error doesn't matter, i.e. that:
+\[      \lim_{t\to 0} \Tr\left( \int_0^b e^{-(t-s) \Delta} E(s) ds \right) = 0     \]
+
+\section*{Lecture 19}
+For every $N$, there exists a $k$ big enough such that $E$ is bounded from $H_{(-k)}$ to $H_{(k)}$ implies that the kernel of $E$ is $C^N$ (with norms bounded by the norms of $E$). This implies:
+\[       \lim_{t\to 0} \Tr\left( \int_0^b e^{-(t-s) \Delta} E(s) ds \right) = 0    \]
+We'll come back to this in more generality, but now we turn to things that are more relevant to complex geometry. Recall that we were working with a hol'c line bundle $L \to X$, and the Riemann Roch theorem says:
+\[     \dim H^0(X,L) - \dim H^0(X, K_X \otimes L^{-1})   = c_1(L) + \frac{1}{2} c_1(K_X^{-1})       \]
+What's leftover in the proof of Riemann-Roch is the \textbf{Gauss-Bonnet theorem}, i.e. if $X$ is a surface with $g$ handles, then:
+\[         c_1(K_X^{-1}) = 2 - 2g      \]
+Recall that we defined:
+\[      c_1 (L) = \frac{i}{2\pi} \int_X F_{\bar z z} dz \wedge d \bar z     \]
+We already know that the first Chern class does not depend on the metric on $L$. We claim that is suffices to show that $c_1(K_X^{-1})$ does not depend on the complex structure of $X$. We shall see shortly that a complex structure of $X$ is determined by a metric $ds^2 = g_{ij} dx^i dx_j$ on $X$. Assume then that $X$ is a surface with $g$ handles equipped with an arbitrary metric and that $c_1(K_X^{-1})$ does not depend on this metric. Then we porform cuts to separate the handles from the main body and we can write:
+\[       c_1(K_X^{-1})  = \int_X R_{\bar z z} g_{\bar z z} = \int_{body} + \sum \int_{handles}  \]
+Now we regard the body as a sphere missing $2g$ caps:
+\[    \int_{body} = \int_{sphere} - 2g \int_{hemisphere}  = A - 2g \frac{A}{2} = A(1-g)  \]
+We can easily compute the constant $A$ by integrating over the sphere. But now let's look at the half-handles that remain. For each handle we have $A - 2 \frac{A}{2} = 0$. Therefore:
+\[         c_1(K_X^{-1})  = A(1-g)      \]
+\[           A = \frac{i}{2\pi} \int_{S^2} R_{\bar z z} dz \wedge d \bar z        \]
+We assign some \textbf{simple exercises} for the reader. First if we add a third dimension $x_3$ to the complex plane $\C$ we can regard the unit sphere as embedded in 3 dimensions. Check that in stereographic projection a point $z \in \C$ corresponds to:
+\[       \left( \frac{2z}{1+ |z|^2}  , \frac{|z|^2 - 1}{|z|^2+1} \right)     \]
+Then restricting the metric in $\R^3$ gives:
+\[       ds^2 = dw d\bar w + (dx_3)^2      \]
+\[        ds^2 = \frac{4}{(1+|z|^2)^2} dz d\bar z      \]
+\[      R_{\bar z z} =  \frac{2}{(1+|z|^2)^2}      \]
+\[    R = g^{\bar z z} R_{\bar zz}  = \frac{1}{2}    \]
+Putting all these together we get the required expression.
+\\
+\\
+Now on to the hard part. We want to differentiate the integral with respect to the metric and show that we get 0, i.e. that the first Chern class is independent of complex structure.
+
+\subsection*{Metrics on a surface and complex structures}
+Let $X$ be a surface (real dimension 2). A metric on $X$ is something of the form:
+\[     ds^2 = g_{ij}(x) dx^i dx^j       \]
+We say that $\{x^i\}$ is an \textbf{isothermal} coordinate system if $ds^2 = \rho(x) ((dx^1)^2 + (dx^2)^2)$. In this case set $z = x^1 + i x^2$, then:
+\[        ds^2 = \rho(z, \bar z) dz d\bar z      \]
+\textbf{Theorem}: local isothermal coordinates always exist. If $w, \bar w$ is another set of isothermal coordinates, then how do they relate?
+\[      \rho(z) dz d\bar z = \tilde \rho(w) dw d\bar w       \]
+But:
+\[        dw = \p_z w dz + \p_{\bar z} w d\bar z       \]
+\[         \tilde \rho(w) dw d\bar w = \tilde \rho(w(z))  \left[ (|\p_z w|^2 + |\p_{\bar z} w|^2) dz d\bar z + \p_z w \p_z \bar w dz^2 + \p_{\bar z} w \p_{\bar z} \bar w d\bar z^2  \right]       \]
+We get that $w$ is either a holomorphic function of $z$ or a holomorphic function of $\bar z$. Choosing an orientation, this implies that $w$ is a holomorphic function of $z$. This makes $X$ into a Riemann surface. Now we want to see how the complex structure changes when we change $ds^2$.
+\\
+\\
+Let $z$ be a complex coordinate for $ds^2$. Then:
+\[        ds^2 = g_{\bar z z} dz d\bar z       \]
+Let $w$ be a complex coordinate for $ds^2 + \delta(ds^2)$:
+\[       ds^2 + \delta( ds^2)= g_{\bar w w} dw d\bar w        \]
+\[       ds^2 + \delta( ds^2)= (g_{\bar z z} + \delta(g_{\bar z z})) dz d\bar z  + \delta(g_{ z z}) (dz)^2 +  \delta(g_{\bar z \bar z}) (d\bar z)^2     \]
+This implies that $w$ must satisfy:
+\[       \tilde g_{\bar w w} \p_{\bar z} w \p_{\bar z} \bar w = \frac{1}{2}  \delta g_{\bar z \bar z}      \]
+\[       \tilde g_{\bar w w} ( |\p_z w|^2 + |\p_{\bar z} w|^2) = g_{z \bar z}            \]
+Taking a ratio we get:
+\[          \frac{\p_{\bar z} w}{\p_z w}   \frac{1}{1+ \left| \frac{\p_{\bar z} w}{\p_z w}  \right|^2}  = \frac{1}{2} g^{z \bar z} \delta g_{\bar z \bar z}     \]
+Set $l = \frac{\p_{\bar z} w}{\p_z w}$, it's a measure of the change in complex structure. Then we have to solve the equation:
+\[     \frac{l}{1+l^2} = \alpha     \]
+
+
+\section*{Lecture 20}
+\subsection*{Deformations of complex structures}
+We have the initial metric $ds^2 = g_{\bar z z} d\bar z dz$ and we want to deform it to:
+\[       d\tilde s^2 = (1 + \delta \sigma) g_{\bar z z} d \bar z dz + \delta g_{zz} dz^2 + \delta g_{\bar z \bar z} d \bar z^2     \]
+We express:
+\[      d\tilde s^2 = \tilde g_{\bar w w} d \bar w dw = \tilde g_{\bar w w} ( \p_z w dz + \p_{\bar z} w d \bar z)( \p_z \bar w dz + \p_{\bar z} \bar w d \bar z)       \]
+Equating the two expression we get:
+\[          \delta g_{\bar z \bar z} = \tilde g_{\bar w w} \p_{\bar z} w \p_{\bar z} \bar w        \]
+\[         (1 + \delta \sigma) g_{\bar z z} = \tilde g_{\bar w w} (|\p_z w|^2 + |\p_{\bar z} w|^2)       \]
+Dividing the two equations we get:
+\[        \frac{g^{z \bar z} \delta g_{\bar z \bar z}}{1 + \delta \sigma}   = \frac{1}{1 + \left| \frac{\p_{\bar z} w}{\p_z w}  \right|^2}   \frac{\p_{\bar z} w}{\p_z w}      \]
+We write $l = \left| \frac{\p_{\bar z} w}{\p_z w}  \right|$ and solve the quadratic equation for it; we keep the $l>1$ solution, which amounts to choosing an orientation (i.e. whether $w$ or $\bar w$ is closer to being holomorphic). The new coordinate $w$ is a solution of:
+\[           \p_{\bar z} w = \mu \p_{z} w        \]
+\[       \mu = (1+l^2) \frac{g^{z\bar z} \delta g_{\bar z \bar z}}{1 + \delta \sigma}       \]
+This always has a solution, because of the fact mentioned last time that any metric admits isothermal coordinates. Infinitesimaly, we ignore any term of $O((\delta \sigma)^2)$ and the like. The point is that any finite change can be obtained from a composition of infinitesimal ones. Then an infinitesimal change looks like:
+\[           \p_{\bar z} w = \mu \p_{z} w        \]
+\[       \mu = g^{z\bar z} \delta g_{\bar z \bar z}      \]
+Looking at the indices we notice that $\mu \in \Gamma(\bar K_X \otimes K_X^{-1})$. This is called a \textbf{Beltrami differential}.
+\\
+\\
+Now we ask what happens to the covariant derivatives upon changing the metric. We need to express $\nabla_w, \nabla_{\bar w}$ in terms of $\nabla_z, \nabla_{\bar z}$. The formulas, which have applications in conformal field theory, are given below. The normalization in these formulas is a bit different than above though, there are some factors of 2 floating around.
+\[       \delta \nabla^z = -2 \delta \sigma \nabla^z + \frac{1}{2} \delta g^{zz} \nabla_z + \frac{n}{2} \nabla_z \delta g^{zz}       \]
+\[       \delta \nabla_z = -2 n \p_z(\delta \sigma)  - \frac{1}{2} \delta g_{zz} \nabla^z + \frac{n}{2} \nabla^z \delta g_{zz}       \]
+\[       \delta R = ( -2 \nabla^z \nabla_z - R) (2 \delta \sigma) + \nabla^z \nabla^z \delta g_{zz} - \nabla_z \nabla_z \delta g^{zz}        \]
+Where all the covariant derivatives belong to $\Gamma(X, K_X^n) = \{ \phi_{z ... z} (dz)^n \}$. With this notation, we replace our notion of:
+\[     \nabla_{\bar z} \phi_{z...z} = \p_{\bar z} \phi_{z...z} \longrightarrow \nabla^z \phi_{z...z} = g^{z\bar z} \p_{\bar z} \phi_{z...z} \in \Gamma(X, K_X^{n-1})     \]
+Also:
+\[       \nabla_z \phi_{z...z} = g^n_{z\bar z} \p_z ((g^{z\bar z})^n \phi_{z...z}) \in \Gamma(X, K_X^{n+1})      \]
+As a first application, we finish the proof of Gauss-Bonnet. We want to show that $\int_X R g_{\bar z z}$ is independent of the metric.
+\[        \delta \left(  \int_X R g_{\bar z z}  \right)  = \int  \left[  ( -2 \nabla^z \nabla_z - R) (2 \delta \sigma) + \nabla^z \nabla^z \delta g_{zz} - \nabla_z \nabla_z \delta g^{zz} \right] g_{\bar z z} + R \delta g_{\bar z z}     \]
+After easy cancellation this reduces to:
+\[           \int  \left[   -2 \nabla^z \nabla_z  (2 \delta \sigma) + \nabla^z \nabla^z \delta g_{zz} - \nabla_z \nabla_z \delta g^{zz} \right] g_{\bar z z}        \]
+But all these terms integrate to 0, since after integration by parts, we move one derivative on $g_{\bar z z}$, and this somehow gives 0.
+
+\subsection*{Proof of the deformation formulas}
+Let $z$ be a complex coordinate for $ds^2$ and $w$ be a complex coordinate for $d\tilde s^2$. The bundles that the derivatives are sections of also change, and we want to understand how:
+\[       \phi_{z...z}(dz)^n \in  \Gamma_z(X, K_X^n)     \to ?    \]
+We can solve for:
+\[      dz = \frac{1}{\p_z w} dw - \frac{\p_{\bar z} w}{\p_{z} w} d\bar w      \]
+We may choose $w$ such that $w = z + v^z (z, \bar z)$ , i.e. varying $z$ by translating in the direction of a vector field, which is not necessarily holomorphic. Then:
+\[           dz = \frac{1}{1- \p_z v^z} dw - \frac{\p_{\bar z} v^z}{1+ \p_{z} v^z} d\bar w         \]
+Then:
+\[    \phi_{z...z} (dz)^n = \{  (1 - \p_z v^z)^n (dw)^n - (n-1) (1- \p_z v^z)^{n-1} (dw)^{n-1} \p_{\bar z} v^z d \bar w + ...   \}      \]
+Thus we have:
+\[ \phi_{z...z} (dz)^n     \overset{\nabla^z}{\longrightarrow}   (\nabla_z \phi_{z...z})(dz)^{n-1}          \]
+\[         \phi_{z...z}(1 - \p_{z} v^z)^n (dw)^n     \overset{\nabla^w}{\longrightarrow}   \nabla_w \big[(1 - \p_z v^z)^n \phi_{z...z}\big](dz)^{n-1}              \]
+Thus:
+\[          \delta \nabla^z =  (1 - \p_z v^z)^{-n+1} g^{w\bar w} \p_{\bar w} \big[(1 - \p_z v^z)^n \phi_{z...z}\big] - g^{z \bar z} \p_{\bar z} \phi_{z...z}        \]
+We just carry out the calculation. By the chain rule:
+\[            \]
+
+
+\section*{Lecture 22}
+Given a surface $X$ of genus $g$, we want to construct hte moduli space of complex structures on $X$.
+\[   \mathcal{M}_h = \{ \text{space of metrics} \} / \text{Weyl} \ltimes \Diff (X)    \]
+We claim that:
+\[      T_{[g_{ij}]} \mathcal{M}_h = \{ \delta g_{ij} \} / \{ \delta \sigma g_{ij} \} + \{ \nabla_i (\delta \sigma)_j + \nabla_j (\delta \sigma)_i \}    \]
+Observation: given a manifold $M$, how do you understand $T_p M$? We look at curves that pass through $p$ and take their derivatives, up to equivalence. We can also think of $T_{[g_{ij}]} \mathcal{M}_h$ as the tangent space to the space of metrics, modulo the paths that are tangent to an orbit by $\text{Weyl} \ltimes \Diff (X)$.
+\[     T_{g_{ij}} ( \text{Space of metrics}) = \left\{ \frac{d}{dt} g_{ij}(t)  \right\}  = \{ \delta g_{ij} \}    \]
+Next, we check which are tangent to the space of Weyl transformations. 
+\[      T_{g_{ij}} ( \text{Weyl})  =   \left\{ \frac{d}{dt} e^{\sigma(t)} g_{ij}  \right\}  = \{ \delta \sigma g_{ij} \}     \]
+The more difficult part are the diffeomorphisms. If $X$ is a manifold, $\Diff (X)$ is a Lie group, and therefore it suffices to understand its tangent space at the identity, and then get the other tangent spaces by group action.
+\[      T_{\id} (\Diff(X)) = \left\{  \frac{d}{dt}|_{t=0} \phi_t ; \phi_t : X \to X \right\}  = \{ \text{Tangent vector fields on }X \}    \]
+\[        T_{g_{ij}} (\Diff(X) \cdot g_{ij} )        \]
+\textbf{Claim}. Let $V = v^{\alpha} \frac{\p}{\p x^{\alpha}}$ be a vector field on a manifold $X$. Let $\phi_t$ be the 1-parameter group of diffeomorphisms generated by $V$. Then
+\[      \left.  \frac{d}{dt} \right|_{t=0}  (\phi_t^* (g_{ij})) = \nabla_i V_j + \nabla_j V_i    \]
+\begin{proof}
+Infinitesimally we may assume that, for $t$ small:
+\[      \tilde x = \phi_t(x) = x - V     \]
+By the transformation laws for 2-tensors:
+\[       g_{ij} (x) = \tilde g_{\alpha \beta} (\tilde x)  \frac{\p \tilde x^{\alpha}}{\p x^i}  \frac{\p \tilde x^{\beta}}{\p x^j}  \]
+\[     \tilde x^{\alpha} = x^{\alpha} - V^{\alpha} \Longrightarrow \frac{\p \tilde x^{\alpha}}{\p x^i} = \delta^{\alpha}_i - \p_i V^{\alpha}     \]
+Then:
+\[        g_{ij} (x) = \left[ \tilde g_{\alpha \beta}(x) - V^{\gamma} \frac{\p}{\p x^{\gamma}} \tilde g_{\alpha \beta}(x) \right] (\delta^{\alpha}_i - \p_i V^{\alpha})(\delta^{\beta}_j - \p_j V^{\beta})     \]
+\[       g_{ij} (x) = \tilde g_{ij}(x) - \p_i V^{\alpha} \tilde g_{\alpha j} - \p_j V^{\beta} \tilde g_{i \beta}  - V^{\gamma} \frac{\p}{\p x^{\gamma}} \tilde g_{ij} (x)       \]
+\[     \delta g_{ij} (x) = \tilde g_{ij}(x) - g_{ij}(x) = \p_i V^{\alpha} g_{\alpha j} + \p_j V^{\beta} g_{i\beta} + V^{\gamma} \p_{\gamma} g_{ij}      \]
+\[      \delta g_{ij} = \nabla_i V_j + \nabla_j V_i      \]
+Where $\nabla_i$ is the covariant derivative (Levi-Civita connection).
+\end{proof}
+In complex coordinates, $ds^2 = 2g_{\bar z z} dz d\bar z$.
+\[       \{ \delta \sigma g_{ij} \} = \{  \delta \sigma g_{\bar z z} dz d\bar z \}       \]
+\[       \{ \nabla_i (\delta v_j) + \nabla_j (\delta v_i)  \}  = \{ 2 \nabla_z (\delta v)_z ; 2 \nabla_{\bar z} (\delta v)_{\bar z} ; \nabla_z (\delta v)_{\bar z} + \nabla_{\bar z} (\delta v)_{z}  \}       \]
+Putting all these together:
+\[      \{ \delta \sigma g_{ij} \} +   \{ \nabla_i (\delta v_j) + \nabla_j (\delta v_i)  \} =      \]
+\[         = \{ \big( 2 \delta \sigma  +  \nabla_z (\delta v)^{\bar z} + \nabla_{\bar z} (\delta v)^{z} \big) g_{\bar z z} d\bar z dz \}  \oplus  \{ 2 \nabla_z (\delta v)_z (dz)^2 \} \oplus  \{ 2 \nabla_{\bar z} (\delta v)_{\bar z}  (d\bar z)^2\}       \]
+\textbf{Claim.}
+\[           T_{[g_{ij}]} \mathcal{M}_h = \{ \delta g_{\bar z \bar z} \} / \{ \nabla_{\bar z} (\delta v_{\bar z}) d \bar z^2  \} + c.c.       \]
+But this is just the cokernel of the operator:
+\[          \delta v_{\bar z} \Gamma(X, \bar K_X) \overset{\nabla_{\bar z}}{\to} \nabla_{\bar z} (\delta v_{\bar z}) \in \Gamma(X, \bar K^2_X)         \]
+Equivalently we have:
+\[          T_{[g_{ij}]} \mathcal{M}_h = \{ \delta g_{\bar z \bar z} (d \bar z)^2 \} / \{ \p_{\bar z} (\delta v^z)\}  = \{ \text{Beltrami differentials} \} / \{ \Imag \bar \p \} = \Coker  \bar \p |_{K_X^{-1}}    \]
+Using Riemann-Roch we compute the dimension of this space.
+\[        \dim H^0 (X, K_X^{-1}) - \dim H^0 (X, K_X^2) = c_1 (K_X^{-1}) + \frac{1}{2} c_1(K_X^{-1})   = 3 - 3h     \]
+Observe that, if $h\geq 2$, we have $c_1(K_X^{-1}) <0$, and thus there are no holomorphic sections. We get $\dim H^0(X, K_X^2) = 3h-3$. For $h = 1$, we get $\dim H^0(X, K_X^2) = 1$. Finally, for $h = 0$ we get $c_1(K_X^2) = - 2 c(K_X^{-1}) = -4 < 0$, and therefore $\dim H^0(X, K_X^2) = 0$.
+
+
+\section*{Lecture 23}
+We have show last time that $T_{[g]} (\mathcal{M}(h)) = \Coker \bar \p |_{\Gamma(X,K_X^{-1}}$. Now we show that this is equal to $H^0(X, K^2_X)$, the space of holomorphic quadratic differentials, which is always finite dimensional.
+
+We make a few additional remarks. A major issue are local parameters for moduli space. For example, when we have a torus, each complex structure is characterized by the parameter $\tau$, the ratio of the two periods. Alternatively we can use the parameter $\lambda$ in $w = \sqrt{z(z-1)(z-\lambda)}$. We now seek to generalize this to surfaces of higher genus, where the moduli space has large dimension. We start by recalling that we can also think of $\tau$ as the integral along a cycle $B$ of the holomorphic form $dz$.
+
+We have seen from RR that the space of holomorphic 1-forms $H^0(X,K_X)$ has dimension $h$ (genus). We have $h$ $A$ cycles and $h$ $B$ cycles, where the $A$'s never itersect each other, the $B$'s never intersect each other, and each $A$ intersects its $B$ exactly once. This defines a basis for the homology group, to which the space of 1-forms is dual:
+\[       \oint_{A_J} \omega_I = \delta_{IJ}     \]
+Then integrating along the $B$ cycles gives the \textbf{period matrix}:
+\[      \Omega_{IJ} = \oint_{B_J} \omega_I     \]
+\begin{thm*}
+The matrix $\Omega_{IJ}$ determines the complex structure.
+\end{thm*}
+But we can also ask whether $\Omega_{IJ}$ provides coordinates for the moduli space. We show in an exercise that $\Omega_{IJ} = \Omega_{JI}$; therefore the number of such matrices is $\frac{1}{2} h(h+1)$. But we know from last class that $\dim \mathcal{M}_h = 0$ for $h=0$, $1$ for $h=1$ and $3h-3$ for $h\geq 2$. For $h=0,1,2$ therefore the dimensions match, but for bigger genus the period matrix has higher dimension.
+
+A very famous problem is \textbf{the Schottky problem}: characterize the subvariety $\mathcal{M}(h)$ inside the space of period matrices. One solution is that a matrix $\Omega_{IJ}$ is the period matrix of a Riemann surface iff its theta functions provide solutions to the KP equation:
+\[       u_yy = (u_t - 6uu_x  + u_{xxx})_x      \]
+
+Another remark. Define $\Diff_0(X)$ to be the set of diffeomorphisms connected to the identity. (It's actually the component of the Lie group $\Diff(X)$ containing the identity.) This can be understood in terms of the Lie algebra, which is what we did last time. But it's not the full story. Define the \textbf{mapping class group}:
+\[      MCG = \Diff(X)/\Diff_0(X)     \]
+Instead of looking at the moduli space, we consider \textbf{Teichmuller space}:
+\[          \mathcal{T}_h = \{\text{metrics}\}/\text{Weyl} \times \Diff_0(X)        \]
+Then we have:
+\[       \mathcal{M}_h = \mathcal{T}_h/MCG    \]
+For example, for $h=1$, a torus:
+\[        \mathcal{T}_h = \{  \tau \in \C | \Imag \tau > 0  \}   = H     \]
+\[        \mathcal{M}_h = \mathcal{T}_h / SL(2, \Z)     \]
+$\mathcal{M}_h$ has a pretty famous picture, it's a semiinfinite vertical strip above the unit circle.
+
+Another interesting topic is the characterization of a complex structure by a metric of constant scalar curvature:
+\[       ds^2 = 2 g_{\bar z z} d\bar z dz \to d \tilde s^2 = e^{2 \sigma(z)} g_{\bar z z} d\bar z dz    \]
+\begin{thm*} [Uniformization]
+Within each complex structure there is a unique metric of constant scalar curvature.
+\end{thm*}
+The Gauss-Bonnet theorem tells us that, for $h \geq 2$, this constant curvature must be $-1$. Consider a pair of pants surface. For all $l_1, l_2, l_3$ there exists a unique metric of constant scalar curvature $-1$ such that the three boundaries are geodesics of length $l_1, l_2, l_3$. Then each surface of genus 2 can be cut a bit such that you get two pairs of pants. Then $l_1, l_2, l_3$ give Fenchal-Nielsen coordinates. These are real, since they are lengths, but since upon glueing back we can also twist a bit, we get a space of complex dimension 3, which agrees with the computation from last time. There's actually a sympectic form on the moduli space, that makes these lengths and angles standard coordinates.
+
+\subsection*{Future plans}
+\begin{enumerate}
+\item Connections and curvature of complex manifolds and hol'c vector bundles.
+\item Bochner-Kodaira formula. The $L^2$ estimates of Harmander. From these two analytic tools, we seek to understand the notion of positivity, and study the Kodeira embedding theorem. Under certain circumstances, the manifold is a subset of $\mathbb{CP}^N$. Bergmann kernel and applications.
+\item Canonical metrics in a very simple case, for manifolds with $c_1(X) = 0$ or $c_1(X) < 0$. This leads to the complex Monge-Ampere's equation.
+\end{enumerate}
+
+\subsection*{Connections and curvature on hol'c vector bundles}
+$X = \cup X_{\mu}$. $V$ is a hol'c vector bundle of rank $r$ on $X$. (We call it rank to distinguish from the dimension of the base manifold.)
+\[        \phi \in \Gamma(X, V) \longleftrightarrow \phi^{\alpha}_{\mu}  (z) = r\text{-vector valued function on } X_{\mu}, 1\leq \alpha \leq r     \]
+satisfying the glueing condition:
+\[      \phi^{\alpha}_{\mu} (z_{\mu}) = {{t_{\mu \nu}}^{\alpha}}_{\beta}(z) \phi^{\beta}_{\nu} (z_{\nu}) \text{    on } X_{\mu} \cap X_{\nu}     \]
+Of course these must satisfy the compatibility conditions:
+\[     {{ t_{\mu \mu}}^{\alpha}}_{\beta} = {\delta^{\alpha}}_{\beta}    \]
+\[       {{ t_{\mu \rho}}^{\alpha}}_{\gamma} =  {{ t_{\mu \nu}}^{\alpha}}_{\beta}  {{ t_{\nu \rho}}^{\beta}}_{\gamma}     \]
+
+\section*{Lecture 24}
+\subsection*{Hol'c vector bundles}
+Basic example: the tangent bundle:
+\[     T^{1,0} (X)  \longleftrightarrow {{t_{\mu\nu}}^{\alpha}}_{\beta} z = \frac{\p z_{\mu}^{\alpha}}{\p z_{\nu}^{\beta}}     \]
+Sections are vector fields:
+\[      \phi = \phi_{\mu}^{\alpha} \frac{\p}{\p z_{\mu}^{\alpha}}    \]
+Given a vector bundle $V$, the dual bundle $V^*$ is the bundle with the following property:
+\[     \phi^{\alpha}_{\mu} \in \Gamma(X,V)  , \psi_{\mu \alpha} \in \Gamma(X,V^*) \Rightarrow \phi_{\mu}^{\alpha} \psi_{\mu \alpha} \text{ is a scalar }   \]
+\[      \text{i.e. }   \phi_{\mu}^{\alpha} \psi_{\mu \alpha} = \phi_{\nu}^{\beta} \psi_{\nu \beta} \text{ on } X_{\mu} \cap X_{\nu}  \]
+\[          \text{i.e. } \psi_{\mu \alpha} {{t_{\mu\nu}}^{\alpha}}_{\beta} = \psi_{\nu \beta}          \]
+\[     \text{e.g. } \Lambda^{1,0} (X) = (T^{1,0}(X))^*         \]
+Note that, if the transition functions are multiplying on the left for $V$, then they will multiply on the right for $V^*$. Now le learn how to take derivatives on hol'c $V$. Dropping the $\mu,\nu$ indices we have:
+\[      \phi \in \Gamma(X,V)  \longrightarrow \nabla_{\bar j} \phi^{\alpha} = \p_{\bar j} \phi^{\alpha} \in \Gamma(X, V \otimes \Lambda^{0,1})     \]
+To differentiate WRT $j^{\alpha}$, we need to introduce a metric $h$ on $V$. This is a hermitian form $(H_{\mu})_{\bar \alpha \beta}$ on $X_{\mu}$. We want it to satisfy:
+\[      0 \leq  (H_{\mu})_{\bar \alpha \beta} \phi_{\mu}^{\beta} \bar \phi_{\mu}^{\alpha} =  (H_{\nu})_{\bar \gamma \delta} \phi_{\nu}^{\delta} \bar \phi_{\nu}^{\gamma}  =  |\phi|^2_H  \]
+The $\bar \alpha$ index is only a mnemonic to remind us that we should multiply by the conjugate of a section with index $\alpha$.
+
+Given a metric $H_{\bar \alpha \beta}$, we can define the Chern unitary connection as:
+\[ \phi^{\alpha} \in \Gamma(X,V) \longrightarrow   \nabla_j \phi^{\alpha} = H^{\alpha \bar \beta} \p_{j} (H_{\bar \beta \gamma} \phi^{\gamma})    \in \Gamma(X, V\otimes \Lambda_{1,0})    \]
+As a small \textbf{exercise}, show that we can alternatively define $\nabla_j$ by:
+\[      \p_j \langle \phi, \tilde \phi \rangle_H = \langle \nabla_j \phi, \tilde \phi \rangle_H + \langle \phi, \nabla_{\bar j} \tilde \phi \rangle_H     \]
+This is just saying that the derivative of the metric is 0. But what does this mean? As a second \textbf{exercise}, show that a metric on $V$ induces a metric on $V^*$, and hence a Chern unitary connection on $V^*$. Recall that for line bundles a metric was a section of $L^{-1} \otimes \bar L^{-1}$. For line bundles is just happens that the dual is the same as the inverse, but for a vector bundle in general this should be rewritten as $H \in \Gamma(X, V^* \otimes V^*)$.
+
+\subsection*{Curvature tensor}
+This is defined by the commutation relation:
+\[        [\nabla_k, \nabla_{\bar j} ] \phi^{\alpha} = {{F_{\bar j k}}^{\alpha}}_{\beta} \phi^{\beta}     \]
+Note that we have:
+\[       [\nabla_{\bar k}, \nabla_{\bar j}] = 0      \]
+As an \textbf{exercise}, we can also show that:
+\[        [\nabla_k, \nabla_j] = 0      \]
+This explains why, when defining the curvature tensor, we only considered components with one barred index and one unbarred. Now we need to compute:
+\[       [\nabla_k, \nabla_{\bar j}] \phi^{\alpha}       \]
+We define the connection $A^{\alpha}_{k \gamma}$ from:
+\[   \nabla_k \phi^{\alpha} = \p_k \phi^{\alpha} + (H^{\alpha \bar \beta} \p_k H_{\bar \beta \gamma}) \phi^{\alpha} = \p_k \phi^{\alpha} +A^{\alpha}_{k \gamma} \phi^{\gamma}   \]
+And using this we have:
+\[          [\nabla_k, \nabla_{\bar j}] \phi^{\alpha}    = \p_k (\p_{\bar j} \phi^{\alpha}) + A^{\alpha}_{k\gamma} (\p_{\bar j} \phi^{\gamma}) - \p_{\bar j} (\p_k \phi^{\alpha}) -   \p_{\bar j} (A^{\alpha}_{k\gamma} \phi^{\gamma})   \]
+\[       [\nabla_k, \nabla_{\bar j}] \phi^{\alpha} = - (\p_{\bar j} A^{\alpha}_{k\gamma}) \phi^{\gamma}     \]
+COming back to the curvature tensor:
+\[         {{F_{\bar j k}}^{\alpha}}_{\beta} = -  \p_{\bar j} A^{\alpha}_{k\gamma}       \]
+\[          F_{\bar j k} = - \p_{\bar j} A_k = - \p_{\bar j} (H^{-1} \p_k H)       \]
+Which is a matrix equation. We also define the \textbf{curvature form}:
+\[       F =   F_{\bar j k} dz^k \wedge d\bar z^j   \in \Gamma(X, \Lambda_{1,1} \otimes V \otimes V^*) = \Gamma(X, \Lambda_{1,1} \otimes \End(V))    \]
+
+\subsection*{Identities of the curvature tensor}
+We set $A = A_{j \beta}^{\alpha} dz^j$. Then we will get (\textbf{check this at home}):
+\[      F = dA + A \wedge A     \]
+The wedge product (which is not antisymmetric!) is defined as:
+\[      A \wedge A = (A_j dz^j) \wedge (A_k dz^k) = A_j A_k dz^j \wedge dz^k = \frac{1}{2} (A_j A_k dz^j \wedge dz^k + A_k A_j dz^k \wedge dz^j) = \frac{1}{2} (A_j A_k - A_k A_j) dz^j \wedge dz^k         \]
+One remark about the relation between curvature and connection is that the curvature is a tensor, while the connection is not. Therefore it's interesting that the particular combination of $A$'s that we chose is a tensor.
+
+The second equation we will want to prove is the \textbf{second Bianchi identity}:
+\[        d_A F = 0    \]
+We must start by defining the exterior derivative of a form that takes values in a vector bundle. We first attempt a naive definition. Let $f \in \Lambda^p(X)$ be a $p$-form on a manifold $X$. Locally:
+\[       f(x) = \frac{1}{p!} \sum f_{i_1 \dots i_p} (x) dx^{i_1} \wedge dx^{i_p}     \]
+Then the de Rham exterior derivative can be defined by:
+\[        df(x) = \frac{1}{p!} \sum (df_{i_1 \dots i_p} (x)) \wedge dx^{i_1} \wedge dx^{i_p}  =  \frac{1}{p!} \sum \frac{\p f_{i_1 \dots i_p} (x)}{\p x^l}   dx^l \wedge dx^{i_1} \wedge dx^{i_p}      \]
+Next consider $f \in \Gamma(X, \Lambda^p \otimes V)$. Then:
+\[       f(x) = \frac{1}{p!} \sum f^{\alpha}_{i_1 \dots i_p} (x) dx^{i_1} \wedge dx^{i_p}     \]
+We see that, in order to define the exterior derivative, we need to differentiate the coefficients $f^{\alpha}$. This is not well-defined unless we choose a connection $A$. We write:
+\[        \nabla_j^A f^{\alpha} = \p_j f^{\alpha} + A^{\alpha}_{j \beta} \phi^{\beta}     \]
+Now we can define the exterior derivative:
+\[       d_A f =  \frac{1}{p!} \sum \nabla^A_l f^{\alpha}_{i_1 \dots i_p} (x) dz^l \wedge dx^{i_1} \wedge dx^{i_p}       \]
+
+
+\section*{Lecture 25}
+Recall that last time we differentiated sections of vector bundles. We also stated a structure equation and the second Bianchi identity, which we prove now. We start with the structure equation:
+\[       dA = d ( A_j dz^j) = (\p_k A_j dz^k + \p_{\bar k} A_j d \bar z^k) \wedge dz^j     \]
+\[          = \frac{1}{2} ( \p_k A_j - \p_j A_k) dz^k \wedge dz^j + F_{\bar k j} d \bar z^k \wedge dz^j     \]
+\[       = \frac{1}{2} [ \p_k (H^{-1} \p_j H) - \p_j (H^{-1} \p_k H) ] dz^k \wedge dz^j + F      \]
+\[       = \frac{1}{2} [   - H^{-1} \p_k H H^{-1} \p_j H - (j \leftrightarrow k) ] dz^k \wedge dz^j + F  ]      \]
+\[        =  \frac{1}{2} (A_j A_k - A_k A_j) dz^k \wedge dz^j + F       \]
+\[     = A \wedge A + F    \]
+We're off by a minus sign, but we'll fix this later. We now prove the second Bianchi identity:
+\[       d_A F = d_A ({{F_{\bar k j}}^{\alpha}}_{\beta} dz^j \wedge d\bar z^k  )  = (\nabla_l {{F_{\bar k j}}^{\alpha}}_{\beta} dx^l) \wedge dz^j \wedge d\bar z^k \]
+Writing out components we see that the covariant derivative acts as:
+\[     \nabla_l F_{\bar k j} = \p_l F_{\bar k j} + A_l F_{\bar k j} - F_{\bar k j}A_l     \]
+Returning to the identity:
+\[      d_A F = dF + AF - FA     \]
+We have to worry about the order of $A$ and $F$ as matrices, but not as forms. That's because $F$ is a 2-form, and so the form part commutes with other forms.
+\[      d_A F = d (dA + A \wedge A) + A \wedge ( dA + A \wedge A) - (dA + A \wedge A) \wedge A  \]
+ \[ = dA \wedge A - A \wedge dA + A \wedge dA - dA \wedge A = 0    \]
+
+\subsection*{Kahler manifolds}
+Let $X$ be a Kahler manifold and consider $T^{1,0}(X)$, ie. sections of the form $\phi = \sum \phi^j \frac{\p}{\p z^j}$. Let $g_{\bar k j}$ be a metric on $T^{1,0} (X)$. We say that $g$ is \textbf{Kahler} if $\p_l g_{\bar k j} = \p_j g_{\bar k l}$. This condition means that $d\omega = 0$, where $\omega = \frac{1}{2} g_{\bar k j} dz^j \wedge d \bar z^k$. The curvature of $T^{1,0}(X)$ is denoted ${{R_{\bar k j}}^l}_m$. If $g$ is Kahler, the \textbf{first Bianchi identity} is:
+\[            R_{\bar k j \bar p m} = R_{\bar k m \bar p j} = R_{\bar p j \bar k m} = R_{\bar p m \bar k j}        \]
+\subsection*{Key question in complex geometry}
+Given $L \to X$ a hol'c line bundle, are there hol'c sections? And how many? We are interested to reconstruct the manifold from some of these hol'c sections, like we did with the torus and the Weierstrass $\mathcal{P}$ function. But for this we need there to be many sections.
+
+Let $\{ \phi_0(z), \dots, \phi_N(z) \}$ be a basis for $H^0(X,L)$. Consider the set of common zeros $Z = \{ \phi_1(z) = \dots = \phi_N (z) = 0\}$. We ask when $Z$ is empty. When this happens, we can construct the \textbf{Kodaira embedding}.
+\[       z \in X \longrightarrow [ \phi_0(z) : \dots : \phi_N (z) ]   \in \mathbb{CP}^N    \]
+The fact that $Z = \emptyset$ ensures that the map is well-defined. However, we need to impose additional restrictions in order to get an embedding.
+\begin{thm*} [Kodaira embedding theorem]
+Let $L \to X$ be a positive hol'c line bundle over $X$. Then $\exists k_0$ such that for all $k \geq k_0$, the mapping:
+\[         z \in X \longrightarrow [ \phi_0(x) : \dots : \phi_{N_k} (z) ] \in \mathbb{CP}^{N_k}        \]
+where $\{ \phi_{\alpha} (z) \}^{N_k}$ is a basis for $H^0(X, L^k)$, is well defined and an embedding.
+\end{thm*}
+\begin{defn}
+$L$ is said to be \textbf{positive} if there exists $h$ metric on $L$ with $(- \p_j \p_{\bar k} \log h) >0$. Note that the curvature of $h$ becomes a metric for the base manifold, which is Kahler.
+\end{defn}
+
+
+\section*{Lecture 26}
+Recall the Kodaira embedding theorem. The connection to algebraic goemetry is given by another famous theorem, which says that a submanifold of projective space is an algebraic variety. The main ingredient in the proof of KET is given below.
+
+\begin{thm*} [$L^2$ estimates of Hormander]
+Let $L \to X$ be a hol'c line bundle. Assume that $X$ is weakly pseudoconvex, that $\omega$ is a Kahler metric on $X$, and that there exists a metric $h = e^{- \phi} $ on $L$, which is allowed to be singular, such that:
+\[        - \p_j \p_{\bar k} \log h \geq \epsilon g_{\bar k j}     \]
+Then for all $\psi \in L^2_{\phi}(X, L\otimes \Lambda^{n,q})$ satisfying $\bar \p \psi = 0$, there exists $f \in  L^2_{\phi}(X, L\otimes \Lambda^{n,q-1})$ with:
+\[     \bar \p f = \psi    \]
+\[        \int |f|^2 e^{- \phi} \leq \frac{1}{q \epsilon} \int \psi_j \bar \psi_k g^{j \bar k} e^{- \phi}       \]
+\end{thm*}
+In one variable, the $\bar p$ equation is one equation in one unknown. However, in many variables, $\p_{\bar j} f = \psi_{\bar j}$, there are $k$ equations for one unknown, and the system is overdetermined. We therefore need the compatibility condition $\bar \p \psi = 0$, i.e. $\p_{\bar k} \psi_{\bar j} = \p_{\bar j} \psi_{\bar k}$.
+
+\begin{rem}
+Hormander's theorem is sequivalent to:
+\[       H^q_{\text{Dolbeault}} (X, \mathcal{L}_{\phi}) = 0       \]
+Where $\mathcal{L}$ is the following sequence:
+\[     0 \to \mathcal{L}^{0}_{\phi} \to \mathcal{L}^{1}_{\phi} \to \dots  \to \mathcal{L}^{q}_{\phi} \to \dots       \]
+\[   \mathcal{L}^{q}_{\phi}=   \{ \alpha \in \Gamma(X, L\otimes \Lambda^{n,q}) , \alpha \in L^2_{\phi}, \bar \p \alpha \in L^2_{\phi}  \}    \]
+And we define:
+\[        H^q_{\text{Dolbeault}} (X, \mathcal{L}_{\phi}) = \Ker \bar \p |_{\mathcal{L}^q_{\phi}} / \Imag \bar \p|_{\mathcal{L}^{q-1}_{\phi}}      \]
+\end{rem}
+
+\begin{rem} [Cech cohomology of sheaves]
+\[        H^q_{\text{Dolbeault}} (X, \mathcal{L}_{\phi}) =   H^q_{\text{Cech}} (X, L \otimes \Lambda^{n,0} \otimes \mathcal{I}_{\phi} )      \]
+Where $\mathcal{I}(\phi)$ is the sheaf:
+\[         \mathcal{I}(\phi)_{z} = \{ u \text{ hol'c in a nbhd of } z, \int_U |u|^2 e^{-\phi} < \infty  \}      \]
+\end{rem}
+
+\begin{rem}
+Main advantage of Cech cohomology. If we have an exact sequence of sheaves:
+\[          0 \to \mathcal{E} \to \mathcal{F} \to \mathcal{G} \to 0       \]
+Then:
+\[          0 \to H^0_{\text{Cech}}(X, \mathcal{E}) \to H^0_{\text{Cech}}(X, \mathcal{F}) \to H^0_{\text{Cech}}(X, \mathcal{G}) \to H^1_{\text{Cech}}(X, \mathcal{E}) \to H^1_{\text{Cech}}(X, \mathcal{F}) \to \dots       \]
+This is particularly useful when $H^1_{\text{Cech}}(X, \mathcal{E}) = 0$, because we get a short exact sequence. This is useful because it shows that the space $H^0_{\text{Cech}}(X, \mathcal{F})$ is bigger than the other 2, and Kodaira embedding requires many sections.
+\end{rem}
+
+\begin{rem}
+KET is equivalent to the following cohomological statement. Let $z_1, \dots, z_N$ be $N$ given points in $X$. Set:
+\[        \mathcal{I}_{k_1 z_1, \dots, k_N z_N}   = \{    u \text{ hol'c at each } z_i, u \text{ vanishes of order } k_i \text{ at } z_i       \}         \]
+Then:
+\[          H^0(X, L^k \otimes \Lambda^{n,0}) \to H^0(X, L^k \otimes \Lambda^{n,0} \otimes \mathcal{O} / \mathcal{I}_{k_1 z_1, \dots, k_N z_N} )        \]
+is onto, for all $k>k_0 (k_1, \dots, k_N)$.
+\end{rem}
+
+\begin{rem}
+For all $k_1, \dots, k_N$, there exists $\phi$ so that $\mathcal{I}(\phi) \subset \mathcal{I}_{k_1 z_1, \dots, k_N z_N}$.
+\[       \phi \sim \sum N_i \log |z-z_i|^2        \]
+Now need only show:
+\[        H^1(X, L \otimes \Lambda^{n,0} \otimes \mathcal{I}_{\phi}) = 0      \]
+Which comes from Hormander's theorem.
+\end{rem}
+
+\textbf{Proof of Hormander's theorem}. It suffices to show that:
+\[       || \bar \p \phi || + || \bar \p^{\dagger} \phi ||^2 \geq \epsilon q ||\phi||    \]
+Whenever $\phi \in \text{Dom}(\bar \p) \cap \text{Dom} (\bar \p^{\dagger})$. [...] The BK formula:
+\[        \Box   \psi^{\alpha} = - h^{j \bar k} \nabla_j \nabla_{\bar k} \psi^{\alpha} + \text{ Curvature terms}    \]
+If the curvature terms are positive, then $\Ker \Box = 0$, because:
+\[     0 = \langle \Box \psi, \psi \rangle = || \nabla \psi ||^2 + \text{ Curvature terms}      \]
+We need an extension of this to singular metrics, because BK only holds for smooth metrics.
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

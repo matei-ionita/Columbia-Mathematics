@@ -1,0 +1,121 @@
+\documentclass[12 pt]{article}
+\usepackage{amsmath,amssymb,amsthm,fullpage,amsfonts,enumerate,textcomp, eurosym}
+\title{Commutative algebra notes}
+\author{Matei Ionita}
+
+\DeclareMathOperator {\p} {\partial}
+\DeclareMathOperator {\R} {\mathbb{R}}
+\DeclareMathOperator {\C} {\mathbb{C}}
+\DeclareMathOperator {\Q} {\mathbb{Q}}
+\DeclareMathOperator {\Z} {\mathbb{Z}}
+
+
+\begin{document}
+  \maketitle
+
+\section*{Lecture 3}
+
+\subsection*{Lemma 10}
+Let $A \overset{\phi}{\to} B$ be a finite ring map. Then:
+\\
+a) for $I \subset A$ ideal, the ring map $A/I \to B/I$ is finite.
+\\
+b) for $S\subset A$ multiplicative subset, $S^{-1}A \to S^{-1}B$ is finite.
+\\
+c) for $A\to A'$ ring map, $A' \to B \otimes_A A'$ is finite.
+ \begin{proof}
+\end{proof}
+
+\subsection*{Lemma 11}
+Suppose $k$ is a field, $A$ is a domain and $k \to A$ a finite ring map. Then $A$ is a field.
+\begin{proof}
+Since $A$ is an algebra, multiplication by an element $a\in A$ defines a map $A\to A$. $A$ is a $k$-module, so this map is $k$-linear. The map is also injective: Ker$(a) = \{ a' \in A | aa' = 0 \} = \{ 0 \}$, because $A$ has no zero divisors. But, since dim$_k (A)$ is finite, injectivity implies surjectivity. Then there exists $a''$ such that $aa'' = 1$, so $a$ is a unit.
+\end{proof}
+
+\subsection*{Lemma 12}
+Let $k$ be a field and $k\to A$ a finite ring map. Then:
+\\
+a) Spec$(A)$ is finite.
+\\
+b) there are no inclusions among prime ideals of $A$.
+\\
+$[$In other words, Spec$(A)$ is a finite discrete topological space WRT the Zariski topology.$]$
+\begin{proof}
+By lemma 11, all primes of $A$ are maximal (???), which proves claim b. Moreover, by the Chinese remainder theorem:
+\end{proof}
+
+\subsection*{Lemma 13 (Chinese remainder theorem)}
+Let $A$ be a ring, and $I_1, ... , I_n$ ideals of $A$ such that $I_i + I_j = A , \forall i\neq j$. Then there exists a ring map $A \to A/I_1 \times ... \times A/I_n$ with kernel $I_1 \cap ... \cap I_n = I_1 ... I_n$.
+
+\subsection*{Lemma 14}
+Let $A \rightarrow B$ be a finite ring map. The fibers of Spec$(\phi)$ are finite.
+\begin{proof}
+
+\end{proof}
+
+\subsection*{Lemma 15} 
+Suppose that $A\subset B$ is a finite extension (i.e. there exists a finite injective map $A\to B$). Then Spec$(B) \to $ Spec$(A)$ is surjective.
+\begin{proof}
+We want to reduce the problem to the case where $A$ is a local ring. For this, let $p\subset A$ be a prime. By part b of lemma 10, the map $A_p \to B_p$ is finite. By lemma 8, the same map is injective. Then we can replace $A$ and $B$ in the statement of the lemma by $A_p$ and $B_p$.
+\\
+\\
+Now, assuming that $A$ is local, $p$ is the maximal ideal of $A$, and we denote it by $m$ in what follows. The following statements are equivalent:
+\begin{align*}
+ \exists q \subset B \text{ lying over } m &\Leftrightarrow \exists q\subset B \text{ such that } mB \subset q
+ \\   & \Leftrightarrow B/mB \neq 0
+\end{align*}
+But the last statement is always true, since Nakayama's lemma (see below) says that $mB = B$ implies $B = 0$.
+\end{proof}
+
+\subsection*{Lemma 16 (Nakayama's lemma)}
+Let $A$ be a local ring with maximal ideal $m$, and let $M$ be a finite $A$-module such that $M = mM$. Then $M=0$.
+\begin{proof}
+Let $x_1, ... , x_r \in M$ be generators of $M$. Since $M = mM$ we can write $x_i = \sum_{j=1}^r a_{ij} x_j$, for some $a_{ij} \in m$. Then define the $r\times r$ matrix $B = 1_{r\times r} - (a_{ij})$. The above relation for the generators translates into:
+\[     B \left(  \begin{array} {c} x_1 \\ ... \\ x_r  \end{array}  \right)  = 0   \]
+Now consider $B^{\text{ad}}$, the matrix such that $B^{\text{ad}} B =$ det$(B) 1_{r\times r}$. Multiplying the above equation on the left by $B^{\text{ad}}$ we obtain:
+\[    \text{det}(B) \left(  \begin{array} {c} x_1 \\ ... \\ x_r  \end{array}  \right)  = 0   \]
+Thus det$(B) x_i = 0$ for all $i$. If we assume that the generators of $M$ are nonzero, the fact that det$(B)$ annihilates all generators implies that it is equal to 0. But, by expanding out the determinant of $B = 1_{r\times r} - (a_{ij})$, we see that it is of the form $1+a$ for some $a\in m$. Since $(A,m)$ is a local ring, this implies that det$(a)$ is a unit. A unit cannot be zero in $(A, m)$, so this is a contradiction. Thus all generators of $M$ are zero, and $M=0$.
+\end{proof}
+
+\subsection*{Lemma 17 (Going up for finite ring maps)}
+Let $A \to B$ be a finite ring map, $p$ a prime ideal in $A$ and $q$ a prime ideal in $B$ which belongs to the fiber of $p$. If there exists a prime $p'$ such that $p \subset p' \subset A$, then there exists a prime $q'$ such that $q\subset q' \subset B$ and $q'$ belongs to the fiber of $p'$.
+\begin{proof}
+Consider $A/p \to B/q$. This is injective since $p = A \cup q$ and finite by lemma 3 (???). $p'/p$ is a prime ideal in $A/p$, and by lemma 15 its preimage is nonempty. Thus there exists a prime $q'/q$ in $A/p$ which maps to $p'/p$, and this corresponds to a prime $q'$ in $B$ that contains $q$.
+\end{proof}
+
+
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,196 @@
+\documentclass[12 pt]{article}
+\usepackage{amsmath,amssymb,amsthm,fullpage,amsfonts,enumerate,textcomp, eurosym}
+\title{Lie groups HW4}
+\author{Matei Ionita}
+
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\CP}{\mathbb{C}\mathbb{P}}
+\newcommand{\RP}{\mathbb{R}\mathbb{P}}
+\newcommand{\Proj}{\mathbb{P}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\p}{\partial}
+\newcommand{\fr}{\mathfrak}
+
+\DeclareMathOperator{\Ind}{Ind}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\length}{length}
+\DeclareMathOperator{\res}{Res}
+\DeclareMathOperator{\Int}{Int}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\Lie}{Lie}
+\DeclareMathOperator{\id}{Id}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\irr}{irr}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\trdeg}{trdeg}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Nm}{Nm}
+\DeclareMathOperator {\HH} {\mathbb{H}}
+\DeclareMathOperator {\End} {End}
+
+
+\begin{document}
+  \maketitle
+
+\subsection*{Problem 1 (4.2 in Kirillov)}
+(1) We know that the action of $X \in \mathfrak{g}$ on tensor products is given by the Leibniz rule:
+\[            X \cdot (v_1 \otimes \dots \otimes v_n) = \sum_{j=1}^n v_1  \otimes \dots \otimes (X \cdot v_j) \otimes \dots \otimes v_n        \]
+Using the definition of the symmetric product, we can prove the analogous statement for the action of $X$ on $v_1 \cdot ... \cdot v_n$:
+\begin{align*}      
+X (v_1 \cdot ... \cdot v_n) &= X \left[ \frac{1}{n!} \sum_{P \in S_n} P(v_1) \otimes ... \otimes P(v_n)  \right]  \\
+ &= \frac{1}{n!} \sum_{P\in S_n} \sum_{j=1}^n P(v_1) \otimes ... \otimes X(P(v_j)) \otimes ... \otimes P(v_n) \\
+&= \sum_{j=1}^n v_1 \cdot ... \cdot X(v_j) \cdot ... \cdot V_n
+\end{align*}
+We apply this to $\mathfrak{g} = \mathfrak{sl}(2,\C)$. In the standrad basis for $\C^2$ we have:
+\[     e =  \left( \begin{array} {cc} 0 & 1 \\0 &0    \end{array} \right)  \;\;\;\;\;  f =  \left( \begin{array} {cc} 0 & 0 \\1 &0    \end{array} \right) \;\;\;\;\; h =  \left( \begin{array} {cc} 1 & 0 \\0 &-1    \end{array} \right)  \]
+\[       e_1 =    \left( \begin{array} {c} 1 \\ 0   \end{array} \right)  \;\;\;\;\;  e_2 =    \left( \begin{array} {c} 0 \\ 1   \end{array} \right)  \]
+Then:
+\[          e \cdot e_1 = 0  \;\;\;\;\; e \cdot e_2 = e_1        \]
+\[          f \cdot e_1 = e_2  \;\;\;\;\; f \cdot e_2 = 0        \]
+\[          h \cdot e_1 = e_1  \;\;\;\;\; h \cdot e_2 = -e_2        \]
+And we use the Leibniz rule to determine the action on $e_1^i e_2^{k-i}$:
+\[         e \cdot e_1^i e_2^{k-i} = i (e \cdot e_1) e_1^{i-1} e_2^{k-i} + (k-i) e_1^i (e \cdot e_2) e_2^{k-i-1}  = (k-i) e_1^{i+1} e_2^{k-i-1}   \]
+\[         f \cdot e_1^i e_2^{k-i} = i (f \cdot e_1) e_1^{i-1} e_2^{k-i} + (k-i) e_1^i (f \cdot e_2) e_2^{k-i-1}  = i e_1^{i-1} e_2^{k-i+1}   \]
+\[         h \cdot e_1^i e_2^{k-i} = i (h \cdot e_1) e_1^{i-1} e_2^{k-i} + (k-i) e_1^i (h \cdot e_2) e_2^{k-i-1}  = (2i-k) e_1^{i} e_2^{k-i}   \]
+(2) Consider the vector space isomorphism $S^2 V \to \mathfrak{g}$ given by:
+\[         e_1^2 \to e \;\;\;\; e_2^2 \to -f \;\;\;\; 2e_1e_2 \to -h       \]
+We make this an isomorphism of representations by explicitly comparing the action of $e,f,h$ on all basis vectors:
+\begin{align*}
+e \cdot e = [e,e] = 0 &\longleftrightarrow e\cdot e_1^2 = 0 \\
+e \cdot -f = [e,-f] = -h &\longleftrightarrow e\cdot e_2^2 = 2 e_1 e_2 \\
+e \cdot -h = [e,-h] = 2e &\longleftrightarrow e\cdot 2e_1 e_2 = 2e_1^2 \\
+f \cdot e = [f,e] = -h &\longleftrightarrow f\cdot e_1^2 = 2e_1e_2 \\
+f \cdot -f = [f,-f] = 0 &\longleftrightarrow f\cdot e_2^2 = 0 \\
+f \cdot -h = [f,-h] = -2f &\longleftrightarrow f\cdot 2e_1 e_2 = 2e_2^2 \\
+h \cdot e = [h,e] = 2e &\longleftrightarrow h\cdot e_1^2 = 2 e_1^2 \\
+h \cdot -f = [h,-f] = 2f &\longleftrightarrow h\cdot e_2^2 = -2  e_2^2 \\
+h \cdot -h = [h,-h] = 0 &\longleftrightarrow h\cdot 2e_1 e_2 = 0 \\
+\end{align*}
+(3) By problem 4.1 in Kirillov, the representations of $SU(2)$ that are also representations of $SO(3)$ are precisely the ones for which $e^{\pi i \rho(h)} = 1$. (This is because $SO(3) = SU(2) / \{\id, -\id\}$, so we want representations of $SU(2)$ that are invariant under $\rho(-\id)$). Looking at the action of $h$ on its eigenspaces in $S^k V$ we see that:
+\[     \rho(h)  e_1^i e_2^{k-i} = (2i-k) e_1^{i} e_2^{k-i}   \]
+\[      \rho(h) = (2i-k) \id       \]
+Then we need $e^{\pi i (2i-k)} = 1$ for all $i = 0, \dots, k$. This happens iff $k$ is even. Therefore $S^kV$ can be lifted to an $SO(3)$ representation iff $k$ is even.
+
+\subsection*{Problem 2 (4.3 in Kirillov)}
+$\mathfrak{sl}(n,\C)$ acts on $\C^n$ as matrix multiplication. The action on $\Lambda^n \C^n$ is given by the Leibniz rule (we omit the proof, which is analogous to the one given in problem 1 for $S^k V$). Moreover, $\Lambda^n \C^n$ is a one-dimensional vector space spanned by $e_1 \wedge ... \wedge e_n$, where $\{e_i\}$ is the usual basis for $\C^n$. Then we need only examine the action of $X \in \mathfrak{sl}(2, \C)$ on this element:
+\[          X \cdot ( e_1 \wedge ... \wedge e_n)  = \sum_j  e_1 \wedge ... \wedge Xe_j \wedge ... \wedge e_n    \]
+Note that, because of antisymmetry, we only care about the component of $X e_j$ that is parallel to $e_j$, as all the others will give 0 in the wedge product. Therefore:
+\[         X \cdot ( e_1 \wedge ... \wedge e_n)  = \sum_j  e_1 \wedge ... \wedge X_{jj} e_j \wedge ... \wedge e_n  = \Tr(X) \; e_1 \wedge ... \wedge e_n \]     
+But $\Tr(X) = 0$, so the action is trivial, and thus $\Lambda^n \C^n \cong \C$ as $\mathfrak{sl}(2,\C)$ representations. They are not, however, isomorphic as $\mathfrak{gl}(2,\C)$ representations, because $\Tr(X)$ is not necessarily 0 for $X \in \mathfrak{gl}(2,\C)$.
+
+
+\subsection*{Problem 3 (4.9 in Kirillov)}
+(1) First of all, it's easy to see that $A$ commutes with the action of $-I$, since the neighbors of a face are the same as the neighbors of the opposite face, i.e. $-I  (Af) = A (-I f) = Af$. Then let $G' = G/\{ I, -I\} = \{ g \in SO(3, \R) : g(C) = C \}$, which is generated by rotations by 90 degrees around the x, y, z axes respectively. We denote these generators by $g_1, g_2, g_3$. It suffices to show that these three elements commute with the action of $A$. Take $\sigma$ to be the top face of the cube. We show explicitly that $g_1 A f (\sigma) = A g_1 f(\sigma)$, and the other relations follow analogously.
+\begin{align*}
+           g_1 A f (\sigma) &= g_1 \frac{1}{4} \left[ f(g_1 \sigma) + f(g_1^{-1} \sigma) + f(g_2 \sigma) + f(g_2^{-1} \sigma) \right]    \\
+&= \frac{1}{4}    \left[ f(\sigma) + f(g_1^{-2} \sigma) + f(g_1^{-1} g_2 \sigma) + f(g_1^{-1} g_2^{-1} \sigma)  \right]
+\end{align*}
+\begin{align*}
+          A g_1 f (\sigma) &= A f(g_1^{-1} \sigma)    \\
+&= \frac{1}{4}    \left[ f(\sigma) + f(g_1^{-2} \sigma) + f(g_3 g_1^{-1}  \sigma) + f(g_3^{-1} g_1^{-1}  \sigma)  \right]
+\end{align*}
+Then we need to show that:
+\[        f(g_1^{-1} g_2 \sigma) + f(g_1^{-1} g_2^{-1} \sigma) =   f(g_3 g_1^{-1}  \sigma) + f(g_3^{-1} g_1^{-1}  \sigma)    \]
+Since we took $\sigma$ to be the top face, $g_1^{-1} g_2 \sigma$ and $g_3 g_1^{-1}  \sigma$ will both be the front face, while $g_1^{-1} g_2^{-1} \sigma$ and $g_3^{-1} g_1^{-1}  \sigma$ will both be the rear face. Then the claim follows.
+\\
+\\
+(2) $f \in V_+$ if $f$ has the same value on each pair of opposite faces, and $f \in V_-$ if it has opposite values on each pair of opposite faces. These properties are clearly invariant under linear combinations and the action of $G$. Therefore $V_+$, $V_-$ are subrepresentations of $V$. It remains to show that they span all of $V$. But we can write any $f$ as:
+\[        f = (a,b,c,d,e,f) \]
+\[ = \left( \frac{a+b}{2} , \frac{a+b}{2} , \frac{c+d}{2} , \frac{c+d}{2}, \frac{e+f}{2}, \frac{e+f}{2}  \right)  +  \left( \frac{a-b}{2} , - \frac{a-b}{2} , \frac{c-d}{2} ,- \frac{c-d}{2}, \frac{e-f}{2}, -\frac{e-f}{2}  \right)   \]
+\[   = f_+ + f_-       \]
+(3) If $f\in V_+$, we will henceforth denote it as $(a,b,c)$, since it's characterized by is values on the three faces adjacent to a corner. We can decompose any such $f$ as:
+\[      f = (a,b,c) = \left( \frac{a+b+c}{3} , \frac{a+b+c}{3} , \frac{a+b+c}{3}  \right)  +  \left( \frac{2a-b-c}{3} , \frac{2b-a-c}{3} , \frac{2c-a-b}{3}  \right)  \]
+\[     = f_1 + f_0    \]
+Then $V_1 = \{f_1\}$ is the space of constant functions, and $V_0 = \{f_0\}$ is the space of functions that sum to zero on the three faces adjacent to a corner. Again, these properties are preserved by linear combinations and the action of $G$. We have therefore split $V = V_- \oplus V_0 \oplus V_1$.
+\\
+\\
+(4) If $f \in V_-$, then $Af = 0$. If $f \in V_1$, then $A_f = f$. Finally, if $f \in V_0$, we have that $2f + 4Af = 0$, since the sum of the values of $f$ on all faces is 0. Then $Af = -\frac{1}{2} f$.
+
+
+\subsection*{Problem 4 (4.13 in Kirillov)}
+(1) We kow that $\mathfrak{so}(3,\C)$ is isomorphic to $\mathfrak{sl}(2,\C)$, and in fact the explicit isomorphism is:
+\begin{align*}
+ \phi : \mathfrak{so}(3,\R) &\to \mathfrak{sl}(2,\C)  \\
+                          J_x &\mapsto -\frac{i}{2} (e+f)   \\
+                          J_y &\mapsto \frac{1}{2} (f-e)   \\
+                          J_z &\mapsto \frac{-i}{2} h
+\end{align*}
+It's easy to check that $\phi$ preserves Lie brackets. Now let $(\rho_0, V)$ be a complex finite dimensional representation of $\mathfrak{so}(3,\R)$; then $(\rho, V)$ is also a representation of $\mathfrak{so}(3,\C)$, where $\rho$ is the natural extension of $\rho_0$ to matrices with complex entries. Then we have:
+\[        \rho \circ \phi^{-1} : \mathfrak{sl}(2,\C) \to \mathfrak{gl}(V)       \]
+Which shows that $V$ is a representation of $\mathfrak{sl}(2,\C)$. By theorem 4.60, we obtain a decomposition of $V$ in terms of subspaces of vectors of weight $n$:
+\[      V = \bigoplus_{n} V[n]       \]
+The fact that $v\in V[n]$ have weight $n$ translates into:
+\[    \big(  \rho \circ \phi^{-1} (h) \big)(v)  = nv  \]
+\[           \rho(J_z) v = \frac{-ni}{2} v           \]
+Therefore we can rewrite the decomposition as:
+\[       V[n] = \left\{ v \in V : \rho(J_z) v = \frac{-in}{2} v   \right\}    \]
+
+(2) Using exercise 4.1 in Kirillov, we see that an irrep $V[n]$ can be lifted to an irrep of $SO(3,\R)$ iff $\exp[\pi i \rho \circ \phi^{-1} (h)] = \id$. This means that $e^{-2 \pi \rho (J_z)} = e^{i \pi n} = \id$. So $n$ must be even.
+
+
+\subsection*{Problem 5}
+\emph{Prove the Frobenius reciprocity relation for induced representations (just do for finite groups): when $H$ is a subgroup of $G, (\rho, W)$ a representation of $H$, one has an induced representation:
+\[       \Ind^G_H(W)  \]
+and
+\[        \Hom_G(V, \Ind^G_H(W)) = \Hom_H(V, W)    \]
+where $V$ is an arbitrary representation of $G$, and on the right-hand side $V$ refers to its restriction as a representation of $H$.}
+
+\begin{proof}
+Using the fact that, for finite groups, the induction and coinduction representations are isomorphic, we follow Fulton and Harris and their definition of the induced representation. (They take to be induction what Prof. Woit calls coinduction and viceversa.) Thus, if we have a group $G$ and a subgroup $H$ with a representation $W$, we take the induced representation to be:
+\[      U = \Ind_H^G = \bigoplus_{\sigma \in G/H} g_{\sigma} \cdot W     \]
+Where $g_{\sigma}$ is a representative of the coset $\sigma$; the choice doesn't matter. Then the statement that we want to prove is:
+\[      \Hom_G(U, V) = \Hom_H(W, V)    \]
+Consider a $H$-invariant map $\phi : W \to V$; we extend it to a map $\psi: U \to V$ by defining $\psi$ on each $g_{\sigma} \cdot W$.
+\[       g_{\sigma} \cdot W \overset{g_{\sigma}^{-1}}{\to} W \overset{\phi}{\to} V \overset{g_{\sigma}}{\to} V      \]
+$\psi = g_{\sigma} \circ \phi \circ g_{\sigma}^{-1}$ is well defined, because the choice of $g_{\sigma}$ doesn't matter. Indeed, take any other representative $g_{\sigma}h$, then:
+ \[     g_{\sigma} \circ h \circ \phi \circ h^{-1} \circ  g_{\sigma}^{-1} =    g_{\sigma} \circ h \circ h^{-1} \circ \phi \circ  g_{\sigma}^{-1}  = \psi    \]
+Because $\phi$ is $H$-invariant. We also show that $\psi$ is $G$-invariant. Take any $g \in G$, then $gg_{\sigma}$ belongs to some coset $g_{\tau} H$, therefore it's of the form $gg_{\sigma} = g_{\tau} h$ for some $h\in H$. Then:
+\[         \psi(gg_{\sigma} \cdot w) = \psi(g_{\tau}h \cdot w) = \psi(g_{\tau} (hw)) = g_{\tau} \circ \phi(w') = g_{\tau} h \phi(w) = gg_{\sigma} \cdot \phi(w) = g\cdot \psi(g_{\sigma} \cdot w)     \]
+All that's left to show is that the correspondence between $\Hom_H(W, V)$ and $\Hom_G(U, V)$ is bijective. First note that, given $f \in \Hom_G(U, V)$, its restriction to $\Hom_H(W, V)$ is unique, since $\phi(w) = f(e\cdot w)$ is determined everywhere by the values of $f$. Moreover, if $f$ restricts to $\phi$, then any extension $\psi$ of $\phi$ must satisfy:
+\[    \psi(g_{\sigma} w) = g_{\sigma} \phi(w) = g_{\sigma} f(e\cdot w) = f(g_{\sigma} w)     \]
+Which gives $\psi = f$. Therefore the extension is unique.
+\end{proof}
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

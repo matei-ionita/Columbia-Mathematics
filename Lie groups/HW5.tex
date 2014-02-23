@@ -1,0 +1,134 @@
+\documentclass[12 pt]{article}
+\usepackage{amsmath,amssymb,amsthm,fullpage,amsfonts,enumerate,textcomp, eurosym}
+\title{Lie groups HW5}
+\author{Matei Ionita}
+
+
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\CP}{\mathbb{C}\mathbb{P}}
+\newcommand{\RP}{\mathbb{R}\mathbb{P}}
+\newcommand{\Proj}{\mathbb{P}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\p}{\partial}
+\newcommand{\fr}{\mathfrak}
+
+\DeclareMathOperator{\Ind}{Ind}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\length}{length}
+\DeclareMathOperator{\res}{Res}
+\DeclareMathOperator{\Int}{Int}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\Lie}{Lie}
+\DeclareMathOperator{\id}{Id}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\irr}{irr}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\trdeg}{trdeg}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Nm}{Nm}
+\DeclareMathOperator {\HH} {\mathbb{H}}
+\DeclareMathOperator {\End} {End}
+\DeclareMathOperator {\ad} {ad}
+\DeclareMathOperator {\Ad} {Ad}
+
+
+\begin{document}
+  \maketitle
+
+\subsection*{Problem 1 (Kirillov 5.2)}
+We plan to use the result of exercise 4.5 in Kirillov, namely that the space of $\fr g$ invariant bilinear forms on an irrep of $\fr g$ is 1-dimensional. We begin, then, by showing that the adjoint representation of $\fr{sl}(n,\C)$ is irreducible. Assume the contrary, i.e. that there exists a subspace of $\fr{sl}(n,\C)$ that is invariant under the adjoint action of $\fr{sl}(n,\C)$. Then this subspace is an ideal. But $\fr{sl}(n,\C)$ is a simple Lie algebra, so the ideal must be trivial. Therefore the adjoint representation is irreducible, and we can use exercise 4.5 to obtain that:
+\[         K(x,y) = c \Tr(xy)       \]
+Where $c \in \C$. To determine the constant, we take $x = y = h_1$ in the equation above, where $h_1$ is the basis element of $\fr{sl}(n,\C)$ having $1$ on the $(1,1)$ position and $-1$ on the $(2,2)$ position. We obtain $K(h_1, h_1) = 2 c$. Now we need to compute the matrix $\ad h_1$. First note that $h_1$ commutes with all other diagonal elements $h_i$. We need only consider its action on linear combinations on $e_i, f_i$. For this, write such a linear combination in the defining representation of $\fr{sl}(2,\C)$ in terms of $\C$ coefficients $x_i,y_j$:
+\[  \left(  \begin{array} {cccc}    & x_1 & x_2 & x_3 \\ y_1& &x_4 & x_5 \\ y_2&y_3 & & x_6 \\ y_4& y_5&y_6 &   \end{array} \right)      \]
+(We use $n=4$ in order to simplify notation, but it will be obvious that the case for any $n$ is analogous.) Then the adjoint action is:
+\[     \left(  \begin{array} {cccc}    & x_1 & x_2 & x_3 \\ y_1& &x_4 & x_5 \\ y_2&y_3 & & x_6 \\ y_4& y_5&y_6 &   \end{array} \right) \mapsto \left(  \begin{array} {cccc}    & x_1 & x_2 & x_3 \\ -y_1& &-x_4 & -x_5 \\ & & &  \\ & & &   \end{array} \right) - \left(  \begin{array} {cccc}    & -x_1 & & \\ y_1& & & \\ y_2&-y_3 & &  \\ y_4& -y_5& &   \end{array} \right) =  \left(  \begin{array} {cccc}    & 2x_1 & x_2 & x_3 \\ -2y_1& &-x_4 & -x_5 \\ -y_2&y_3 & &  \\ -y_4&y_5 & &   \end{array} \right) \]
+This shows that $\ad h_1$ is diagonal and acts as:
+\[      e_1 \mapsto 2e_1 \;\;\;  e_2 \mapsto e_2 \;\;\; e_3 \mapsto e_3 \;\;\; e_4 \mapsto -e_4 \;\;\; e_5 \mapsto -e_5 \;\;\; e_6 \mapsto 0 \;\;\;    \] 
+\[      f_1 \mapsto -2f_1 \;\;\;  f_2 \mapsto -f_2 \;\;\; f_3 \mapsto f_3 \;\;\; f_4 \mapsto -f_4 \;\;\; f_5 \mapsto f_5 \;\;\; f_6 \mapsto 0 \;\;\;    \]        
+Generalizing this to arbitrary $n$, it's clear that only the first two rows and first two columns of the commutator will have nonzero elements. Upon squaring, $\ad h_1$, all these elements will be positive. Therefore we have:
+\[        \Tr(\ad h_1, \ad h_1) = 2 ( 2 + 2(n-1) ) = 4n          \]
+\[          4n = 2c \Rightarrow c = 2n       \]
+\[         K(x,y) = 2n \Tr(xy)      \]
+
+
+
+\subsection*{Problem 2 (Kirillov 5.3)}
+1) We need to show that $\fr g$ is closed under commutators. Using multiplication rules for block matrices:
+\[    \left(\begin{array}{cc}A & B \\ 0 & D\end{array}\right)  \left(\begin{array}{cc}A' & B' \\ 0 & D'\end{array}\right) - \left(\begin{array}{cc}A' & B' \\ 0 & D'\end{array}\right) \left(\begin{array}{cc}A & B \\ 0 & D\end{array}\right)  =  \]
+\[        \left(\begin{array}{cc}AA' & AB' + BD' \\ 0 & DD'\end{array}\right)  - \left(\begin{array}{cc}A'A & A'B+ B'D \\ 0 & D'D\end{array}\right) =    \]
+\[           \left(\begin{array}{cc}[A,A'] & AB' + BD' - A'B - B'D \\ 0 & [D,D']\end{array}\right)    \in \fr g   \]
+2) First note that the given subspace of $\fr g$, which we denote by $J$, is an ideal, since:
+\[    \left(\begin{array}{cc}\lambda I & B \\ 0 & \mu I\end{array}\right)  \left(\begin{array}{cc}A' & B' \\ 0 & D'\end{array}\right) - \left(\begin{array}{cc}A' & B' \\ 0 & D'\end{array}\right) \left(\begin{array}{cc}\lambda I & B \\ 0 & \mu I\end{array}\right)  =  \left(\begin{array}{cc}0  & (\lambda- \mu) B' + BD' - A'B \\ 0 & 0\end{array}\right) \in J \]
+Moreover, $J$ is solvable, since by computation above taking one commutator only leaves the top right block, which will be killed by taking a second commutator. We know then that $J \subset \text{rad } \fr g$. Now let's examine the commutation law proved in 1), in order to see if $\text{rad } \fr g$ can be any bigger than $J$. We see that, in order to eventually have 0 on the diagonal, we need commutators of the type $[[[A_1,A_2], [A_3,A_4]], \dots]$ and $[[[D_1,D_2], [D_3,D_4]], \dots]$ to eventually vanish. This means that $A,D$ must belong to the radical of $\fr {gl}(k), \fr {gl}(n-k)$ respectively. This means $A = \lambda I$ and $D = \mu I$, because $\fr {gl}(k), \fr {gl}(n-k)$ are reductive. Therefore $J = \text{rad } \fr g$.
+
+Two elements of $\fr g$ are equivalent in $\fr g / \text{rad } \fr g$ if:
+\[          \left(\begin{array}{cc}A & B \\ 0 & D\end{array}\right) -  \left(\begin{array}{cc}A' & B' \\ 0 & D'\end{array}\right) =  \left(\begin{array}{cc}\lambda I & C \\ 0 & \mu I \end{array}\right)        \]
+In particular, all $B$ are equivalent to $0$, and $A \sim A'$ if they differ by $\lambda I$. This means that each equivalence class contains exactly one matrix with trace 0, and therefore the set of equivalence classes of $A$ is isomorphic to $\fr{sl}(k,\C)$. Similarly, the set of equivalence classes of $D$ is isomorphic to $\fr{sl}(n-k, \C)$. Then we have:
+\[      \fr g / \text{rad } \fr g =   \fr{sl}(k,\C) \oplus  \fr{sl}(n-k, \C)     \]
+
+
+\subsection*{Problem 3 (Kirillov 5.4)}
+We need to show that for all nonzero $x \in \fr{sp}(n, \K)$, there exists some $y \in  \fr{sp}(n, \K)$ such that $\Tr(xy) \neq 0$. For this, we first show that $x \in  \fr{sp}(n, \K)$ implies $x^{\dagger} \in \fr{sp}(n, \K)$. We take the adjoint of the equation:
+\[         x + J^{-1} x^T J = 0        \]
+\[         x^{\dagger} + J^{\dagger} \bar x {J^{-1}}^{\dagger} = 0         \]
+Note that $\bar x = {x^{\dagger}}^T$ and $J$ satisfies $J^{\dagger} = J^{-1}$. Therefore:
+\[       x^{\dagger} + J^{-1} {x^{\dagger}}^T  J   =0     \]
+Which shows $x^{\dagger} \in \fr{sp}(n, \K)$. Now we can compute:
+\[        \Tr(x x^{\dagger}) = \sum_{i, j} x_{ij} \bar x^{T}_{ji} =    \sum_{i, j} x_{ij} \bar x_{ij} = \sum_{i, j} |x_{ij}|^2  \]
+Thus, $\Tr(x x^{\dagger}) = 0$ gives $x = 0$.
+
+
+\subsection*{Problem 4 (Kirillov 5.5)}
+Because of the $\ad$-invariance of the Killing form, we have $\ad X \in \fr{so}(\fr{g})$, for all $X\in \fr g$. This means that $\ad X = - (\ad X)^{T}$, so we have:
+\[      K (X,X) = \Tr(\ad X, - (\ad X)^{T}) = - \sum_{i,j} (\ad X)_{ij} (\ad X)^T_{ji} = - \sum_{i,j} [(\ad X)_{ij}]^2       \]
+$\fr g$ is a real Lie algebra, so $\ad X \in \End(\fr g)$ has real entries. This shows that $K$ is negative definite. But, by hypothesis, $K$ is positive definite, so we must have $\fr g = 0$.
+
+
+\subsection*{Problem 5 (Kirillov 6.1)}
+Consider the basis $J_x, J_y, J_z$ for $\fr{so}(3)$. We want to compute the dual basis with respect to the Killing form. Using the commutation relations:
+\[        [J_i, J_j] = {\epsilon_{ij}}^k J_k     \]
+We can compute the matrix forms of $\ad J_i$:
+\[       \ad J_x =  \left(\begin{array}{ccc} 0 & 0 & 0 \\ 0 & 0&-1 \\ 0&1&0\end{array}\right)  \;\;\;\; \ad J_y =  \left(\begin{array}{ccc} 0 & 0 & 1 \\ 0 & 0&0 \\ -1&0&0\end{array}\right) \;\;\;\; \ad J_z =  \left(\begin{array}{ccc} 0 & -1 & 0 \\ 1 & 0&0 \\ 0&0&0\end{array}\right)      \]
+And we see that:
+\[     (\ad J_x)^2 =  \left(\begin{array}{ccc} 0 & 0 & 0 \\ 0 & -1&0 \\ 0&0&-1\end{array}\right)\;\;\;\; (\ad J_y)^2 =  \left(\begin{array}{ccc} -1 & 0 & 0 \\ 0 & 0&0 \\ 0&0&-1\end{array}\right) \;\;\;\; (\ad J_z)^2 =  \left(\begin{array}{ccc} -1 & 0 & 0 \\ 0 & -1&0 \\ 0&0&0\end{array}\right)      \]
+Therefore $K(J_x, J_x) = \Tr(\ad J_x)^2 = -2$, and thus $J_x^* = - \frac{1}{2} J_x$. Similarly, $J_y^* = - \frac{1}{2} J_y$ and $J_z^* = - \frac{1}{2} J_z$. Then we have:
+\[         C = \sum_i J^*_i J_i = - \frac{1}{2} (J_x^2 + J_y^2 + J_z^2)      \]
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

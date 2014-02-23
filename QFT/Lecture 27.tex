@@ -1,0 +1,84 @@
+\documentclass[12 pt]{article}
+\usepackage{amsmath,amssymb,amsthm,fullpage,amsfonts,enumerate,textcomp, eurosym, slashed}
+\title{QFT Lecture 27}
+\author{Matei Ionita}
+\DeclareMathOperator {\p} {\partial}
+
+\begin{document}
+  \maketitle
+
+\subsection*{A model for Hawking radiation}
+Consider:
+\[     S = \int dt \left(  \frac{1}{2} \dot x^2 - \frac{1}{2} \omega^2 x^2 + E x  \right)     \]
+Where $E=0$ for $t<0$ and $E = E_0$ for $t>0$. For $t<0$ the solution is:
+\[       x(t) = \frac{1}{\sqrt{2\omega}} \left[  a e^{-i\omega t} + a^{\dagger} e^{i\omega t}  \right]      \]
+With $[x, \dot x] = i$, so $[a, a^{\dagger}] = 1$. When $t>0$ we complete the square to get a shift:
+\[       x(t) = \frac{E_0}{\omega^2} + \frac{1}{\sqrt{2\omega}} \left( b e^{-i\omega t} + b^{\dagger} e^{i\omega t}  \right)           \]
+Now we impose continuity of $x$ and $\dot x$ at 0, so:
+\[       \frac{1}{\sqrt{2\omega}} (a + a^{\dagger}) =    \frac{E_0}{\omega^2} + \frac{1}{\sqrt{2\omega}} \left( b  + b^{\dagger}   \right)       \]
+\[         \frac{1}{\sqrt{2\omega}} (-a + a^{\dagger}) =   \frac{1}{\sqrt{2\omega}} \left(- b  + b^{\dagger}   \right)         \]
+If we add we get: $b^{\dagger} = a^{\dagger} - \frac{E_0}{\omega^2} \frac{1}{\sqrt{2\omega}}$, so $b = a - \frac{E_0}{\omega^2} \frac{1}{\sqrt{2\omega}}$.
+\\
+\\
+Let's see what the consequences of this are. Suppose that the system is in the state $|0\rangle_{a}$, the ground state of the harmonic oscillator, before we turn on the electric field. We're working in the Heisenberg picture, so after $E$ is turned on we have the same state. But the operators changed, so it's not goingto be a ground state of the new harmonic oscillator. In fact:
+\[     _a\langle 0| b^{\dagger} b |0\rangle_a   = _a\langle 0|  (a^{\dagger} - E_0/\omega \sqrt{2\omega} )(a - E_0/\omega \sqrt{2\omega} )  | 0\rangle_a = \frac{E_0^2}{2\omega^3}  \]
+In field theory language, the $Ex$ term would be $J\phi$. Also, the creation of particles happens because we turn on the source suddenly; if we do it adiabatically, nothing changes.
+
+\subsection*{Particle creation in inflating universe}
+Consider the metric:
+\[     ds^2 = - dt^2 + a(t)^2 \big(dx^2 + dy^2 + dz^2\big)   = a(\eta)^2 \big(  - d\eta^2 + dx^2 + dy^2 + dz^2  \big)   \]
+Where we have made a redefinition to conformal time $d\eta = dt/ a(t) $. WRT to this expanding universe, the action for a free massless scalar would be:
+\[      S = \int d^4x \sqrt{-g} \left( - \frac{1}{2} g^{\mu\nu} \p_{\mu} \phi \p_{\nu} \phi \right)      \]
+By $\sqrt{-g}$ we mean $\sqrt{-\text{det}g_{\mu \nu}}$. Letting ' denote the $\eta$ derivative:
+\[      S = \int d^4 x\; a^2 \left(  \frac{1}{2} \phi'^2 - (\nabla \phi)^2   \right)        \]
+Let's make a field redefinition $\psi = a\phi$. Then:
+\[     a^2 \frac{1}{2} \left(\frac{\psi}{a} \right)' = \frac{1}{2} \psi'^2 - \frac{a'}{a} \psi' \psi + \frac{1}{2} \frac{a'^2}{a^2} \psi^2     \]
+Integrating the second term by parts, the conclusion is:
+\[     S = \int d^4 x \left[  \frac{1}{2} \psi'^2 - \frac{1}{2} (\nabla \psi)^2 - \frac{1}{2} \left(  - \frac{a''}{a} \right) \psi^2   \right]    \]
+Thus we get a free scalar field with a mass that is time-dependent. The EOM is a sort of KG equation:
+\[ \left[    \frac{\p^2}{\p \eta^2} - \nabla^2 - \frac{a''}{a}    \right] \psi = 0    \]
+We'll solve this for the case $a(\eta) = -1/ H\eta$ where $H$ is the Hubble constant. Here the far future is $-\infty$ and the far future is $0$. This is the expansion that happens in de Sitter space. Writing this in terms of the original time $t$, it becomes $a \sim e^{Ht}$. Note that $H$ is a constant for the de Sitter model. In this case $a''/a = 2/\eta^2$. The solution is:
+\[      \psi (\eta, x) = \int \frac{d^3 k}{(2\pi)^3 2k} \left[  a_k e^{ikx} f_k (\eta) + a^{\dagger}_k e^{-ikx} f_k^* (\eta)  \right]     \]
+\[       f''_k + \left[k^2 - \frac{2}{\eta^2} \right] f_k = 0       \]
+\[          f_k = e^{-ikx} \left( 1 - \frac{i}{k\eta}  \right)      \]
+To decide whether we use $f_k$ as the expression above or its conjugate, we impose the condition that the the far past is flat. This is because of some even horizon in which quantum fluctuations live, where they don't care about the expansion of the universe. (WUT?) We can check that the commutators work just the same as in Minkowski space free field theory.
+\\
+\\
+With CMB people calculate correlations of the temperature in different parts of the universe. We will compute 2-point correlations when $\eta \to 0$, i.e. after the inflation is pretty much done.
+\[        \langle 0 | \psi(\eta, x) \psi (\eta, y) |0\rangle       \]
+Where $|0\rangle$ satisfies $a_k |0\rangle = 0$; it is called the Bunch-Davies state and it's more or less the Minkowski vacuum for wave modes deep within the horizon. Plugging in the field into this we get:
+\[        \langle 0 | \psi(\eta, x) \psi (\eta, y) |0\rangle  = \int \frac{d^3 k}{(2\pi)^3 2k} \left( 1 + \frac{1}{k^2 \eta^2}  \right) e^{ik(x-y)}    \]
+We call $1/2k + 1/2k^3\eta^2$ the power spectrum $P_{\psi} (k, \eta)$ of $\psi = a \phi$, where $\phi$ is some scalar field in an expanding space. We can think about what we just did as though the metric were a quantum field itself, whose fluctuations give gravitational waves. Then the power spectrum of $\gamma = \psi/aM_p$, the tensor fluctuation of the metric, is:
+\[       P_{\gamma} (k) = P_{\psi} (k) \frac{1}{a^2 M_p^2} = \frac{H^2}{M_p^2} \left(  \frac{\eta^2}{2k} + \frac{1}{2k^3}  \right)      \]
+For the far future, the first term is 0, so we observe the second term.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

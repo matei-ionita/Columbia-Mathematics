@@ -1,0 +1,214 @@
+\documentclass[12 pt]{article}
+\usepackage{amsmath,amssymb,amsthm,fullpage,amsfonts,enumerate,textcomp, eurosym}
+\title{Lie groups HW3}
+\author{Matei Ionita}
+
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\CP}{\mathbb{C}\mathbb{P}}
+\newcommand{\RP}{\mathbb{R}\mathbb{P}}
+\newcommand{\Proj}{\mathbb{P}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\p}{\partial}
+\newcommand{\fr}{\mathfrak}
+
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\length}{length}
+\DeclareMathOperator{\res}{Res}
+\DeclareMathOperator{\Int}{Int}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\Lie}{Lie}
+\DeclareMathOperator{\id}{Id}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\irr}{irr}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\trdeg}{trdeg}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Nm}{Nm}
+\DeclareMathOperator {\HH} {\mathbb{H}}
+\DeclareMathOperator {\End} {End}
+
+
+\begin{document}
+  \maketitle
+
+\subsection*{Problem 1 (4.5 in Kirillov)}
+\emph{(1) Let $V,W$ be irreducible representations of a Lie group $G$. Show that $(V \otimes W^*)^G = 0$ if $V$ is non-isomorphic to $W$, and that $(V \otimes V^*)^G$ is canonically isomorphic to $\C$.
+\\
+(2) Let $V$ be an irreducible representation of a Lie algebra $\fr g$. Show that $V^*$ is also irreducible, and deduce from this that the space of $\fr g$-invariant bilinear forms on $V$ is either zero or 1-dimensional.}
+\begin{proof}
+(1) $V \otimes W^*$ is canonically isomorphic to the space of linear maps $\phi : W\to V$, and the isomorphism is given by:
+\[       \phi  \to   \phi(w) \otimes w^*    \]
+This is an isomorphism because it is linear and it has an inverse given by:
+\[        (v \otimes w^*) (w) = v      \]
+Therefore the question reduces to Schur's lemma.
+\\
+\\
+(2) Say we have a representation $\rho$ of $\fr g$ on $V$. We require any representation $\pi$ of $\fr g$ on $V^*$ to preserve the action of $V^*$ on $V$:
+\[     \big(  \pi(g) v_1^* \big) \big( \rho(g) v_2 \big) = v_1^*(v_2)  \]
+Take any subspace $W^* \subset V^*$ that is closed under the action of $\fr g$. We want to show that $W^* = 0$ or $W^* = V^*$. For this, define:
+\[      W =   \{ w \in V :  \exists w^* \in W^* \text{ such that } w^*(w) = 1 \}       \]
+$W$ and $W^*$ are isomorphic by the map $w \to w^*$, therefore $\dim W = \dim W^*$. We show that $W$ is $\fr g$-invariant, and thus a subrepresentation of $W$:
+\[       \big(  \pi(g) w^* \big) \big( \rho(g) w \big)  = w^*(w) = 1  \]
+So we can exhibit $\pi(g) w^* \in W^*$ which maps $ \rho(g) w$ to 1, which means $ \rho(g) w \in W$. But $V$ is irreducible, so $\dim W = 0$ or $\dim W = \dim V$. Then $\dim W^* = 0$ or $\dim W^* = \dim V^*$, which shows that $V^*$ is irreducible.
+\\
+\\
+Now we look at the space of $\fr g$-invariant bilinear forms on $V$. By the same argument as in (1), $(V^* \otimes V^*)^{\fr g}$ is canonically isomorphic to the space of $\fr g$-invariant linear maps $\phi : V \to V^*$. But $V, V^*$ are two irreducible representations of $\fr g$, and thus all $\phi$ are intertwining operators for $V$ and $V^*$. By Schur's lemma, either all $\phi$ are 0, in which case the space is 0 dimensional, or they are canonically isomorphic to $\C$, in which case it is 1 dimensional. (Note: Schur's lemma works the same way for Lie group and Lie algebra representations; it simply follows from the fact that the kernel and image of $\phi$ must be invariant subspaces of irreducible representations.)
+\end{proof}
+
+\subsection*{Problem 2}
+\emph{ (a) Show that
+\[     \pi : t \to \left(  \begin{array} {cc} 1 & t \\ 0 & 1  \end{array} \right)     \]
+gives a representation of the group $\R$ on $\C^2$.
+\\
+(b) Find all subrepresentations.
+\\
+(c) Show this this representation is not unitary, that is is reducible, but not completely reducible.}
+\begin{proof}
+(a) It is clear that $\pi(t)$ form a multiplicative group. We just need to show that $\pi$ is a group homomorphism:
+\[      \pi(t) \pi(s) = \left(  \begin{array} {cc} 1 & t \\ 0 & 1  \end{array} \right) \left(  \begin{array} {cc} 1 & s \\ 0 & 1  \end{array} \right) = \left(  \begin{array} {cc} 1 & t+s \\ 0 & 1  \end{array} \right) = \pi(t+s)     \]
+(b) $\C^2$ is 2-dimensional, so any subrepresentation will be 1-dimensional. Let $a,b \in \C$, then:
+\[      \pi(t) \left(  \begin{array} {c} a \\ b  \end{array} \right)   =  \left(  \begin{array} {c} a+tb \\ b  \end{array} \right)  \]
+We need $ab = b(a+tb)$ for all $t\in \R$, which only happens of $b=0$. Therefore the only subrepresentation is the subspace spanned by
+\[     \left(  \begin{array} {c} 1 \\ 0  \end{array} \right)       \]
+(c) Part (b) shows that $(\pi, \C^2)$ is reducible, because we exhibited a nontrivial subrepresentation of it. In fact we showed that it is the only nontrivial subrepresentation, so in particular its orthogonal complement is not a subrepresentation. Then $(\pi, \C^2)$ is not completely reducible. It is also not unitary, because not all $\pi(t)$ are unitary. Indeed, $[\pi(t)]^{\dagger} = \pi(t)$ implies $t=0$.
+\end{proof}
+
+\subsection*{Problem 3 (4.7 in Kirillov)}
+\emph{Let $\fr g$ be a Lie algebra, and $(, )$ – a symmetric ad-invariant bilinear form on $\fr g$. Show that the element $\omega \in (\fr g^*)^{\otimes 3}$ given by:
+ \[      \omega(x, y,z) = ([x, y],z)   \]
+is skew-symmetric and ad-invariant.}
+\begin{proof}
+The Lie bracket is skew-symmetric, so $\omega(x,y,z) = \omega(y,x,z)$ is immediate. The ad-invariance of $( \cdot, \cdot)$ means that:
+\[        ([x,y] , z) + (y , [x,z]) = 0     \]
+But then we can write:
+\[      \omega(x,y,z) =   ([x,y] , z) = - (y , [x,z]) = - ([x,z] , y) =  - \omega(x,z,y)  \]
+And we can show similarly that $\omega(z,y,x) = - \omega(x,y,z)$, so $\omega$ is skew-symmetric. To show that it's ad-invariant we need to compute:
+\[        \omega([t,x], y, z) + \omega(x, [t,y], z) + \omega(x,y, [t,z])     \]
+\[      =  ( [[t,x], y] , z) + ([x, [t,y]] , z) + ([x,y] , [t,z])         \]
+\[      =   ( [[t,x], y] , z) + ([[y,t], x] , z) + ([x,y] , [t,z])   \]
+\[      =  - ( [[x,y] , t] , z) + ([x,y], [t,z])     \]
+\[      = ( [t, [x,y]] , z) +    ([x,y], [t,z])   \]
+\[     = 0 \]
+Where we used the Jacobi identity for $[ \cdot , \cdot ]$ to obtain the fourth line, and ad-invariance for $( \cdot, \cdot)$ to get 0.
+\end{proof}
+
+
+\subsection*{Problem 4 (4.10 in Kirillov)}
+\emph{Let $G = SU(2)$. Recall that we have a diffeomorphism $G \cong S^3$.
+\\
+\\
+(1) Show that the left action of $G$ on $G \cong S^3 \subset \R^4$ can be extended to an action of $G$ by linear orthogonal transformations on $\R^4$.
+\\
+\\
+(2) Let $\omega \in \Omega^3(G)$ be a left-invariant 3-form whose value at $1 \in G$ is defined by:
+\[    \omega(x_1, x_2, x_3) = \Tr([x_1, x_2]x_3), x_i \in \fr g   \]
+Show that $\omega = \pm 4dV$ where $dV$ is the volume form on $S^3$ induced by the standard metric in $\R^4$ (hint: let $x_1, x_2, x_3$
+be some orthonormal basis in $\fr{su}(2)$ with respect to $\frac{1}{2} \Tr(a\bar b^t)$). (Sign depends on the choice of orientation on $S^3$.)
+\\
+\\
+(3) Show that $\left( \frac{1}{8\pi^2}  \right)\omega $ is a bi-invariant form on $G$ such that for appropriate choice of orientation on $G$, $\left( \frac{1}{8\pi^2}  \right) \int_G ω = 1$.}
+
+\begin{proof}
+(1) We treat $(x_0, x_1, x_2, x_3) \in \R^4$ as quaternions $x_0 + x_1 i + x_2 j + x_3 k$. We also identify $SU(2)$ with the group of unit norm quaternions as follows:
+\[      x_0 + x_1 i + x_2 j + x_3 k  \longleftrightarrow  \left( \begin{array} {cc}  x_0 - i x_3  & -x_2 - i x_1 \\ x_2 - i x_1 & x_0 + i x_3  \end{array} \right)     \]
+Then the left action of $SU(2)$ on itself becomes just (left) quaternionic multiplication on unit quaternions. Now we can clearly extend multiplication by unit quaternions to all quaternions, i.e. all of $\R^4$. We just need to show that this action is orthogonal. Take two arbitrary quaternions $q_1, q_2$, then their inner product is Re$(\bar q_1 q_2)$. Then left multiplication by unit quaternions preserves the inner product:
+\[         ( \overline{qq_1} ) (qq_2) = \bar q_1 \bar q q q_2 = \bar q_1 |q|^2 q_2 = \bar q_1 q_2       \]
+(2) We know that $\omega$ is a left-invariant 3-form; we want to show that $dV$ is also left-invariant. By definition a volume form is an element of $\Omega^3(G)$ that evaluates to $\pm 1$ on any orthonormal basis in a tangent space, the sign depending on orientation of the basis. It suffices to check that:
+\[          dV (x_1, x_2, x_3) = (L_g^* dV)(x_1, x_2, x_3)   = dV (L_{g*} x_1, L_{g*} x_2, L_{g*} x_3)      \]
+for some otrhonormal basis of $\fr{su}(2)$, because the action of $dV$ on all elements of $\fr{su}(2)$ can then be generated by linear combinations. But $L_{g*}$ is a vector space isomorphism, because $L_g$ is a diffeomorphism. In particular, $L_{g*}$ preserves the inner product of tangent spaces, so $\{x_i\}$ orthonormal implies $\{L_{g*} x_i\}$. Then:
+\[     dV (x_1, x_2, x_3) =  dV (L_{g*} x_1, L_{g*} x_2, L_{g*} x_3)  =  \pm 1   \]
+Now we know that both $\omega$ and $dV$ are left-invariant, so $\omega = c dV$, where $c$ is a constant that can be determined from the relation between $\omega$ and $dV$ at the identity. Take the orthonormal basis to be:
+\[     x_1 = \left(  \begin{array} {cc}  0 & i \\ i & 0  \end{array} \right)   \;\;\;\;\;\;  x_2 = \left(  \begin{array} {cc}  0 & 1 \\ -1 & 0  \end{array} \right)   \;\;\;\;\;\; x_3 = \left(  \begin{array} {cc}  i & 0 \\ 0 & -i  \end{array} \right)    \]
+In order for $dV$ to evaluate to 1 on these, we need to show that they are orthonormal with respect to the inner product inherited from $\R^4$. The easiest way to do this is to write them in quaternionic form:
+\[      x_1 = -i \;\;\;\;\;  x_2 = -j \;\;\;\;\; x_3 = -k  \]
+In this form, the inner product inherited from $\R^4$ is $\langle x_i , x_j \rangle = \text{Re}(\bar x_i x_j )$, and it's easy to check that this gives $\delta_{ij}$. It follows that $dV(x_1, x_2, x_3) = \pm 1$. Then we have:
+\[      \omega(x_1, x_2, x_3) =   \Tr([x_1, x_2] x_3 ) =  \Tr( -2x_3 x_3) = \Tr(2 \text{Id}_{2,\C}) = 4   \]
+\[      \omega(x_1, x_2, x_3) = c dV (x_1, x_2, x_3) = \pm c       \]
+This gives $c = \pm 4$ and so $\omega = \pm 4 dV$.
+\\
+\\
+(3) Part (2) shows that $\omega = \pm 4 dV$. We proved that $dV$ is left invariant, and we can prove analogously that it is right-invariant ($R_g$ is also a diffeomorphism). Then $\omega$ is bi-invariant. We choose the basis $\{x_i\}$ defined above to be positively oriented, and then:
+\[     \frac{1}{8\pi^2} \int_G  \omega =  \frac{1}{2\pi^2} \int_G dV  =  \frac{V_{S^3}}{2\pi^2}  \]
+It remains to show that the volume of the unit 3-sphere is $2\pi^2$. (Since we are talking about the 3-sphere and not the 3-ball, ``volume'' actually means surface area.) To compute the surface area, we write the equation of the sphere as $x^2 + y^2 + z^2 + t^2 = 1$, and let $t = \sin \theta$. For a fixed value of $\theta$ we get a 2-sphere $x^2 + y^2 + z^2 = \cos^2 \theta$ of radius $\cos \theta$; the surface area of this 2-sphere is $4\pi \cos^2 \theta$. We get the area of the 3-sphere by integrating this from $\theta = -\pi/2$, which corresponds to $t = -1$, to $\theta = \pi/2$, which corresponds to $t=1$.
+\[      V_{S^3} = \int_{-\pi/2}^{\pi/2} 4\pi \cos^2 \theta d \theta = 2\pi^2       \]
+\end{proof}
+
+
+\subsection*{Problem 5}
+\emph{Prove that the Frobenius-Schur indicator
+\[    \frac{1}{|G|} \sum_{g\in G} \chi_V(g^2)    \]
+for a complex irreducible representation takes 3 possible values: -1, 0, 1. For real irreducible representations, what are the possibilities for
+\[       \Hom_G(V; V )   \]
+Which ones does one get when restricting the three possible sorts of complex irreducible representations given above?}
+\begin{proof}
+We prove that the Frobenius-Schur indicator takes the 3 possible values by relating it to the dimensions of spaces of forms on $V$. Concretely, note that $\chi_{V^*} = \bar \chi_V$, and then by the properties of characters (see Fulton $\&$ Harris, 2.1):
+\[             \chi_{\Lambda^2 V^*} (g) = \frac{\chi_{V^*}(g) ^2 - \chi_{V^*} (g^2)}{2}  = \frac{\overline{\chi_{V}(g) ^2} - \overline{\chi_{V} (g^2)}}{2}          \]
+\[             \chi_{\Sym^2 V^*} (g) = \frac{\chi_{V^*}(g) ^2 + \chi_{V^*} (g^2)}{2}  = \frac{\overline{\chi_{V}(g) ^2} + \overline{\chi_{V} (g^2)}}{2}          \]
+Substracting these two equations and conjugating the result gives:
+\[        \chi_V(g^2) =  \overline{\chi_{\Sym^2 V^*} (g)} - \overline{\chi_{\Lambda^2 V^*} (g)}         \]
+Which we can then average over $G$:
+\[     \frac{1}{|G|} \sum_{g\in G}  \chi_V(g^2) =  \frac{1}{|G|} \sum_{g\in G} \overline{\chi_{\Sym^2 V^*} (g)} -  \frac{1}{|G|} \sum_{g\in G} \overline{\chi_{\Lambda^2 V^*} (g)}     \]
+Using the discussion in Fulton $\&$ Harris, 2.4 we see that the terms on the RHS are projections onto the spaces of $G$-invariant symmetric and alternating bilinear forms. Then:
+\[           \frac{1}{|G|} \sum_{g\in G}  \chi_V(g^2)  = \dim ( \Sym^2 V^*)^G -  \dim ( \Lambda^2 V^*)^G      \]
+We now quote the result of theorem 3.37 in Fulton $\&$ Harris:
+\\
+\\
+\emph{An irreducible representation $V$ is one and only one of the following:
+\begin{enumerate} [(i)]
+\item Complex: $\chi_V$ is not real-valued; $V$ does not have a $G$-invariant nondegenerate bilinear form;
+\item Real: $V = V_0 \otimes  \C$, a real representation; $V$ has a $G$-invariant symmetric nondegenerate bilinear form;
+\item Quaternionic: $\chi_V$ is real, but $V$ is not real; $V$ has a $G$-invariant skew-symmetric nondegenerate bilinear form.
+\end{enumerate}}
+Using this information about the spaces of nondegenerate bilinear forms, we conclude that the Frobenius indicator gives 1 iff $V$ is real, 0 iff $V$ is complex and -1 iff $V$ is quaternionic.
+\\
+\\
+In order to determine $\Hom_G(V,V)$ for $V$ a real representation, we modify the proof of Schur's lemma accordingly. It's still true that, for $F \in \Hom_G(V,V)$, $\Ker F$ and $\text{Im} F$ are $G$-invariant subspaces of $V$, so we still get that any nontrivial $F$ must be an isomorphism. Therefore $\Hom_G (V,V)$ is a division algebra over $\R$, and there are three such: $\R, \C, \HH$.
+
+
+\end{proof}
+
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

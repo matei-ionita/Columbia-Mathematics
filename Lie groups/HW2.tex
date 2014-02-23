@@ -1,0 +1,192 @@
+\documentclass[12 pt]{article}
+\usepackage{amsmath,amssymb,amsthm,fullpage,amsfonts,enumerate,textcomp, eurosym}
+\title{Lie groups HW2}
+\author{Matei Ionita}
+
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\CP}{\mathbb{C}\mathbb{P}}
+\newcommand{\RP}{\mathbb{R}\mathbb{P}}
+\newcommand{\Proj}{\mathbb{P}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\p}{\partial}
+\newcommand{\fr}{\mathfrak}
+
+
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\length}{length}
+\DeclareMathOperator{\res}{Res}
+\DeclareMathOperator{\Int}{Int}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\Lie}{Lie}
+\DeclareMathOperator{\id}{Id}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\irr}{irr}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\trdeg}{trdeg}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Nm}{Nm}
+\DeclareMathOperator {\HH} {\mathbb{H}}
+\DeclareMathOperator {\End} {End}
+
+
+\begin{document}
+  \maketitle
+
+\subsection*{Problem 1 (Kirillov 2.15)}
+(1) In order to identify $\End_{\HH}(\HH^n)$ with matrices, we express these operators in terms of an orthonormal basis (over $\HH$) for $\HH^n$. Let $\{\mathbf{e_i}\}$ be this basis. Then, if we have $A\in \End_{\HH}(\HH^n)$, we write:
+\[      A (\mathbf{h}) = A(h^i \mathbf{e_i}) = h^i A(\mathbf{e_i})  = h^i A_i^j \mathbf{e_j}  \]
+Where we have defined the quaternion $A_i^j$ to be the $\mathbf{e_j}$ component of $A(\mathbf{e_i})$. It is clear from the above expression that $A$ determines the matrix $(A_i^j)$ and viceversa.
+\\
+\\
+(2) We first check that $U(n, \HH)$ is indeed a group. If $A,B \in U(n, \HH)$ we have:
+\[      ((AB) \mathbf{h} , (AB) \mathbf{h'} ) =  (A (B \mathbf{h}) , A(B \mathbf{h'}) )  = (B \mathbf{h} , B \mathbf{h'} ) = ( \mathbf{h} ,  \mathbf{h'} )    \]
+which shows that $U(n, \HH)$ is closed under multiplication, and:
+\[       ( \mathbf{h} ,  \mathbf{h'} )  = ( A A^{-1}\mathbf{h} ,  AA^{-1}\mathbf{h'} )  = (A^{-1} \mathbf{h} , A^{-1} \mathbf{h'} )        \]
+which shows that it is also closed under taking inverses. Therefore it is a group. Now we want to show that $A^{\dagger}A = 1$:
+\[     (A\mathbf{h} , A \mathbf{h'}) = \sum_i \overline{(A\mathbf{h})_i}  (A\mathbf{h'})_i  = \sum_{i,j,k} \overline{A^i_j h^j} A^i_k h'_k = \sum_{i,j,k} \overline{h^j} (\overline{A^i_j} A^i_k )h'_k = \sum_{i,j,k} \overline{h^j} ({A^{\dagger}}^j_i A^i_k )h'_k \]
+On the other hand:
+\[       (A\mathbf{h} , A \mathbf{h'}) =  (\mathbf{h} , \mathbf{h'}) = \sum_{j,k} \overline{h^j} \delta_{jk} h'_k    \]
+So we need ${A^{\dagger}}^j_i A^i_k = \delta_{jk}$, which is to say $A^{\dagger}A = 1$.
+\\
+\\
+(3) Denote the map $\C^{2n} \to \HH^n$ by $\phi$. It's easy to see that $\phi$ is linear:
+\[   \phi\big( (z_1, \dots , z_{2n}) +(z'_1, \dots , z'_{2n}) \big) = \phi (z_1, \dots , z_{2n}) + \phi (z'_1, \dots , z'_{2n}) \]
+\[    \phi\big( z (z_1, \dots , z_{2n})  \big)  = z \phi (z_1, \dots , z_{2n})  \]
+$\phi$ is injective, since $\phi(z_1, \dots , z_{2n}) = 0$ implies $z_l + j z_{n+l} = 0$ for all $l$, therefore $z_l = 0$ for all $l$, so $(z_1, \dots , z_{2n}) = 0$. Moreover, we are dealing with finite dimensional vector spaces, so by the rank-nullity theorem any linear injective map is an isomorphism.
+\\
+\\
+In order to prove the identification between quaternionic and complex endomorphisms, we first want to show that the endomorphism $\mathbf{h} \to \mathbf{h}j$ is identified with $\mathbf{z} \to J \bar{\mathbf{z}}$. We write $\mathbf{h} = \mathbf{z_1} + j \mathbf{z_2}$. Then:
+\[     \mathbf{h}j = \mathbf{z_1} j + j \mathbf{z_2} j = - \overline{\mathbf{z_2}} + j \overline{\mathbf{z_1}}  \]
+The map $\mathbf{h} \to \mathbf{h}j$ can therefore be identified with $(\mathbf{z_1} , \mathbf{z_2}) \to ( - \overline{\mathbf{z_2}}, \overline{\mathbf{z_1}}) = J \overline{(\mathbf{z_1} , \mathbf{z_2})}$.
+\\
+\\
+(4) \[     (\mathbf{h} , \mathbf{h'} ) = \sum_l \overline{(z_l + j z_{l+n})} (z'_l + j z'_{l+n}) = \sum_l (\overline{z_l} - \overline{z_{l+n}} j ) (z'_l + j z'_{l+n}) \]
+\[     =  \sum_l \overline{z_l} z'_l + \sum_l \overline{z_{n+l}} z'_{n+l}   - j \left(- \sum_l z_l z'_{l+n} + \sum_l z_{l+n} z'_l  \right)   \]
+\[    =   ( \mathbf{z} , \mathbf{z'} ) - j \langle \mathbf{z} , \mathbf{z'}  \rangle  \]
+We defined $U(n, \HH)$ as the group of transformations that preserves the quaternionic $(\cdot, \cdot)$. The above equation shows that this is equivalent to preserving both the complex $(\cdot, \cdot)$ and the complex $\langle \cdot, \cdot \rangle$. The first condition is the definition of $U(2n)$, while the second is the definition of $Sp(n,\C)$. Therefore $U(n, \HH) = U(2n) \cap Sp(n,\C)$.
+\\
+\\
+Remark: I obtained $U(2n)$ instead of $SU(2n)$; I'm not sure where the determinant 1 condition would come from.
+
+
+\subsection*{Problem 2 (Kirillov 3.16)}
+\emph{Let Sp$(n)$ be the unitary quaternionic group defined in Section 2.7. Show that $\mathfrak{sp}(n)_{\C} = \mathfrak{sp}(n,\C)$. Thus Sp$(n)$ is a compact real form of Sp$(n,\C)$.}
+
+\begin{proof}
+We look at theorem 2.30 in Kirillov for the form of $\mathfrak{sp} (n)$ and $\mathfrak{sp} (n,\C)$:
+\[     \mathfrak{sp} (n,\C) = \{ x \in M(2n,\C) | x + J^{-1} x^T J = 0 \}       \]
+\[     \mathfrak{sp} (n) = \{ x \in M(2n,\C) | x + J^{-1} x^T J = 0 , x + x^{\dagger} = 0 \}       \]
+Now $ \mathfrak{sp}_{\C} (n) =  \mathfrak{sp} (n) + i  \mathfrak{sp} (n)$; anything of this form will obviously satisfy the constraint $x + J^{-1} x^T J = 0$. Let's examine the second constraint. If $x \in \mathfrak{sp} (n)$, then $ x + x^{\dagger} = 0 $, so $ (ix) - (ix)^{\dagger} = 0$. Therefore $ \mathfrak{sp}_{\C} (n)$ contains all Hermitian and skew-Hermitian matrices. But linear combinations of these spawn all complex matrices, and so the constraint $ x + x^{\dagger} = 0 $ in $ \mathfrak{sp} (n)$ imposes no constraint whatsoever for the complexified Lie algebra, and we are left with:
+\[          \mathfrak{sp}_{\C} (n)  = \{ x \in M(2n,\C) | x + J^{-1} x^T J = 0 \}   =   \mathfrak{sp} (n,\C)  \]
+\end{proof}
+
+\subsection*{Problem 3 (Kirillov 3.1)}
+\emph{Consider the group SL$(2,R)$. Show that the element:}
+\[    X =  \left(  \begin{array} {cc} -1 & 1 \\ 0 & -1 \end{array} \right)  \]
+\emph{is not in the image of the exponential map. (Hint: if $X = \exp(x)$, what are the eigenvalues of $x$?)}
+
+\begin{proof}
+Assume there exists $x \in \mathfrak{sl}(2, \R)$ such that $\exp(x) = X$. The eigenvalue of $X$ is $-1$ with multiplicity $2$. Since the eigenvalues of powers are powers of eigenvalues, the eigenvalues $\lambda_1, \lambda_2$ of $x$ must satisfy:
+\[      e^{\lambda_j} = -1  \Rightarrow  \lambda_j = \pi i + 2\pi i n , n\in \Z   \]
+But we know that Tr$(x) = 0$, so $\lambda_1 + \lambda_2 = 0$. We write $\lambda_1 = (2n+1) \pi i$ and $\lambda_2 = - (2n+1) \pi i$. Because $x$ has distinct complex eigenvalues, it can be diagonalized in terms of complex matrices, i.e.:
+\[     x = J  \left(  \begin{array} {cc} \lambda_1 & 0 \\ 0 & \lambda_2 \end{array} \right) J^{-1}      \]
+Then we have:
+\[      X = \exp(x) = J    \left(  \begin{array} {cc} e^{\lambda_1} & 0 \\ 0 & e^{\lambda_2} \end{array} \right) J^{-1} =  J    \left(  \begin{array} {cc} -1 & 0 \\ 0 & -1 \end{array} \right) J^{-1} = \left(  \begin{array} {cc} -1 & 0 \\ 0 & -1 \end{array} \right)   \]
+Which is a contradiction.
+
+\end{proof}
+
+\subsection*{Problem 4 (Kirillov 3.5)}
+\emph{(1) Prove that $\R^3$ with the commutator given by the cross-product is a Lie algebra. Show that this Lie algebra is isomorphic to $\fr{so}(3,\R)$.
+\\
+(2) Let $\phi: \fr{so}(3,\R) \to \R^3$ be the isomorphism of part (1). Prove that under this isomorphism, the standard action of $\fr{so}(3)$ on $\R^3$ is identiﬁed with the action of $\R^3$ on itself given by the cross-product:
+\[     a \cdot \mathbf{v} = \phi(a)\times v,\;\;\;\; a \in \fr{so}(3),v\in \R^3   \]
+where $a \cdot \mathbf{v}$ is the usual multiplication of a matrix by a vector.}
+
+\begin{proof}
+(1) $\R^3$ is obviously a vector space closed under cross products. Moreover, cross products are bilinear and antisymmetric. We only need to prove the Jacobi identity, which follows from the rule for the triple cross product:
+\[    \mathbf{a} \times (\mathbf{b} \times \mathbf{c}) +   \mathbf{b} \times (\mathbf{c} \times \mathbf{a}) +  \mathbf{c} \times (\mathbf{a} \times \mathbf{b}) =      \]
+\[  = \mathbf{b} (\mathbf{a} \cdot \mathbf{c})  - \mathbf{c} (\mathbf{a} \cdot \mathbf{b}) + \mathbf{c} (\mathbf{b} \cdot \mathbf{a}) - \mathbf{a} (\mathbf{b} \cdot \mathbf{c}) + \mathbf{a} (\mathbf{c} \cdot \mathbf{b}) - \mathbf{b} (\mathbf{a} \cdot \mathbf{c}) =0  \]
+Therefore the cross-product is a Lie bracket. We construct the Lie algebra isomorphism between $\fr{so}(3)$ and $\R^3$ as follows:
+\begin{align*}    \phi : \fr{so}(3) &\to \R^3   \\
+\phi(l_1) &= \hat x  \\
+\phi(l_2) &= \hat y  \\
+\phi(l_3) &= \hat z  
+  \end{align*}
+Then Lie brackets are preserved.
+\\
+\\
+(2) We compute directly:
+\[      l_1 \cdot \left(   \begin{array} {c} a \\ b \\ c \end{array} \right)   = \left( \begin{array} {ccc} & & \\ & & -1 \\ & 1 & \end{array} \right) \left( \begin{array} {c} a \\ b \\ c \end{array} \right)  = \left( \begin{array} {c}  \\ -c \\ b \end{array} \right) = \hat x \times \left(   \begin{array} {c} a \\ b \\ c \end{array} \right)  \]
+And similarly for $l_2, l_3$. Since the $l_i$ form a basis for $\fr{so}(3)$, homomorphism properties ensure that the relation is satisfied for all of $\fr{so}(3)$.
+\end{proof}
+
+\subsection*{Problem 5 (Kirillov 3.8)}
+\emph{Let $SL(2,\C)$ act on $\mathbb{CP}^1$ in the usual way:
+\[   \left( \begin{array} {cc} a&b \\  c& d  \end{array} \right)  (x : y) = (ax +by : cx +dy).          \]
+This defines an action of $\fr{g} = \fr{sl}(2,\C)$ by vector fields on $\mathbb{CP}^1$. Write explicitly vector fields corresponding to $h, e, f$ in terms of coordinate $t = x/y$ on the open cell $\C \subset \mathbb{CP}^1$.}
+
+\begin{proof}
+In terms of the coordinate $t = y/x$ on $\C\subset \mathbb{CP}^1$, we can write the group action as:
+\[      \left( \begin{array} {cc} a&b \\  c& d  \end{array} \right) (t) = \frac{at+b}{ct+d}    \]
+The action of $SL(2,\C)$ on $\mathbb{CP}^1$ induces a natural action of $SL(2,\C)$ on the space of complex valued functions on $\mathbb{CP}^1$:
+\[       \big( \pi(A) (f)\big) (t) = f \big( A^{-1} (t) \big)    \]
+By taking the derivative of this, we get an action of $X \in \fr{sl}(2,\C)$ on the function space:
+\[   \big(  \pi'(X) (f) \big) (t)  = \left. \frac{d}{ds}\right|_{s=0} \big( \pi(e^{sX}) f \big) (t) =  \left. \frac{d}{ds}\right|_{s=0} f \big( e^{-sX} (t) \big)  \]
+Using the chain rule, this becomes:
+\[      \big(  \pi'(X) (f) \big) (t) = \frac{df}{dt}(t) \cdot  \left. \frac{d}{ds}\right|_{s=0} \big( e^{-sX} (t) \big)     \]
+There's probably a way to perform the $s$ derivative for a general $X$, but I don't see it. Therefore I'll just analyze this expression for the particular cases of $X = h,e,f$ that the problem asks for. Since these form a basis for $\fr{sl}(2,\C)$, we can get the corresponding vector field for any other Lie algebra element by taking linear combinations of the results below.
+\[    X = h \Rightarrow e^{-sX} =    \left( \begin{array} {cc} e^{-s} & 0 \\  0 & e^{s}  \end{array} \right)   \]
+\[      e^{-sX} (t) = e^{-2s} t  \Rightarrow \left. \frac{d}{ds}\right|_{s=0} \big( e^{-sX} (t) \big) = -2t  \]
+\[     \big(  \pi'(h) (f) \big) (t) = -2t \frac{df}{dt} (t)    \]
+\[      \pi'(h) = -2t \frac{d}{dt}    \]
+Then:
+\[    X = e \Rightarrow e^{-sX} =    \left( \begin{array} {cc} 1 & -s \\  0 & 1  \end{array} \right)   \]
+\[      e^{-sX} (t) = t-s  \Rightarrow \left. \frac{d}{ds}\right|_{s=0} \big( e^{-sX} (t) \big) = -1  \]
+\[     \big(  \pi'(e) (f) \big) (t) = - \frac{df}{dt} (t)    \]
+\[      \pi'(e) = - \frac{d}{dt}    \]
+Finally:
+\[    X = f \Rightarrow e^{-sX} =    \left( \begin{array} {cc} 1 & 0 \\  -s & 1  \end{array} \right)   \]
+\[      e^{-sX} (t) = \frac{t}{-st + 1} \Rightarrow \left. \frac{d}{ds}\right|_{s=0} \big( e^{-sX} (t) \big) = t^2  \]
+\[     \big(  \pi'(f) (f) \big) (t) = t^2 \frac{df}{dt} (t)    \]
+\[      \pi'(f) = t^2 \frac{d}{dt}    \]
+To summarize, we obtained $h \to -2t \frac{d}{dt} $, $e \to  - \frac{d}{dt}$, $f \to  t^2 \frac{d}{dt}$. As a sanity check, we can verify that these vector fields satisfy the same commutation relations as $h,e,f$.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

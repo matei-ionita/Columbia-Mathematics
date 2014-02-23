@@ -1,0 +1,99 @@
+\documentclass[12 pt]{article}
+\usepackage{amsmath,amssymb,amsthm,fullpage,amsfonts,enumerate,textcomp, eurosym, slashed}
+\title{QFT Lecture 25}
+\author{Matei Ionita}
+\DeclareMathOperator {\p} {\partial}
+
+\begin{document}
+  \maketitle
+
+Look in chapter 38 for some useful identities about spinors. Also read chapter 40 for CPT. Today we talk about scattering, chapters 41-44 in Srednicki.
+
+\subsection*{LSZ for spinors}
+reference: chapter 41
+\\
+\\
+Dirac spinor:
+\[      \Psi(x) = \int \frac{d^3 k}{(2\pi)^3 2\omega_k} \sum_{s=\pm} b_s (k) u_s(k) e^{ikx} + d_s^{\dagger} (k) v_s(k) e^{-ikx}         \]
+\[   \bar   \Psi(x) = \int \frac{d^3 k}{(2\pi)^3 2\omega_k} \sum_{s=\pm} b_s^{\dagger} (k) \bar u_s(k) e^{-ikx} + d_s (k) \bar v_s(k) e^{ikx}         \]
+LSZ formula for 2-2 scattering of "b" particles (electrons):
+\[     _{\text{OUT}}\langle   k_1' s_1' , k_2' s_2'    |  k_1 s_1 , k_2 s_2  \rangle_{\text{IN}}  - "1"  =  \]
+\[        = i^4 \int d^4 x_1   d^4 x_2 d^4 x_1' d^4 x_2' \;\;\; e^{-ik_2' x_2'} \bar u_{s_2'} (k_2') (-i \slashed \p_{2'} +m)_{\alpha_2'} \;\;\; e^{-ik_1' x_1'} \bar u_{s_1'} (k_1') (-i \slashed \p_{1'} +m)_{\alpha_1'}  \]
+\[         \langle 0| T \Psi_{\alpha_2'} (x_2') \Psi_{\alpha_2'} (x_1') \Psi_{\alpha_1} (x_1) \Psi_{\alpha_2} (x_2) | 0 \rangle   \;\;\; e^{ik_1 x_1} \bar u_{s_1} (k_1) (i \slashed \p_{1} +m)_{\alpha_1}  \;\;\; e^{ik_2 x_2} \bar u_{s_2} (k_2) (i \slashed \p_{2} +m)_{\alpha_2}     \]
+Once we know how the interaction looks (i.e. via photons) we can compute the 4-point function and plug it in here. Note that the amplitude we are computing is:
+\[       \langle 0 | b_{s_1} b_{s_2} b^{\dagger}_{s_1'} b^{\dagger}_{s_1'} |0\rangle        \]
+And order matters. If we want scattering of electrons and positrons, replace some b's by d's. The conditions we need to assume to derive this formula:
+\[       \langle 0| \Psi(x) |0\rangle = 0     \]
+\[       \langle k_b s| \Psi(x) |0\rangle = 0      \]
+\[       \langle k_d s| \Psi(x) |0\rangle = u_s(k) e^{-ikx}      \]
+The second identity follows from the fact that $\Psi$ contains $b$, but no $b^{\dagger}$. For a Majorana spinor we only have the first and third, since $b=d$.
+
+
+\subsection*{2-pt function for free fermions (fermion free propagator)}
+Reference: chapter 42. Focus on Dirac spinors:
+\[     \langle 0| T \Psi_{\alpha} (x) \bar \Psi_{\beta} (y) |0\rangle= \langle 0| \theta(t_x-t_y) \Psi_{\alpha} (x) \bar \Psi_{\beta} (y) - \theta(t_y-t_x) \bar \Psi_{\beta} (y) \Psi_{\alpha} (x)  |0\rangle  = \frac{1}{i} S_{\alpha \beta} (x-y)        \]
+Let's first compute the first term. Notice that there's only one contributing term, since we must have a creation operator on the right and an annihilation operator on the left: 
+\[    \langle 0|  \Psi_{\alpha} (x) \bar \Psi_{\beta} (y) |0\rangle = \int  \frac{d^3 k}{(2\pi)^3 2\omega_k} \frac{d^3 k'}{(2\pi)^3 2\omega_{k'}} \sum_{s, s'} e^{i(kx - k'y)} [u_s(k)]_{\alpha} [\bar u_s(k')]_{\beta} \langle 0 |b_s(k) b_{s'}^{\dagger} (k') |0\rangle  \]
+We use the anticommutation relation for b's in order to exchange them; now the operators annihilate the vacuum and we are left with the anticommutator:
+\[           \langle 0|  \Psi_{\alpha} (x) \bar \Psi_{\beta} (y) |0\rangle = \int  \frac{d^3 k}{(2\pi)^3 2\omega_k} \sum_s e^{ik(x-y)}   [u_s(k)]_{\alpha} [\bar u_s(k')]_{\beta}   =     \int  \frac{d^3 k}{(2\pi)^3 2\omega_k} e^{ik(x-y)} (-\slashed k +m)_{\alpha \beta} \]
+For the second term a similar computation gives:
+\[      \langle 0|  \bar \Psi_{\beta} (y) \Psi_{\alpha} (x)  |0\rangle =  \int  \frac{d^3 k}{(2\pi)^3 2\omega_k} e^{-ik(x-y)} (-\slashed k - m)_{\alpha \beta}       \]
+Putting these together, we find the free propagator:
+\[     \frac{1}{i} S_{\alpha \beta} (x-y) = \int       \frac{d^3 k}{(2\pi)^3 2\omega_k} \left[ \theta(t_x-t_y) e^{ik(x-y)} (-\slashed k +m)_{\alpha \beta} + \theta(t_y-t_x)   e^{-ik(x-y)} (\slashed k  m)_{\alpha \beta}    \right]           \]
+Recall that in the scalar field case we can write the propagator as:
+\[        \frac{1}{i} \int \frac{d^4 k}{(2\pi)^4} \frac{e^{ik(x-y)}}{k^2+m^2 - i\epsilon}        \]
+Similarly, for spinors we can simplify the answer:
+\[       \frac{1}{i} \int \frac{d^4 k}{(2\pi)^4} \frac{(-\slashed k + m)_{\alpha \beta}\; e^{ik(x-y)}}{k^2+m^2 - i\epsilon}       \]
+In this form, it's easy to check that the propagator is the Green's function for the Dirac equation:
+\[           ( - i \slashed \p_x +m)_{\eta \alpha} S_{\alpha \beta} (x-y) =   \int   \frac{d^4 k}{(2\pi)^4} \frac{(\slashed k + m)_{\eta \alpha}(-\slashed k + m)_{\alpha \beta}}{k^2+m^2 - i\epsilon} e^{ik(x-y)} =     \delta^{(4)} (x-y)  \delta_{\eta \beta}          \]
+Where we have used:
+\[     (\slashed k + m)_{\eta \alpha}(-\slashed k + m)_{\alpha \beta}   = (k_{\mu} \gamma^{\mu} +m) ( - k_{\nu} \gamma^{\nu} + m) = - k_{\mu}k_{\nu} \gamma^{\mu} \gamma^{\nu} +m^2 =  \]
+\[   =    - \frac{1}{2} k_{\mu} k_{\nu} (\gamma^{\mu}\gamma^{\nu} + \gamma^{\nu}\gamma^{\mu}) + m^2 = (k^2 +m^2) \delta_{\eta \beta}      \]
+Note that $ \langle 0| T \Psi_{\alpha} (x)  \Psi_{\beta} (y) |0\rangle = 0$, unless we're talking about Majorana.
+
+
+\subsection*{Fermionic path integral}
+Reference: chap. 43, 44. How do we integrate Grassman variables? Let's first think about integrating one variable:
+\[       \int da \; f(a)     \]
+Because $a$ is anticommuting, the most general form of the function is $f(a) = c_0 + c_1 a$. We want the integral to be linear and invariant under shifts by a constant. The only form of the integral that satisfies these properties is:
+\[        \int da \;  (c_0 + c_1 a) = c_1    \]
+Remarks: the integral is equal to the derivative; double integral or double derivative gives 0.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

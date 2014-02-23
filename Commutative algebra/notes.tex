@@ -1,0 +1,185 @@
+\documentclass[12 pt]{article}
+\usepackage{amsmath,amssymb,amsthm,fullpage,amsfonts,enumerate,textcomp, eurosym, tikz-cd, fullpage}
+\title{Commutative algebra notes}
+\author{Matei Ionita}
+
+\newcommand{\nm}[1]{\;\textnormal{#1}\;}
+\newcommand{\ra}[0]{\rightarrow}
+\newcommand{\fa}[0]{\;\forall}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\CP}{\mathbb{C}\mathbb{P}}
+\newcommand{\RP}{\mathbb{R}\mathbb{P}}
+\newcommand{\Proj}{\mathbb{P}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\p}{\partial}
+\newcommand{\fr}{\mathfrak}
+
+
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\Res}{Res}
+\DeclareMathOperator{\ord}{ord}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\length}{length}
+\DeclareMathOperator{\res}{Res}
+\DeclareMathOperator{\Int}{Int}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\Lie}{Lie}
+\DeclareMathOperator{\id}{Id}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\irr}{irr}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\trdeg}{trdeg}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Nm}{Nm}
+\theoremstyle{plain}
+\newtheorem{thm}{Theorem}
+\newtheorem*{thm*}{Theorem}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem*{lem*}{Lemma}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem*{cor*}{Corollary}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{exc}{Exercise}
+
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}
+\newtheorem{exmp}{Example}
+
+\theoremstyle{remark}
+\newtheorem*{rem}{Remark}
+
+
+\begin{document}
+  \maketitle
+
+\begin{lem}
+ Given an $A$-module $M$, the rule $\mathcal{B} \to A$-modules, $U = D(f) \mapsto M_f = M \otimes_A A_f$ is a sheaf (of $A$-modules) on $\mathcal{B}$.
+\end{lem}
+\begin{proof}
+Lemma 1 shows this is well defined ang gives the restriction mappings. It's on HW to prove the sheaf condition.
+\end{proof}
+\begin{defn}
+ The structure sheaf of $Spec(A)$ is the sheaf of maps $\mathcal{O}_{Spec(A)}$ which corresponds to the rule:
+\[       D(f) \mapsto A_f     \]
+on the basis $\mathcal{B}$ of standard opens.
+\end{defn}
+
+\begin{rem}
+ Similarly we have the sheaf $\tilde M$ corresponding to $D(f) \mapsto M_f$. Observe that $\tilde M$ is a sheaf of $\mathcal{O}_{Spec(A)}$-modules.
+\end{rem}
+
+\textbf{Stalk of} $\mathfrak{p}$. Since $\mathcal{B}$ is a bassi for the topological space, to compute the stalk we need only consider pairs $(D(f), s)$ where $\mathfrak{p} \in D(f)$ and $s \in A_f$. , i.e.:
+\[       f \in A - \mathfrak{p} , s = \frac{a}{f^n}       \]
+Then 2 pairs $(D(f), a/f^n)$ and $(D(g), b/g^n)$ give the same element of the stalk iff there exists $h\in A - \mathfrak{p}$ such that $D(h) \subset D(f), D(h) \subset D(g)$ and $1/f^n$ and $1/g^n$ map to the same element of $A_h$. Contemplate the diagram. We conclude that we get a well-defined, injective and surjective map. In particular, $\mathcal{O}_{\Spec(A), \fr p} = A_{\fr p}$.
+
+\begin{lem}
+The stalk of $\mathcal{O}_{\Spec(A)}$ at $\fr p$ is $A_{\fr p}$. The stalk of $\tilde M$ at $\fr p$ is $M_{\fr p}$.
+\end{lem}
+
+\begin{rem}
+If $(X, \mathcal{O}_X)$ is a locally ringed space and $U\in X$ is open, then $(U,\mathcal{O}_X |_U)$ is a locally ringed space. Moreover there is an inclusion morphism:
+\[      j :   (U,\mathcal{O}_X |_U) \to    (X, \mathcal{O}_X)        \]
+of locally ringed spaces.
+\[         V \subset X \;\;\; j^{\#} : \mathcal{O}_X(V) \overset{\rho^V_{U\cap V}}{\to} \mathcal{O}_X |_{U} (j^{-1} V) = \mathcal{O}_X(U\subset V)        \]
+\end{rem}
+\begin{rem}
+Open subspaces of schemes are, again, schemes. To see this, it's enough to show that $(D(f), \mathcal{O}_{\Spec(A)} |_{D(f)}) = (\Spec (A_f), \mathcal{O}_{\Spec(A_f)})$.
+\end{rem}
+
+\subsection*{Ring maps and morphisms}
+Let $A \xrightarrow{\phi} B$ be a ring map. Then:
+\[   \Spec(\phi) : \Spec(B) \to \Spec(A) \]
+is a continuous map of top spaces. Moreover, if $f\in A$ then:
+\[        \Spec(\phi)^{-1} (D(f)) = D(\phi(f))      \]
+
+\begin{lem*}
+Let $f:X \to Y$ be a continuous map of top spaces. Let $\mathcal{B}, \mathcal{C}$ be a basis for the top on $X, Y$ respectively, both closed under intersections. Assume $f^{-1}v \in \mathcal{B}$ for all $V \in \mathcal{C}$. Then given sheaves $\mathcal{F}, \mathcal{G}$ on $X, Y$ respectively. To give a collection of maps:
+\[       \phi(V) : \mathcal{G}(V) \to \mathcal{F}(f^{-1}V)      \]
+for all $V$ open in $Y$ compatible with the restriction maps, is the same as giving a collection:
+\[       \phi(V) : \mathcal{G}(V) \to \mathcal{F}(f^{-1}V)      \]
+for all $V \in \mathcal{C}$ compatible with the reztriction maps.
+\end{lem*}
+
+\begin{rem}
+Such a collection of maps is called an $f$-map from $\mathcal{G}$ to $\mathcal{F}$.
+\end{rem}
+\begin{proof}
+Given $\phi(V)$ defined for $V \in \mathcal{C}$ and $W \subset Y$ open. Choose an open covering $W = \bigcup V_i$, $V_i \in \mathcal{C}$ and then define $\phi(W)$ by:
+\[       \mathcal{G} (W) = \{   (s_i) \in \prod \mathcal{G}(V_i) | \rho^{V_i}_{V_i \cap V_j} (s_i) = \rho^{V_j}_{V_i \cap V_j} (s_j)   \}       \]
+\[       \mathcal{F} (f^{-1} W) =   \{   (t_i) \in \prod \mathcal{F}(f^{-1} V_i) |   \dots \}       \]
+\end{proof}
+Going back to $A \xrightarrow{\phi} B$ we let:
+\[      \Spec(\phi) : (\Spec(B), \mathcal{O}_{\Spec(B)}) \to  (\Spec(A), \mathcal{O}_{\Spec(A)})    \]
+Defined by rules:
+\[      \Spec(\phi) (\fr q) = \phi^{-1}(\fr q) \;\;\;, \fr q \in \Spec(B)      \]
+\[    A_f =   \mathcal{O}_{\Spec(A)}(D(f)) \to \mathcal{O}_{\Spec(B)} (D(\phi(f)))   = B_{\phi(f)}     \]
+\[           \frac{a}{f^n} \mapsto \frac{\phi(a)}{\phi(f)^n}         \]
+Morphism of ringed spaces. To check it's a morphism of schemes we need to check the induced maps:
+\[       \mathcal{O}_{\Spec(A)}    \dots  \]
+is a local homo of local rings. This is OK as it's the map defined by $\phi$.
+\begin{rem}
+$X \xrightarrow{f} Y , \phi : \mathcal{G} \to \mathcal{F}$ and $f$-map. Need to get:
+\[      \phi_x : \mathcal{G}_{f(x)} \to \mathcal{F}_x       \]
+\[       (V, t) \mapsto (f^{-1} V, \phi(V) (t))     \]
+\end{rem}
+\begin{lem}
+Let $A$ be a ring and $f\in A$. The ring map $A \to A_f$ induces an isom:
+\[         (\Spec(A_f), \mathcal{O}_{\Spec(A_f)}) \xrightarrow{\cong} (D(f), \mathcal{O}_{\Spec(A)}|_{D(f)})        \]
+\end{lem}
+\begin{lem}
+Let $f: (X, \mathcal{O}_X) \to (Y, \mathcal{O}_Y)$ be a morphism of locally ringed spaces. Then $f$ is an iso iff:
+\begin{enumerate} [(a)]
+\item $f$ is a homeo
+\item $f$ induces isos on stalks. 
+\end{enumerate}
+\end{lem}
+\begin{proof}
+Obvious by Lemma 6.
+\end{proof}
+
+\begin{lem}
+Let $\mathcal{F} \xrightarrow{\alpha} \mathcal{G}$ be a map of sheaves on a top space $X$. Then $\alpha$ is an iso iff $\alpha_x : \mathcal{F}_x \to \mathcal{G}_x$ is an iso for all $x\in X$.
+\end{lem}
+\begin{proof}
+We will make $\beta : \mathcal{G} \to \mathcal{F}$ which is inverse of $\alpha$. To do this it's enough if $\alpha(U) : \mathcal{F}(U) \to \mathcal{G}(U)$ is a bijection for all $U$. We first show it's injective. Suppose $\alpha(s) = \alpha(s')$ for some $s,s' \in \mathcal{F}(U)$. Then $(U, \alpha(s)), (U, \alpha(s'))$ define the same element of the stalk $\mathcal{G}_x$ for all $x\in U$. By assumption this means that $(U,s), (U,s')$ define the same element in $\mathcal{F}_x$ for all $x\in U$. By definition this means that for all $x\in U$ there exists $x \in U_x \subset U$ open such that $s|_{U_x} = s'|_{U_x}$. Then $U = \bigcup_{x\in U} U_x$ is an open covering and the sheaf condition for $\mathcal{F}$ shows $s = s'$. Surjectivity is similar.
+\end{proof}
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

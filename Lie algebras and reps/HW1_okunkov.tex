@@ -1,0 +1,146 @@
+\documentclass[12 pt]{article}
+\usepackage{amsmath,amssymb,amsthm,fullpage,amsfonts,enumerate,textcomp, eurosym, tikz-cd}
+\title{Representation theory HW 1}
+\author{Matei Ionita}
+
+
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\CP}{\mathbb{C}\mathbb{P}}
+\newcommand{\RP}{\mathbb{R}\mathbb{P}}
+\newcommand{\Proj}{\mathbb{P}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\p}{\partial}
+\newcommand{\fr}{\mathfrak}
+
+\DeclareMathOperator{\Ind}{Ind}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\length}{length}
+\DeclareMathOperator{\res}{Res}
+\DeclareMathOperator{\Int}{Int}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\Lie}{Lie}
+\DeclareMathOperator{\id}{Id}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\irr}{irr}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\trdeg}{trdeg}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Nm}{Nm}
+\DeclareMathOperator {\HH} {\mathbb{H}}
+\DeclareMathOperator {\End} {End}
+\DeclareMathOperator {\ad} {ad}
+\DeclareMathOperator {\Ad} {Ad}
+\DeclareMathOperator {\ch} {char}
+\DeclareMathOperator {\imag} {Im}
+\DeclareMathOperator {\Res} {Res}
+\DeclareMathOperator {\Mod} {Mod}
+
+
+\begin{document}
+  \maketitle
+
+
+\subsection*{Problem 1}
+We begin by showing that the category of topological abelian groups with continuous homomorphisms between them is additive. First, for $A,B$ abelian groups, we define addition on $\Hom(A,B)$ pointwise:
+\[     (f + g) (x) = f(x) + g(x)    \]
+This makes sense because elements of the abelian group $B$ can be added. It's easy to see that addition makes $\Hom(A,B)$ into a group, with the zero morphism as identity; this group is abelian because the groups $A$ and $B$ are. The composition of two morphisms is bilinear, as follows immediately from homomorphism properties:
+\[        f(g+h) (x) = f(g(x) + h(x)) = f(g(x)) + f(h(x))      \]
+\[          (f + g) (h) (x) = (f+g)(h(x)) = f(h(x)) + g(h(x))     \]
+Second, the trivial group 0 is the zero object in the category, satisfying $\Hom(0,0) = \{0\}$. Third, given objects $A, B$, we define $A \oplus B = \{ (a,b) | a\in A, b \in B \}$, with group operation $(a, b) + (c,d) = (a+c, b+d)$. With the product topology induced by the topologies of $A$ and $B$, $A \oplus B$ is a topological abelian group. The group operation is continuous by componentwise continuity. To see that $A \oplus B$ is a product, take the projection morphisms to be $\pi_A : A \oplus B \to A$ to be $\pi_A (a,b) = a$, and similarly for $\pi_B$. Then, given an object $C$ and morphisms $f_A : C \to A$, $f_B : C \to B$, these morphisms factor through $A \oplus B$, by the unique morhism $f: C \to A \oplus B$ given by $f(c) = (f_A(c), f_B(c))$. We can show analogously that $A\oplus B$ is a coproduct, with inclusion morphisms $\iota_A (a) = (a,0)$ and $\iota_B (b) = (0,b)$.
+
+Now we show that, because of the continuity requirement for morphisms, the category is not abelian. We construct a counterexample using the groups $(\R, +)$ with the Euclidean topology and $(\Q, +)$ with the subspace topology. Consider the inclusion $\iota : \Q \to \R$, which is a morphism. Suppose the cokernel of $\iota$ exists, i.e. there exist an object $C$ and a morphism $f$ that make the following diagram commute:
+\[
+\begin{tikzcd}
+\Q \arrow{r}{\iota}\arrow{dr}{0} & \R\arrow{d}{f} \\
+& C
+\end{tikzcd}
+\]
+Then $f(x)$ must be 0 for any rational $x$. By continuity, and since $\Q$ is dense in $\R$, this means that $f$ must be identically 0. Since the cokernel is unique, it suffices to find one object $C$ which satisfies the above, as well as the universality condition. Consider $C = \{0\}$, the zero object. Then for any other object $C'$ and any map $g : \R \to C'$, the requirement that the diagram commutes implies again that $g = 0$. Then $g = 0_{C \to C'} \circ f$, so $g$ factors through $C$ as desired. This shows that the cokernel, if it exists, is $0$. Then the image $\imag \iota = \ker f = \R$. But this is a contradiction, as the image of the inclusion is $\Q$.
+
+
+\subsection*{Problem 2}
+We need to show that the functors $\Ind$ and $\Res$ are adjoint; this means that for all $A \in S-\Mod, B\in R-\Mod$ there is a natural bijection:
+\[     \tau_{AB} : \Hom_R(\Ind A, B) \to \Hom_S(A, \Res B)      \]
+We construct the bijection explicitly. Given $\psi \in \Hom_R (\Ind A, B)$, we define a morphism $\tilde \psi : A \to \Res B$ by $a \mapsto \psi(1 \otimes a)$. This morphism is $S$-invariant:
+\[    \tilde \psi(s \cdot a) = \psi (1 \otimes_S s \cdot a) = \psi (\phi(s) \otimes_S a) = \phi(s) \psi(1 \otimes_S a) = \phi(s) \tilde \psi(a)      \]
+Moreover, the association is injective. Indeed, if $\psi(1 \otimes_S a) = \psi' (1 \otimes_S a)$, then acting by $r\in R$ on this relation and using the $R$-invariance of the morphisms gives $\psi(r \otimes_S a) = \psi' (r \otimes_S a)$, so $\psi = \psi'$.
+
+For the inverse association, given a morphism $\tilde \psi : A \to \Res B$, we define $\psi : \Ind A \to B$ by $\psi(r \otimes_S a) = r \cdot \tilde \psi(a)$. This is $R$-invariant because [...]. This association is also injective, because if $r \cdot \tilde \psi(a) = r\cdot \tilde \psi'(a)$ for all $r$, we take $r=1$ and get $\tilde \psi = \tilde \psi'$. Therefore we have obtained a bijective association $\tau_{AB}$.
+
+For this bijection to be natural, given any $f : A \to A'$ and $g: B \to B'$, the following diagrams need to commute:
+\[
+\begin{tikzcd}
+\Hom_R(\Ind A' , B) \arrow{r}{\circ \Ind f}\arrow{d}{\tau_{A'B}} &  \Hom_R(\Ind A , B)\arrow{d}{\tau_{AB}} \\
+\Hom_S( A' , \Res B) \arrow{r}{\circ f}  &  \Hom_S( A ,\Res B)
+\end{tikzcd}
+\]
+\[
+\begin{tikzcd}
+\Hom_R(\Ind A , B) \arrow{r}{g \circ}\arrow{d}{\tau^{-1}_{AB}} &  \Hom_R(\Ind A , B')\arrow{d}{\tau^{-1}_{AB'}} \\
+\Hom_S( A , \Res B) \arrow{r}{\Res g\circ }  &  \Hom_S( A ,\Res B')
+\end{tikzcd}
+\]
+But this is pretty obvious. For the first diagram, given $\psi : \Ind A' \to B$, we need to show that
+\[        \tilde \psi \circ f = \tilde{ (\psi \circ \Ind f)}      \]
+It's easy to see that, for a given $a$, both maps return $\psi(1 \otimes f(a))$. For the second diagram we see similarly that both maps are $r \otimes a \mapsto r \cdot g(\tilde \psi(a))$.
+
+
+\subsection*{Problem 3}
+Take some $M \in \mathcal{O}$. By the first axiom of $\mathcal{O}$, $M$ is finitely generated as an $\mathcal{U}\fr{g}$-module. Denote the generators by $v_i$; by the second axiom of $\mathcal{O}$, we can choose each $v_i$ to be in some $M_{\lambda_i}$. We view $\mathcal{U}\fr{g}$ as $\mathcal{U}\fr{n_-} \otimes \mathcal{U}\fr{h}\otimes \mathcal{U}\fr{n_+}$, and use the third axiom of $\mathcal{O}$, which says that $ \mathcal{U}\fr{n_+} v_i$ is finite for each $v_i$. This means $ \mathcal{U}\fr{n_+} v_i = \{ v_{ij}\}$ for finitely many $j$. Then $v_{ij}$ are finitely many, and they generate $M$ as a $\mathcal{U}\fr{n_-} \otimes \mathcal{U}\fr{h}$-module. However, $\mathcal{U}\fr{h}$ acts on $v_{ij}$ just by rescaling, therefore $v_{ij}$ generate $M$ as a $\mathcal{U}\fr{n_-}$-module.
+
+
+\subsection*{Problem 4}
+We first show that $V\otimes W$ satisfies axioms 2 and 3 of category $\mathcal{O}$, irrespective of whether the factors are finite dimensional or not. For axiom 2, we have:
+\[      V \otimes W = \bigoplus_{\lambda \in \fr h^*} V_{\lambda} \otimes \bigoplus_{\mu \in \fr h^*} W_{\mu}  = \bigoplus_{\lambda, \mu \in \fr h^*} V_{\lambda} \otimes W_{\mu}          \]
+Consider $v \in V_{\lambda}, w\in W_{\mu}$; for $h \in \fr h$, we have:
+\[    h \cdot( v\otimes w) = (h \cdot v) \otimes w + v \otimes (h\cdot w) = (\lambda(h) + \mu(h))(v\otimes w)     \]
+Therefore $V_{\lambda} \otimes W_{\mu}$ is a weight $\lambda + \mu$ space. Then we can regroup the direct sum as:
+\[        V \otimes W = \bigoplus_{\lambda + \mu}  (V\otimes W)_{\lambda + \mu}     \]
+For axiom 3, take $\sum_i v_i\otimes w_i \in V\otimes W$. The action of $e \in \fr {n_+}$ is:
+\[     e \cdot \sum_i v_i \otimes w_i = \sum_i (e \cdot v_i) \otimes w_i + v_i \otimes(e \cdot w_i)   \]
+Repeated action by elements of $\fr{n_+}$ therefore reduces to a sum of terms of the form $(e_1 \cdot v_i) \otimes (e_2 \cdot w_i)$ By axiom 3 applied to $V$ and $W$, there are only finitely many $e_1 \cdot v$ and $e_2 \cdot w$ for each $v$ and $w$, therefore there are finitely many $e \cdot \sum_i v_i \otimes w_i$.
+
+Now we show that, if one of $V$ or $W$ is finite (say $W$ is), then axiom 1 holds for $V \otimes W$. Let $v_i$ be a set of generators for $V$ as a $\mathcal{U}\fr{g}$-module, and let $w_j$ be a set of elements that span $W$ as a vector space. Denote by $M$ the module that $v_i \otimes w_j$, which are finitely many, generate; we want to show that this is exactly $V \otimes W$. First, it's clear that $v_i \otimes w \in M$, for any $w \in W$, since $w$ is just a linear combination of the $w_j$'s. Then we can use, for any $X \in \fr g$:
+\[      X \cdot (v_i \otimes w) = (X \cdot v_i) \otimes w + v_i \otimes (X \cdot w)    \]
+Note that the LHS is in $M$, and the second term on the RHS is in $M$. This means that $(X \cdot v_i) \otimes w \in M$. But by repeated applications of elemens of $\fr g$ on the $v_i$'s we can generate all of $V$, therefore $v\otimes w \in M$, for all $v \in V, w\in W$. Since $v\otimes w$ span $V \otimes W$, we see that $M = V \otimes W$.
+
+Finally, we show that, if both $V$ and $W$ are infinite dimensional, then axiom 1 doesn't have to hold for $V \otimes W$. To keep things simple, we use $\fr g = \fr{sl}_2$ to construct a counterexample. Let $V = M_{\lambda}, W = M_{\mu}$ be Verma modules; their elements have weights $\lambda - 2i$ and $\mu - 2j$ respectively, for $i,j\in \Z$. Assume that $\{v_k\}$ is a finite set of generators for $M_{\lambda} \otimes M_{\mu}$. By axiom 2, each $v_k = \sum_j v_{kj}$, where the sum is finite and each $v_{kj}$ has weight $a_{kj}$. Then we might as well take the finite set of all $\{v_{kj}\}$ as generators, and after relabelling, we end up with a set of generators $\{v_k\}$ where each has weight $a_k$. Let $a_i$ be the lowest of the weights $a_k$ (since the weights are integers, ordering them makes sense). Now, elements of $\fr g$ act by the Leibniz rule, creating two terms of the form $v \otimes w$ for each one term that they act on. Therefore for any $X \in \mathcal{U}\fr g$, $X \cdot v_k$ will have an even number of terms of weight smaller than $a_k$. In particular, all elements of the module generated by $\{v_k\}$ will have an even number of terms of weight smaller than $a_i$. This means that $v_a \otimes w_b$, for $a+b < a_i$, is not contained in this module, since it consists of only one term. However, such an element $v_a \otimes w_b$ always exists in $M_{\lambda} \otimes M_{\mu}$, the weight lattices of both Verma modules are infinite in the negative direction.
+
+
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

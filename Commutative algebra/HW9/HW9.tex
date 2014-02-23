@@ -1,0 +1,156 @@
+\documentclass[12 pt]{article}
+\usepackage{amsmath,amssymb,amsthm,fullpage,amsfonts,enumerate,textcomp, eurosym, tikz-cd, fullpage}
+\title{Commutative algebra HW9}
+\author{Matei Ionita}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\CP}{\mathbb{C}\mathbb{P}}
+\newcommand{\RP}{\mathbb{R}\mathbb{P}}
+\newcommand{\Proj}{\mathbb{P}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\p}{\partial}
+\newcommand{\fr}{\mathfrak}
+
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\length}{length}
+\DeclareMathOperator{\res}{Res}
+\DeclareMathOperator{\Int}{Int}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\Lie}{Lie}
+\DeclareMathOperator{\id}{Id}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\irr}{irr}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\trdeg}{trdeg}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Nm}{Nm}
+\DeclareMathOperator{\ord}{ord}
+
+
+\begin{document}
+  \maketitle
+
+
+\subsection*{Problem 2}
+\emph{Show that every hyperelliptic curve is birational to a curve of the form $y^2 = f(x)$ where $f \in k[x]$ is a monic square free polynomial.}
+\\
+\\
+\emph{Solution}
+\\
+By definition, a hyperelliptic curve has function field:
+\[        f.f. \left[  k(x)[y]/\big(  g_2(x) y^2 + g_1(x) y + g_0(x) \big)   \right]     \]
+We assume that $g_2, g_1, g_0$ have no common factors, otherwise we can just divide by them in the function field. By completing the square we obtain:
+\[    0 =   g_2(x) y^2 + g_1(x) y + g_0(x) =  g_2(x)  \left[ y + \frac{g_1(x)}{2 g_2(x)} \right]^2  + g_0(x) - \frac{g_1(x)^2}{4 g_2(x)}   \]
+\[       0 = \left[ 2 g_2(x) y + g_1(x) \right]^2   + 4 g_2(x) g_0(x) - g_1(x)^2      \]
+Therefore we can use the rational map:
+\[           (x,y) \mapsto \left( x,   2 g_2(x) y + g_1(x)  \right)          \]
+To map our curve into the one given by $y^2 + 4 g_2(x) g_0(x) - g_1(x)^2= 0$. The map is birational because its inverse is:
+\[           (x,y) \mapsto \left( x,  \frac{y - g_1(x)}{2g_2(x)}   \right)          \]
+Moreover, the polynomial $4 g_2(x) g_0(x) - g_1(x)^2$ is squarefree by the assumption that $g_2, g_1, g_0$ have no common factors.
+
+
+\subsection*{Problem 3}
+\emph{Conversely, show that every square free $f \in k[x]$ gives rise to a hyperelliptic curve in this way.}
+\\
+\\
+\emph{Solution}
+\\
+The curve given by $y^2 = f(x)$ has function field:
+\[       f.f \left[  k(x)[y]/ \big( y^2 - f(x)  \big) \right]       \]
+Which is a degree 2 extension of the purely transcendental extension $k(x)$.
+
+
+\subsection*{Problem 4}
+\emph{Give an example to show that two distinct monic square free $f \in k[x]$ can lead to isomorphic curves (for us this means that the function fields are isomorphic as extensions of $k$).}
+\\
+\\
+\emph{Solution}
+\\
+Just consider $x \mapsto x-1$, whereby $f(x)$ becomes $f(x-1)$. This is obviously an isomoprhism and simply translates the curve by a unit.
+
+
+\subsection*{Problem 5}
+\emph{Given a hyperelliptic curve $C : y^2 = f(x)$ as above let $D$ be the zero divisor of $x$ on $C$. The degree of $D$ is 2. Show that $l(D) = 2$ if $g > 0$.}
+\\
+\\
+\emph{Solution}
+\\
+We note first that:
+\[        2 \leq l(D) \leq 3      \]
+The first inequality is true because $1, \frac{1}{x}$ are linearly independent functions in $L(D)$. The second one follows from Lemma 78 proved in class. Now we want to show that $l(D) = 3$ leads to $g=0$, a contradiction. We use the fact that $D = P + Q$, where $P,Q$ are two places, not necessarily distinct. Then $D \geq P$, so $l(P) \geq l(D) = 3$. This means that there exists some nonconstant function $f$ such that $f \in L(P)$. Then, for $n > 0$, $\{1, f, \dots ,f^n\} \in L(nP)$, so $l(nP) \geq n+1$. But applying Riemann-Roch to $nP$ gives:
+\[          l(nP) - l(K - nP) = n - g + 1      \]
+By making $n$ large enough, we can ensure that $l(K - nP) = 0$, since $L(K - nP)$ would require functions which have more zeros than poles. Then we have:
+\[      n + 1 \leq l(nP) = n - g + 1        \]
+So $g = 0$ as desired.
+
+\subsection*{Problem 6}
+\emph{Show that a curve $C$ which has a divisor $D$ with $deg(D) = 2$ and $l(D) = 2$ is hyperelliptic (we may discuss this in class).}
+\\
+\\
+\emph{Solution}
+\\
+A divisor $D$ with degree $d=2$ gives a map:
+\[        \phi_D : C \to \Proj^{l(D)-1}  = \Proj    \]
+That has degree $d = 2$. This means that the function field $K$ of $C$ is a degree 2 extension of the function field $k(t)$ of $\Proj$. Then $C$ is a hyperelliptic curve.
+
+
+\subsection*{Problem 7}
+\emph{Let $C : y^2 = f(x)$ as above. Consider the differential form $\omega = dx$. Compute its zeros and poles on $C$ and as a consequence compute the genus of $C$. (The cases $\deg(f)$ even or odd are slightly different. Just do one of the two cases.)}
+\\
+\\
+\emph{Solution}
+\\
+
+
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

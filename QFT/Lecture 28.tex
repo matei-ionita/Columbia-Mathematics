@@ -1,0 +1,95 @@
+\documentclass[12 pt]{article}
+\usepackage{amsmath,amssymb,amsthm,fullpage,amsfonts,enumerate,textcomp, eurosym, slashed}
+\title{QFT Lecture 28}
+\author{Matei Ionita}
+\DeclareMathOperator {\p} {\partial}
+
+\begin{document}
+  \maketitle
+
+
+\subsection*{Stat mech from the point of view of QFT}
+Reference: Zee V.2, V.3, Peskin 8.13
+\\
+\\
+The concrete condensed matter system we talk about is a ferromagnet, where we assume that the spins are constrained to the z axis. The (coarse) magnetization, or average of the spin in a region, is our scalar field $\phi$. The energy of a field configuration is:
+\[     E = \int d^3 x \frac{1}{2} (\nabla \phi)^2 + V(\phi)      \]
+The gradient takes into acount neighbor interactions. We argue by symmetry that $V$ should be an even polynomial in the absence of an external magnetic field.
+\\
+\\
+In classical stat mech, we write down a partition function in terms of this energy:
+\[      Z = \int D\phi\;  e^{-\beta E(\phi)} = \int D\phi e^{-\beta \int d^3 x \frac{1}{2} (\nabla \phi)^2 + V(\phi)}   \]
+Letting $x_1 = it$:
+\[      Z = \int D\phi\;  e^{i\beta \int dt d^2x \left( - 1/2 \p_{\mu} \phi \p^{\mu} \phi - V(\phi)  \right) }    \]
+\textbf{Thus Euclidean QFT in d space-time dimensions is equivalent to classical stat mech in d space dimensions.}
+\\
+\\
+In quantum stat mech the partition function is:
+\[      Z = \sum_n \langle n| e^{-\beta \hat H} |n\rangle    \]
+Since the initial and final state are the same, we want to integrate over paths that begin and end at the same spatial point. Also it's natural to consider $\beta = it_f$. Therefore we Euclideanize the path integral and:
+\[      \int_{q(t_i) = q_i}^{q(t_f) = q_i} Dq \exp \left[- \int_0^{\beta} dt_E \big(  1/2 (\dot q)^2 + V(q)  \big)    \right]       \]
+\[     Z = \int d q_i      \int Dq \exp \left[- \int_0^{\beta} dt_E \big(  1/2 (\dot q)^2 + V(q)  \big)    \right]     \]
+Where, due to laziness, we just assume that $Dq$ also encodes the information that the initial and final point are $q_i$. What we did here for one point particle generalizes to QFT. Thus, \textbf{Euclidean QFT in d space-time dimensions with periodic boundary conditions and time from 0 to $\beta$ is equivalent to quantum stat mech in d-1 space dimensions.} In the classical case we turn the time dimension into a space dimension, but in quantum we turn it into temperature.
+
+\subsection*{Application to Hawking radiation}
+The Schwartzschild metric:
+\[       ds^2 = - \left( 1 - \frac{2GM}{r} \right) dt^2 +  \left( 1 - \frac{2GM}{r} \right)^{-1} dr^2  +  r^2 (d\theta^2 + \sin^2 \theta d\phi^2 )          \]
+The last term is just the usual angular part of the spherical metric, so we'll mostly ignore it. Use Euclidean time and consider $r$ very close to the event horizon $r = 2Gm + R^2$, then we have, approximately:
+\[      ds^2 = \frac{R^2}{2Gm} dt_E^2 + \frac{2GM}{R^2} (2RdR)^2 =  \frac{R^2}{2Gm} dt_E^2 + 8GM dR^2    \]
+Also define $\rho = \sqrt{8GM} R$, then:
+\[        ds^2 = \frac{\rho^2}{16 G^2 M^2} dt_E^2 + d\rho^2   = \rho^2 d\theta^2 + d\rho^2   \]
+Where $\theta = t_E / 4GM$. We see that the metric assumes the form of polar coordinates, so the Euclidean time is an angle with period $2\pi 4GM$. Since we have some QFT with periodic time, it is analogous to stat mech at Hawking temperature $1/T = 8\pi GM$. A problem with this is that all stuff thrown into the black hole eventually emerges as thermal radiation, so there's some loss of unitarity in the process. This led some people to believe that Hawking radiation is not really a thermal phenomenon, but that's a very complicated story.
+
+\subsection*{Application to critical phenomena in condensed matter}
+We start from experimental results as motivation. For $T>T_C$, spins in the ferromagnet we introduced at the beginning at the lecture are kinda random, so $\langle \phi \rangle = 0$. But for $T<T_C$ the spins align, either all up or all down, and thus $\langle \phi \rangle \neq 0$. Let's see why this happens. Recall:
+\[     E = \int d^3 x \frac{1}{2} (\nabla \phi)^2 + V(\phi)  =  \int d^3 x \frac{1}{2} (\nabla \phi)^2 + a \phi^2 + b \phi^4 + ...  \]
+(Remark: for stat mech reasons that I don't understand, the expression above should be the free energy $F$ and not the energy $E$.) At high temperature, coefficients $a$ and $b$ should be positive, such that the ground state is at $\phi=0$. But at low temperatures $a$ should be negative, so that we have spontaneous symmetry breaking. Thus, we have to model the temperature dependence of $a, b$ in a way that makes $a$ flip sign at $T_C$. Therefore we Taylor expand $a$ around $T_C$:
+\[ a = a_1 (T - T_C) + O(T-T_C)^2  \]
+ And we will get what is called the Landau-Ginsburg (?) theory of phase transitions. To find the vacuum expectation value:
+\[     \frac{\p V}{\p \phi} = 2a\phi + 4b\phi^3 = 2\phi (a + 2b \phi^2)   \]
+So $\langle \phi \rangle = \pm \sqrt{-a/2b} \sim |T-T_C|^{1/2} $ for $T<T_C$, and $\langle \phi \rangle = 0$ for $T>T_C$. Experiments give a value of .3 - .4 instead of 1/2, and this happens because we ignored renormalization.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

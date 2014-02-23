@@ -1,0 +1,380 @@
+\documentclass[12 pt]{article}
+\usepackage{amsmath,amssymb,amsthm,fullpage,amsfonts,enumerate,textcomp, eurosym}
+\title{Honors Complex Variables}
+
+\begin{document}
+  \maketitle
+
+\section{Power series}
+\textbf{Theorem}
+\\
+Let $f$ be analytic in an open set $\Omega$ and let $z_0\in \Omega$. Choose $\rho>0$ s.t. $\bar D(z_0,\rho)\subset \Omega$. Then $f$ has a power series expansion at $z_0$, i.e. $\forall z\in D(z_0,\rho)$:
+\[ f(z) = \sum^{\infty}_{n=0} a_n (z-z_0)^n \]
+Where
+\[ a_n = \frac{f^{(n)}(z_0)}{n!} \]
+\\
+\textbf{Proof}
+\\
+Let $\gamma = \partial D(z_0,\rho)$. $\forall z\in D(z_0,\rho)$, the Cauchy integral formula gives:
+\[ f(z) = \frac{1}{2\pi i} \int_{\gamma} \frac{f(w)}{w-z} dw =  \frac{1}{2\pi i} \int_{\gamma} \frac{f(w)}{w-z_0} \frac{1}{1-\frac{z-z_0}{w-z_0}} dw \]
+Since $|z-z_0| < \rho = |w-z_0|$,
+\[ \frac{1}{1-\frac{z-z_0}{w-z_0}} = \sum_{n=0}^{\infty} \left( \frac{z-z_0}{w-z_0} \right)^n \]
+When plugging this back into the expression for $f(z)$, we use the fact that the sum converges uniformly in order to switch the order of summation and integration:
+\[ f(z) = \sum_{n=0}^{\infty} \left(  \frac{1}{2\pi i} \int_{\gamma} \frac{f(w)}{(w-z_0)^{n+1}} dw \right) (z-z_0)^n \]
+By the Cauchy integral formulas,
+\[  \frac{1}{2\pi i} \int_{\gamma} \frac{f(w)}{(w-z_0)^{n+1}} dw = \frac{f^{(n)}(z_0)}{n!} \]
+\\
+\textbf{Remark}
+\\
+The radius of convergence of the power series is the largest $R$ s.t. $f$ is analytic in $D(z_0,R)$.
+\\
+\\
+\textbf{Morera's theorem}
+\\
+Let $f$ be a continuous function in an open disc $D$ such that for any rectangle $R$ in $D$ we have $\int_{R} f(z) dz = 0$. Then $f$ is analytic in $D$.
+\\
+\\
+\textbf{Proof}
+\\
+From the proof of the rectangle theorem we know that $f$ has a primitive $F$ in $D$. $F$ is analytic in $D$ since $F'=f$. By Cauchy's integral formulas, $F$ is infinitely differentiable so, in particular, its second derivative exists. Therefore $f$ is analytic.
+\\
+\\
+\textbf{Generalized Liouville theorem}
+\\
+Let $f$ be entire. Suppose that there exist an integer $k\geq 0$ and positive constants $A$ and $B$ s.t. $\forall z$:
+\[ |f(z)| \leq A+B|z|^k \]
+Then $f$ is a polynomial of degree $\leq k$.
+\\
+\\
+\textbf{Proof}
+\\
+For any $z_0\in \mathbb{C}$, let $\gamma$ be the circle of radius $R$ centered at $z_0$. Then by Cauchy's inequalities:
+\[ |f^{(m)} (z_0)| \leq \frac{m!}{R^m} \sup_{z\in \gamma} |f(z)| \leq \frac{m!}{R^m} (A+B R^k) \]
+For $m>k$, letting $R\to \infty$ gives $f^{(m)}(z_0) = 0$. Then the power series expansion of $f$ is:
+\[ f(z) = \sum_{n=0}^{k} \frac{f^{(n)}(z_0)}{n!} (z-z_0)^n \]
+\\
+\textbf{Uniqueness theorem}
+\\
+Let $f$ be analytic in a region $\Omega$. Let $\{w_k\}$ be a sequence of distinct points in $\Omega$ s.t. $f(w_k) = 0$ and $w_k\to z_0\in \Omega$. Then $f$ is identically 0 in $\Omega$.
+\\
+\\
+\textbf{Proof}
+\\
+Since $z_0\in \Omega$ open, then there exists $r>0$ s.t. $D(z_0,r) \subset \Omega$. Let's first show that $f$ is identically 0 in this disc. Suppose the contrary. Then, in the power series expansion of $f$ about $z_0$, there is a smallest $n$ such that $a_n\neq 0$. Since $f(z_0)=0$ by continuity, $n\geq 1$. Then $f(z)=a_n (z-z_0)^n g(z)$, where
+\[ g(z) = 1+ \sum_{k=0}^{\infty} \frac{a_{n+k}}{a_n} (z-z_0)^k \]
+When $z\to z_0$, $g(z)\to 1$. Therefore $g(w_k)\to 1$ when $k\to \infty$, so there exists some $k_0$ s.t. $|g(w_k)|\geq \frac{1}{2}$ when $k>k_0$. In this case,
+\[ |f(w_k)| = |a_n||w_k-z_0|^n|g(w_k)| \geq \frac{1}{2} |a_n||w_k-z_0|^n \]
+But this contradicts $f(w_k) = 0$. So $f$ must be identically 0 in $D(z_0,r)$.
+\\
+\\
+Now let $W = \{z\in \Omega : f(z) = 0\}$ and let $U = \dot W$. We have just shown that $D(z_0,r)\subset U$, so $U\neq \emptyset$. By construction $U$ is open. If we can show that $U$ is closed, then $U = \Omega$, since the only clopen sets in a connected subspace of $\mathbb{C}$ are $\emptyset$ and the subspace itself. So let's show that $U$ is closed.
+\\
+\\
+We want to show that $U$ contains all its limit points. Therefore consider a sequence $\{z_k\}$ in $U$ s.t. $z_k\to z\in \Omega$. By continuity, $f(z)=0$ so $z\in W$. Applying the first part of the proof to $\{z_k\}$, we obtain that there exists some disc $D(z,r)$ such that $D(z_0,r) \subset W$. Therefore $z\in U$. This shows that $U$ is closed, so we can conclude that $U = \Omega$.
+\\
+\\
+\textbf{Corollary (Analytic continuation)}
+\\
+Let $f$ and $g$ analytic in $\Omega$ and $f(z)=g(z)$ for all z in an open subset $D$ of $\Omega$. Then $f=g$ throughout $\Omega$.
+
+\section{More applications of the Cauchy integral formulas}
+\subsection{Mean Value Theorem} 
+\textbf{Mean Value Theorem}
+\\
+If $f$ is analytic in an open set $\Omega$ and $z_0\in \Omega$, then whenever $\bar D (z_0,r) \subset \Omega$:
+\[ f(z_0) = \frac{1}{2\pi} \int^{2\pi}_0 f(z+r e^{i\theta}) d\theta \]
+\textbf{Proof}
+\\
+By the Cauchy Integral Formulas,
+\[ f(z_0) = \frac{1}{2\pi i} \int_{\partial D(z_0,r)} \frac{f(z)}{z-z_0} dz \]
+If we parametrize the boundary by $z=z_0+r e^{i\theta}$, the result follows.
+\\
+\\
+\textbf{Corollary}
+\\
+By taking the real part of both sides, we prove that $ u = Re(f)$ also satisfies the mean-value property.
+\\
+\\
+\textbf{Theorem}
+\\
+Any real harmonic function is the real part of an analytic function.
+\\
+\\
+\textbf{Proof}
+\\
+Let $g = 2 \frac{\partial u}{\partial z} $. Since $u$ is harmonic, $g$ has continuous partial derivatives. Furthermore, it satisfies the Cauchy-Riemann equation, since:
+\[ \frac{\partial g}{\partial \bar z} = \frac{\partial}{\partial \bar z} (2 \frac{\partial}{\partial z}u ) = 2 \frac{1}{4} \Delta u = 0 \]
+This shows that g is analytic. Then, by the integral theorem, there exists $f$ analytic such that $ f' = g$.
+\\
+ Now let $f = w + iv$. We want to show that $w=u$. A simple calculation gives $ f' = 2 \frac{\partial w}{\partial z} $. However, by construction $ f' = g =  2 \frac{\partial u}{\partial z} $. Thus, $ \frac{\partial}{\partial z} (u-w) = 0 $. This means that $ u - w = a$, for some real $a$. Then $Re(f+a) = u$, so $u$ is the real part of the analytic function $ f+a$.
+\\
+\\
+From the above, we can conclude that any real harmonic function satisfies the mean value property.
+
+\subsection{Maximum Modulus Theorem}
+
+\textbf{Maximum Principle}
+\\
+If $u$ is a real, non-constant harmonic function in a region $\Omega$, then $u$ can't attain a maximum value in $\Omega$. (i.e. there is no $x_0\in \Omega$ s.t. $u(x_0)\geq u(x), \forall x\in \Omega$)
+\\
+\\
+\textbf{Proof}
+\\
+Suppose there is an $x_0\in \Omega$ s.t. $M = u(x_0)\geq u(x), \forall x\in \Omega$. Let:
+\[ A = \{x\in \Omega : u(x)<M \} \]
+\[ B = \{x\in \Omega : u(x)=M \} \]
+Note that $A = u^{-1} (-\infty, M) $. Since the inverse image of an open set by a continuous map is open, A is open.
+\\
+Now let's show that B is open. Let $z\in B$. $u(z) = M \geq u(x), \forall x\in \Omega$. Since $z\in \Omega$ and $\Omega$ is open, there is some $r$ s.t. $\bar D(z,r) \subset \Omega$. Take any $s\in (0,r)$. Then by the Mean Value Theorem:
+\[ M = u(z) = \frac{1}{2\pi} \int^{2\pi}_0 u(z+s e^{i\theta}) d\theta \]
+Let's prove by contradiction that $u(z+s e^{i\theta}) = M, \forall \theta \in (0,2\pi)$. Assume there is some $\theta_0$ for which this does not hold. Then, since $u$ is continuous, there is an arc of length $t$ on the circle for which $u(z+s e^{i\theta}) \leq M-\epsilon$. Then:
+\[ M = \frac{1}{2\pi} \int^{t}_0 u(z+s e^{i\theta}) d\theta + \frac{1}{2\pi} \int^{2\pi}_t u(z+s e^{i\theta}) d\theta \leq \frac{1}{2\pi}(t(M-\epsilon) + (2\pi-\epsilon)M) = M-\frac{t\epsilon}{2\pi} < M\]
+Which is a contradiction. Therefore $u(z) = M, \forall z$ on $\partial D(z,s)$. Since this holds for all $s\in (0,r)$, we have $u(z) = M, \forall z \in D(z, \frac{r}{2})$. This means $D(z, \frac{r}{2}) \subset B$, so $B$ is open.
+\\
+We now have two open subsets of $D$ such that $A\cap B = \emptyset$ and $A \cup B = D$. Since $D$ is connected and $B$ is nonempty, $B = D$, so $f$ is a constant.
+\\
+\\
+\textbf{Maximum Modulus Theorem}
+\\
+If $f$ is a non-constant analytic function in a region $\Omega$, then $|f|$ does not attain a maximum value in $\Omega$. 
+\\
+\\
+\textbf{Proof}
+\\
+Since $f$ satisfies the Mean Value Theorem, $|f|$ also satisfies it. The proof of the maximum principle for harmonic functions only makes use of the MVT, so it can be applied to show that if $|f|$ has a maximum in $\Omega$, then $|f|$ is constant in $\Omega$. It is a simple exercise to show that an analytic function with constant modulus is a constant.
+\\
+\\
+\textbf{A positive formulation of the maximum modulus theorem}
+\\
+If $f$ is continuous on a compact set $E$ and analytic in the interior $\dot E$ of $E$, then the maximum of $|f|$ is attained on $\partial E$.
+\\
+\\
+\textbf{Proof}
+\\
+$f$ is continuous on the compact set $E$, so by the Weirstrass extreme value theorem $|f|$ has a maximum at some $z_0\in E$. If $z_0\in \partial E$, we are done. Otherwise $z_0\in \dot E$. Then, since $\dot E$ is open, there exists some $r$ s.t. $D(z_0, r) \subset \dot E$. But this means that $|f|$ attains its maximum inside the connected component $D$ of $\dot E$ that contains $D(z_0, r)$, so by the maximum modulus theorem $f$ is constant on $D$. So there exists $z_1\in \partial D$ s.t. $|f(z_1)|=|f(z_0)|\geq |f(z)| , \forall z \in E$. Since $\partial D \subset \partial E$, this proves the desired result.
+\\
+\\
+\textbf{Minimum modulus theorem}
+\\
+If $f$ is a nonconstant analytic function in a region $\Omega$, then then no point $z_0\in \Omega$ can be a minimum for $|f|$ unless $f(z_0) = 0$.
+\\
+\\
+\textbf{Proof}
+\\
+Suppose the contrary. This implies that $f$ is nonzero throughout $\Omega$. Define $g = \frac{1}{f}$; $g$ is nonconstant and analytic in $\Omega$. By construction $|g|$ attains its maximum at $z_0$, which contradicts the maximum modulus theorem.
+\\
+\\
+\textbf{Application of the maximum and minimum modulus theorems}
+\\
+Let $f$ be entire and non-constant and $|f(z)| = 1$ when $|z| = 1$. Then $f(z) = cz^{n}$ for some $n\geq 1$ and $|c|=1$.
+\\
+\\
+\textbf{Proof}
+\\
+If $f$ has an infinite number of zeros in the unit disc $D$, then these zeroes accumulate in $\bar D$ and $f$ is identically 0, by the uniqueness theorem. This contradicts the hypothesis. So $f$ has finitely many zeros in $D$. Call them $a_j$, $j\in \{1...n\}$. Let
+\[ g(z) = \frac{f(z)}{\Pi^{n}_{j=1} \frac{z-a_j}{1-\bar a_j z} } \]
+$|g(z)| = 1$ when $|z|=1$, since Blaschke factors have unit modulus when $|z| = 1$ and $|a_j|\leq 1$. Furthermore, $g(z)\neq 0, \forall z\in D$. Assume $g$ is not constant in $D$. Then by the maximum modulus theorem $|g(z)|<1$ when $|z|<1$. Then by continuity $|g|$ has a nonzero minimum inside $D$, which contradicts the minimum modulus theorem. So $g$ must be a constant in $D$. Thus:
+\[ f(z) = c\Pi^{n}_{j=1} \frac{z-a_j}{1-\bar a_j z} \]
+holds in D. By analytic continuation, it holds for all $z\in \mathbb{C}$. But, since $f$ is entire, it can have no singularities. This forces $a_{j}=0, \forall j$. Then $f(z) = c z^{n}$.
+
+
+\subsection{Schwarz lemma}
+
+\textbf{Schwarz lemma}
+\\
+If $f$ is analytic in the unit disc $D$ and satisfies:
+\\
+a) $|f(z)|\leq 1, \forall z\in D$
+\\
+b) $f(0) = 0$,
+\\
+Then:
+\\
+i) $|f(z)|\leq |z|, \forall z\in D$.
+\\
+ii) $|f'(0)|\leq 1$.
+\\
+iii) If $|f(z_0)| = |z_0|$ for some $z_0\neq 0$, or $|f'(0)| = 1$, then $f(z)=cz$, where $c$ is a constant of unit modulus.
+\\
+\\
+\textbf{Proof}
+\\
+Expand f in a power series about 0:
+\[ f(z) = a_0 + a_1 z + a_2 z^2 + ... \]
+Since $f(0)=0$, $a_0=0$. So $f(z) = z g(z)$, where $g(z)$ is analytic and its power series expansion is:
+\[ g(z) = a_1 + a_2 z + a_3 z^2 + ... \]
+Note that $f'(0) = a_1 = g(0)$. Pick some $r< 1$ and let $|z| = r$. Then:
+\[ g(z) = \frac{|f(z)|}{|z|} \leq \frac{1}{r} \]
+By the maximum modulus theorem, $|g(z)| \leq \frac{1}{r}$ on the compact set $\{|z|\leq r\}$. By letting $r\to 1$, we obtain $|g(z)| \leq 1$ on $D$. Then $|f(z)| = |z||g(z)| \leq |z|$, which proves i). $|f'(0)| = |g(0)| \leq 1$, which proves ii). If $|f'(0)| = 1$, $|g(0)| = 1$. If $|f(z_0)| = |z_0|$ for some $z_0 \neq 0$, then $|g(z_0)| = 1$. In either case, $|g|$ attains its maximum value inside $D$. By the maximum modulus theorem, $|g|$ is a constant $c$. Hence $f(z) = cz$, which proves iii).
+\\
+\\
+\textbf{Application of the Schwarz lemma}
+\\
+If $f:D\to D$ is bijective and analytic, then there exist $\theta \in \mathbb{R}$ and $\alpha \in D$ s.t.:
+\[ f(z) = e^{i\theta} \frac{z-\alpha}{1-\bar \alpha z} \]
+\\
+\textbf{Schwarz reflection principle}
+\\
+Let $\Omega$ be an open subset of $\mathbb{C}$ that is symmetric with respect to the real axis (i.e. $z\in \Omega \Rightarrow \bar z\in \Omega$). Let $\Omega^{+}, \Omega^{-}$ denote the parts of $\Omega$ that lie in the upper and lower half plane. Let $\Omega \cap \mathbb{R} = I$. Consider an analytic function $f$ in $\Omega^{+}$ that extends continnuously to $I$ and is real valued on $I$. Then there exists a function $F$ analytic on $\Omega$ s.t. $F=f$ on $\Omega^{+}$.
+\\
+\\
+\textbf{Proof}
+\\
+For $z\in \Omega^{-}$, let $F(z) = \overline{ f(\bar z)}$. Then:
+\[ \lim_{z\to z_0} \frac{F(z)-F(z_0)}{z-z_0} = \lim_{z\to z_0} \overline{\left( \frac{f(\bar z) - f(\bar z_0)}{\bar z - \bar z_0}\right) } = \lim_{\bar z \to \bar z_0} \overline{\left( \frac{f(\bar z) - f(\bar z_0)}{\bar z - \bar z_0}\right) } = \overline{f'(\bar z)} \]
+So $F$ is analytic in $\Omega^{-}$. Since $f$ is real valued on $I$, $f(z) = \overline{f(\bar z)}$, so $F$ is contiuous on $\Omega$. Then the symmetry principle, stated and proved below, tells us that $F$ is analytic on $\Omega$.
+\\
+\\
+\textbf{Schwarz symmetry principle}
+\\
+If $f^{+}$ and $f^{-}$ are analytic in $\Omega^{+}$ and $\Omega^{-}$, extend continuously to $I$ and $f^{+}(x) = f^{-}(x) , \forall x\in I$, then $f(z)$ defined by $f(z)=f^{+} (z)$ for $z\in \Omega^{+}$ and $f(z)=f^{-} (z)$ for $z\in \Omega^{-}$ is analytic in $\Omega$.
+\\
+\\
+\textbf{Proof}
+\\
+Morera's theorem tells us that $f$ is analytic in $\Omega$ if its integral over any triangle contained in $\Omega$ is 0. We consider 3 cases:
+\\
+\\
+i) A triangle T fully contained in $\Omega^{+}$. Since $f$ is analytic in $\Omega$, the integral of $f$ over T is 0 by Goursat's theorem.
+\\
+\\
+ii) A triangle T fully contained in $\Omega^{+}$, with the exception of an edge or a vertex that touches $I$. In this case we look at $T_{\epsilon}$, the triangle obtained by translating T upwards by an amount $\epsilon$. By Goursat's theorem the integral of $f$ over $T_{\epsilon}$ is 0. Letting $\epsilon \to 0$, the continuity of $f$ tells us that the integral of $f$ over $T$ will also be 0.
+\\
+\\
+iii) A triangle T whose interior intersects $I$. T can be split into smaller triangles that fall into the categories i) and ii). The integral of $f$ over T is 0 since it is the sum of the integrals of $f$ over these smaller triangles.
+\\
+\\
+\subsection{Sequences of analytic functions}
+\textbf{Theorem}
+\\
+Let $\{f_n\}$ be a sequence of functions analytic in a region $\Omega$ that converges uniformly to a function $f$ in every compact subset of $\Omega$. Then $f$ is analytic in $\Omega$.
+\\
+\\
+\textbf{Proof}
+\\
+Let $R$ be any rectangle in $\Omega$ and $K$ some compact subset of $\Omega$ that contains $R$. By Goursat's theorem,
+\[ \int_{\partial R} f_{n}(z) dz = 0 \]
+The limit $n\to \infty$ of this integral will also be 0. But $f_{n}\to f$ uniformly in $K$, so we can exchange the limit and the integral to obtain:
+\[ \int_{\partial R} f(z) dz = 0 \]
+Then, by Morera's theorem, $f$ is analytic.
+\\
+\\
+\textbf{Remark}
+This result does not hold in real analysis. If we let $f:[0,1]\to \mathbb{R}$ be continuous, the Weirstrass approximation theorem tells us that there exists a sequence of polynomials $\{ P_{n} \} $ such that $P_{n}\to f$ uniformly on $[0,1]$. However, $f$ is not necessarily differentiable.
+\\
+\\
+\textbf{Theorem}
+Under the conditions of the previous theorem, $f'_{n}\to f'$ on every compact subset $K$ of $\Omega$.
+\\
+\\
+\textbf{Proof}
+\\
+For any $\delta >0$ construct the compact sets $K_{\delta}$ and $K'_{\delta}$:
+\[ K_{\delta} = \{z\in \Omega : \overline{ D}(z,\delta) \subset \Omega \}\]
+\[ K'_{\delta} = \{z\in \Omega : \overline{ D}(z,\delta) \subset K \}\]
+Let $F$ be analytic in $K$. $\forall z\in K'$ let $\gamma = \partial D(z,\delta)$. By Cauchy's integral formulas:
+\[ |F'(z)| = \left| \frac{1}{2\pi i} \int_{\gamma} \frac{f(w)}{(w-z)^2} dz  \right| \leq \frac{1}{2\pi} \frac{\sup_{w\in \gamma}|F(w)|}{\delta^2} 2\pi \delta \leq \frac{1}{\delta} \sup_{w\in K} |F(w)| \]
+Applying this to $F = f_{n}-f$:
+\[ \sup_{z\in K'}|f'_{n}(z) - f'(z)| \leq \frac{1}{\delta} \sup_{w\in K} |f_{n}(w)-f(w)| \]
+Since $\delta$ is fixed by the choice of $K'$ and $f_{n}\to f$ uniformly, this shows $f'_{n}\to f'$.
+
+\section{Conformal maps}
+\textbf{Lemma}
+\\
+If $f:U\to V$ is analytic and injective, then:
+\\
+a) $f'(z) \neq 0, \forall z\in U$
+\\
+b) $f^{-1}:f(U)\to U$ is analytic
+\\
+c) $f$ preserves angles
+\\
+\\
+\textbf{Proof}
+\\
+a) Suppose $f'(z_0)=0$ for some $z_0\in U$. Then, for some $k\geq 2$:
+\[ f(z) - f(z_0) = a_k (z-z_0)^k + (z-z_0)^{k+1} h(z) =  a_k (z-z_0)^k + H(z) \]
+For any $r>0$, there is some $M$ s.t. $h(z)\leq M$ on $D(z_0,2r)$. Choose $t\leq r$, then on $\partial D(z_0,t)$ we have:
+\[ |H(z)|\leq M t^{k+1} \]
+Define $F(z) = a_k (z-z_0)^k - w$ for some $|w|\leq \frac{1}{2}|a_k|t^k$ (I'll buy a beer to anyone who can explain the purpose of substracting $w$). On $\partial D(z_0,t)$, we have:
+\[ |F(z)|\geq |a_k|t^k-|w| \geq \frac{1}{2}|a_k|t^k \]
+In order to use Rouche's theorem, we would like to have $|F(z)|>|H(z)|$ on $\partial D(z_0,t)$. This happens when $t<\frac{a_k}{2M}$, which is allright, since we are free to choose $t$. Rouche's theorem says that $F(z)$ and $K(z) = F(z) + H(z)$ have the same number of zeros inside $D(z_0,2r)$. Since $|F(z)|$ has $k$ such zeros, $K$ must have the same. But $K(z) = f(z) - f(z_0) - w$, so $K'(z) = f'(z) \neq 0$. Therefore all the zeros of k have multiplicity 1, so they have k distinct values. $f$ maps these k distinct values to $f(z_0)+w$, which contradicts the fact that $f$ is injective.
+\\
+\\
+b) Let $g=f^{-1}:f(U)\to U$. Let $w=f(z)$ and $w_0=f(z_0)$. Since $f$ and $g$ are continuous, $z\to z_0 \Leftrightarrow w\to w_0$, so
+\[ \lim_{w\to w_0} \frac{g(w)-g(w_0)}{w-w_0} = \lim_{z\to z_0} \frac{z-z_0}{f(z)-f(z_0)} = \frac{1}{f'(z_0)} \]
+Since $f'$ is defined and nonzero on $U$, the limit exists, so $g$ is analytic.
+\\
+\\
+c) Let $\gamma(t)$ be a smooth curve with $\gamma(t_0) = z_0$. The angle between the tangent line to $\gamma$ at $z_0$ is $\arg(\gamma'(z_0))$. Let $\Gamma = f(\gamma)$. The angle between the tangent line to $\Gamma$ at $f(z_0)$ and the positive real axis is:
+\[ \arg\left( f'(\gamma(t_0)) \right) = \arg(f'(z_0) \gamma'(t_0)) = \arg(f'(z_0)) + \arg(\gamma'(t_0))  \]
+Therefore, if we have two curves $\gamma_1$ and $\gamma_2$, the angle between them is the same as the angle between their images:
+\[ \arg\left( f'(\gamma_1 (t_0)) \right) - \arg\left( f'(\gamma_2 (t_0)) \right) = \arg(\gamma_1 '(t_0)) - \arg(\gamma_2 '(t_0))\]
+\textbf{Definition}
+\\
+A bijective analytic function $f:U\to V$, with $U$ and $V$ open, is called a \underline{conformal map}. $U$ and $V$ are said to be \underline{conformally equivalent} or \underline{biholomorphic}.
+\\
+\\
+Given two open sets $U$ and $V$, we can ask whether there exists a conformal map from $U$ to $V$. Let's look at two cases:
+\\
+\\
+1) $U = \mathbb{C}$. A conformal map exists $\Leftrightarrow V=\mathbb{C}$. To show this, first note that if $V=\mathbb{C}$, then $f(z) = z$ is a conformal map. Conversely, suppose $f:\mathbb{C}\to V$ conformal. $f$ is entire and injective, so by HW9 it is a linear map (the proof considers singularities at $\infty$ and shows that these singularities must be poles of order 1). But the image of a linear map is $\mathbb{C}$. 
+\\
+\\
+2) $V=D$, the unit disc. A conformal map exists $\Leftrightarrow U\neq \mathbb{C}$ and is simply connected. The Riemann mapping theorem proves the existence of a conformal map if $U$ satisfies the given conditions. The proof of that theorem is not included here. Conversely, suppose a conformal map $f$ exists. The proof of 1) above shows that $U\neq \mathbb{C}$. To see that $U$ must be simply connected, take a closed curve $\gamma :[0,1]\to U$. Then $f\circ \gamma : [0,1]\to D$ ia a curve in $D$. Since $D$ is simply connected, we can deform $f\circ \gamma$ to a point $z$ by some analytic map $F$. By the lemma, $f^{-1}$ is analytic, so $F \circ f^{-1}$ is analytic. Then $\gamma$ can be deformed to $f^{-1}(z)$ by $F \circ f^{-1}$, so $U$ is simply connected.
+\\
+\\
+\textbf{Automorphisms of the unit disc}
+\\
+soon
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

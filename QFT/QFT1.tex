@@ -1,0 +1,227 @@
+\documentclass[12 pt]{article}
+\usepackage{amsmath,amssymb,amsthm,fullpage,amsfonts,enumerate,textcomp, eurosym}
+\title{Quantum Field Theory HW1}
+\author{Matei Ionita}
+
+\begin{document}
+  \maketitle
+
+\subsection*{Problem 1}
+\[ \langle \mathbf{x_2}|e^{-iH(t_2-t_1)}|\mathbf{x_1}\rangle = |\mathcal{N} |^2 \int d^3 \mathbf{k} e^{i \mathbf{x_2 k}} e^{-i \omega_k (t_2-t_1)} e^{-i \mathbf{x_1 k}} = |\mathcal{N} |^2 \int k^2 dk \sin\theta d\theta d\phi e^{ik \Delta x \cos\theta} e^{-i \omega_k \Delta t} \]
+Where $\Delta x = |\mathbf{x_2}-\mathbf{x_1}|$ and $k=|\mathbf{k}|$. Performing the $d\theta$ and $d\phi$ integrals gives:
+\[ \frac{2\pi}{i\Delta x} |\mathcal{N} |^2 \int^{\infty}_{0} dk k (e^{ik\Delta x}-e^{-ik\Delta x}) e^{-i \sqrt{k^2+m^2} \Delta t} = \frac{2\pi}{i\Delta x} |\mathcal{N} |^2 \int^{\infty}_{-\infty} dk k e^{ik\Delta x} e^{-i \sqrt{k^2+m^2} \Delta t}\]
+Now we want to convert this into a contour integral. The most natural choice of contour, the upper semicircle, is a bad choice in this case because it crosses a branch cut on the imaginary axis. For $k=\epsilon+iz$ and $z>m$, the expression $\sqrt{k^2+m^2}$ depends on the sign of $\epsilon$. Specifically, for $\epsilon>0$,  $\sqrt{k^2+m^2} = i \sqrt{z^2-m^2}$, while for $\epsilon<0$,  $\sqrt{k^2+m^2} = -i \sqrt{z^2-m^2}$.
+\\
+\\
+Instead, we can make the upper semicircle to avoid the branch cut, by bringing it down from $\infty$ to $k=m$ on the imaginary axis. Then, since this contour contains no poles, branch cuts or other nasty phenomena, the integral over it is 0. Then the integral over the real line is equal to:
+\[ \frac{2\pi}{i\Delta x} |\mathcal{N} |^2 \left[ \int^{m}_{z=\infty} d(iz) iz e^{-z\Delta x} e^{ -\sqrt{z^2-m^2} \Delta t}  + \int^{\infty}_{z=m} d(iz) iz e^{-z\Delta x} e^{ \sqrt{z^2-m^2} \Delta t} \right] = \]
+\[ = \frac{4\pi i}{\Delta x} |\mathcal{N} |^2 \left[ \int^{\infty}_{z=m} dz z e^{-z\Delta x} \sinh{ \sqrt{z^2-m^2} \Delta t} \right] \]
+Since the integrand is positive definite, the transition probability is nonzero even for spacelike intervals.
+\\
+\\
+
+\subsection*{Problem 2}
+Let's carry out the $dk^{0}$ integration on the left hand side:
+\[ \int \frac{d^4 k}{(2\pi)^4} 2\pi \delta(k^2+m^2) \Theta (k^0>0) = \int \frac{d^3 k}{(2\pi)^3} \frac{1}{\left|\frac{d(k^2+m^2)}{d k^0} \right|_{k^0=\omega_k}} = \int \frac{d^3 k}{(2\pi)^3} \frac{1}{\left| -2k^0 \right|} = \int \frac{d^3 k}{(2\pi)^3 2\omega_k}\] 
+As desired.
+\\
+\\
+
+\subsection*{Problem 3}
+Expanding the Lagrangian in terms of $\delta \Phi$ and $\delta \partial_{\mu}\Phi$ and keeping only first order terms:
+\[ \delta S = \int d^4 x \left[ \frac{\partial \mathcal{L}}{\partial \Phi} \delta \Phi + \frac{\partial \mathcal{L}}{\partial  (\partial_{\mu}\Phi)} \delta (\partial_{\mu}\Phi)  \right] = \int d^4 x \left[ \frac{\partial \mathcal{L}}{\partial \Phi} \delta \Phi + \frac{\partial \mathcal{L}}{\partial  (\partial_{\mu}\Phi)} \partial_{\mu}(\delta \Phi)  \right]  \]
+Integrating the $\partial_{\mu}$ terms by parts, we get:
+\[  \delta S = \int d^4 x \left[ \frac{\partial \mathcal{L}}{\partial \Phi} - \partial_{\mu} \frac{\partial \mathcal{L}}{\partial  (\partial_{\mu}\Phi)} \right] \delta \Phi   \]
+Where we have used the fact that $\delta \Phi = 0$ on the boundary in order to throw away the boundary terms. Now, since $\delta \Phi $ is arbitrary, $\delta S = 0$ if and only if the Euler-Lagrange equation holds.
+\\
+\\
+
+\subsection*{Problem 4}
+Multiplying both sides by $\eta^{\gamma \alpha}$:
+
+\[ \eta^{\gamma \alpha} \eta_{\mu \nu} \Lambda^{\mu}\, _{\alpha} \Lambda^{\nu}\, _{\beta} = \eta^{\gamma \alpha} \eta_{\alpha \beta}\]
+Contracting the $\alpha$ index on both sides:
+
+\[ \eta_{\mu \nu} \Lambda^{\mu \gamma} \Lambda^{\nu}\, _{\beta} = \delta^{\gamma}\, _{ \beta} \]
+Contracting the $\mu$ index:
+
+\[  \Lambda_{\nu}\, ^{ \gamma} \Lambda^{\nu}\, _{\beta} = \delta^{\gamma}\, _{ \beta}  \]
+Great! Now let's check if this holds for a boost matrix. We can assume WLOG that the boost is along the x axis.
+
+\[ \Lambda^{\mu}\, _{\nu} \leftrightarrow \left(  \begin{array}{cccc} 
+	\gamma	& -v\gamma	& 0	& 0 \\
+	-v\gamma	& \gamma		& 0	& 0 \\
+	0		& 0			& 1	& 0 \\
+	0		& 0			& 0	& 1 \end{array}    \right)  \]
+Since this matrix is symmetric, transposing it will leave it unchanged. However, after we interchange the two indices, the first one (corresponding to rows) is lowered, while the second one (corresponding to columns, is raised). The effects of this are multiplying the first row by -1, and then the first column by -1, resulting in:
+
+\[   \Lambda_{\nu}\, ^{\mu} \leftrightarrow \left(  \begin{array}{cccc} 
+	\gamma	& v\gamma	& 0	& 0 \\
+	v\gamma	& \gamma		& 0	& 0 \\
+	0		& 0			& 1	& 0 \\
+	0		& 0			& 0	& 1 \end{array}    \right)  \]
+Notice that we can get the same result by making the substitution $v \to -v$ in $\Lambda$. Thus, we can identify this transformation with $\Lambda^{-1}$. Now let's look at a rotation matrix, which can be assumed WLOG to rotate about the z axis:
+
+\[ \Lambda^{\mu}\, _{\nu} \leftrightarrow \left(  \begin{array}{cccc} 
+	1	& 0	& 0	& 0 \\
+	0	& \cos \theta	& \sin \theta	& 0 \\
+	0	& -\sin \theta	& \cos \theta	& 0 \\
+	0	& 0	& 0	& 1 \end{array}    \right)  \]
+In this case, the raising and lowering (multiplying the first row and first column by -1) leaves the matrix unchanged. However, transposition changes the place of the - sign, and the resulting transformation can be expressed as:
+
+\[ \Lambda_{\nu}\, ^{\mu} \leftrightarrow \left(  \begin{array}{cccc} 
+	1	& 0	& 0	& 0 \\
+	0	& \cos (-\theta)	& \sin(-\theta)	& 0 \\
+	0	& -\sin(-\theta)	& \cos(-\theta)	& 0 \\
+	0	& 0	& 0	& 1 \end{array}    \right)  \]
+This is the inverse of the transformation we started with, since it rotates about the z axis with angle $-\theta$.
+
+\subsection*{Problem 5}
+Starting from the expression of $\Phi (a_{\mathbf{k}},a^{\dagger}_{\mathbf{k}} ) $ and taking its time derivative:
+
+\[ \Phi(\mathbf{x},t) = \int \frac{d^3 \mathbf{k}}{(2\pi)^3 2\omega_k} \left( a_{\mathbf{k}} e^{ikx} + a^{\dagger}_{\mathbf{k}} e^{-ikx}  \right) \]
+\[ \dot \Phi(\mathbf{x'},t) = \int \frac{d^3 \mathbf{k'}}{(2\pi)^3 2} \left( -a_{\mathbf{k'}} e^{ik'x'} + a^{\dagger}_{\mathbf{k'}} e^{-ik'x'}  \right) \]
+Where $kx$ is assumed to be the 4-vector inner product, $-k^0 x^0 + \mathbf{k}\mathbf{x}$. Using the fact that $[a_{\mathbf{k}}, a_{\mathbf{k'}}] = 0$ and $[a^{\dagger}_{\mathbf{k}}, a^{\dagger}_{\mathbf{k'}}] = 0$, the commutator of the above expressions is:
+
+\[ [\Phi(\mathbf{x},t) , \dot \Phi(\mathbf{x'},t)] = \int \frac{d^3 \mathbf{k} d^3 \mathbf{k'}}{(2\pi)^6 4\omega_k} \left( e^{i(kx-k'x')}[a_{\mathbf{k}}, a^{\dagger}_{\mathbf{k'}}] - e^{i(k'x'-kx)}[a^{\dagger}_{\mathbf{k}}, a_{\mathbf{k'}}] \right) \]
+Now, since $[a_{\mathbf{k}}, a^{\dagger}_{\mathbf{k'}}] = (2\pi)^3 2\omega_{\mathbf{k}} \delta(\mathbf{k}-\mathbf{k'})$:
+
+\[   [\Phi(\mathbf{x},t) , \dot \Phi(\mathbf{x'},t)] = \int \frac{d^3 \mathbf{k} d^3 \mathbf{k'}}{(2\pi)^3 2} \left( e^{i(kx-k'x')}\delta(\mathbf{k}-\mathbf{k'}) + e^{i(k'x'-kx)}\delta(\mathbf{k}-\mathbf{k'}) \right) \]
+
+\[   [\Phi(\mathbf{x},t) , \dot \Phi(\mathbf{x'},t)] = \int \frac{d^3 \mathbf{k}}{(2\pi)^3 2} \left( e^{ik(x-x')} + e^{ik(x'-x)} \right) \]
+
+\[   [\Phi(\mathbf{x},t) , \dot \Phi(\mathbf{x'},t)] = \frac{1}{2i^3} \left(\delta(\mathbf{x}-\mathbf{x'})e^{i\omega_{k}(t-t)} +  \delta(\mathbf{x}-\mathbf{x'})e^{-i\omega_{k}(t-t)} \right) \]
+
+\[   [\Phi(\mathbf{x},t) , \dot \Phi(\mathbf{x'},t)] = i\delta(\mathbf{x}-\mathbf{x'})  \]
+Note that the $t-t'$ term gives no contribution to the commutator only because we're evaluating $\Phi$ and $\dot\Phi$ at the same time.
+
+
+\subsection*{Problem 6}
+First we need the derivatives of $\Phi$:
+
+\[ \dot \Phi(\mathbf{x},t) = \int \frac{d^3 \mathbf{k}}{(2\pi)^3} \frac{i}{2} \left( -a_{\mathbf{k}} e^{ikx} + a^{\dagger}_{\mathbf{k}} e^{-ikx}  \right) \]
+\[ \nabla \Phi(\mathbf{x},t) = \int \frac{d^3 \mathbf{k}}{(2\pi)^3} \frac{i\mathbf{k}}{2\omega_{k}} \left( a_{\mathbf{k}} e^{ikx} - a^{\dagger}_{\mathbf{k}} e^{-ikx}  \right) \]
+Plugging these into the Hamiltonian:
+
+\[  H = \int  \frac{d^3 \mathbf{k}}{(2\pi)^3} \int  \frac{d^3 \mathbf{k'}}{(2\pi)^3} \int d^3 \mathbf{x} \left[  \frac{-1}{8} \left(  a_{k}a_{k'} e^{i(k+k')x}  -   a_{k}a^{\dagger}_{k'} e^{i(k'-k)x}  -   a^{\dagger}_{k}a_{k'} e^{i(k-k')x}  +   a^{\dagger}_{k}a^{\dagger}_{k'} e^{-i(k+k')x} \right)   + \right. \]
+
+\[  +  \frac{-\mathbf{k}\mathbf{k'}}{8\omega_{k}\omega_{k'}} \left(  a_{k}a_{k'} e^{i(k+k')x}  -   a_{k}a^{\dagger}_{k'} e^{i(k'-k)x}  -   a^{\dagger}_{k}a_{k'} e^{i(k-k')x}  +   a^{\dagger}_{k}a^{\dagger}_{k'} e^{-i(k+k')x} \right)  +  \]
+
+\[ \left.  +  \frac{m^2}{8\omega_{k}\omega_{k'}} \left(  a_{k}a_{k'} e^{i(k+k')x}  +   a_{k}a^{\dagger}_{k'} e^{i(k'-k)x}  +   a^{\dagger}_{k}a_{k'} e^{i(k-k')x}  +   a^{\dagger}_{k}a^{\dagger}_{k'} e^{-i(k+k')x} \right) \right]  \]
+When we carry out the $d^3 \mathbf{x}$ integration, the exponentials become delta functions, which will allow us to perform the $d^3 \mathbf{k'}$ integration and obtain $\mathbf{k}$ and $-\mathbf{k}$,respectively:
+
+\[  H = \int  \frac{d^3 \mathbf{k}}{(2\pi)^3} \frac{1}{8\omega_{k}^2}\left( (a_k a_{-k} + a^{\dagger}_k a^{\dagger}_{-k})(\omega_{k}^2 - |\mathbf{k}|^2 - m^2) +  (a_k a^{\dagger}_{k} + a^{\dagger}_k a_{k})(\omega_{k}^2 + |\mathbf{k}|^2 + m^2) \right) \]
+Now we can use the relation $\omega_{k}^2 = |\mathbf{k}|^2 + m^2$ to get:
+
+\[   H = \int  \frac{d^3 \mathbf{k}}{(2\pi)^3} \frac{1}{4}  (a_k a^{\dagger}_{k} + a^{\dagger}_k a_{k}) \]
+The commutation relation between $a_k$ and $a^{\dagger}_{k}$ gives $a_k a^{\dagger}_{k} = a^{\dagger}_{k} a_k + \mathcal{C}$. The constant $\mathcal{C}$ diverges, but, since the Hamiltonian only matters up to a constant, we can choose it to be 1.
+\[   H = \int  \frac{d^3 \mathbf{k}}{(2\pi)^3 2\omega_k} \omega_k (a^{\dagger}_k a_{k} + \frac{1}{2}) \]
+
+
+\subsection*{Problem 7}
+a) Using the form of the Euler-Lagrange eq. that we found in problem 3, i.e.
+
+\[  \frac{\partial \mathcal{L}}{\partial \phi} = \partial_{\mu} \frac{\partial \mathcal{L}}{\partial  (\partial_{\mu}\phi)}  \]
+We obtain, from the given Lagrangian:
+\[ -\partial^2 \phi^{\dagger} + m^2\phi^{\dagger} = 0  \]
+So $\phi^{\dagger}$ satisfies the Klein-Gordon eq. Taking the Hermitian conjugate of the above gives:
+
+\[   -\partial^2 \phi + m^2\phi = 0  \]
+b) The conjugate momenta are:
+
+ \[  \Pi_{\phi} = \frac{\partial \mathcal{L}}{\partial(\partial_0 \phi)} = \partial_0 \phi^{\dagger} \;\;\;\;\;\;\; \Pi_{\phi^{\dagger}} = \frac{\partial \mathcal{L}}{\partial(\partial_0 \phi^{\dagger})} = \partial_0 \phi  \]
+So the Hamiltonian density is:
+\[  \mathcal{H} =   \Pi_{\phi} \partial_0 \phi + \Pi_{\phi^{\dagger}} \partial_0 \phi^{\dagger} -  \partial_0 \phi^{\dagger} \partial_0 \phi + \nabla \phi^{\dagger} \nabla \phi  + m^2 \Phi^{\dagger} \Phi - \Omega  \]
+\[  \mathcal{H} =   \Pi_{\phi} \Pi_{\phi^{\dagger}} + \nabla \phi^{\dagger} \nabla \phi  + m^2 \Phi^{\dagger} \Phi - \Omega  \]
+c) \[ \phi = \int \frac{d^3 k}{(2\pi)^3 2\omega_k} \left[  a_{\mathbf{k}} e^{ikx} + b^{\dagger}_{\mathbf{k}} e^{-ikx}  \right] \]
+\[ \partial_0 \phi = \int \frac{d^3 k}{(2\pi)^3 2\omega_k} \left[-i\omega_{k}  a_{\mathbf{k}} e^{ikx} + i\omega_k b^{\dagger}_{\mathbf{k}} e^{-ikx}  \right] \]
+To invert these equations, we take Fourier transforms of both:
+
+\[  \int d^3 x e^{-ik'x} \phi = \int \frac{d^3 k}{(2\pi)^3 2\omega_k} \left[  a_{\mathbf{k}} \int d^3 x e^{i(k-k')x} + b^{\dagger}_{\mathbf{k}} \int d^3 x e^{-i(k+k')x}  \right]  \]
+\[ \int d^3 x e^{-ik'x} \partial_0 \phi = \int \frac{d^3 k}{(2\pi)^3 2\omega_k} \left[-i\omega_{k}  a_{\mathbf{k}} \int d^3 x e^{i(k-k')x} + i\omega_k b^{\dagger}_{\mathbf{k}} \int d^3 x e^{-i(k+k')x}  \right] \]
+Performing the x integrals gives $\delta (\mathbf{k}-\mathbf{k'})$ and $\delta (\mathbf{k}+\mathbf{k'})$, respectively. We then do the k integration.
+\[ \omega_k  \int d^3 x e^{-ikx} \phi = \frac{1}{2} a_{\mathbf{k}} + \frac{1}{2} b^{\dagger}_{-\mathbf{k}}  \]
+\[ i  \int d^3 x e^{-ikx} \partial_0 \phi = \frac{1}{2} a_{\mathbf{k}} - \frac{1}{2} b^{\dagger}_{-\mathbf{k}}  \]
+Adding these equations gives:
+\[  a_{\mathbf{k}} =  \int d^3 x e^{-ikx} \left(  \omega_k \phi + i \Pi_{\phi^{\dagger}}  \right)   \]
+And substracting them gives:
+\[  b^{\dagger}_{\mathbf{k}} =  \int d^3 x e^{ikx} \left(  \omega_k \phi - i \Pi_{\phi^{\dagger}}  \right)  \]
+To get the other two operators, take the Hermitian conjugate of the above:
+
+\[  a^{\dagger}_{\mathbf{k}} =  \int d^3 x e^{ikx} \left(  \omega_k \phi^{\dagger} - i \Pi_{\phi}  \right)   \]
+\[  b_{\mathbf{k}} =  \int d^3 x e^{-ikx} \left(  \omega_k \phi^{\dagger} + i \Pi_{\phi}  \right)  \]
+d) Note first that $[a_{\mathbf{k}},b^{\dagger}_{\mathbf{k}}]=0$, since they are formed from the commuting operators $\phi$ and $\Pi_{\phi^{\dagger}}$. For the same reason, $[a^{\dagger}_{\mathbf{k}},b_{\mathbf{k}}]=0$. Next look at $[a_{\mathbf{k}},a^{\dagger}_{\mathbf{k}}]$ and $[b_{\mathbf{k}},b^{\dagger}_{\mathbf{k}}]$:
+\[  [a_{\mathbf{k}},a^{\dagger}_{\mathbf{k'}}] = \int\int d^3 x d^3 x' e^{i(k'x'-kx)} i\omega_k \left(  - [\phi(\mathbf{x}), \Pi_{\phi}(\mathbf{x'})] + [\Pi_{\phi^{\dagger}}(\mathbf{x}), \phi^{\dagger}(\mathbf{x'}) ]  \right)  = 2\omega_{k} (2\pi)^3 \delta(\mathbf{k}-\mathbf{k'})  \]
+\[  [b_{\mathbf{k}},b^{\dagger}_{\mathbf{k'}}] = \int\int d^3 x d^3 x' e^{i(k'x'-kx)} i\omega_k \left(  - [\phi^{\dagger}(\mathbf{x}), \Pi_{\phi^{\dagger}}(\mathbf{x'})] + [\Pi_{\phi}(\mathbf{x}), \phi(\mathbf{x'}) ]  \right) = 2\omega_{k} (2\pi)^3 \delta(\mathbf{k}-\mathbf{k'})   \]
+By performing a similar computation, we get:
+\[  [a_{\mathbf{k}},b_{\mathbf{k'}}] = \int\int d^3 x d^3 x' e^{i(k'x'-kx)} i\omega_k \left(  [\phi(\mathbf{x}), \Pi_{\phi}(\mathbf{x'})] + [\Pi_{\phi^{\dagger}}(\mathbf{x}), \phi^{\dagger}(\mathbf{x'}) ]  \right)  = 0  \]
+\[  [a^{\dagger}_{\mathbf{k}},b^{\dagger}_{\mathbf{k'}}] = \int\int d^3 x d^3 x' e^{i(k'x'-kx)} i\omega_k \left(  - [\phi^{\dagger}(\mathbf{x}), \Pi_{\phi^{\dagger}}(\mathbf{x'})] - [\Pi_{\phi}(\mathbf{x}), \phi(\mathbf{x'}) ]  \right) =0   \]
+Putting all these together:
+\[  [a_{\mathbf{k}},b^{\dagger}_{\mathbf{k}}]=0  \;\;\;\;   [a^{\dagger}_{\mathbf{k}},b_{\mathbf{k}}]=0  \;\;\;\;  [a_{\mathbf{k}},b_{\mathbf{k'}}] = 0   \;\;\;\;  [a^{\dagger}_{\mathbf{k}},b^{\dagger}_{\mathbf{k'}}] = 0 \] 
+\[ [a_{\mathbf{k}},a^{\dagger}_{\mathbf{k}}] = 2\omega_{k} (2\pi)^3 \delta(\mathbf{k}-\mathbf{k'}) \;\;\;\; [b_{\mathbf{k}},b^{\dagger}_{\mathbf{k}}] = 2\omega_{k} (2\pi)^3 \delta(\mathbf{k}-\mathbf{k'})  \]
+e) The Hamiltonian is:
+\[  H = \int d^3 x \left( \Pi_{\phi} \Pi_{\phi^{\dagger}} + \nabla \phi^{\dagger} \nabla \phi  + m^2 \Phi^{\dagger} \Phi - \Omega \right) \]
+
+\[  H = - \Omega V + \int \int \frac{d^3 k d^3 k'}{(2\pi)^6 4\omega_k \omega_{k'}} \int d^3 x \left[  \omega_k \omega_{k'} ( a_k e^{ikx} - b^{\dagger}_k e^{-ikx} )(a^{\dagger}_{k'} e^{-ik'x} - b_{k'} e^{ik'x} )  +  \right.  \]
+\[ + \left. \mathbf{k}\mathbf{k'}  ( a_k e^{ikx} - b^{\dagger}_k e^{-ikx} )(a^{\dagger}_{k'} e^{-ik'x} - b_{k'} e^{ik'x} )  + m^2  ( a_k e^{ikx} + b^{\dagger}_k e^{-ikx} )(a^{\dagger}_{k'} e^{-ik'x} + b_{k'} e^{ik'x} ) \right] \]
+We perform the x integrations to get delta functions, and then the k' integration to collapse k' into k and, respectively, -k:
+
+\[   H = - \Omega V + \int \frac{d^3 k }{(2\pi)^3 4\omega_k^2}  2\omega_k^2  (a_k a_k^{\dagger} + b_k^{\dagger}b_k) =  - \Omega V + \int \frac{d^3 k }{(2\pi)^3 2\omega_k}  \omega_k  (a_k a_k^{\dagger} + b_k^{\dagger}b_k) \]
+\[  H =  \int d^3 k \;\omega_k \delta(\mathbf{0}) - \Omega V + \int \frac{d^3 k }{(2\pi)^3 2\omega_k}  \omega_k  (a_k^{\dagger} a_k + b_k^{\dagger}b_k)  \]
+In order for the vacuum state to have 0 energy, we should impose $ \int d^3 k \;\omega_k \delta(\mathbf{0}) = \Omega V$.
+\\
+\\
+\\
+f) Defining $j^{\mu} = i [\phi \partial^{\mu}\phi^{\dagger} - \phi^{\dagger}\partial^{\mu}\phi]$, let's compute its derivative:
+\[  \partial_{\mu} j^{\mu} =   i [\partial_{\mu}\phi \partial^{\mu}\phi^{\dagger} + \phi \partial^{2}\phi^{\dagger} - \partial_{\mu}\phi^{\dagger}\partial^{\mu}\phi -  \phi^{\dagger}\partial^2\phi]  = i [\phi \partial^{2}\phi^{\dagger} -  \phi^{\dagger}\partial^2\phi] \]
+Using the e.o.m, $\partial^2\phi = m^2\phi$ and $\partial^2\phi^{\dagger} = m^2\phi^{\dagger}$,
+\[  \partial_{\mu} j^{\mu} =   i [ m^2 \phi \phi^{\dagger} - m^2\phi^{\dagger}\phi   ] = 0 \]
+Now, using the definition of Q:
+\[  Q = \int d^3 x \; j^0 = i \int d^3 x  [\phi \partial^0\phi^{\dagger} - \phi^{\dagger}\partial^0\phi]  \]
+\[  Q = i \int \int \frac{d^3 k d^3 k'}{(2\pi)^6 4 \omega_k \omega_k'} \int d^3 x \left[ (a_k e^{ikx} + b_k^{\dagger} e^{-ikx} )(i\omega_{k'} a^{\dagger}_{k'} e^{-ik'x} - i\omega_{k'} b_{k'} e^{ik'x}) - \right. \]
+\[ \left. - (a^{\dagger}_{k'} e^{-ik'x} + b_{k'} e^{ik'x} )(-i\omega_{k} a_{k} e^{ikx} + i\omega_{k} b_k^{\dagger} e^{-ikx})  \right]  \]
+\[ Q = \int \frac{d^3 k}{(2\pi)^3 4\omega_k} (a_k a_k^{\dagger} + a_k^{\dagger} a_k - b_k^{\dagger} b_k - b_k b_k^{\dagger}) \]
+Using the commutation relations:
+\[ Q =  \int \frac{d^3 k}{(2\pi)^3 2\omega_k} (a_k^{\dagger} a_k + (2\pi)^3\omega_k \delta(\mathbf{0}) - b_k^{\dagger} b_k - (2\pi)^3\omega_k \delta(\mathbf{0}) )  = \int \frac{d^3 k}{(2\pi)^3 2\omega_k} (a_k^{\dagger} a_k - b_k^{\dagger} b_k ) \]
+\\
+\\
+In the real field problem, $\mathcal{L} = -\frac{1}{2}\partial^2 \phi + \frac{1}{2} m \phi ^2$ contains functions of $\phi$ that are squared; when taking derivatives, this brings down a factor of 2 that cancels out the $\frac{1}{2}$. However, in the complex field problem, we treat $\phi$ and $\phi^{\dagger}$ as different variables, and there is no factor of 2 coming out of derivatives. Therefore, there is no need for the $\frac{1}{2}$. Of course, an overall constant multiplying the Lagrangian does not change the e.o.m. - but it does change the eigenvalues of the Hamiltonian. We would like the energy to be a sum over all particles of $\omega_k$, and not of some constant times $\omega_k$.
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

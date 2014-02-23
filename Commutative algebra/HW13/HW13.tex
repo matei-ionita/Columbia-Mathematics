@@ -1,0 +1,83 @@
+\documentclass[12 pt]{article}
+\usepackage{amsmath,amssymb,amsthm,fullpage,amsfonts,enumerate,textcomp, eurosym, tikz-cd, fullpage}
+\title{Commutative algebra HW13}
+\author{Matei Ionita}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\CP}{\mathbb{C}\mathbb{P}}
+\newcommand{\RP}{\mathbb{R}\mathbb{P}}
+\newcommand{\Proj}{\mathbb{P}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\p}{\partial}
+\newcommand{\fr}{\mathfrak}
+
+\DeclareMathOperator{\Mor}{Mor}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\length}{length}
+\DeclareMathOperator{\res}{Res}
+\DeclareMathOperator{\Int}{Int}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\Lie}{Lie}
+\DeclareMathOperator{\id}{Id}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\irr}{irr}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\trdeg}{trdeg}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Nm}{Nm}
+\DeclareMathOperator{\ord}{ord}
+
+\begin{document}
+  \maketitle
+
+\subsection*{Problem 2}
+Consider the inclusion $\R \hookrightarrow \C$, which is a ring homomorphism. It induces a surjective map on spectra $\Spec \C \twoheadrightarrow \Spec \R$. $\Spec \C$ and $\Spec \R$, equipped with the structure sheaf, are affine schemes, and this makes the map on spectra into a morphism of schemes. More precisely, the morphism is:
+\[       f : \Spec \C \to \Spec \R       \]
+\[      f^{\#} : \mathcal{O}(\Spec \R) = \R \to \mathcal{O}(\Spec \C) = \C     \]
+\[         \R \hookrightarrow \C    \]
+This morphism is surjective because the map $f$ on underlying topological spaces is surjective. Even though $f$ has a right inverse as a map on topological spaces, the morphism of schemes has no right inverse. That's because an inverse for $f^{\#}$ would be a surjective morphism from $\C$ to $\R$, which doesn't exist.
+
+\subsection*{Problem 5}
+We want to show that the following functor is representable by an affine scheme:
+\begin{align*}
+F : \text{Sch}^{\circ} &\to \text{Set} \\
+T &\mapsto \prod \Mor (T, X_i)
+\end{align*}
+This means we are looking for an affine scheme $Y$ such that:
+\[       \Mor(T, Y) = \prod \Mor (T, X_i)       \]
+Using the equivalence in Tag 01I1, this can be rewritten as:
+\[          \Hom (A, \mathcal{O}_T(T)) = \prod \Mor (A_i, \mathcal{O}_T(T))      \]
+Where $A, A_i$ are the coordiante rings of the affine schemes $Y, X_i$ respectively. But this is precisely the universal property of the coproduct $A = \coprod A_i$. For the case of commutative rings, elements of the coproduct $A$ are linear combinations over $\Z$ of terms of the form $a_{i_1} a_{i_2} a_{i_3} \dots a_{i_n}$ where $a_{i_1} \in A_{i_1}$ etc. (Each term is a finite product, and if I'm not mistaken, this is called a free ring product.) With $A$ defined this way, the affine scheme we are looking for is just $Y = \Spec A$.
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

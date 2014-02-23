@@ -1,0 +1,81 @@
+\documentclass[12 pt]{article}
+\usepackage{amsmath,amssymb,amsthm,fullpage,amsfonts,enumerate,textcomp, eurosym}
+\title{QFT Lecture 19}
+\author{Matei Ionita}
+\DeclareMathOperator {\p} {\partial}
+
+\begin{document}
+  \maketitle
+
+Renormalization group (Srednicki 28); Wilsonian effective field theory (Srednicki 29, PS 12.1, Zee VI.8)
+
+\subsection*{Renormalization group}
+
+bare quantities:
+\[    \phi_0  = Z_{\phi}^{-1/2} \phi    \]
+\[    m_0 = Z_{\phi}^{-1/2} Z_m^{1/2} m  \]
+\[    g_0 = Z_{\phi}^{-3/2} Z_g g \mu^{\epsilon/2}  \]
+\[    \alpha_0 = Z_{\phi}^{-3} Z_g^2 \mu^{\epsilon} \alpha        \]
+Taking the log of the last eq.:
+\[      ln \alpha_0 = -3 [ \alpha(-1/6\epsilon + \text{finite} ) + O(\alpha^3) ] + 2[\alpha(-1/\epsilon + \text{finite}) + O(\alpha^3)] + \epsilon ln\mu + ln\alpha  \]
+LHS should be independent of $\mu$:
+\[     \frac{d ln\alpha_0}{\d ln \mu} = 0 = \frac{d \alpha}{d \mu} (-3/2\epsilon + \text{finite}) + \epsilon + \frac{d ln \alpha}{d ln \mu}    \]
+\[     \frac{d\alpha}{d ln \mu} =  a\alpha + b\alpha^2 + ...     \]
+\[        0 = (a\alpha + b\alpha^2 + ...) (-3/2\epsilon + finite) + O(\alpha^2) + \epsilon + 1/\alpha (a\alpha + b \alpha^2 + ... )        \]
+To order $\alpha_0$:
+\[     a = -\epsilon    \]
+\[      b = -3/2        \]
+\[    \frac{d \alpha}{d ln\mu} = -\epsilon \alpha - 3/2 \alpha^2    \]
+Important that this is $<0$, so the theory is asymptotically free.
+
+
+\subsection*{Wilsonian EFT}
+UV cutoff:
+\[     Z = \int_{|k|<\Lambda_0} D\phi e^{-S_0}    \]
+\[     S_0 = \int d^d x \left( \frac{1}{2} (\p \phi)^2 + \frac{1}{2}m^2( \Lambda_0) \phi^2+ \frac{1}{4!} \lambda(\Lambda_0) \phi^4  \right)     \]
+Goal: integrate out $\Lambda<|k|<\Lambda_0$. We first split the field into low momentum and high momentum modes:
+\[    \phi(x) \to \phi(x) + \hat \phi(x)       \]
+Now:
+\[       Z = \int D\phi_{|k|<\Lambda}\text{exp}\left[\int d^d x \big( \frac{1}{2} (\p \phi)^2 + \frac{1}{2}m^2( \Lambda_0) \phi^2+ \frac{1}{4!} \lambda(\Lambda_0) \phi^4  \big)\right]   \cdot   \]
+\[      \cdot     \int D\phi_{\Lambda<|k|<\Lambda_0}\text{exp}\left[\int d^d x \big( \frac{1}{2} (\p \phi)^2 + \frac{1}{2}m^2( \Lambda_0) \phi^2+ \frac{1}{4!} \lambda(\Lambda_0) \phi^4  \big)\right]    \]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

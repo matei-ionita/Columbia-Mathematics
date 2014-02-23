@@ -1,0 +1,85 @@
+\documentclass[12 pt]{article}
+\usepackage{amsmath,amssymb,amsthm,fullpage,amsfonts,enumerate,textcomp, eurosym, slashed}
+\title{QFT Lecture 26}
+\author{Matei Ionita}
+\DeclareMathOperator {\p} {\partial}
+
+\begin{document}
+  \maketitle
+
+
+\subsection*{Perturbation theory}
+Srednicki ch. 43-48
+\\
+\\
+Recall Gaussian integrals for the scalar field:
+\[         \int \frac{Dx}{\sqrt{(2\pi)^N \text{det}M}}  x_i x_j e^{-\frac{1}{2} x^T M x} = M^{-1}_{ij} = \langle x_ix_j\rangle_{\text{free}}   \]
+We want to do the same for Fermions. We want to show that:
+\[      \int D\Psi D\bar\Psi \; \Psi_{\alpha}(x) \Psi_{\beta}(y)  e^{i\int d^4 x \;i \bar \Psi \slashed \p \Psi - m \bar \Psi \Psi}    \]
+Gives what we obtained last lecture using operators:
+\[    \frac{1}{i} S_{\alpha \beta} (x_1 - x_2) = \frac{1}{i} \int \frac{d^4 k}{(2\pi)^4} \frac{(-\slashed k + m)_{\alpha \beta} \; e^{ik(x_1 - x_2)}}{k^2+m^2 - i\epsilon}   \]
+Remember from last lecture the fermionic (Berezin) integral defined by $\int da\; 1 = 0$, $\int da\; a = 1$. Consider:
+\[      \int da_2 da_1 \; e^{\frac{1}{2} a^T M a}   =  \int da_2 da_1 e^{a_1 M_{12} a_2} = \int da_2 da_1 (1 + a_1 M_{12} a_2 + ... ) = M_{12}   \]
+Generalizing this we get:
+\[       \int da_n \; ... \; da_1 \; e^{\frac{1}{2} a^T M a}  = \sqrt{\text{det}M}     \]
+\[       \int da_n \; ... \; da_1 \; a_i a_j e^{\frac{1}{2} a^T M a}  = \sqrt{\text{det}M} ( - M^{-1}_{ij} )    \]
+\[        \int \frac{da_n d \bar a_n \; ... \; da_1 d\bar a_1}{\text{det}M} a_i \bar a_j e^{\frac{1}{2} \bar a^T M a}  =   - M^{-1}_{ij} = \langle a_i \bar a_j\rangle               \]
+Let's apply this to compute the 2-point function for free theory:
+\[         \langle  \Psi_{\alpha} (x_1) \bar \Psi_{\beta} (x_2) \rangle = - M^{-1}_{\alpha \beta}     \]
+Where:
+\[      M_{\gamma \alpha} = (id^4 x_0) (i \slashed \p -m)_{\gamma \alpha} d^4 x_1 \delta^{(4)} (x_0 - x_1)   \]
+We want to show that: 
+\[ - \int d^4 x_1\;  M_{\gamma \alpha} (x_0 - x_1) \frac{1}{i} S_{\alpha \beta} (x_1 - x_2) = \delta(x_0 - x_2) \delta_{\gamma \beta} \]
+The free 4-point function for a Dirac spinor:
+\[        \langle  \Psi_{\alpha_1} (x_1) \bar \Psi_{\alpha_2} (x_2)  \Psi_{\alpha_3} (x_3) \bar \Psi_{\alpha_4} (x_4) \rangle_{\text{free}} = \]
+\[ = \frac{1}{i} S_{\alpha_1 \alpha_2} (x_1 - x_2) \frac{1}{i} S_{\alpha_3 \alpha_4} (x_3 - x_4) - \frac{1}{i} S_{\alpha_1 \alpha_4} (x_1 - x_4) \frac{1}{i} S_{\alpha_3 \alpha_2} (x_3 - x_2)   \]
+
+\subsection*{Interactions}
+Our toy theory will be:
+\[   \mathcal{L} =    i \bar \Psi \slashed \p \Psi - m \bar \Psi \Psi - \frac{1}{2} (\p \phi)^2 - \frac{1}{2} m^2_{\phi} \phi^2   + g \phi \bar \Psi \Psi      \]
+In fact this is not just a toy example; it models the interaction of fermions with the Higgs field. Consider $e^- e^- \to e^- e^-$ scattering:
+\[          \langle p_1' s_1' , p_2' s_2' | p_1 s_1 , p_2 s_2 \rangle - "1" = (2\pi)^4 \delta^{(4)} (p_1'+p_2' - p_1 - p_2) i\mathcal{M}  \sim    \]
+\[         \sim \langle 0|b_{s_2'} (p_2')  b_{s_1'} (p_1') b^{\dagger}_{s_1} (p_1) b^{\dagger}_{s_2} (p_2) |0 \rangle       \]
+We are using:
+\[      \Psi(x) = \int \sum \big(  b_s (k) u_s(k) e^{ikx} + d_s^{\dagger} (k) v_s(k) e^{-ikx} \big)        \]
+\[    \bar  \Psi(x) = \int \sum \big(  b^{\dagger}_s (k) \bar u_s(k) e^{-ikx} + d_s (k) \bar v_s(k) e^{ikx} \big)        \]
+We are interested in:
+\[           \langle  \Psi_{\alpha_{2'}} (x_2')  \Psi_{\alpha_{1'}} (x_1') \bar \Psi_{\alpha_1} (x_1) \bar \Psi_{\alpha_2} (x_2) \rangle^C_{\text{full}} =  \]
+\[   =     \frac{(ig)^2}{2!} \int d^4 y d^4 z   \langle \phi_y \bar \Psi_y \Psi_y \phi_z \bar \Psi_z \Psi_z  \Psi_{\alpha_{2'}} (x_2')  \Psi_{\alpha_{1'}} (x_1') \bar \Psi_{\alpha_1} (x_1) \bar \Psi_{\alpha_2} (x_2) \rangle^C_{\text{free}}    \]
+We need to connect these such that we have a $\phi-\phi$ propagator and four $\Psi - \bar \Psi$ propagators. One such option is:
+\[          \frac{(ig)^2}{2!} \int d^4 y d^4 z \; \frac{1}{i} \Delta(y-x)  \left(  \frac{1}{i} S (x_{1'} - y)  \frac{1}{i} S (y-x_{1}) \right)_{\alpha_{1'} \alpha_{1}} \left(  \frac{1}{i} S (x_{2'} - z)  \frac{1}{i} S (z-x_{2}) \right)_{\alpha_{2'} \alpha_{2}}             \]
+We remove the $2!$ factor because of the diagram which swaps y and z. All in all, the 3 diagrams that we get are $=|=$. If we plug this into the LSZ formula, the Dirac operators kill the fermion propagators, and only the scalar propagator remains. We figure out the momentum of $\phi$ by conservation at each vertex. Thus:
+\[         i\mathcal{M} = (ig)^2 \frac{1}{i} \frac{1}{(p_1 - p_{1'})^2 + m_{\phi}^2 - i \epsilon}   \bar u_{s_1'} (p_1') \cdot u_{s_1} (p_1)\;\;\;  \bar u_{s_2'} (p_2') \cdot u_{s_2} (p_2)  \]
+
+
+
+
+
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

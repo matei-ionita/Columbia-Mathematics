@@ -1,0 +1,176 @@
+\documentclass[12 pt]{article}
+\usepackage{amsmath,amssymb,amsthm,fullpage,amsfonts,enumerate,textcomp, eurosym}
+\title{Lie groups HW6}
+\author{Matei Ionita}
+
+
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\CP}{\mathbb{C}\mathbb{P}}
+\newcommand{\RP}{\mathbb{R}\mathbb{P}}
+\newcommand{\Proj}{\mathbb{P}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\p}{\partial}
+\newcommand{\fr}{\mathfrak}
+
+\DeclareMathOperator{\Ind}{Ind}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\length}{length}
+\DeclareMathOperator{\res}{Res}
+\DeclareMathOperator{\Int}{Int}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\Lie}{Lie}
+\DeclareMathOperator{\id}{Id}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\irr}{irr}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\trdeg}{trdeg}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Nm}{Nm}
+\DeclareMathOperator {\HH} {\mathbb{H}}
+\DeclareMathOperator {\End} {End}
+\DeclareMathOperator {\ad} {ad}
+\DeclareMathOperator {\Ad} {Ad}
+
+
+\begin{document}
+  \maketitle
+
+\subsection*{Problem 1 (Kirillov 6.5)}
+We introduce the following notation:
+\[       h_a = \left(  \begin{array} {cc}  0 & -a \\ a & 0  \end{array} \right)   \;\;\;\;\;\;    H_{ab} = \left(  \begin{array} {cc}  h_a & 0 \\ 0 & h_b  \end{array} \right)   \;\;\;\;\;\; X  = \left(  \begin{array} {cc}  h_c & B \\ -B^T & h_d  \end{array} \right)  \]
+Note that $X$ is the most general form for a $\fr{so}(4)$ element. We want to show that $\fr{h} = \{ H_{ab} \}$ is its own centralizer. For this we compute:
+\[           [ H_{ab} , X ] = \left(   \begin{array} {cc}  [h_a, h_c] & h_a B - B h_d \\ - h_a B^T + B^T h_b & [h_b, h_d]  \end{array} \right)      =  \left( \begin{array} {cc}  0 & h_a B - B h_d \\ - h_a B^T + B^T h_b & 0  \end{array}  \right)   \]
+Therefore, if we seek $X \in C(\fr h)$, we must have $h_a B - B h_d = 0$ for all $a, d$. This happens iff $B = 0$, which shows that $C(\fr h) = \fr h$.
+
+In order for $\fr h$ to be a Cartan, the adjoint action of all its elements must be diagonalizable. We prove this by explicitly computing the eigenvectors, which will also give the root space decomposition. Define:
+\[         m =  \left(  \begin{array} {cc}  1 & i \\ -i & 1  \end{array} \right)  \;\;\;\;\;  n = \left(  \begin{array} {cc}  1 & i \\ i &-1  \end{array} \right)  \;\;\;\;\;      p =  \left(  \begin{array} {cc}  1 & -i \\ i & 1  \end{array} \right)  \;\;\;\;\;  q = \left(  \begin{array} {cc}  -1 & i \\ i & 1  \end{array} \right) \]
+\[      M =  \left(  \begin{array} {cc}  0 & m \\ -m^T & 0  \end{array} \right)  \;\;\;\;\;   N =  \left(  \begin{array} {cc}  0 & n \\ -n^T & 0  \end{array} \right)  \;\;\;\;\;  P =  \left(  \begin{array} {cc}  0 & p \\ -p^T & 0  \end{array} \right)  \;\;\;\;\;  Q =  \left(  \begin{array} {cc}  0 & q \\ -q^T & 0  \end{array} \right)  \;\;\;\;\; \]
+(Note that these have a more intuitive description in terms of sigma matrices: $m = \sigma_0 - \sigma_2 , n = i \sigma_1 + \sigma_3, p =  \sigma_0 + \sigma_2, q = i \sigma_1 - \sigma_3$.) Then $M, N, P, Q$ are eigenvectors for the adjoint action of each $H_{ab}$:
+\[       [H_{ab}, M] = i (a-b) M      \]
+\[       [H_{ab}, N] = i (a+b) N      \]
+\[       [H_{ab}, P] = -i (a-b) P      \]
+\[       [H_{ab}, Q] = -i (a+b) Q         \]
+These are 4 eigenvalues, and the eigenspaces for each have dimension 1. Together with the zero eigenvalue space $\fr h$ of dimension 2, we get 6, which is the dimension of $\fr{so}(4)$. This proves that all $H_{ab}$ are diagonalizable. The root space decomposition is:
+\[        \fr{so}(4) = \fr{h} \oplus \C M \oplus \C N \oplus \C P \oplus \C Q       \]
+
+
+\subsection*{Problem 2 (Kirillov 7.2)}
+(1) The induced inner product on the dual space is:
+\[      (\alpha^{\vee}, \beta^{\vee}) = \frac{4}{(\beta, \beta) (\alpha, \alpha)} (\alpha, \beta)     \]
+We see that the induced inner product on $E^*$ is just a rescaling of the one on $E$. In particular, if $R = \{\alpha_i\}$ span $E$, then $R^{\vee} = \{ \alpha_i^{\vee}\}$ span $E^*$. Next we want to compute:
+\[       n_{\alpha^{\vee} \beta^{\vee}} = 2 \frac{(\alpha^{\vee}, \beta^{\vee})}{(\beta^{\vee} , \beta^{\vee})} =2 \frac{4 (\beta, \alpha)}{(\alpha,\alpha)(\beta, \beta)} \frac{(\beta, \beta)}{4} = \frac{2(\beta, \alpha)}{(\alpha, \alpha)} \in \Z  \]
+Finally, we need to show that the reflection $s_{\alpha^{\vee}}(\beta^{\vee}) \in R^{\vee}$. We can actually show that $s_{\alpha^{\vee}} (\beta^{\vee}) = (s_{\alpha}(\beta))^{\vee}$. To see this, let $\gamma \in E$ be arbitrary, and compute:
+\begin{align*}
+\langle \gamma, s_{\alpha^{\vee}} (\beta^{\vee})\rangle &= \langle \gamma, \beta^{\vee} \rangle - \frac{2(\alpha^{\vee}, \beta^{\vee})}{(\alpha^{\vee}, \alpha^{\vee})} \langle \gamma, \alpha^{\vee} \rangle \\
+&= \frac{2(\gamma, \beta)}{(\beta, \beta)} - \frac{4(\alpha, \beta)(\gamma, \alpha)}{(\beta, \beta) (\alpha, \alpha)}
+\end{align*}
+\begin{align*}
+\langle \gamma, (s_{\alpha}(\beta))^{\vee} \rangle &= \frac{2(\gamma, s_{\alpha}(\beta))}{(s_{\alpha}(\beta),s_{\alpha}(\beta))} \\
+&=  \frac{2(\gamma, \beta)}{(\beta, \beta)} - \frac{4(\alpha, \beta)(\gamma, \alpha)}{(\beta, \beta) (\alpha, \alpha)}
+\end{align*}
+This holds for all $\gamma$, which proves the desired relation.
+\\
+\\
+(2) We first show that a choice of positive roots for $R$ induces a choice of positive roots for $R^{\vee}$. Let $t \in E$ be such that $(t, \alpha) \neq 0$ for all $\alpha \in R$, then $R_+$ is defined as the subset of $R$ for which $(t, \alpha) > 0$. In order to define positive roots for $R^{\vee}$, consider $t^{\vee}$. Then:
+\[      (t^{\vee}, \alpha^{\vee}) = \frac{4}{(\alpha, \alpha) (t,t)} (\alpha, t)      \]
+We see that $(t^{\vee} , \alpha^{\vee}) \neq 0$ iff $(\alpha, t) \neq 0$, and also $(t^{\vee} , \alpha^{\vee}) > 0$ iff $(\alpha, t) > 0$. Therefore $R^{\vee}_+ = \{ \alpha^{\vee} | \alpha \in R_+ \}$ is a choice of positive roots.
+
+Now we look for the simple roots associated to this $R^{\vee}_+$. By equation (7.17), the simple roots $\Pi^{\vee}$ are the $r = \dim E^* = \dim E$ positive roots such that:
+\[       C_+^{\vee} =    \{ \lambda^{\vee} \in E^*  | (\lambda^{\vee}, \alpha^{\vee}) > 0,\; \forall \alpha^{\vee} \in R^{\vee}_+ \} =  \{ \lambda^{\vee} \in E^*  | (\lambda^{\vee}, \alpha^{\vee}) > 0,\; \forall \alpha^{\vee} \in \Pi^{\vee} \}    \]
+Working from the LHS we have:
+\begin{align*}
+C_+^{\vee} &=  \{ \lambda^{\vee} \in E^*  | (\lambda, \alpha) > 0,\; \forall \alpha \in R_+ \} \\
+&=  \{ \lambda^{\vee} \in E^*  | (\lambda, \alpha) > 0,\; \forall \alpha \in \Pi_+ \} \\
+&= \{ \lambda^{\vee} \in E^*  | (\lambda^{\vee}, \alpha^{\vee}) > 0,\; \forall \alpha \in \Pi \}
+\end{align*}
+We found $r = | \Pi |$ positive coroots that make the relation hold, and so these must be the simple coroots.
+
+\subsection*{Problem 3 (Kirillov 7.11)}
+(1) Using Lemma 7.39, we see that the longest element $w_0$ is the unique one such that $w_0(C_+) = C_-$, and that $l(w_0) = |R_+|$. For $r=2$, we have $|R_+| = m$, so $l(w_0) = m$. Since $s_{i}^2 = 1$, we can only have a sequence that alternates between the two simple roots $s_1$ and $s_2$. Therefore $w = s_1 s_2 s_1 \dots$, with $m$ terms.
+
+
+
+\subsection*{Problem 4 (Kirillov 7.13)}
+(1) We know from theorem 7.52 that $e_1, \dots, e_r$ generate $\fr{n}_+$, and so it suffices to show that commutators of the form:
+\[             [ ... [[e_{i_1}, e_{i_2}], e_{i_3}] ... e_{i_n}]          \]
+are zero for large enough $n$. We use the fact that $e_{i} \in \alpha_{i}$, and so:
+\[             [ ... [[e_{i_1}, e_{i_2}], e_{i_3}] ... e_{i_n}]   \in \fr g_{\alpha_{i_1} + \dots + \alpha_{i_n}}           \]
+We know that all the simple roots $\alpha_i$ are positive, and so their sum will also be positive. Moreover, the height of $\alpha_{i_1} + \dots + \alpha_{i_n}$ is $n$. But $\fr g$ is finite dimensional, so there is an upper bound $m$ on the height of its positive roots. Then choose $n = m+1$, so that $\fr g_{\alpha_{i_1} + \dots + \alpha_{i_n}}  = 0$, and the fact that $\fr n_{+}$ is nilpotent follows.
+
+The statement for $\fr n_-$ is proved analogously; the only difference is that commutators of $f_i$ will live in root spaces which are linear combinations of $\alpha_i$ with coefficients -1 instead of 1.
+\\
+\\
+(2) The Serre relations give $[h_i , e_j] \in \fr n_{+}$. Together with $[e_i, e_j] \in \fr n_{+}$ and $[h_i, h_j] = 0$, this shows that the commutator of any elements in $\fr b$ is in $\fr n_{+}$. This reduces commutators of the form:
+\[      [ [ [b_1, b_2] , [b_3, b_4] ] , ...]          \]
+to commutators in $\fr n_{+}$. But $\fr n_{+}$ is nilpotent, so taking enough commutators give 0. Therefore $\fr b$ is solvable.
+
+\subsection*{Problem 5 (Kirillov 16)}
+(1) We start from:
+\[     h_{\alpha} = i_{\alpha} \left( \begin{array} {cc}  1 & 0 \\ 0 & -1   \end{array} \right)     \]
+And the definition of the adjoint action:
+\begin{align*}
+\Ad S_{\alpha} (h_{\alpha}) &= \left. \frac{d}{dt} \right|_{t=0}  \left( S_{\alpha} e^{th_{\alpha}} S^{-1}_{\alpha}  \right)     \\
+&= \left. \frac{d}{dt} \right|_{t=0}  \left[ i_{\alpha}\left( \begin{array} {cc}  0 & -1 \\ 1 & 0   \end{array} \right)   \exp\left( t  i_{\alpha} \left( \begin{array} {cc}  1 & 0 \\ 0 & -1   \end{array} \right) \right)   i_{\alpha}\left( \begin{array} {cc}  0 & 1 \\ -1 & 0   \end{array} \right)  \right] \\
+&= i_{\alpha} \left. \frac{d}{dt} \right|_{t=0}  \left[  \left( \begin{array} {cc}  0 & -1 \\ 1 & 0   \end{array} \right)   \left( \begin{array} {cc}  e^{t} & 0 \\ 0 & e^{-t}   \end{array} \right)  \left( \begin{array} {cc}  0 & 1 \\ -1 & 0   \end{array} \right)  \right] \\
+&= i_{\alpha} \left( \begin{array} {cc}  -1 & 0 \\ 0 & 1   \end{array} \right) \\
+&= - h_{\alpha}
+\end{align*}
+Now if we have some $h$ such that $\langle h , \alpha \rangle = 0$, we show that $h$ commutes with $\frac{\pi}{2} (f_{\alpha} - e_{\alpha})$. Using the Serre relations:
+\begin{align*}
+[h, \frac{\pi}{2} (f_{\alpha} - e_{\alpha})] &= \frac{\pi}{2} [h, f_{\alpha}] - \frac{\pi}{2} [h, e_{\alpha}] \\
+&=\frac{\pi}{2} \langle h, \alpha \rangle (- f_{\alpha} - e_{\alpha}) \\
+&= 0
+\end{align*}
+From this we deduce that $S_{\alpha} e^{th} = e^{th} S_{\alpha}$, which immediately implies that $\Ad S_{\alpha} (h) = h$.
+
+We define the action of $S_{\alpha}$ on $\fr g^*$ in the obvious way:
+\[             \langle \Ad S_{\alpha} (\lambda) , \Ad S_{\alpha} (X) \rangle = \langle \lambda , X  \rangle            \]
+We have seen above that $ \Ad S_{\alpha} (h_{\beta}) \in \fr h$, therefore $\Ad S_{\alpha} (\beta) \in \fr h^*$. Moreover, $\Ad S_{\alpha} (h_{\alpha}) = - h_{\alpha}$ implies $\Ad S_{\alpha} (\alpha) = - \alpha$, and $\Ad S_{\alpha} (h_{\beta}) = h_{\beta}$ implies $\Ad S_{\alpha} (\beta) = \beta$. This shows that $\Ad S_{\alpha} |_{\fr h^*} = s_{\alpha}$.
+\\
+\\
+(2) We saw in part 1 that $\Ad S_{\alpha} |_{\fr h^*} = s_{\alpha}$. Now we have to prove a similar statement for arbitrary $w$ in the Weyl group. We prove it for $w = s_{\alpha} s_{\beta}$, and the proof for longer elements follows analogously. It's easy to see that:
+\[   ( \Ad S_{\alpha} \Ad S_{\alpha} )|_{\fr h^*} = s_{\alpha} s_{\beta}        \]
+But $G \overset{\Ad}{\to} Gl(\fr g)$ is a homomorphism, so $\Ad S_{\alpha} \Ad S_{\alpha} = \Ad (S_{\alpha} S_{\beta})$.
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

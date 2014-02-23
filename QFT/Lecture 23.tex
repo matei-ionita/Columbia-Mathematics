@@ -1,0 +1,121 @@
+\documentclass[12 pt]{article}
+\usepackage{amsmath,amssymb,amsthm,fullpage,amsfonts,enumerate,textcomp, eurosym, slashed}
+\title{QFT Lecture 23}
+\author{Matei Ionita}
+\DeclareMathOperator {\p} {\partial}
+
+\begin{document}
+  \maketitle
+
+\subsection*{More on the Dirac eq.}
+Reference: ch. 36
+
+Recall the Lagrangian for a left-handed Weyl spinor:
+\[      \mathcal{L} = i \psi^{\dagger} \bar \sigma^{\mu} \p_{\mu} \psi + \frac{1}{2} m \psi \epsilon \psi - \frac{1}{2} m \psi^{\dagger} \epsilon \psi^{\dagger}      \]
+To get to Srendicki's notation, in which a sign differs:
+\[      \frac{1}{2} m \psi \epsilon \psi - \frac{1}{2} m \psi^{\dagger} \epsilon \psi^{\dagger}    = \]
+\[ = \frac{1}{2} m \psi_b \epsilon^{ba} \psi_a - \frac{1}{2} m \psi^{\dagger}_{\dot a} \epsilon^{\dot a \dot b} \psi^{\dagger}_{\dot b}    =         \]
+\[ =  - \frac{1}{2} m \epsilon^{ab} \psi_b  \psi_a - \frac{1}{2} m \psi^{\dagger}_{\dot a} \epsilon^{\dot a \dot b} \psi^{\dagger}_{\dot b}    =    \]
+\[ =  - \frac{1}{2} m  \psi^a  \psi_a - \frac{1}{2} m \psi^{\dagger}_{\dot a}  {\psi^{\dagger}}^{\dot a}    =    \]
+\[ =  - \frac{1}{2} m  \psi  \psi - \frac{1}{2} m \psi^{\dagger}  \psi^{\dagger}       \]
+Also recall the useful relations:
+\[     \bar \sigma^{\mu} = (1, - \mathbf{\sigma^{\mu}} )    \]
+\[       \epsilon \sigma_i \epsilon = \sigma_i^T     \]
+\[       \epsilon \sigma^{\mu} \epsilon = - \bar \sigma^{\mu}            \]
+For the e.o.m:
+\[    \frac{\delta S}{\delta \psi^{\dagger}} = 0 \Rightarrow i\bar\sigma^{\mu} \p_{\mu} \psi - m \epsilon \psi^{\dagger} = 0     \]
+Let's explicitly compute a term:
+\[     \frac{\delta (\psi^{\dagger}_{\dot a} \epsilon^{\dot a \dot b} \psi^{\dagger}_{\dot b})}{\delta \psi^{\dagger}_{\dot c}}   = \epsilon^{\dot c \dot b} \psi^{\dagger}_{\dot b} - \psi^{\dagger}_{\dot b} \epsilon^{\dot b \dot c} = 2 \epsilon^{\dot c \dot b} \psi^{\dagger}_{\dot b}   \]
+The two e.o.m. can be combined into the Dirac equation:
+\[       (i\gamma^{\mu}\p_{\mu} - m)  \Psi = 0      \]
+Where the dirac spinor and gamma matrices are:
+\[      \Psi = \left(  \begin{array} {c} \psi \\ \epsilon \psi^{\dagger} \end{array}  \right)  \;\;\;\;\; \gamma^{\mu} = \left( \begin{array} {cc}  0 & \sigma^{\mu} \\ \bar \sigma^{\mu} & 0  \end{array} \right)    \]
+Useful to know that $\gamma^{\mu \dagger} = \gamma^0 \gamma^{\mu} \gamma^0$.
+\\
+\\
+We used Wigner's trick to obtain spinors. Another route, which also works for dimensions other than 3+1, is based on the porperties of the Clifford algebra. We can form a representation of the Lorentz group by setting:
+\[      S^{\mu \nu} = \frac{i}{4} [ \gamma^{\mu} , \gamma^{\nu} ]     \]
+Then these obey the correct relations for the Lorentz Lie algebra representation:
+\[      [S^{\mu\nu}, S^{\rho \sigma} ] = -i ( \eta^{\mu \sigma} S^{\nu \rho} - \eta^{\nu \sigma} S^{\mu \rho} )       \]
+As of now, $\psi$ is its own antiparticle. To describe something like electron-positron, we consider two spinors $\psi_1, \psi_2$. We should be careful not to confuse these indices with the components of the spinor. Now we write a Lagrangian for the system as the sum of Lagrangians for the two particles:
+\[      \mathcal{L} = \sum_{i=1}^2 i \psi_i^{\dagger} \bar \sigma^{\mu} \p_{\mu} \psi_i + \frac{1}{2} m \psi_i \epsilon \psi_i - \frac{1}{2} m \psi_i^{\dagger} \epsilon \psi_i^{\dagger}          \]
+Note that the Lagrangian has an $SO(2)$ symmetry. Rewrite it in terms of $\chi = \frac{1}{\sqrt{2}} (\psi_1 + i \psi_2)$, $\xi = \frac{1}{\sqrt{2}} (\psi_1 - i \psi_2)$:
+\[    \mathcal{L} = i \chi^{\dagger} \bar \sigma^{\mu} \p_{\mu} \chi + i \xi^{\dagger} \bar \sigma^{\mu} \p_{\mu} \xi + m \chi \epsilon \xi - m \xi^{\dagger} \epsilon \chi^{\dagger}     \]
+Two of the e.o.m. are:
+\[    \frac{\delta S}{\delta \chi^{\dagger}} \Rightarrow i \bar \sigma^{\mu} \p_{\mu} \chi - m \epsilon \xi^{\dagger} = 0   \]
+\[    \frac{\delta S}{\delta \xi}   \Rightarrow i \sigma^{\mu} \p_{\mu} \epsilon \xi^{\dagger} - m \chi = 0           \]
+Combining these gives a Dirac equation:
+\[    (i \gamma^{\mu} \p_{\mu} - m )  \Psi = 0 \;\;\;\;\;    \Psi = \left( \begin{array} {c}  \chi \\ \epsilon \xi^{\dagger}  \end{array} \right)   \]
+The e.o.m. looks nicer and simpler in terms of the Dirac spinor. Similarly, we can also write a simpler Lagrangian in terms of the Dirac spinor:
+\[       \mathcal{L} = i \bar \Psi \gamma^{\mu} \p_{\mu} \Psi - m \bar \Psi \Psi   \;\;\;\;\;\;\;\; \bar \Psi = \Psi^{\dagger} \gamma^0   \]
+In this form, the Lagrangian has a $U(1)$ symmetry: $\Psi \to e^{-i\theta} \Psi$. The Noether current:
+\[     j^{\mu} = \bar \Psi \gamma^{\mu} \Psi       \]
+In terms of the two initial fields:
+\[     j^{\mu} = \chi^{\dagger} \bar \sigma^{\mu} \chi - \xi^{\dagger} \bar \sigma^{\mu} \xi      \]
+Next semester, we will couple this current to the electromagnetic field:
+\[    \mathcal{L}_{\text{interaction}} = e A_{\mu} j^{\mu}   \]
+A special case of the Dirac spinor is the Majorana spinor, where $\chi = \xi$:
+\[       \Psi = \left( \begin{array} {c} \chi \\ \epsilon \chi^{\dagger} \end{array} \right)       \]
+This can be used to model a Majorana neutrino. Note that the conserved current is 0. Define charge conjugation as the operation that flips $\chi$ and $\xi$:
+\[     \Psi = \left( \begin{array} {c} \xi \\ \epsilon \chi^{\dagger} \end{array} \right)       \]
+I.e. a Majorana spinor satisfies $\Psi = \Psi^C$. We will see later that this is the analog of a real scalar field, and not $\Psi = \Psi^{\dagger}$. We define the charge conjugation operator as:
+\[      \Psi^C = \mathbb{C} \bar \Psi^T     \]
+Check:
+\[   \mathbb{C} \bar \Psi^T = \left(   \begin{array} {cc} - \epsilon & 0 \\ 0 & \epsilon \end{array} \right) ( \Psi^T \gamma^0)^T =    \]
+\[       = \big(   \xi \epsilon^T\;\; \chi^{\dagger} \big)^T = \left( \begin{array} {c} \xi \\ \epsilon \chi^{\dagger} \end{array} \right)        \]
+For the Majorana spinor, better to work with the Lagrangian in a form which already incorporates the Majorana condition:
+\[     \mathcal{L} = \frac{i}{2} \psi^T \mathbb{C} \gamma^{\mu} \p_{\mu} \Psi - \frac{1}{2} m \Psi^T \mathbb{C} \Psi     \]
+
+\subsection*{Solving Dirac eq.}
+Reference: ch. 37
+\\
+\\
+Try:
+\[     \Psi (x) = u(k) e^{ikx}      \]
+We know that $k$ is on-shell, because $\Psi$ also obeys the KG eq. Plug it into the Dirac eq. to get:
+\[      ( - \gamma^{\mu} k_{\mu} - m) u(k) = 0     \]
+\[      (\slashed k + m) u(k) = 0    \]
+Let's go to rest frame $k^{\mu} = (m,0,0,0) $. Then $(\gamma^0 k_0 + m ) u = 0$, so $\gamma^0 u = u$. Two solutions are:
+\[      u_+ = \sqrt{m} \left( \begin{array} {c} 1 \\ 0 \\ 1 \\ 0 \end{array} \right)  \;\;\;\;\;     u_- = \sqrt{m} \left( \begin{array} {c} 0 \\ 1 \\ 0 \\ 1 \end{array} \right)     \]
+If, instead, we look for $  \Psi (x) = u(k) e^{-ikx}  $, we will get $\gamma^0 v = -v$. Two solutions are:
+\[      v_+ = \sqrt{m} \left( \begin{array} {c} 0 \\ 1 \\ 0 \\ -1 \end{array} \right)  \;\;\;\;\;     v_- = \sqrt{m} \left( \begin{array} {c} -1 \\ 0 \\ 1 \\ 0 \end{array} \right)     \]
+For the most general solution, we make a superposition of $u_+, u_-, v_+, v_-$ and boost it in any direction.
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

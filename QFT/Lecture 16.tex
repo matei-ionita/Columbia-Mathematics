@@ -1,0 +1,97 @@
+\documentclass[12 pt]{article}
+\usepackage{amsmath,amssymb,amsthm,fullpage,amsfonts,enumerate,textcomp, eurosym}
+\title{QFT Lecture 16}
+\author{Matei Ionita}
+\DeclareMathOperator {\p} {\partial}
+
+\begin{document}
+  \maketitle
+
+\subsection*{Quantum action}
+
+To find the relation between $W[J]$ and $\Gamma(\phi)$ we define:
+\[      e^{iW_{\Gamma}[J]}   = \int D\phi e^{i(\Gamma(\phi) + \int d^d x J\phi)}    \]
+Note that $W_{\Gamma}$ at three level corresponds to $W$ with all loops. At the stationary point $\phi_J$:
+\[        \int D\phi e^{i(\Gamma(\phi_J) + \int d^d x J\phi_J)}  =     \int D\phi e^{i(\Gamma(\phi_J + \delta \phi) + \int d^d x J( \phi_J + \delta \phi))}      \]
+This gives the "quantum equation of motion":
+\[   \left.    \frac{\delta \Gamma(\phi)}{\delta \phi(x)}  + J(x)\right|_{\phi(x) = \phi_J} = 0    \]
+Close to $\phi_J$:
+\[      \int D\phi e^{i(\Gamma(\phi) + \int d^d x J\phi)}  =   e^{i(\Gamma(\phi_J) + \int d^d x J\phi_J)}  \int D(\delta \phi) e^{i/2 \int d^d x_1 d^d x_2 \left. \frac{\delta^2 \Gamma}{\delta \phi_1 \delta \phi_2} \right|_{\phi = \phi_J} \delta \phi_1 \delta \phi_2}  \]
+Therefore:
+\[    W[J] \text{  (to all orders)}= \Gamma(\phi_J) + \int d^d x J(x) \phi_J(x)         \]
+Why is the quantum action useful? We use it to study spontaneous symmetry breaking. Note that $\Gamma$ contains the usual derivative terms (such as $-1/2 (\p \phi)^2$), then some other terms which we collectively call "quantum potential". This is just some sum of quadratic, cubic, etc terms. For example, if we have:
+\[     U(\phi) = \frac{1}{2} \alpha \phi^2 + \lambda \phi^4       \]
+for negative $\alpha$ and positive $\lambda$ we get a double-well potential. For the usual quadratic potential, the well represents the vacuum expectation value of the field (i.e. 0). For the double-well, the ground state will not be 0 anymore, thus the state is not symmetric, even though the action looks symmetric.
+
+
+\subsection*{Continuous symmetries}
+
+Later we'll go back to renormalization and think about it in the context of symmetry. For now, reference chapter 22.
+\\
+\\
+Recall that continuous symmetries are the ones that can be smoothly deformed to 1. Classically we have Noether's theorem: for every symmetry there is a conserved current; today we make a quantum statement. Recall the proof of Noether's theorem, which we will use in a bit to prove the quantum statement. S is invariant under $\phi \to \phi+\delta \phi$. We consider $\phi \to \phi + \rho \delta \phi $, where $\rho$ is some arbitrary function. If $\rho$ is a constant, $\delta S$ is 0, so $\delta S$ can only depend on derivatives of $\rho$.
+\[      \delta S = \int d^d x j^{\mu} \p_{\mu} \rho        \]
+This is a general statement, for any field configuration; it does not assume $\phi$ obeys the classical EOM. We impose this as $\delta S = 0$ for fluctuations around this classical field. Therefore:
+\[        \int d^d x j^{\mu} \p_{\mu} \rho   = 0 =  -  \int d^d x  \p_{\mu} j^{\mu}  \rho   \]
+using integration by parts. Since this must vanish for every $\rho$,we get $\p_{\mu} j^{\mu} = 0$. This current is 0 AS LONG AS $\phi$ is on-shell.
+\\
+\\
+For the quantum case, consider
+\[  \langle \phi(x_1) ... \phi(x_n) \rangle = \int D\phi \phi_1 ... \phi_n e^{iS[\phi]}   \]
+Do the change of variables $\phi' = \phi + \delta \phi \rho $.
+\[       \langle \phi(x_1) ... \phi(x_n) \rangle = \int D(\phi + \delta\phi \rho) (\phi_1 + \delta \phi \rho) ... (\phi_n + \delta \phi \rho) e^{i(S[\phi]+ \int d^d x j^{\mu} \p_{\mu} \rho)}           \]
+For now, we only consider symmetries for which the measure remains unchanged, so $D(\phi + \delta\phi \rho) = D\phi$. The 0 order terms are just the n-point function we started with. Therefore the other terms have to be 0. We'll write the first order terms and ignore the other:
+\[        \int D\phi \left[    \rho_1 \delta \phi_1 \phi_2 ... \phi_n  + ... + \phi_1 ... \phi_{n-1} \rho_n \delta \phi_n  + \phi_1 ... \phi_n i \int d^d x j^{\mu} \p_{\mu} \rho   \right]   e^{iS[\phi]}    \]
+Since $\rho$ is arbitrary, we can choose it to be $\rho(x) = \delta (x-x_0)$ for some $x_0$. We get:
+\[            \int D \phi \phi_1 ... \phi_n (- i \p_{\mu} j^{\mu} )_{x_0} e^{iS[\phi]}  +     \int D\phi \delta(x_1 - x_0) \delta \phi_1 \phi_2 ... \phi_n + ...          \]
+\[       i \langle \p_{\mu} j^{\mu}(x_0) \phi_1 ... \phi_n \rangle    =  \delta (x_1 - x_0)  \langle (\delta \phi_1) \phi_2 ... \phi_n \rangle  + ... + \delta (x_n - x_0) \langle \phi_1 ... \phi_{n-1} (\delta \phi_n ) \rangle    \]
+The terms on the right are called contact terms. The expectation value is nonzero if the divergence of j happens to be evaluated at one of the field points. This quantum version of Noether's theorem is called the Ward identity. In a simpler and more general form:
+\[      i \langle \p_{\mu} j^{\mu} \mathcal{O}(\phi(x_1)) \rangle =    \delta (x_0 - x_1)  \langle \delta \mathcal{O}_1 \rangle     \]
+Recall the classically conserved charge:
+\[        Q = \int d^{d-1} j^0     \]
+In the quantum case:
+\[        \int d^{d-1} x     i \langle \p_{\mu} j^{\mu} \mathcal{O}(\phi(x_1)) \rangle  =  \delta(t-t_1) \langle \delta \mathcal{O}_1 \rangle          \]
+Using Stokes and throwing away the boundary terms on the LHS, this becomes:
+\[          i \p_t \langle Q(t) \mathcal{O} (t_1)    \rangle = \delta(t-t_1) \langle \delta \mathcal{O}_1\rangle     \]
+Integrating wrt time from $t_1 - \epsilon$ and $t_1 + \epsilon$ on both sides:
+\[     i \langle Q(t+\epsilon) \mathcal{O} (t_1) - Q(t-\epsilon) \mathcal{O} (t_1) \rangle = \langle \delta \mathcal{Q} (t_1)    \]
+But recall that the expectation value must be time-ordered! So:
+\[      i\langle 0 | [ Q ,  \mathcal{O} ] | 0 \rangle = \langle 0 | \delta \mathcal{O} | 0 \rangle      \]
+We're not doing this now, but you can show this holds for any state, not only the vacuum. So:
+\[        i [Q, \mathcal{O} ] = \delta \mathcal {O}       \]
+For example, for time translation the conserved charge is the Hamiltonian, and its commutator with an operator is the variation of that operator.
+
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

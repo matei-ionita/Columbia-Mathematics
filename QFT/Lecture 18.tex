@@ -1,0 +1,64 @@
+\documentclass[12 pt]{article}
+\usepackage{amsmath,amssymb,amsthm,fullpage,amsfonts,enumerate,textcomp, eurosym}
+\title{QFT Lecture 18}
+\author{Matei Ionita}
+\DeclareMathOperator {\p} {\partial}
+
+\begin{document}
+  \maketitle
+
+\subsection*{Non-abelian (internal) symmetries}
+Reference: ch. 24
+\[       S = \int d^4 x \sum \left(  -\frac{1}{2} (\p \phi_i)^2 - \frac{1}{2} m^2 \phi_i^2  \right)   + \lambda \left(  \sum \phi_i^2  \right)^2  \]
+Invariant under $\phi_i = R_{ij} \phi_j$, where $R_{ij} \in O(n)$. Lie algebra of $O(n)$ given by $T^a$ such that:
+\[        [T^a, T^b ] = i f^ {abc} T^c     \]
+
+
+
+\subsection*{Renormalization schemes and renormalization group}
+Reference: chapter 27, 28
+\\
+\\
+Define $\alpha = g^2/4\pi$. Then:
+\[          \pi(k^2) = - \frac{\alpha}{2} \left(\frac{k^2}{6} + m^2 \right) \left( \frac{2}{\epsilon} + 1 - \gamma + \text{ln}(4\pi) \right) - (Ak^2 + Bm^2)  + \frac{\alpha}{2} \int dx D \text{ln} \frac{D}{\mu^2} \]
+Renormalization scheme so far is called the on-shell (OS) scheme: $\pi(-m^2) = 0$ and $\pi'(-m^2) = 0$. This is one way of fixing A and B. Sometimes we don't want to do this. Consider the case $m = 0$, for which the two above conditions hold automatically (independent of A and B). For example, look at modified minimal substraction scheme: $\overline{MS}$. Minimal substraction means removing only the diverging term. Modified if also remiving the $\gamma$ and logarithm. Thus, for $\overline{MS}$:
+\[   \pi(k^2) = - \frac{\alpha}{2} \left(\frac{k^2}{6} + m^2 \right)   + \frac{\alpha}{2} \int dx D \text{ln} \frac{D}{\mu^2} \]
+Let's see what this implies about m and the physical mass. The physical mass is the pole $\tilde \Delta(-m_{\text{phys}}^2) = 0$. So:
+\[          m_{\text{phys}}^2 = m^2 - \pi(m_{\text{phys}}^2)     \]
+Notice that the last term is of order $\alpha$, thus small. So we can use $m=m_{\text{phys}}$ in the expression of $\pi$. (And then proceed iteratively if we have nothing better to do.)
+\[           m_{\text{phys}}^2 = m^2 \left[   1 - \frac{\alpha}{2} \int dx (1 - x +x^2) \text{ln} \frac{m^2}{\mu^2}  - \frac{\alpha}{2} \{\text{some numbers}\}  \right]        \]
+\[            m_{\text{phys}}^2 = m^2 \left[          1 + \frac{5}{12} \alpha \text{ln} \frac{\mu^2}{m^2} + \frac{5}{12} \alpha c' + O(\alpha^2)     \right]               \]
+\[          \text{ln} \frac{m_{\text{phys}}  }{m} = \frac{5}{12} \alpha \text{ln} \frac{\mu}{m} + \frac{5}{24} \alpha c' + O(\alpha^2)             \]
+Since we introduced $\mu$ just for the purposes of dimensional regularization, the physical mass at low energies should be independent of $\mu$ at high energies. (HW shows that $\mu$ is a sort of ultraviolet cutoff.)
+\[         0 = \frac{d (\text{ln} m)}{d (\text{ln} \mu)}   + \frac{5\alpha}{12}  +   \frac{5}{12} \frac{d \alpha}{d (\text{ln} \mu)} - \frac{5\alpha}{12} \frac{d (\text{ln} m)}{d (\text{ln} \mu)} + \frac{5}{24} c' \frac{d \alpha}{d (\text{ln} \mu)} \]
+Will show at some point that the last 3 terms are $O(\alpha^2)$. Therefore the anomalous dimension of mass is:
+\[         \gamma_m (\alpha) =   \frac{d (\text{ln} m)}{d (\text{ln} \mu)}  = - \frac{5\alpha}{12}    \]
+Note that in 2$\to$2 scattering we have eq. 27.22:
+\[           |\mu|^2 \sim \left(  1 - \frac{3}{2} \alpha \text{ln} \frac{s}{\mu^2} + ...   \right)         \]
+One way to think about this: $\alpha$ has a logarithmic dependence of energy. Another way to think about this is that we need to have $s\sim \mu^2$ such that the expansion doesn't diverge.
+\\
+\\
+Let's briefly talk about the renormalization group:
+\[         \mathcal{L} = \frac{1}{2} Z_{\phi} (\p \phi)^2 - \frac{1}{2} Z_m m^2 \phi^2 + \frac{1}{6} Z_g g \mu^{\epsilon/2} \phi^3 + Y\phi + \Lambda       \]
+\[         A = Z_{\phi}  - 1 = - \frac{\alpha}{6 \epsilon} + \{ \text{finite}\} + O(\alpha^2)        \]
+\[         B = Z_{m}  - 1 = - \frac{\alpha}{\epsilon} + \{ \text{finite}\} + O(\alpha^2)        \]
+\[         C = Z_{g}  - 1 = - \frac{\alpha}{6 \epsilon} + \{ \text{finite}\} + O(\alpha^2)        \]
+The idea is that all renormalization schemes remove the divergence, so they give basically the same result, up to the finite terms.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

@@ -1,0 +1,142 @@
+\documentclass[12 pt]{article}
+\usepackage{amsmath,amssymb,amsthm,fullpage,amsfonts,enumerate,textcomp, eurosym, tikz-cd, fullpage}
+\title{Algebraic topology HW4}
+\author{Matei Ionita}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\CP}{\mathbb{C}\mathbb{P}}
+\newcommand{\RP}{\mathbb{R}\mathbb{P}}
+\newcommand{\Proj}{\mathbb{P}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\p}{\partial}
+\newcommand{\fr}{\mathfrak}
+
+\DeclareMathOperator{\Mor}{Mor}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\length}{length}
+\DeclareMathOperator{\res}{Res}
+\DeclareMathOperator{\Int}{Int}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\Lie}{Lie}
+\DeclareMathOperator{\id}{Id}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\irr}{irr}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\trdeg}{trdeg}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Nm}{Nm}
+\DeclareMathOperator{\ord}{ord}
+
+\begin{document}
+  \maketitle
+
+\subsection*{Problem 1 (1.1.10 in Hatcher)}
+We need to show that following a loop $\gamma$ in $X \times \{y_0\}$ and then a loop $\delta$ in $\{x_0\} \times Y$ is the same as following $\delta$, and then $\gamma$. That is, we need to find a homotopy between the following loops in $X \times Y$:
+\[     f_0(s) = \left\{  \begin{array} {c}  (\gamma(2s), y_0) \;\;\;\;, 0\leq s < 1/2 \\  (x_0, \delta(2s-1)) \;\;\;\;, 1/2\leq s \leq 1 \end{array} \right.      \]
+\[     f_1(s) = \left\{  \begin{array} {c}  (x_0, \delta(2s)) \;\;\;\;, 0\leq s < 1/2 \\ (\gamma(2s-1), y_0)  \;\;\;\;, 1/2\leq s \leq 1 \end{array} \right.      \]
+To construct the homotopy, we vary the point at which the loop $\gamma$ is attached, continuously along $\delta$. Specifically:
+\[     f_t(s) =     \left\{  \begin{array} {c}  (x_0, \delta(2s)) \;\;\;\;, 0\leq s < t/2 \\ (\gamma(2s-t), \delta(t)) \;\;\;\;, t/2 \leq s < (t+1)/2 \\ (x_0 , \delta(2s-1)) \;\;\;\;, (t+1)/2\leq s \leq 1 \end{array} \right.         \]
+
+
+\subsection*{Problem 2 (1.1.12 in Hatcher)}
+Since $\pi_1(S^1)$ is isomorphic to $\Z$, we are looking at homomorphisms $f: \Z \to \Z$. Any such homomorphism is completely determined by $f(1)$, therefore $\Hom(\pi_1(S^1), \pi_1(S^1)) = \Z$ as sets. Thus the problem reduces to finding, for each $n\in \Z$, a map $\phi_n : S^1 \to S^1$ such that $[\phi_n \circ \omega_1] = [\omega_n]$. Regarding $S^1$ as the complex unit circle, the homotopy classes of $S^1$ are $\omega_n (s) = e^{2\pi in s}$. Then take $\phi_n (z) = z^n$, which is continuous on $\C$, and therefore is continuous when restricted as a function $S^1 \to S^1$. We see that:
+\[       (\phi \circ \omega_1) (s) = (e^{2\pi i s})^n = e^{2\pi i n s} = \omega_n (s)     \]
+Then $\phi_* [\omega_1] = [\omega_n]$, as desired.
+
+
+\subsection*{Problem 3 (1.1.16 in Hatcher)}
+Throughout we will be using proposition 1.17 in Hatcher: if a space $X$ retracts onto a subspace $A$, then the homomorphism $i_* : \pi_1 (A) \to \pi_1(X)$ induced by the inclusion $i: A \to X$ is injective.
+\\
+\\
+a) $\pi_1(X) = 0$, and $\pi_1(A) = \Z$, since homeomorphic spaces have isomorphic fundamental groups. Since $\Z$ cannot be injected into $0$, there cannot exist a retraction $X \to A$.
+\\
+\\
+b) $\pi_1(X) = \pi_1(S^1) \times \pi_1(D^2) = \Z \times 0 = \Z$, and $\pi_1(A) = \pi_1(S^1) \times \pi_1(S^1) = \Z^2$. If a retraction exists, we obtain an injective homomorphism $\phi:\Z^2 \to \Z$. Such a homomorphism is determined by its values on the two generators of $\Z^2$:
+\[           \phi(1,0) = m       \]
+\[      \phi(0,1) = n     \]
+But then we have $\phi(n,0) = nm = \phi(0,m)$, which contradicts the injectivity of $\phi$. Therefore no retraction exists.
+\\
+\\
+c) The solid torus deformation retracts onto its central circle $C$, therefore it has the same homotopy type as $S^1$. Consider the inclusion map $i:A \to X$, and the induced homomorphism $i_* : \pi^1(A) \to \pi_1(X)$. Viewed as a loop in the solid torus, $A$ is nullhomotopic, since it can be homotoped to a point as shown in the figure.
+\\
+\\
+\\
+\\
+\\
+\\
+Hence $i_* [1_A] = [0_X]$; the generator of $\pi_1(A)$ is mapped to the zero element in $\pi_1(X)$. Now assume that there exists a retraction $r:X \to A$. By definition, $r\circ i = \id_A$, which means that $r_* \circ i_* = \id_{\pi_1(A)}$. In particular, $r_* \circ i_* [1_A] = [1_A]$. However, using the fact that $i_* [1_A] =  [0_X]$, we obtain $r_*[0_X] = [1_A]$. This is a contradiction, since any group homomorphism must map the zero element to zero.
+\\
+\\
+d) We claim that $\pi_1(X) = 0$. First, $\pi_1(D^2) = 0$ for each copy of $D^2$, therefore any loop that lies entirely in one of the copies is nullhomotopic. Consider now a loop $f$ passing through both copies. We can regard it as the product $f_1 \bullet f_2 \bullet \dots$, where each $f_i$ is contained in one copy of $D^2$. Then each $f_i$ is nullhomotopic, so their product $f$ is also nullhomotopic. Therefore $\pi_1(X) = 0$. On the other hand,$\pi_1(A) \neq 0$; in fact, $\pi_1(A)$ contains a $\Z^2$ subgroup given by all loops that go around one copy of $S^1$ or the other, but not both. This means that $\pi_1(A)$ cannot be injected into $\pi_1(X)$.
+\\
+\\
+e) A disk with two boundary points identified deformation retracts onto one of its boundary circles, so it has the same homotopy type as $S^1$. Therefore $\pi_1(X) = \Z$. But $\pi_1(A)$ contains a $\Z^2$ subgroup, and since there is no injective homomorphism from $\Z^2$ to $\Z$, there cannot exist one from $\pi_1(A)$ to $\pi_1(X)$.
+\\
+\\
+f) The Mobius band deformation retracts onto its central circle $C$, therefore it has the same homotopy type as $S^1$. Consider the inclusion map $i : A \to X$, and the induced homomorphism $i_* : \pi^1(A) \to \pi^1(X)$. Travelling once around $1_A$, the generator of $\pi^1(A)$, takes us twice around $1_X$, therefore $i_* [1_A] =  [1_X]^2$. Now assume there exists a retraction $r : X \to A$. By definition, $r \circ i = \id_A$, which means that $r_* \circ i_* = \id_{\pi_1(A)}$. In particular, $r_* \circ i_* [1_A] = [1_A]$. However, using the fact that $i_* [1_A] =  [1_X]^2$, we obtain $(r_*[1_X])^2 = [1_A]$. Since $r_*$ is a homomorphism from $\Z$ to $\Z$, we have $r_*[1_X] = [1_A]^n$ for some $n\in \Z$. Therefore $2n = 1$, which is a contradiction.
+
+
+\subsection*{Problem 4 (1.2.4 in Hatcher)}
+$X$ deformation retracts onto $Y$, a 2-sphere missing $2n$ points $x_i$. Choose a basepoint $y \in Y$, and for each $1 \leq i \leq 2n-1$ construct loops $f_i$ based at $y$, such that $f_i$ encloses $x_i$ and none of the other missing points. The interior of each $f_i$ is homeomorphic to $D^2 - \{0\}$, which deformation retracts onto its boundary. Therefore the interior of each $f_i$ deformation retracts onto $f_i$. After this has been done, what's left of $Y$ is the exterior of all the loops, which contains the missing point $x_{2n}$. This is again homeomorphic to $D^2 - \{0\}$, so it deformation retracts onto its boundary $f_1 \bullet \dots \bullet f_{2n-1}$. 
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+This shows how $Y$ deformation retracts to $\bigvee_{2n-1} S^1$, where the copies of $S^1$ are precisely the loops $f_i$. By the van Kampen theorem, $\pi_1(Y) = *_{2n-1} \Z$.
+
+\subsection*{Problem 5 (1.2.8 in Hatcher)}
+We begin from the cell decomposition of $X$. The 1-skeleton is a wedge of the three circles $a,b,c$, therefore its fundamental group is the free group on 3 generators. There are two 2-cells attached, and we use proposition 1.26 in Hatcher to analyze their influence on $\pi_1(X)$.
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+The 2-cells are attached to the loops $aba^{-1}b^{-1}$ and $aca^{-1}c^{-1}$, therefore $\pi_1(X)$ has the presentation:
+\[         \langle  a,b,c \;| [a,b] , [a,c] \rangle     \]
+Where $[a,b] = aba^{-1}b^{-1}$ denotes the commutator of $a$ and $b$. We see that $a$ commutes with both $b$ and $c$, while between $b$ and $c$ there exists no relation. Therefore $\pi_1(X) = \Z \times \Z * \Z$, where the first (commuting) factor corresponds to $a$.
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

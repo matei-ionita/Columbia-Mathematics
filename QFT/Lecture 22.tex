@@ -1,0 +1,81 @@
+\documentclass[12 pt]{article}
+\usepackage{amsmath,amssymb,amsthm,fullpage,amsfonts,enumerate,textcomp, eurosym}
+\title{QFT Lecture 22}
+\author{Matei Ionita}
+\DeclareMathOperator {\p} {\partial}
+
+\begin{document}
+  \maketitle
+
+\subsection*{Spinors}
+For left-handed spinors:
+\[    L_a^b (1 + \delta \omega) = \delta_a^b + \frac{i}{2} \delta \omega_{\mu \nu} (S_L^{\mu\nu})_a^b    \]
+Where $ S_L^{ij} = \epsilon^{ijk} \frac{\sigma_k}{2} $ are the engular momenta and $S_L^{k0} = \frac{i}{2} \sigma_k$ are the boosts. The defining feature of the spinor representation is $K_k = iJ_k$. Important properties of the Pauli matrices:
+\\
+a) $[\sigma_i , \sigma_j] = 2i \epsilon_{ijk} \sigma^k$
+\\
+b) $\{\sigma_i , \sigma_j\} = 2\delta_{ij} $
+\\
+c) $ \sigma_k^T = - \epsilon \sigma_k \epsilon^{-1} $ where $\epsilon = \{ (0,1) , (-1, 0)  \} $
+\\
+\\
+For right-handed spinors, the defining feature is $K_k = -iJ_k$. We have: $S_R^{ij} = \epsilon^{ijk} (- \sigma_k^*/2) = -(S_L^{ij})^*$ and $S_R^{k0} = i \sigma^*_k /2 = - (S_L^{k0})^*$.
+\\
+\\
+Question: how does $\psi_a^{\dagger}$ transform? Like a right-handed spinor. Notation: $(\psi_a)^{\dagger} = \psi^{\dagger}_{\dot a}$
+\\
+\\
+Now we want to write down an action for a free theory; it should be quadratic in the fields. For this, we need to form a scalar out of the spinors. Our scalar should be invariant under rotation and boosts: $\psi_2 \chi_1 - \psi_1 \chi_2$. In particular, for the same field, we get $\psi_2 \psi_1 - \psi_1 \psi_2$, which will not be 0, since these are anticommuting variables. To shorten notation, we use: $\epsilon^{ab} \psi_a \chi_b = \psi_2 \chi_1 - \psi_1 \chi_2$.
+\\
+\\
+Let's prove that $\chi^T \epsilon \phi$ is a scalar. Let's see how it behaves under rotations:
+\[     \chi^T \epsilon \phi \to \big[  (1+ \frac{i}{2} \sigma_k \theta)\chi  \big]^T \epsilon \big[(1+\frac{i}{2} \sigma_k \theta)\phi \big]     \]
+In order to have a real action, we need the mass term to be: $\phi \epsilon \phi + \phi^{\dagger} \epsilon \phi^{dagger}$.
+\\
+\\
+How do we make vectors out of spinors? Use $\psi^{\dagger}_{\dot a} , \psi_b$. The vector is: $\psi^{\dagger} \bar \sigma^{\mu} \chi = \psi^{\dagger}_{\dot a} (\bar \sigma^{\mu})^{\dot a b} \chi_b$. Here $\bar \sigma^{\mu} = (1 , - \sigma_k)$. Similarly $\sigma^{\mu} = (1 , \sigma_k)$. Note that this is a real vector if $\psi = \chi$. The Lagrangian for a single left-handed Weyl spinor is:
+\[     \mathcal{L} = i \psi^{\dagger} \bar \sigma^{\mu} \p_{\mu} \psi - \frac{1}{2} m \psi \epsilon \psi - \frac{1}{2} m \psi^{\dagger} \epsilon \psi^{\dagger}    \]
+Note: the kinetic term looks weird. If we try to make it look like the free field: $\p_{\mu} \psi \epsilon \p^{\mu} \psi + \text{h.c.}$, we get particles with energy that is unbounded below. Let's check that the kinetic term is real:
+\[      (i \psi^{\dagger} \bar \sigma^{\mu} \p_{\mu} \psi)^{\dagger} = -i \p_{\mu} \psi^{\dagger} \bar \sigma^{\mu} \psi     \]
+Now integrating by parts we get the original term. We obtained an action that is real, scalar and quadratic in the fields. The e.o.m:
+\[   0 = \frac{\delta S}{\delta \psi^{\dagger}} = i \bar \sigma^{\mu} \p_{\mu} \psi - m \epsilon \psi^{\dagger}   \]
+\[   0 = \frac{\delta S}{\delta \psi} = -i \bar \sigma^{\mu} \p_{\mu}\psi^{\dagger} - m\epsilon^{-1} \psi               \]
+Multiplying through by $\epsilon$ in the last eq.:
+\[      0 =    -i \bar \sigma^{\mu} \p_{\mu}\psi^{\dagger} \epsilon - m \psi    \]
+Therefore the two equations are:
+\[         - i \bar \sigma^{\mu} \p_{\mu} \psi + m \epsilon \psi^{\dagger} = 0  \]
+\[         -i \sigma^{\mu} \p_{\mu} (\epsilon\psi^{\dagger}) + m \psi = 0                 \]
+Writing these in matrix form we get the Dirac equation:
+\[          \left(   \begin{array} {cc}  m & -i \sigma^{\mu} \p_{\mu} \\ - i \bar \sigma^{\mu} \p_{\mu} & m \end{array}  \right)   \left( \begin{array} {c} \psi \\ \epsilon \psi^{\dagger} \end{array} \right) = 0        \]
+If we define:
+\[   \gamma^{\mu} = \left( \begin{array} {cc} 0 & \sigma^{\mu} \\ \bar \sigma^{\mu} & 0 \end{array}   \right)   \]
+We get the Dirac equation in the form:
+\[    ( -i \gamma^{\mu} \p_{\mu} + m) \Psi = 0     \]
+The $\gamma$ matrices have the property: $\{ \gamma^{\mu} , \gamma^{\nu} \} = -2\eta^{\mu \nu} $.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

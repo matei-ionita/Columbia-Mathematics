@@ -1,0 +1,179 @@
+\documentclass[12 pt]{article}
+\usepackage{amsmath,amssymb,amsthm,fullpage,amsfonts,enumerate,textcomp, eurosym, tikz-cd, fullpage}
+\title{Commutative algebra HW6}
+\author{Matei Ionita}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\CP}{\mathbb{C}\mathbb{P}}
+\newcommand{\RP}{\mathbb{R}\mathbb{P}}
+\newcommand{\Proj}{\mathbb{P}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\p}{\partial}
+\newcommand{\fr}{\mathfrak}
+
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\length}{length}
+\DeclareMathOperator{\res}{Res}
+\DeclareMathOperator{\Int}{Int}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\Lie}{Lie}
+\DeclareMathOperator{\id}{Id}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\irr}{irr}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\trdeg}{trdeg}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Nm}{Nm}
+
+
+\begin{document}
+  \maketitle
+
+\subsection*{Problem 1}
+\emph{Prove that an axiomatic projective plane has the same number of points as lines. (You get extra points for noticing the missing axiom and fixing.)}
+\\
+\\
+\emph{Solution}
+\\
+This solution is heavily based on Rankeya Datta's proof, which is posted on the REU website. We begin by identifying the missing axiom: (3) There exist at least 4 distinct points such that no 3 of them are collinear. This gets rid of degenerate cases such as a single line incident to infinitely many collinear points.
+\\
+\\
+Let $\mathbb{P}$ be the projective plane, $\mathcal{L}$ the set of lines and $\mathcal{P}$ the set of points. We first show that $\mathcal{L}$ infinite implies $\mathcal{P}$ infinite and viceversa. Assume that $\mathcal{L}$ is infinite, then by (3) and (1) we have 4 points with 4 lines, each line incident on exactly 2 points. If we then add the other lines in $\mathcal{L}$, we create an infinite number of intersection points. Conversely, assume that $\mathcal{P}$ is infinite. If $\mathcal{L}$ were finite, there would exist a line $l_0$ incident to infinitely many points. But by (3) there exist a point $p_0$ not incident to $l_0$. Then (1) tells us there must be infinitely many lines, each passing through $p_0$ and one of the points incident to $l_0$. This reduces the problem to 2 cases: both $\mathcal{L}$ and $\mathcal{P}$ are infinite, or both are finite.
+\\
+\\
+We first prove the statement for both infinite. Let $\Delta_{\mathcal{L}}, \Delta_{\mathcal{P}}$ be the diagonals of $\mathcal{L} \times \mathcal{L}$ and $\mathcal{P} \times \mathcal{P}$ respectively. Then we have:
+\[      |\mathcal{L}| = |\mathcal{L} \times \mathcal{L}| = |\mathcal{L} \times \mathcal{L} - \Delta_{\mathcal{L}} |        \]
+\[      |\mathcal{P}| = |\mathcal{P} \times \mathcal{P}| = |\mathcal{P} \times \mathcal{P} - \Delta_{\mathcal{P}} |        \]
+Axioms (1), (2) mean that there exist maps:
+\[       \pi_1 :    \mathcal{L} \times \mathcal{L} - \Delta_{\mathcal{L}} \to \mathcal{P}  \]
+\[      ( l_1 , l_2) \to  l_1 \cap l_2     \]
+\[       \pi_2 :    \mathcal{P} \times \mathcal{P} - \Delta_{\mathcal{P}} \to \mathcal{L}  \]
+\[     (p_1, p_2) \to \overline{p_1p_2}  \]
+Where $\overline{p_1p_2}$ denotes the line incident to $p_1, p_2$. If we can show that $\pi_1, \pi_2$ are surjective, we are done, because $\pi_1$ surjective implies $|\mathcal{P}| \leq |\mathcal{L}|$ and $\pi_2$ surjective implies $|\mathcal{L}| \leq |\mathcal{P}|$. To show that $\pi_1$ is surjective, take a point $p_1$. By (3) there exist points $p_2, p_3$ such that the three are not collinear. Then $\overline{p_1p_2}$ and $\overline{p_1p_3}$ are distinct, and $\overline{p_1p_2} \cap \overline{p_1p_2} = p_1$. To show that $\pi_2$ is surjective, take a line $l$. By (3), somewhere in $\mathbb{P}$ there exist 3 points which are noncolinear; then there exist three lines $l_1, l_2, l_3$ incident to each pair of points. If $l = l_1, l_2$ or $l_3$ we are done, otherwise (2) says that there exist $p_1, p_2$ such that $l_1 \cap l = p_1$ and $l_2 \cap l = p_2$. Then $\pi_2 (p_1, p_2) = l$. This completes the proof for $\mathcal{P}, \mathcal{L}$ infinite.
+\\
+\\
+We now look at the case when $\mathcal{L}, \mathcal{P}$ are both finite. We first prove two claims, and then show how the proof follows from them. \textbf{Claim 1}: Let $\mathcal{L}_p$ denote the set of lines passing through $p$; then $|\mathcal{L}_p|$ is independent of $p$. To prove this, it suffices to show that $|\mathcal{L}_p| = |\mathcal{L}_q|$ for two distinct points $p,q$. By axiom (3) there exists a point $r \in \overline{pq}$ distinct from $p,q$. Let $l \in \mathcal{L}_p - \{\overline{pq}\}, m\in \mathcal{L}_r - \{\overline{pq}\}$. By (2), $l, m$ are distinct. By (2) again, $l\cap m$ is a single point which is not on $\overline{pq}$. Now let $\mathcal{P}_{\mathbb{P} - \overline{pq}}$ denote the set of points of $\mathbb{P}$ which are not incident to $\overline{pq}$. We have a map:
+\[         \phi : (\mathcal{L}_p - \{\overline{pq}\} ) \times (\mathcal{L}_r - \{\overline{pq}\} )   \to \mathcal{P}_{\mathbb{P}-\overline{pq}}      \]
+\[    (l,m) \to l\cap m    \]
+This is a bijection, because we can write down its inverse:
+\[       \phi^{-1} :   \mathcal{P}_{\mathbb{P}-\overline{pq}} \to  (\mathcal{L}_p - \{\overline{pq}\} ) \times (\mathcal{L}_r - \{\overline{pq}\} )  \]
+\[    s \to (\overline{ps}, \overline{rs} )     \]
+Therefore $(|\mathcal{L}_p| - 1 )(|\mathcal{L}_r| - 1 ) = |\mathcal{P}_{\mathbb{P}-\overline{pq}}|$. Similarly one can show that $(|\mathcal{L}_q| - 1 )(|\mathcal{L}_r | - 1 ) = |\mathcal{P}_{\mathbb{P}-\overline{pq}}|$. From these two equations we get $|\mathcal{L}_p| = |\mathcal{L}_q |$ as desired. Henceforth we denote $|\mathcal{L}_p|$ by $c$.
+\\
+\\
+\textbf{Claim 2}: let $\mathcal{P}_l$ denote the set of points incident to $l$; then $|\mathcal{P}_l| = c$ for all $l$. To prove this, take a point $p$ not incident to $l$. In particular $l\in \mathcal{L}_p$. Define a map:
+\[    \psi : \mathcal{L}_p \to \mathcal{P}_l     \]
+\[    m \to l\cap m       \]
+This is a bijection, since we can write down its inverse:
+\[       \psi^{-1} : \mathcal{P}_l \to \mathcal{L}_p  \]
+\[     s \to \overline{ps}     \]
+Therefore $| \mathcal{P}_l  | = |\mathcal{L}_p| = c$, as desired.
+\\
+\\
+\textbf{Now we use these two claims} to prove that $|\mathcal{L}| = c^2 - c + 1$ and $ |\mathcal{P}| = c^2 - c +1$. Let $p,q$ be two distinct points, then:
+\[       \mathcal{P} = \mathcal{P}_{\overline{pq}} \sqcup \mathcal{P}_{\mathbb{P}-\overline{pq}}       \]
+In the proof of claim 1 we showed that $|\mathcal{P}_{\mathbb{P}-\overline{pq}}| = (|\mathcal{L}_p|-1)^2 = (c-1)^2$. By claim 2 $|\mathcal{P}_{\overline{pq}}| = c$. Then $ |\mathcal{P}| = (c-1)^2 + c = c^2 - c +1$.
+\\
+\\
+On the other hand, let $l\in \mathcal{L}$ and note that we can write:
+\[         \mathcal{L} = \left( \bigsqcup_{q\in \mathcal{P}_l} (\mathcal{L}_q - \{l\}) \right) \sqcup \{l\}          \]
+Because any line distinct from $l$ intersects $l$ in one point. By claim 2, $|\mathcal{P}_l| = c$ and by claim 1, $|\mathcal{L}_q - \{l\} | = c-1$. This shows $|\mathcal{L}| = c(c-1) + 1$, and we are done.
+
+
+
+
+\subsection*{Problem 3}
+\emph{Show that if $P, Q, R$ are three pairwise distinct points on $\mathbb{P}^1$ then there exists a matrix $A$ which determines a map $\mathbb{P}^1 \to \mathbb{P}^1$ mapping $P, Q, R$ to $(1 : 0)$, $(0 : 1)$, and $(1 : 1)$.}
+\\
+\\
+\emph{Solution}
+\\
+We first look for a matrix $A$ such that:
+\[      \left(  \begin{array}  {cc} a & b \\ c & d \end{array} \right)  \left(  \begin{array}  {c} P_0 \\ P_1 \end{array} \right)  =  \left(  \begin{array}  {c} \lambda \\ 0 \end{array} \right)  \]
+\[      \left(  \begin{array}  {cc} a & b \\ c & d \end{array} \right)  \left(  \begin{array}  {c} Q_0 \\ Q_1 \end{array} \right)  =  \left(  \begin{array}  {c} 0 \\ \mu \end{array} \right)  \]
+For some nonzero $\mu, \lambda$. Solving for the coefficients we get:
+\[    A = \frac{1}{Q_1 P_0 - Q_o P_1} \left(  \begin{array}  {cc} -Q_1 \lambda & Q_0 \lambda \\ P_1 \mu & -P_0 \mu \end{array} \right)  \]
+Since the points are distinct, the denominator is not 0. Now we impose:
+\[      \frac{1}{Q_1 P_0 - Q_o P_1} \left(  \begin{array}  {cc} -Q_1 \lambda & Q_0 \lambda \\ P_1 \mu & -P_0 \mu \end{array} \right)   \left(  \begin{array}  {c} R_0 \\ R_1 \end{array} \right)  =  \left(  \begin{array}  {c} \gamma \\ \gamma \end{array} \right)      \]
+Solving for $\lambda, \mu$ in terms of $\gamma$ we get:
+\[     A = \gamma   \left(  \begin{array}  {cc} \frac{-Q_1}{Q_0R_1 - Q_1R_0} & \frac{Q_0}{Q_0R_1 - Q_1R_0} \\ \frac{P_1}{P_0R_1 - P_1R_0} & \frac{-P_0}{Q_0R_1 - Q_1R_0} \end{array} \right)  \]
+As expected, all multiples of the solution are also solutions.
+
+\subsection*{Problem 4}
+\emph{Find a field $K$ and a conic as defined above without any points.}
+\\
+\\
+\emph{Solution}
+\\
+Let $K = \R$ and:
+\[     F = (X_0 - 2X_1)^2 + (X_1 - 2X_2)^2 + (X_2 - 2X_0)^2     \]
+Over $\R$, $F = 0$ iff each term is 0, and this gives us $X_0 = 2X_1 = 4X_2 = 8X_0$, and similarly $X_1 = 8X_1$, $X_2 = 8X_2$. Therefore the only solution is $( 0 : 0 : 0)$, which does not belong to $\mathbb{P}$.
+
+\subsection*{Problem 5}
+\emph{Prove that a degree two morphism $P^1 \to P^2$ maps onto either a line or a conic.}
+\\
+\\
+\emph{Solution}
+\\
+Since the morphisms are degree 2, they are nonconstant, and therefore it suffices to show that they map \emph{into} a conic or line. Also, a line squares to a (reducible) conic, so it suffices to show that morphisms map into an arbitrary conic. For this, we write the morphism as:
+\[    (a : b) \to (G_1, G_2, G_3)      \]
+\[      G_i(ab) = c_{i1} a^2 + c_{i2} ab + c_{i3} b^2       \]
+We need to show there exist 6 coefficients $\alpha_{ij}$ such that:
+\[       \sum_{i\leq j} \alpha_{ij} G_i G_j = 0      \]
+Writing $G_i, G_j$ explicitly, this condition becomes:
+\[          f_1 (\alpha_{ij} , c_{ij}) a^4 + f_2 (\alpha_{ij} , c_{ij}) a^3 b + f_3 (\alpha_{ij} , c_{ij}) a^2b^2 + f_4 (\alpha_{ij} , c_{ij}) ab^3 + f_5 (\alpha_{ij} , c_{ij}) b^4 = 0          \]
+Where the functions $f_k$ are linear in $\alpha_{ij}$. But $a,b$ are arbitrary and $a^4, a^3b, \dots$ are linearly independent, so this is equivalent to $f_k = 0$ for all $k$. This is then a system of 5 linear equations in 6 variables $\alpha_{ij}$. Since all constant terms are 0, it is consistent, so it admits a solution. (In fact, we expect it to admit infinitely many, since rescaling all $\alpha_{ij}$ by any nonzero constant produces another solution.)
+
+\subsection*{Problem 6}
+\emph{Let $k$ be an algebraically closed field. Let $k(t)$ be the field of rational functions over $k$. Let $k(t) \subset K$ be a finite extension. Prove or look up the proof of the following statements: (a) the integral closure of $k[t]$ in $K$ is finite over $k[t]$, (b) for every discrete valuation $v$ on $k(t)$ there are finitely many discrete valuations $w_i$ on $K$ whose restriction to $k(t)$ is $e_iv$ for some integer $e_i$, and (c) we have $\sum_i e_i = [K : k(t)]$.}
+\\
+\\
+\emph{Solution}
+\\
+a) $k[t]$ is a UFD, so it is integrally closed over $k(t)$. We need only examine $x\in K - k(t)$ which are integral over $k[t]$. If $x$ satisfies some monic polynomial $f \in k[t][x]$, we can regard $f \in k(t)[x]$, which proves that $x$ is algebraic over $k(t)$. But we know that $K/k(t)$ is finite, so algebraic elements over $k(t)$ form an $n$-dimensional vector space over $k(t)$, where $n = [K : k(t)]$. By cancelling denominators, the same elements form an $n$-dimensional module over $k[t]$. Since all $x$ belong to this module, the integral closure is finite over $k[t]$.
+\\
+\\
+b) This is the statement of Lemma 73 proved in class.
+
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

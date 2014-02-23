@@ -1,0 +1,102 @@
+\documentclass[12 pt]{article}
+\usepackage{amsmath,amssymb,amsthm,fullpage,amsfonts,enumerate,textcomp, eurosym}
+\title{QFT Lecture 20}
+\author{Matei Ionita}
+\DeclareMathOperator {\p} {\partial}
+
+\begin{document}
+  \maketitle
+
+In EFT, compare $\phi^3$ theory, where we have no $\phi^4, \phi^5$ terms (and therefore the theory is renormalizable) to a theory given by:
+\[        g\phi^3 \left( 1 + \frac{\phi}{\Lambda} + \frac{\phi^2}{\Lambda^2} + ...  \right)      \]
+Which is nonrenormalizable. However, at $E<<\Lambda$, the theories are equivalent. Today physicists believe that something like this is happening with the standard model. Expreiments at the LHC showed that $\Lambda > 1$TeV. The idea is that, whenever we have some theory, it's safe to assume that there are some terms that are only visible at high energy. We can only be sure that certain terms are not present when some symmetry forbids them. For example, $\phi \to -\phi$ symmetry rules out odd powers of $\phi$.
+\\
+\\
+Let's now discuss a number of symmetry topics in Srednicki 30-32.
+
+\subsection*{Spontaneous symmetry breaking}
+SSB means that the Lagrangian has some symmetry that is not respected by the vacuum. Chapter 30 deals with breaking of discrete symmetries, chapter 32 with contiuous symmetries. We'll first talk about discrete. Consider:
+\[       \mathcal{L} = - \frac{1}{2} (\p \phi)^2 - \frac{1}{2} m^2 \phi^2 + \frac{1}{4!} \lambda \phi^2      \]
+under the discrete symmetry $\phi \to - \phi$. Remember that we defined the operator:
+\[     \hat Z^{-1}\hat \phi \hat Z = - \hat \phi      \]
+If $m^2<0$, we get the double well potential. We can rewrite the potential as:
+\[      V(\phi) = \frac{1}{4!} \lambda (\phi^2 - v^2)^2 - \frac{\lambda}{4!} v^4  \]
+\[        v = \left( \frac{6|m^2|}{\lambda} \right)^{1/2}         \]
+We have two vacuum states:
+\[        \langle 0+| \hat \phi | 0 +\rangle = v         \]
+\[        \langle 0-| \hat \phi | 0 -\rangle = -v         \]
+Suppose that:
+\[      \hat Z |0+\rangle = |0'\rangle     \]
+\[        \langle 0'| \hat \phi | 0'\rangle = - \langle 0+| \hat \phi | 0 +\rangle = - v       \]
+Therefore $\hat Z |0+\rangle = |0-\rangle$. So we have SSB. Can we have a transition in time from one vacuum to the other?
+\[         \langle 0+| U(\infty, - \infty) |0-\rangle = \int_{\phi(t=-\infty)=-v}^{\phi(t=\infty)=v} D\phi e^{iS[\phi]}        \]
+We want to show that this transition amplitude is 0. We Euclidianize:
+\[        iS = - \int dt_E  d^3 x \left[ \frac{1}{2} (\p_{t_E} \phi)^2 + \frac{1}{2} (\nabla \phi)^2 + V(\phi)   \right]       \]
+Assume $\nabla \phi = 0$; use binomial squared to get:
+\[   S_E \geq \int d_{t_E} d^3 x \frac{1}{2} \p_{t_E} \phi \sqrt{V(\phi)} = \frac{1}{2} \int d^3 x \int d\phi \sqrt{V(\phi)}   \]
+Since the volume is infinite, $e^{-S_E} \to 0$. We should also convince ourselves that, when we add the gradient term, the action will become even larger.
+\\
+\\
+Suppose we are in $|0+\rangle$; it makes sense to define a new field variable $\rho = \phi - v$. Then the Lagrangian is:
+\[      \mathcal{L} = - \frac{1}{2} (\p \rho)^2 - \frac{\lambda}{4!} \left[ (\rho + v)^2 - v^2  \right]  + \frac{\lambda}{4!} v^4    \]
+Expanding the potential:
+\[       V(\rho) = \frac{1}{6} \lambda v^2 \rho^2 + \frac{1}{6} \lambda v \rho^3 + \frac{1}{24} \lambda \rho^4 - \frac{\lambda}{4!} v^4       \]
+This looks very ugly; but the symmetry is still present, in the form $\rho \to -\rho - 2v$. In the original theory $Z_{\phi}, Z_m, Z_{\lambda}$ should be enough to renormalize the theory. In the new one this should also be true, even though at first sight we need more (one for each term). This point is covered in chapter 31.
+
+\subsection*{SSB of continuous symmetries}
+Consider a complex scalar field:
+\[       \mathcal{L} = - \p^{\mu} \phi^{\dagger} \p_{\mu} \phi - m^2 \phi^{\dagger} \phi - \frac{1}{4} \lambda (\phi^{\dagger} \phi)^2       \]
+With $m^2<0$ and the $U(1)$ symmetry. This is the Mexican hat potential, and it has a continuum (circle) of ground states. Can label them $|\theta\rangle$.
+\[       \langle \theta|\hat \phi |\theta\rangle = \frac{1}{\sqrt{2}} v e^{-i\theta}     \]
+Where $v = \left(  \frac{4|m|^2}{\lambda}  \right)^{1/2}$. Let's consider the $\theta = 0$ ground state. For some fluctuations $\rho$ (radial) and $\chi$ (tangential):
+\[         \phi = \frac{1}{\sqrt{2}} (v + \rho) e^{-i\chi /v}    \]
+Then the Lagrangian becomes:
+\[    \mathcal{L} = - \frac{1}{2} (\p \rho)^2 - \frac{1}{2} (1 + \rho/v)^2 (\p \chi)^2 - |m|^2 \rho^2 - \frac{1}{2} \lambda^{1/2} |m| \rho^3 - \frac{1}{16} \lambda \rho^4  \]
+$\chi$ only appears in derivatives, so it is massless. Called Goldstone boson. Theorem: for each spontaneous breaking of a continuous global symmetry, there exists a Goldstone boson. The masslessness is protected from quantum corrections.
+
+\subsection*{SSB of non-Abelian global symmetries}
+\[            \mathcal{L} = -\frac{1}{2} \sum (\p \phi_i)^2 - \frac{1}{2} m^2 \sum \phi_i^2 - \frac{\lambda}{16} (\sum \phi_i^2)^2         \]
+\[       \phi_i \to (1- i \sum \theta_a (T^a)_{ij}\phi_j )     \]
+Note that we can think about the potential as just the magnitude of some n-dim vector at the 2nd and 4th power. If we consider $m^2<0, \lambda>0$, there will be many vacua where $\langle \hat \phi_i \rangle = v_i$, where $\sum v_i^2 = v^2 = \frac{4|m^2|}{\lambda}$. Let's choose the vacuum for which $\langle \hat \phi_i  \rangle = v \delta_{iN}$. Rotation will give us $v_i \to v\left( \delta_{iN} - i \theta_a T^a_{iN}  \right) $. Therefore the vacuum only changes for generators that have nonzero values on the Nth column; we call these broken generators. Goldstone's theorem: for each broken generator there exists a Nambu-Goldstone boson. In our example there are N-1 of these.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

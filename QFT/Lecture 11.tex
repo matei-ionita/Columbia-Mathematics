@@ -1,0 +1,103 @@
+\documentclass[12 pt]{article}
+\usepackage{amsmath,amssymb,amsthm,fullpage,amsfonts,enumerate,textcomp, eurosym}
+\title{QFT Lecture 11}
+\author{Matei Ionita}
+
+\begin{document}
+  \maketitle
+
+How do we compute cross-sections once we have the scattering amplitude?
+\[   i\mathcal{M} = (ig)^2 \left[ \frac{1}{i} \frac{1}{(k_1+k_2)^2 +m^2} + \frac{1}{i}\frac{1}{(k_1-k_1')^2 + m^2} +  \frac{1}{i}\frac{1}{(k_1-k_2')^2 + m^2}\right]  \]
+Reference: ch. 11 Srednicki.
+\\
+\\
+Define Mandelstein Variables: $s = - (k_1 + k_2)^2$, $t= - (k_1-k_1')^2$, $u = - (k_1-k_2')^2$. Properties:
+\[   s + t + u = m_1^2 + m_2^2 + m_3^2 + m_4^2  \]
+In the center of momentum frame, s is the total energy:
+\[  s = (\omega_1 + \omega_2)^2  \]
+
+\subsection*{Computing cross-sections}
+Go to the frame in which particle 1 is at rest. We can write the interaction rate as $n_2 |\mathbf{v_1 - v_2}| \sigma$. Imagine putting the experiment in a box on finite volume V, and doing it an a finite time t. We will discover that the cross-section is independent of V and t, but these variables will be helpful along the way. We can look first at a differential cross-section:
+\[   d\sigma | \mathbf{v_1 - v_2} | \frac{1}{V} = \rm{rate} \rm {no. of outgoing states}  \]
+Let's figure out the dimensions of $\mathcal{M}$. Action is dimensionless, mass is same dimension as inverse length. Looking at the expression for action, we see that $\Phi$ must have dimensions of mass. So $g$ also has dimension of mass. So $\mathcal{M}$ is dimensionless! This only happens for 2-2 scattering. Note  the way we normalized $\langle k|k'\rangle = \omega \delta^{(3)}$. So the scattering rate is:
+\[    \frac{1}{T} \frac{\left[  (2\pi)^4 \delta^{(4)}(k_1+k_2-k_1'-k_2') i \mathcal{M}  \right]^2}{_{OUT}\langle k_1' k_2' | k_1' k_2' \rangle_{OUT}\; {} _{IN}\langle k_1 k_2 | k_1 k_2 \rangle_{IN}}   \]
+The number of outgoing states is:
+\[   \frac{d^3 k_1'}{(2\pi)^3/V} \frac{d^3 k_2'}{(2\pi)^3/V}  \]
+The result is (see the book for details):
+\[   d\sigma = \frac{1}{4\omega_1 \omega_2 |\mathbf{v_1 - v_2}|} |\mathcal{M}|^2 (2\pi)^4 \delta^{(4)}(k_1 + k_2 - k_1' - k_2')   \frac{d^3 k_1'}{(2\pi)^3 2\omega_1'} \frac{d^3 k_2'}{(2\pi)^3 2\omega_2'}   \]
+This result works for any 2-2 scattering, not only $\phi^3$. If we consider 2 particles colliding along the z axis, the prefactor is invariant under boosts in the z direction. The other stuff is invariant in general.
+\\
+\\
+Look at a collision in the COM frame; we get:
+\[    d\sigma = \frac{1}{64\pi^2 s} \frac{|\mathbf{k_1'}|}{|\mathbf{k_1}|} |\mathcal{M}|^2 d\Omega  \]
+Scattering amplitude is, in general, angle-dependent.
+\[   \sigma_{TOTAL} = \frac{1}{2} \int d\sigma   \]
+The factor in front of the integral repsesints permutations of identical particles: $\Pi n_i!$.
+\\
+\\
+In the COM frame:
+\[   s = (\omega_1+\omega_2)^2 = 4(\mathbf{k}_1^2 + m^2) \geq 4m^2  \]
+\[   t = - (k_1 - k_2)^2 = - |k_1|^2 - |k_2|^2 + 2 \mathbf{k_1 k_2} = -2 (\frac{s}{4}-m^2)(1-\cos\theta) = -2|\mathbf{k_1}|^2 (1-\cos\theta)  \]
+In the limit $s>>m^2$, the scattering amplitude is:
+\[  i\mathcal{M} = \frac{(ig)^2}{i} \left[  \frac{1}{-s} + \frac{1}{2 s/4 (1-\cos\theta)} + \frac{1}{2 s/4 (1+\cos\theta)} \right] = \frac{(ig)^2}{is} \frac{3+\cos^2\theta}{\sin^2 \theta}  \]
+Note that this is inversely proportional to center of mass energy, and that it favors head-on scattering. The decrease woth energy is related to the fact that the exponent of $\phi$ is smaller than the number of spacetime dimensions. 
+
+
+\subsection*{Higher (d) spacetime dimensions}
+reference: Srednicki chapter 12
+\[   S = \int d^d x \left(  -\frac{1}{2}(\partial \phi)^2 - \frac{1}{2}m^2 \phi^2 + \frac{g}{3!}\phi^3   \right)   \]
+Now $\phi$ has dimension mass$^{(d-2)/2)}$. g has dimension mass$^{(6-d)/2} $. Note that g is dimensionless if $d=6$. We care about this because, since $\mathcal{M}$ is dimensionless, this allows it to not depend on the energy. We would like $\mathcal{M}$ to decrease as energy increases, so that it is renormalizable. So let's see how everything changes if we do it in dD. We always think about 1 time dimension and d-1 space, because otherwise it's just weird. Check George Sternham(?) paper on 2 time dimensions. We will always work with d, and not any number in particular, because we will do tricks with d in order to avoid divergence issues. We will work in a different d, and then analytically continue to the dimension of interest.
+
+\subsection*{Propagator stuff}
+reference: Srednicki ch. 13
+\\
+\\
+The full propagator for $x^0>y^0$:
+\[  \frac{1}{i}\Delta(x-y) =  \langle 0| \hat \phi_x \hat \phi_y | 0 \rangle = \sum_n \langle 0| \hat \phi_x |n\rangle\langle n|\hat \phi_y |0 \rangle  \]
+We use the fact that:
+\[ \hat \phi(x) = e^{-iPx} \hat\phi(0) e^{iPx}   \]
+\[     \frac{1}{i}\Delta(x-y)  = \sum_{n} e^{ik_n(x-y)} \left|  \langle 0|\hat \phi(0) | n \rangle   \right|^2    \]
+We introduce a d-dimensional delta function:
+\[    \frac{1}{i}\Delta(x-y)  = \int d^d p e^{iP (x-y)} \sum_n \left|  \langle 0|\hat \phi(0) | n \rangle   \right|^2  \delta^{(d)}(p-k_n)  \]
+Notation:
+\[  \frac{1}{(2\pi)^{d-1}} \theta(p^0>0)  \rho_{tot} (-p^2) =  \sum_n \left|  \langle 0|\hat \phi(0) | n \rangle   \right|^2  \delta^{(d)}(p-k_n)  \]
+\[     \rho_{tot} (-p^2) = \int_0^{\infty} d\mu^2 \rho_{tot}(\mu^2) \delta(p^2+\mu^2)    \]
+So putting everything together:
+\[    \frac{1}{i}\Delta(x-y)  = \int_0^{\infty} d\mu^2 \rho_{tot}(\mu^2)  \int \frac{d^d p}{(2\pi)^{d-1}}  \theta(p^0>0) e^{iP (x-y)} \delta(p^2+\mu^2)  \]
+\[     \langle 0|T \hat \phi_x \hat \phi_y | 0 \rangle =     \int_0^{\infty} d\mu^2 \rho_{tot}(\mu^2) \left[ \theta(x^0 > y^0) \int \frac{d^{d-1} p}{(2\pi)^{d-1} 2\omega_p} e^{ip(x-y)}  +   \theta(x^0 < y^0) ...  \right]   \]
+We recognize the stuff in the Bracket as the free Feynman propagator:
+\[       \langle 0|T \hat \phi_x \hat \phi_y | 0 \rangle =     \int_0^{\infty} d\mu^2 \rho_{tot}(\mu^2) \frac{1}{i} \int \frac{d^d p}{(2\pi)^p} \frac{e^{ip(x-y)}}{p^2 + \mu^2 - i\epsilon}   \]
+In general, we expect for $ \rho_{tot}(\mu^2)$ to have a delta function for $m^2$ , then the next nonzero value at $4m^2$, then a finite continuum that goes to 0 at $\infty$. If we have a theory capable of bound states, we can have some discrete nonzero values btn $m^2$ and $4m^2$.
+
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

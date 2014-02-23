@@ -1,0 +1,116 @@
+\documentclass[12 pt]{article}
+\usepackage{amsmath,amssymb,amsthm,fullpage,amsfonts,enumerate,textcomp, eurosym, tikz-cd, fullpage}
+\title{Algebraic topology HW1}
+\author{Matei Ionita}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\CP}{\mathbb{C}\mathbb{P}}
+\newcommand{\RP}{\mathbb{R}\mathbb{P}}
+\newcommand{\Proj}{\mathbb{P}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\p}{\partial}
+\newcommand{\fr}{\mathfrak}
+
+\DeclareMathOperator{\Mor}{Mor}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\length}{length}
+\DeclareMathOperator{\res}{Res}
+\DeclareMathOperator{\Int}{Int}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\Lie}{Lie}
+\DeclareMathOperator{\id}{Id}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\irr}{irr}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\trdeg}{trdeg}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Nm}{Nm}
+\DeclareMathOperator{\ord}{ord}
+
+\begin{document}
+  \maketitle
+
+\subsection*{Problem 1}
+If $X$ is contractible, there exist a point $y$ and a homotopy equivalence $f : X \to \{y\}$. Let $g : \{y\} \to X$ be a map such that $f \circ g = \id_{\{y\}}$ and $g \circ f \simeq \id_X$. Furthermore, let $g(y) = x_0$. It suffices to prove that there is a path from every $x \in X$ to $x_0$, for then one can get a path between $x_1, x_2 \in X$ by concatenating the path from $x_1$ to $x_0$ with the one from $x_0$ to $x_2$.
+
+Now, since $g \circ f \simeq \id_X$, there exists a homotopy $f_t : X \to X$ such that $f_0 = \id_X$ and $f_1 = g\circ f$. We construct the desired path as follows:
+\begin{align*}     
+\gamma : X \times I &\to X    \\
+(x,t) &\mapsto f_t(x)
+\end{align*}
+By definition of a homotopy, $\gamma$ is continuous, and we have $\gamma(x,0) = x$, $\gamma(x,1) = x_0$ for all $x\in X$. Therefore $\gamma$ is a path from $x$ to $x_0$.
+
+\subsection*{Problem 2}
+By hypothesis there exists a homotopy $f_t : X \to Y$ from $f_0$ to $f_1$ and a homotopy $g_t : Y \to Z$ from $g_0$ to $g_1$. We claim that $h_t = g_t \circ f_t$ is a homotopy from $g_0 \circ f_0$ to $g_1 \circ f_1$. Indeed, by construction we have $h_0 = g_0 \circ f_0$ and $h_1 = g_1 \circ f_1$. Moreover, the map $    H(x,t) = h_t(x)   $ satisfies $H(x,t) = (G \circ F)(x,t)$, where $G,F$ are defined similarly. By the definition of a homotopy we have that $G, F$ are continuous, so $H$, a composition of continuous maps, is also continuous. This shows that $h_t$ is a homotopy.
+
+\subsection*{Problem 3}
+Consider the family of maps:
+\begin{align*}
+      f_t : \R^{n} - \{0\} &\to \R^{n} - \{0 \}     \\
+\mathbf{x} &\mapsto \frac{\mathbf{x}}{1 - t + t|\mathbf{x}|}
+\end{align*}
+Clearly $f_0 = \id_{\R^{n} - \{0\}}$. Also $f_1 (\mathbf{x}) = \frac{\mathbf{x}}{|\mathbf{x}|}$, which surjects onto $S^{n-1}$. If we restrict $f_t$ to $S^{n-1}$, we have $|\mathbf{x}| = 1$, and so $f_t|_{S^{n-1}} (\mathbf{x}) = \mathbf{x}$. Finally, the maps $f_t$ are continuous, because they are compositions of rational and square root functions of the coordinates $x_1, \dots, x_n,t$ in the Euclidean space $(\R^n - \{0\}) \times I$.
+
+
+\subsection*{Problem 4}
+a) Let $f_1: X \to Y$ and $f_2:Y \to Z$ be homotopy equivalences; then there exist maps $g_1 : Y \to X$ and $g_2 : Z \to Y$ such that $f_1 \circ g_1 \simeq \id_Y$, $g_1 \circ f_1 \simeq \id_X$, $f_2 \circ g_2 \simeq \id_Z$, $g_2 \circ f_2 \simeq \id_Y$. Then $f_2 \circ f_1 : X \to Z$ is a homotopy equivalence, because:
+\[       (g_1 \circ g_2) \circ (f_2 \circ f_1)  \simeq g_1 \circ \id_Y \circ f_1 = g_1 \circ f_1 \simeq \id_X      \]
+\[        (f_2 \circ f_1) \circ (g_1 \circ g_2) \simeq f_2  \circ \id_Y \circ g_2 = f_2 \circ g_2 \simeq \id_Z   \]
+This proves that homotopy equivalence is transitive. It's clear that it's also reflexive (using $\id_X$ as homotopy equivalence from $X$ to itself) and symmetric (exchanging the roles of $f$ and $g$). Therefore it's an equivalence relation.
+\\
+\\
+b) To show that the relation is reflexive, we construct a homotopy from any map $f: X \to Y$ to itself by $f_t(x) = f(x)$. To show that it's symmetric, given a homotopy $f_t$ from $f_0:X\to Y$ to $f_1 : X \to Y$, we construct a homotopy from $f_1$ to $f_0$ by $g_t (x) = f_{1-t}(x)$. Finally, if $f_t$ is a homotopy from $f_0$ to $f_1$, and $g_t$ is a homotopy from $f_1$ to $f_2$, then we get a homotopy from $f_0$ to $f_2$ by defining piecewise:
+\[    h_t(x) = \left\{ \begin{array} {c}  f_{2t} \text{ for } t\leq 1/2  \\ g_{2t-1} \text{ for } t>1/2 \end{array} \right.   \]
+c) Let $f : X \to Y$ be a homotopy equivalence, $g: Y \to X$ be the associated homotopy equivalence, and $f' \simeq f$. Since $g\simeq g$, we use the result of problem 2 to get:
+\[    f' \circ g \simeq f \circ g \simeq \id_Y      \]
+\[    g \circ f' \simeq g\circ f \simeq \id_X          \]
+Therefore $f'$ is also a homotopy equivalence.
+
+
+\subsection*{Problem 5}
+If $r : X \to A$ is a retract, and $i : A \to X$ is the inclusion map, then $r\circ i = \id_A$ and $i \circ r \simeq \id_X$ (with the homotopy given by the deformation retraction). This means that $X \simeq A$. By definition of contractibility, we also have $X \simeq \{y\}$ for some point $y$. But homotopy equivalence is an equivalence relation, so these imply $A \simeq \{y\}$.
+
+
+
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

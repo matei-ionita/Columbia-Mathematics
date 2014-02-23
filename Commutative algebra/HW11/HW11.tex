@@ -1,0 +1,119 @@
+\documentclass[12 pt]{article}
+\usepackage{amsmath,amssymb,amsthm,fullpage,amsfonts,enumerate,textcomp, eurosym, tikz-cd, fullpage}
+\title{Commutative algebra HW11}
+\author{Matei Ionita}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\CP}{\mathbb{C}\mathbb{P}}
+\newcommand{\RP}{\mathbb{R}\mathbb{P}}
+\newcommand{\Proj}{\mathbb{P}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\p}{\partial}
+\newcommand{\fr}{\mathfrak}
+
+\DeclareMathOperator{\Mor}{Mor}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\length}{length}
+\DeclareMathOperator{\res}{Res}
+\DeclareMathOperator{\Int}{Int}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\Lie}{Lie}
+\DeclareMathOperator{\id}{Id}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\irr}{irr}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\trdeg}{trdeg}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Nm}{Nm}
+\DeclareMathOperator{\ord}{ord}
+
+\begin{document}
+  \maketitle
+
+\subsection*{Problem 1}
+Consider $F = X_0^2 X_1^2 + X_0^2 X_2^2 + X_1^2 X_2^2$. Dehomogenize on $\Proj^2 - V(X_0)$, to get:
+\[         f(x_1, x_2) = x_1^2 + x_2^2 + x_1^2 x_2^2      \]
+Cancelling the first derivatives gives:
+\[     x_1 (1 + x_2^2) = 0      \]
+\[     x_2 (1 + x_1^2) = 0              \]
+Together with $f = 0$, we get the unique solution $x_1 = x_2 = 0$, which corresponds to $[1:0:0] \in \Proj^2$. Since $F$ is symmetric in $X_0, X_1, X_2$, we get a total of 3 singular points, $[1:0:0], [0:1:0]$ and $[0:0:1]$.
+
+\subsection*{Problem 2}
+The genus as a function of degree for a nonsingular curve is given by $g = \frac{1}{2}(d-1)(d-2)$, which in this case is 3. We also know that each singular point decreases the genus by at least 1, so $g\leq 0$. Therefore the only possibility is $g=0$.
+
+
+\subsection*{Problem 3}
+a) The product of the degrees, $2\cdot 3 = 6$, is an upper bound for the number of intersection points. To see that the bound is sharp, we show that the plane $X_3 = 0$ intersects $D$ in exactly 6 points. Setting $X_3 = 0$ we get:
+\[         X_2^2 = - X_0^2 - X_1^2      \]
+\[          X_2^3 = - X_0^3 - X_1^3    \]
+And so:
+\[       X_2 = \frac{X_0^3 + X_1^3}{X_0^2 + X_1^2}      \]
+\[        ( X_0^2 + X_1^2)^3 + (X_0^3 + X_1^3)^2 = 0            \]
+Using Mathematica, we see that the last equation has 6 different solutions in $\Proj^2$, as desired.
+\\
+\\
+b) If $[X_0 : X_1 : X_2] \in D'$ has inverse image $[X_0 : X_1 : X_2 : X_3] \in D$, then we see similarly to part a) that:
+\[         X_3^2 = - X_0^2 - X_1^2 - X_2^2     \]
+\[          X_3^3 = - X_0^3 - X_1^3 - X_2^3   \]
+\[         F(X_0, X_1, X_2) =    ( X_0^2 + X_1^2)^3 + (X_0^3 + X_1^3)^2 = 0        \]
+We take $D'$ to be defined by $F = 0$. Now, given $X_0, X_1, X_2$, we attempt to construct the preimage $[X_0 : X_1 : X_2 : X_3] \in D$ by:
+\[       X_3 = \frac{X_0^3 + X_1^3 + X_2^3}{X_0^2 + X_1^2 + X_2^2}         \]
+If this is well-defined, i.e. for $X_0^2 + X_1^2 + X_2^2 \neq 0$, it is the unique point in the preimage. If this is not defined, we have $X_0^2 + X_1^2 + X_2^2 = X_0^3 + X_1^3 + X_2^3 = 0$, and we are in the situation of part a), i.e. there are 6 points in the preimage.
+\\
+\\
+c) The degree of $D'$ is the degree of $F$, which is 6.
+\\
+\\
+d) \[       \frac{\p F}{\p X_i} = 2 (\sum X_j^3) 3 X_i^2 + 3 \left(\sum X_j^2\right)^2 2X_i = 0     \]
+Summing over all $i$ we get:
+\[         6 \left(\sum X_i^2\right) \left[ \sum X_i^3 + \left( \sum X_i^2\right) \left( \sum X_i \right) \right]  = 0    \]
+Using Mathematica, we see that the different ways in which this can be solved in $\Proj^2$ break down to the case $\sum X_i^2 = \sum X_i^3 = 0$, and by part a) there are 6 solutions to this. Therefore $D'$ has 6 singular points.
+\\
+\\
+e) We guess that each of the 6 singularities decreases the genus by exactly 1, and then the genus of $D'$ is $g = 10 - 6 = 4$. Then, since $D$ and $D'$ are birational, we expect that the genus of $D$ is also 4.
+
+
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

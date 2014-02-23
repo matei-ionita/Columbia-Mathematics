@@ -1,0 +1,94 @@
+\documentclass[12 pt]{article}
+\usepackage{amsmath,amssymb,amsthm,fullpage,amsfonts,enumerate,textcomp, eurosym}
+\title{Representation theory HW1}
+\author{Matei Ionita}
+
+
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\CP}{\mathbb{C}\mathbb{P}}
+\newcommand{\RP}{\mathbb{R}\mathbb{P}}
+\newcommand{\Proj}{\mathbb{P}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\p}{\partial}
+\newcommand{\fr}{\mathfrak}
+
+\DeclareMathOperator{\Ind}{Ind}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\length}{length}
+\DeclareMathOperator{\res}{Res}
+\DeclareMathOperator{\Int}{Int}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\Lie}{Lie}
+\DeclareMathOperator{\id}{Id}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\irr}{irr}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\trdeg}{trdeg}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Nm}{Nm}
+\DeclareMathOperator {\HH} {\mathbb{H}}
+\DeclareMathOperator {\End} {End}
+\DeclareMathOperator {\ad} {ad}
+\DeclareMathOperator {\Ad} {Ad}
+\DeclareMathOperator {\ch} {char}
+
+
+\begin{document}
+  \maketitle
+
+\subsection*{Problem 1 (8.7 in Kirillov)}
+
+\subsection*{Problem 2 (8.9 in Kirillov)}
+$V_n \otimes V_m$ obviously has a decomposition into irreducibles $\bigoplus V_k$; we just need to figure out what the $k$'s are. Using the properties of characters, we get:
+\[    \ch (V_n) \ch (V_m) = \sum_k \ch (V_k)    \]
+For irreducible reps of $\fr{sl}(2,\C)$, we know that $\ch (V_k) = X^k + X^{k-2} + \dots + X^{-k}$, therefore:
+\[           (X^n + X^{n-2} + \dots + X^{-n})(X^m + X^{m-2} + \dots + X^{-m})   =   \sum_k    ( X^k + X^{k-2} + \dots + X^{-k})           \]
+After distributing terms, and assuming WLOG that $n\geq m$, the LHS becomes:
+\begin{align*}
+  \text{LHS} &=   X^{n+m} + 2 X^{n+m-2} + 3 X^{n+m-4} + \dots +  (m+1) X^{n-m} + (m+1) X^{n-m-2} + \dots           \\
+ &+ (m+1) X^{-n +m} + m X^{-n +m -2} + \dots + 2 X^{-n-m+2} + X^{-n-m}
+\end{align*}
+Therefore we identify the $k$'s as $n+m, n+m -2, n+m - 4, \dots, n-m$. In other words, these are the integers that satisfy the Clebsch-Gordan relations. I am a little fatty.
+
+
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
