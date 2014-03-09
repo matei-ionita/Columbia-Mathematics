@@ -1,0 +1,120 @@
+\documentclass[12 pt]{article}
+\usepackage{amsmath,amssymb,amsthm,fullpage,amsfonts,enumerate,textcomp, eurosym, tikz-cd, fullpage}
+\title{Algebraic topology HW5}
+\author{Matei Ionita}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\CP}{\mathbb{C}\mathbb{P}}
+\newcommand{\RP}{\mathbb{R}\mathbb{P}}
+\newcommand{\Proj}{\mathbb{P}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\p}{\partial}
+\newcommand{\fr}{\mathfrak}
+
+\DeclareMathOperator{\Mor}{Mor}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\length}{length}
+\DeclareMathOperator{\res}{Res}
+\DeclareMathOperator{\Int}{Int}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\Lie}{Lie}
+\DeclareMathOperator{\id}{Id}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\irr}{irr}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\trdeg}{trdeg}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Nm}{Nm}
+\DeclareMathOperator{\ord}{ord}
+\DeclareMathOperator{\imag}{Im}
+
+\begin{document}
+  \maketitle
+
+
+\subsection*{Problem 1 (Hatcher 1.2.6)}
+To show that $X \hookrightarrow Y$ induces an isomorphism on fundamental groups, we proceed as in the proof of Proposition I.26 in Hatcher. We attach the rectangular strips $S_{\alpha}$ in the same way, to produce the space $Z$ which deformation retracts to $Y$. In each $e_{\alpha}^n$, choose a point $y_{\alpha}$ not along the arc in which $S_{\alpha}$ is attached. Let $A = Z - \bigcup_{\alpha} \{y_{\alpha}\}, B = Z - X$; these cover $Z$ and their intersection is path connected, so Seifert-van Kampen applies. $A$ deformation retracts onto $X$, and $B$ is contractible. Therefore it suffices to show that the kernel, i.e. the image of the map $\pi_1(A\cap B) \to \pi_1(A)$, is trivial. Loops in $\pi_1(A\cap B)$ correspond to loops in $A\cap B$ homotopic to the images of the attaching maps $\phi_{\alpha}$, and this can be proved just like in Proposition I.26, by another application of Seifert-van Kampen to the open sets $A_{\alpha} = A\cap B - \bigcup_{\beta \neq \alpha} e_{\beta}^n$. We show below that the images of the attaching maps have trivial fundamental groups, which finishes the proof.
+
+$\phi : \p e_{\alpha}^n = S^{n-1} \to \imag \phi$ is a surjection, therefore there exists an injection $i : \imag \phi \to S^{n-1}$ such that $\phi \circ i = \id_{\imag \phi}$. We obtain an injective homomorphism $i_* : \pi_1(\imag \phi) \to \pi_1(S^{n-1})$. However, $\pi_1(S^{n-1}) = 0$ for $n\geq 3$, which shows that $\pi_1(\imag \phi) = 0$ as desired.
+
+Finally, we look at the complement of a discrete subspace of $\R^n$, which is of the form $X = \R^n - \bigcup_{\alpha} x_{\alpha}$, for a countable number of $x_{\alpha}$. We attach a ball $e_{\alpha}^3$ around each $x_{\alpha}$ such that $\imag \phi_{\alpha}$ does not enclose any other $x_{\beta}$. This is possible since $\bigcup_{\alpha} x_{\alpha}$ is discrete in the subspace topology by hypothesis, so each $x_{\alpha}$ has a neighborhood in $\R^n$ that contains no other $x_{\beta}$. By the first part of this exercise, this procedure leaves $\pi_1(X)$ unchanged. But in the new space any loop around $x_{\alpha}$ can be homotoped to a constant loop through the ball $e_{\alpha}^3$, which shows that $\pi_1(X) = 0$.
+
+
+\subsection*{Problem 2}
+\begin{enumerate}[(a)]
+\item For any $n\geq 2$, consider the opens $A_1 = \{ x_0 > - 1/2\}$, $A_2 = \{x_0 < 1/2\}$, i.e. neighborhoods of the northern and southern hemispheres respectively. $A_1$ and $A_2$ are homeomorphic to the open disc $D^n$, therefore they are simply connected. Their intersection is homeomorphic to $S^{n-1} \times [0,1]$, which is path connected. We apply Seifert-van Kampen, and get $\pi_1(S^n)$ isomorphic to a quotient of the trivial group. Hence it is the trivial group itself.
+\item The usual cell decomposition of $S^n$ contains a 0-cell and a $n$-cell. By 1.2.6 in Hatcher, the $n$-cell does not affect $\pi_1(S^n)$ for $n\geq 3$. Therefore $\pi_1(S^n) = \pi_1(\{x_0\}) = 0$.
+\end{enumerate}
+
+
+\subsection*{Problem 3 (Hatcher 1.3.2)}
+If $p_j : \tilde X_j \to X_j$ are covering spaces for $j = 1,2$, then each $x_j \in X_j$ has a neighborhood $U_j$ such that $p_j^{-1}(U_j) = \bigsqcup_{\alpha} \tilde U_{j\alpha}$ and for every $\alpha$, $p_j |_{\tilde U_{j\alpha}}$ is a homeomorphism. In the product topology of $X_1 \times X_2$, $U_1 \times U_2$ is an open neighborhood of $(x_1, x_2)$, and we want to show that its preimage by $p_1 \times p_2$ has the desired properties to make $\tilde X_1 \times \tilde X_2$ a covering space. The preimage can be expressed as
+\[      (p_1 \times p_2)^{-1} (U_1 \times U_2) =  \bigsqcup_{\alpha} \tilde U_{1\alpha}  \times \bigsqcup_{\beta} \tilde U_{2\beta}  = \bigsqcup_{\alpha, \beta} (\tilde U_{1\alpha} \times \tilde U_{2\beta}) \]
+Each $\tilde U_{1\alpha} \times \tilde U_{2\beta}$ is open in the product topology of $\tilde X_1 \times \tilde X_2$, and they are all disjoint because the factors are all disjoint. Moreover, $(p_1 \times p_2)|_{U_{1\alpha} \times \tilde U_{2\beta}}$ is a homeomorphism, with continuous inverse given by
+\[       p_1|_{U_{1\alpha}}^{-1} \times p_2|_{U_{2\beta}}^{-1}    \]
+These facts show that $p_1 \times p_2 : \tilde X_1 \times \tilde X_2 \to X_1 \times X_2$ is a covering space.
+
+\subsection*{Problem 4 (Hatcher 1.3.4)}
+$\pi_1(X) \cong \Z$, therefore we expect the universal covering of $X$ to unwind the loop created by the diameter arc into an infinite line, imitating the construction of $\R$ as a universal cover of $S^1$. With this in mind, we start by constructing a 2-sheet covering of $X$. Consider the space $Y$ pictured below.
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+We define a map $p: Y \to X$ that glues the two copies of the sphere, as well as the two copies of the arc going from the north pole to the south pole. $p$ is clearly continuous, and each point has a neighborhood $U$, such as the one pictured, such that its inverse image is the disjoint union of two open sets, each homeomorphic to $U$. Therefore $Y$ is a covering space for $X$. To make a simply connected cover, we repeat the same structure infinitely:
+\\
+\\
+\\
+\\
+\\
+\\
+It's easy to see that, similarly to the 2-sheet cover, the preimage of an open set $U$ in $X$ consists of infinitely many disjoint opens, each homeomorphic to $U$. This space is simply connected, since its fundamental group is a subgroup of infinite index in $\Z$, and the only such is the trivial group. (Alternatively, we can observe that all the arcs are contractible, and the resulting space is a wedge sum of spheres, each of which has trivial fundamental group.)
+
+The case of $X$ a circle intersecting the sphere in two points is similar. The two arcs leaving the north pole of a sphere cannot, this time, go to the south pole of the same sphere, since then they would be creating a noncontractible loop. Therefore we need to add more spheres and send each arc to a different one.
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\subsection*{Problem 5 (Hatcher 1.3.9)}
+Let $f:Y \to S^1$ be any map. $f_*$ is a group homomorphism, and it's a basic result of group theory that $f_*(\pi_1(Y))$ is a subgroup of $\pi_1(S^1) \cong \Z$. If $\pi_1(Y)$ is finite, then so is its image under any homomorphism. But the only finite subgroup of $\Z$ is the trivial one, hence $f_*(\pi_1(Y)) = 0$. Let $p: \R \to S^1$ be the covering map, then $f_*(\pi_1(Y)) \subset p_*(\pi_1(R))$. Using the lifting criterion, we obtain a lift $\tilde f : \R \to S^1$ of $f$. 
+
+But $\R$ is contractible, i.e. there exists a homotopy $h_t$ from $\id_{\R}$ to the constant map at $0$. Then $h_t \circ \tilde f$ is a homotopy from $\tilde f$ to a constant map $Y \to \{0\}$. Finally, $f_t = p \circ h_t \circ \tilde f$ is a homotopy from $f$ to the constant map $Y \to \{0\}$.
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

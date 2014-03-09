@@ -1,0 +1,224 @@
+\documentclass[12 pt]{article}
+\usepackage{amsmath,amssymb,amsthm,fullpage,amsfonts,enumerate,textcomp, eurosym, tikz-cd, fullpage, todonotes}
+\title{Algebraic topology HW6}
+\author{Matei Ionita}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\CP}{\mathbb{C}\mathbb{P}}
+\newcommand{\RP}{\mathbb{R}\mathbb{P}}
+\newcommand{\Proj}{\mathbb{P}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\p}{\partial}
+\newcommand{\fr}{\mathfrak}
+
+\DeclareMathOperator{\Mor}{Mor}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\length}{length}
+\DeclareMathOperator{\res}{Res}
+\DeclareMathOperator{\Int}{Int}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\Lie}{Lie}
+\DeclareMathOperator{\id}{Id}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\irr}{irr}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\trdeg}{trdeg}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Nm}{Nm}
+\DeclareMathOperator{\ord}{ord}
+\DeclareMathOperator{\imag}{Im}
+
+\begin{document}
+  \maketitle
+
+\subsection*{Problem 1 (1.3.10 in Hatcher)}
+Since the covering map is a local homeomorphism, any 2-sheet covering of $S^1 \vee S^1$ must be a graph with two 
+vertices, each of degree 4. Specifically, each vertex must have an $a$ and a $b$ edge coming out of it, and an $a$ 
+and a $b$ edge going into it. There are only three such graphs, pictured below.
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+Isomorphism classes of covering spaces without regard to basepoint are in 1-1 correspondence with conjugacy 
+classes of subgroups of $\Z * \Z$. Since our covers have 2 sheets, their fundamental groups have index 2 in 
+$\Z * \Z$. All index 2 subgroups are normal, which means that each is its own conjugacy class. Therefore none 
+of the three covers presented above are isomorphic.
+
+For 3-sheet covers, we look for graphs with 3 vertices, each with degree 4. We show these below, in increasing 
+order of the number of self-loops.
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+It's straightforward to check that none of the subgroups associated to these 7 graphs are conjugates of each
+other; in fact, the first two and last two are normal subgroups. Therefore they all represent different isomorphism
+classes of covering spaces.
+
+
+\subsection*{Problem 2 (1.3.18 in Hatcher)}
+Consider all abelian covering spaces $\tilde X_i$ of $X$, and denote their deck groups by $G_i$. We identify
+$\pi_1(\tilde X_i)$ with its image by the injective map $p_{i*}$, and the result of Proposition 1.39 becomes
+\[      G_i \cong \pi_1(X) / \pi_1(\tilde X_i)     \]
+Since $\pi_1(\tilde X_i)$ are normal subgroups of $\pi_1(X)$, so is their intersection $N= \bigcap_i \pi_1(\tilde X_i)$.
+Via Theorem 1.38, $N$ is the fundamental group of a covering space $Y$ of $X$, which is normal because $N$
+is. We want to show that $G = \pi_1(X) /N$, the deck group of $Y$, is abelian. Recall that a quotient by a 
+normal subgroup is abelian iff the subgroup contains all elements of the form $aba^{-1}b^{-1}$. We know that $G_i$
+are abelian, so these elements are in each $\pi_1(\tilde X_i)$. Therefore they are also in the intersection $N$, which
+proves that $Y$ is an abelian covering space. Moreover, by construction $N = \pi_1(Y)$ is a subgroup of 
+$\pi_1(\tilde X_i)$ for every $i$. Using again the correspondence of Theorem 1.38, $Y$ is a covering space for
+all $\tilde X_i$.
+
+Now assume there are two universal abelian coverings, $Y$ and $Z$. Then $Y$ covers $Z$, so $\pi_1(Y)$ is isomorphic
+to a subgroup of $\pi_1(Z)$; the converse is analogous. Therefore $\pi_1(Y) \cong \pi_1(Z)$. But $Y$ and $Z$ are
+covering spaces of $X$, and in particular their fundamental groups are isomorphic as subgroups of $\pi_1(X)$.
+Then by Proposition 1.37 $Y$ and $Z$ are isomorphic covering spaces.
+
+For the case $X = S^1 \vee S^1$, we have $\pi_1(X) = \Z * \Z$. The deck group of the universal abelian cover
+is the maximal abelian quotient of $\Z * \Z$. It's clear that to obtain an abelian quotient we must set
+$aba^{-1}b^{-1} = 1$; if we want the quotient to be maximal, we impose nothing else. Therefore the deck group
+of the universal abelian cover is $\Z \times \Z$. Motivated by this, we consider the grid $Y$ formed from the lattice
+$\Z^2 \subset \R^2$ by connecting lattice points with vertical and horizontal lines. The quotient map $p:Y \to X$
+that takes $(x,y) \mapsto (x \mod 1, y \mod 1)$ is easily seen to be a covering map, and $G(Y) = \Z \times \Z$ as
+desired. Finally, $X = S^1 \vee S^1 \vee S^1$ gives the same result in 3 dimensions, i.e. $Y$ is the 3-dimensional
+grid obtained from $\Z^3\subset \R^3$, and $G(Y) = \Z \times \Z \times \Z$.
+
+
+
+\subsection*{Problem 3}
+This solution is inspired by Example 1.41 in Hatcher. Let $X = S^1 \vee S^1$ and let $Y = \bigvee_{n} S^1$. We 
+can view $Y$ as ``keys on a keychain'' as in the picture, by keeping one circle fixed and translating the points of
+ tangency of the other $n-1$ circles. This operation is a homotopy equivalence, so we just take this resulting 
+space to be $Y$, and $\pi_1(Y)$ will still be the free group on $n$ generators.
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+$G = \Z/n-1$ acts freely on $Y$ in the obvious way (the generator rotates the whole figure by $2\pi/{n-1}$ 
+radians). Since $G$ is finite and the action is free, it is a covering space action. (See comments on p. 73 in 
+Hatcher.) The quotient $Y/G \cong X$, and by Proposition 1.40 $Y$ is a covering space of $X$. This means 
+that $p_*(\pi_1(Y))$ is a subgroup of $\pi_1(X)$. Moreover, $p_*$ is injective, so this gives an injection of 
+the free group on $n$ generators into the free group on 2 generators.
+
+\subsection*{Problem 4}
+The fundamental group of the Klein bottle is
+\[      G =    \langle a,b | abab^{-1} \rangle        \]
+Note that $abab^{-1} = 1$ implies that $a^kba^kb^{-1} = 1$ for all natural $k$. This can be proved by
+induction, using
+\[         a^k b a^k b^{-1} = a^{k-1}( abab^{-1}) ba^{k-1} b^{-1} = a^{k-1}ba^{k-1}b^{-1}          \]
+Consider the injective homomorphism $\phi_k : \langle a^k, b \rangle \to \langle a, b \rangle$; because of
+the remark made above, it descends to an injective homomorphism on the quotients
+\[         \psi_k   :  H_k = \langle a^k, b | a^kba^kb^{-1} \rangle \to G     \]
+Each $H_k$ is the fundamental group of a $k$-sheet covering of the Klein bottle by itself. The covering for 
+$k=3$ is pictured below, and the others are obtained similarly.
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+It suffices, then, to find a value of $k$ such that $H_k$ is not normal in $G$. $k=2$ will not work, as any
+index two subgroup is normal. We try the next simplest case, which is $k=3$. Conjugating $b \in H_3$ by
+$a \in G$ gives
+\[       aba^{-1} = (abab^{-1}) b a^{-2} = b a^{-2}  = (ba^{3}) a^{-1}  \]
+Since $ba^3 \in H_3$, $aba^{-1} \in H_3$ would imply $a\in H_3$, which is a contradiction. This shows
+that $H_3$ is not normal, therefore the covering space pictured above is not normal.
+
+\subsection*{Problem 5}
+\begin{enumerate}[(a)]
+\item Consider a space $Y$ that covers $X/G$ and is covered by $X$:
+	\[        X \to Y \to X/G     \]
+	This determines a chain of inclusions of fundamental groups:
+	\[         \pi_1(X) \leq \pi_1(Y) \leq \pi_1(X/G)           \]
+	$\pi_1(X)$ is normal in $\pi_1(X/G)$, because $X$ is a normal covering space. But, if every 
+	$g \in \pi_1(X/G)$ normalizes $\pi_1(X)$, in particular every $g\in \pi_1(Y)$ will do so. Therefore 
+	$\pi_1(X)$ is normal in $\pi_1(X/G)$, and then it makes sense to quotient the chain of inclusions:
+	\[        1 \leq \frac{\pi_1(Y)}{ \pi_1(X)} \leq \frac{\pi_1(X/G) }{ \pi_1(X)  } = G  \]
+	Let $H = \pi_1(Y) / \pi_1(X)$, we have just shown that $H \leq G$. Since $\pi_1(X)$ is normal in
+	$\pi_1(Y)$, $Y \to X$ is a normal covering space. From Proposition 1.39 it follows that $H$ is the
+	deck group of the covering, hence $Y = X/H$.
+\item Assume first that $H_2 = gH_1g^{-1}$ for some $g\in G$, then $H_1 \cong H_2$ via 
+	$h \mapsto ghg^{-1}$. Using the definition of $H$ from part (a), we get
+	\[    \frac{  \pi_1(Y_1) }{\pi_1(X)} \cong \frac{\pi_1(Y_2)}{\pi_1(X)}    \]
+	By results of group theory, this implies that $\pi_1(Y_1)$ and $\pi_1(Y_2)$ are conjugate subgroups
+	of $\pi_1(X/G)$. Then the correspondence in Theorem 1.38 shows that $Y_1$ and $Y_2$ are
+	isomorphic covering spaces.
+
+	Conversely, assume that $X/H_1$ and $X/H_2$ are isomorphic as covering spaces of $X/G$. By
+	Theorem 1.38 $\pi_1(X/H_1)$ and $ \pi_1(X/H_2)$ are conjugate subgroups of $\pi_1(X/G)$. Then
+	their quotients by their common normal subgroup $\pi_1(X)$ are conjugate subgroups of
+	$\pi_1(X/G) / \pi_1(X) = G$.
+\item Suppose that $X/H \to X/G$ is normal, then $\pi_1(X/H) \unlhd \pi_1(X/G)$. We apply the third
+	isomorphism theorem, which says precisely that $H = \pi_1(X/H) / \pi_1(X)$ is normal in 
+	$G = \pi_1(X/G)/\pi_1(X)$, and that:
+	\[      \frac{  \pi_1(X/G)}{\pi_1(X/H)} = \frac{ \pi_1(X/G)/\pi_1(X)}{\pi_1(X/H) / \pi_1(X)} = G/H        \]
+	By Proposition 1.39, the LHS is equal to the deck group of $X/H \to X/G$, which gives the desired result.
+
+	Conversely, assume that $H \unlhd G$, which is to say
+	\[       \frac{ \pi_1(X/H)}{\pi_1(X)} \unlhd \frac{\pi_1(X/G) }{\pi_1(X)}      \]
+	It follows from basic group theory that $\pi_1(X/H) \unlhd \pi_1(X/G)$, which means that $X/G \to X/H$
+	is normal.
+\end{enumerate}
+
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
