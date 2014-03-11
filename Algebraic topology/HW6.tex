@@ -157,6 +157,29 @@ $a \in G$ gives
 Since $ba^3 \in H_3$, $aba^{-1} \in H_3$ would imply $a\in H_3$, which is a contradiction. This shows
 that $H_3$ is not normal, therefore the covering space pictured above is not normal.
 
+To get a covering by the torus, we can first look at the 2-sheet covering given by $\langle a, b^2 \rangle$.
+Note that the relation $abab^{-1} = 1$ in $G$ implies that $a$ and $b^2$ commute:
+\[           ab^2 = ba^{-1}b = b^{2}a (a^{-1}b^{-1}a^{-1}b) = b^2a          \]
+Therefore this is a $\Z^2$ subgroup of $G$. Any 2-generator subgroup of this subgroup will itself give a
+covering of the Klein bottle by a torus, because it will be a 2-generator abelian group, which is the 
+fundamental group of the torus. Therefore it suffices to find a subgroup of $\langle a,b^2|ab^2 = b^2a
+\rangle$ that is not normal in $G$. We try:
+\[   H =   \langle a^3, a^2b^2 | abab^{-1} \rangle     \]
+Conjugating $a^2b^2$ by $b$ gives:
+\[        b(a^2b^2)b^{-1} = bab^{-1}bab^{-1}b^2 = a^{-2}b^2 = a^{-4} (a^2b^2)     \]
+If this is an element of $H$, then so must be $a^{-4}$, which is not the case. Therefore conjugating by
+$b$ produces an element that is not in $H$, so $H$ is not normal. $H$ determines a 6-sheet covering
+of the Klein bottle by a torus, which is pictured below.
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+
 \subsection*{Problem 5}
 \begin{enumerate}[(a)]
 \item Consider a space $Y$ that covers $X/G$ and is covered by $X$:
