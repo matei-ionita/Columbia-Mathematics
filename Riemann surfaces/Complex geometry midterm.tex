@@ -1,0 +1,288 @@
+\documentclass[12 pt]{article}
+\usepackage{amsmath,amssymb,amsthm,fullpage,amsfonts,enumerate,textcomp, eurosym, todonotes}
+\title{Complex analysis II midterm}
+\author{Matei Ionita}
+
+\DeclareMathOperator {\p} {\partial}
+\DeclareMathOperator {\R} {\mathbb{R}}
+\DeclareMathOperator {\C} {\mathbb{C}}
+\DeclareMathOperator {\Q} {\mathbb{Q}}
+\DeclareMathOperator {\Z} {\mathbb{Z}}
+\DeclareMathOperator {\Tr}{Tr}
+\DeclareMathOperator {\Ker}{Ker}
+\DeclareMathOperator {\End}{End}
+\DeclareMathOperator {\Coker}{Coker}
+\DeclareMathOperator {\Imag}{Im}
+\DeclareMathOperator {\Diff}{Diff}
+\DeclareMathOperator {\id}{Id}
+
+\theoremstyle{plain}
+\newtheorem{thm}{Theorem}
+\newtheorem*{thm*}{Theorem}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{prop}{Proposition}
+\newtheorem{exc}{Exercise}
+
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}
+\newtheorem{exmp}{Example}
+
+\theoremstyle{remark}
+\newtheorem*{rem}{Remark}
+
+\begin{document}
+  \maketitle
+
+
+\subsection*{Problem 1}
+\begin{enumerate}[(a)]
+\item We introduce the Christoffel symbols $\Gamma^j_{lp} = g^{j\bar k} \p_l g_{\bar k p}$. Then the torsion tensor becomes 
+	$T^{j}_{lp} = \Gamma^j_{lp} - \Gamma^j_{pl}$. Also note that $\omega^n = \det g_{\bar q l} dz^1\wedge \dots \wedge
+	dz^n \wedge d \bar z^1 \wedge \dots \wedge d \bar z^n$. For readability we omit the $2n$-form in the following computation.
+	With this in mind, we start evaluating the integral on the LHS:
+	\begin{align*}
+	\int_X \nabla_j V^j \det g_{\bar q l} &= \int_X (\p_j V^j +  \Gamma^j_{kj} V^k ) (\det g_{\bar q l})    \\
+	&= \int_X \p_j (V^j \det g_{\bar q l}) + \int_X -V^j (\p_j \det g_{\bar ql}) + \Gamma^j_{kj} V^k \det g_{\bar ql}
+	\end{align*}
+	The first integral gives 0, because the integrand is an exact form. Moreover, we use $\p_j \det g_{\bar ql} = \Gamma^m_{mj}
+	\det g_{\bar ql}$, and obtain:
+	\begin{align*}
+	\int_X \nabla_j V^j \det g_{\bar q l} &= \int_X(- \Gamma^m_{mj} V^j + \Gamma^j_{kj} V^k ) \det g_{\bar ql} \\
+	&= \int_X(- \Gamma^k_{kj} V^j + \Gamma^k_{jk} V^j ) \det g_{\bar ql} \\
+	&= \int_X  V^j T^k_{jk} \det g_{\bar q l}
+	\end{align*} 
+	Putting back the form $dz^1\wedge \dots \wedge dz^n \wedge d \bar z^1 \wedge \dots \wedge d \bar z^n$, this becomes:
+	\[    \int_X \nabla_j V^j \omega^n =  \int_X  V^j T^k_{jk} \omega^n   \]
+\item We use the product rule for covariant derivatives, and define $V^j = \phi_{\bar K I} \psi^{j\bar K I}$. Then:
+	\begin{align*}
+	\int_X (\nabla_j \phi_{\bar K I}) \psi^{j \bar K I} \omega^n &= - \int_X \phi_{\bar K I}( \nabla_j \psi^{j\bar K I})
+	 \omega^n + \int_X \nabla_j V^j \omega^n \\
+	&= - \int_X \phi_{\bar K I}( \nabla_j \psi^{j\bar K I}) \omega^n + \int_X V^j T^k_{jk} \omega^n\\
+	&=  - \int_X \phi_{\bar K I}( \nabla_j \psi^{j\bar K I}) \omega^n + \int_X \phi_{\bar K I} \psi^{j\bar K I} T^k_{jk} \omega^n
+	\end{align*}
+\end{enumerate}
+
+
+\subsection*{Problem 2}
+We want to antisymmetrize with respect to the $\bar z$ indices in the definition of $\bar \p$. Notice that interchanging $\bar l$ 
+and $\bar j_{\alpha}$ for any $1\leq \alpha \leq q$ will give a minus sign, since this corresponds to moving $d\bar z^l$ $p + \alpha$ 
+positions to the right, followed by moving $d \bar z^{\alpha}$ $p+\alpha - 1$ positions to the left, a total of $2(p+\alpha) - 1$ 
+interchanges. This gives a factor of $(-1)^{2(p+\alpha) - 1} = -1$. Therefore:
+\begin{align*}
+\bar \p \phi &= \frac{1}{p!(q+1)!} \sum_{\bar J I} (q+1) \p_{\bar l} \phi_{\bar j_q ... \bar j_1 I} d\bar z^l \wedge dz^I \wedge d 
+\bar z^J \\
+=& \frac{1}{p!(q+1)!} \sum_{\bar J I} ( \p_{\bar l} \phi_{\bar j_q ... \bar j_1 I} - \p_{\bar j_q} \phi_{\bar l \bar j_{q-1} ...\bar j_1 I}  - \dots
+- \p_{\bar j_1} \phi_{\bar j_q ... \bar j_2 \bar l I} ) d\bar z^l \wedge dz^I \wedge d \bar z^J 
+\end{align*}
+We take apart each term and write it in terms of covariant derivatives:
+\begin{align*}
+   \p_{\bar l} \phi_{\bar j_q ... \bar j_1 I}  =&  \nabla_{\bar l} \phi_{\bar j_q ... \bar j_1 I} + (\Gamma^{\bar m}_{\bar j_q \bar l} 
+\phi_{\bar m ... \bar j_1 I} + \dots + \Gamma^{\bar m}_{\bar j_1 \bar l} \phi_{\bar j_{q} ... \bar m})   \\
+\p_{\bar j_q} \phi_{\bar l \bar j_{q-1} ...\bar j_1 I} =& \nabla_{\bar j_q} \phi_{\bar l \bar j_{q-1} ...\bar j_1 I} +  
+ (\Gamma^{\bar m}_{\bar l \bar j_q} \phi_{\bar m \bar j_{q-1} ... \bar j_2 \bar j_1 I} + \dots + \Gamma^{\bar m}_{\bar j_1 \bar j_q} 
+\phi_{\bar l \bar j_{q-1} ... \bar j_2 \bar m})  \\
+\cdots \\
+\p_{\bar j_1} \phi_{ \bar j_{q} ...\bar j_2 \bar l I} =& \nabla_{\bar j_1} \phi_{ \bar j_{q} ...\bar j_2 \bar l I} +  
+ (\Gamma^{\bar m}_{\bar j_q \bar j_1} \phi_{\bar m \bar j_{q-1} ... \bar j_2 \bar l I} + \dots + \Gamma^{\bar m}_{\bar l \bar j_1} 
+\phi_{ \bar j_{q} ... \bar j_2 \bar m})
+\end{align*}
+There are three types of terms here:
+\begin{enumerate} [(i)]
+\item The covariant derivative terms, which we want to keep.
+\item Connection terms involving $\bar l$ in the Christoffel symbols. For each $\Gamma^{\bar m}_{\bar j_{\alpha} \bar l}$ there exists a
+	$\Gamma^{\bar m}_{\bar l \bar j_{\alpha}}$ term with opposite sign. These would normally give torsion terms, but since the metric
+	is Kahler they cancel out instead.
+\item Connection terms not involving $\bar l$ in the Christoffel symbols, i.e. the vast majority. These come in pairs: 
+	$\Gamma^{\bar m}_{\bar j_{\alpha} \bar j_{\beta}} \phi_{\bar j_{q} \dots \bar j_{\alpha +1} \bar m \bar j_{\alpha -1} \dots
+	\bar j_{\beta +1} \bar l \bar j_{\beta -1} \dots \bar j_1} + [\alpha \leftrightarrow \beta]$. Since the metric is Kahler, the two
+	Christoffel symbols in the pair are equal. Then, since the components of $\phi$ are antisymmetric, the two terms in the pair
+	cancel each other out.
+\end{enumerate}
+Therefore all the connection terms cancel out under the assumption that $g$ is Kahler, and we are left only with:
+\begin{align*}
+\bar \p \phi &= \frac{1}{p!(q+1)!} \sum_{\bar J I} ( \nabla_{\bar l} \phi_{\bar j_q ... \bar j_1 I} - \nabla_{\bar j_q} \phi_{\bar l \bar j_{q-1}
+ ...\bar j_1 I}  - \dots - \nabla_{\bar j_1} \phi_{\bar j_q ... \bar j_2 \bar l I} ) d\bar z^l \wedge dz^I \wedge d \bar z^J  \\
+&= \frac{1}{p!(q+1)!} \sum_{\bar J I} (q+1) \nabla_{\bar l} \phi_{\bar j_q ... \bar j_1 I} d\bar z^l \wedge dz^I \wedge d \bar z^J
+\end{align*}
+Now we want to see how this formula changes when $g$ is not Kahler, for the special case of $0,1$ forms. In that case we have:
+\begin{align*}
+\bar \p \phi =& \sum_{\bar j, \bar l} (\p_{\bar l} \phi_{\bar j}) d \bar z^l \wedge d \bar z^j \\
+=& \frac{1}{2!} \sum_{\bar j, \bar l} (\p_{\bar l} \phi_{\bar j} - \p_{\bar j} \phi_{\bar l})  d \bar z^l \wedge d \bar z^j \\
+=& \frac{1}{2!} \sum_{\bar j, \bar l} (\nabla_{\bar l} \phi_{\bar j} - \nabla_{\bar j} \phi_{\bar l})  d \bar z^l \wedge d \bar z^j + \frac{1}{2!} \sum_{\bar j, \bar l} ( \Gamma^{\bar m}_{\bar j \bar l}  -  \Gamma^{\bar m}_{\bar l \bar j}) \phi_{\bar m}
+d \bar z^l \wedge d \bar z^j \\
+=& \sum_{\bar j, \bar l}( \nabla_{\bar l} \phi_{\bar j} )d \bar z^l \wedge d \bar z^j + \frac{1}{2} \sum_{\bar j, \bar l} T^{\bar m}_{\bar j \bar l}  \phi_{\bar m} d \bar z^l \wedge d \bar z^j 
+\end{align*}
+
+
+
+
+
+\subsection*{Problem 3}
+\begin{enumerate}[(a)]
+\item Let $\phi, \psi \in \Gamma(X, L\otimes \Lambda^{0,2})$. We define $L^2$ inner products by contracting all indices with the 
+	corresponding metric:
+	\[        \langle \phi,\psi \rangle = \frac{1}{2!} \int_X \phi_{\bar j \bar k} \overline{\psi_{\bar l \bar m}}  h g^{l \bar j} g^{m \bar k}
+	\frac{\omega^n}{n!}    \]
+	Similarly, for $\phi, \psi \in  \Gamma(X, L\otimes \Lambda^{0,3})$ we define:
+	\[   \langle \phi,\psi \rangle = \frac{1}{3!} \int_X \phi_{\bar j \bar k \bar p} \overline{\psi_{\bar l \bar m \bar q}}  h g^{l \bar j} 
+	g^{m \bar k} g^{q \bar p} \frac{\omega^n}{n!}    \]  
+\item Throughout the rest of the problem we make repeated use of the result of Problem 2, namely that we can write the components of
+	$\bar \p \phi$ in terms of covariant derivatives instead of partial derivatives. We first look at $\bar \p^{\dagger} : \Gamma(X,L\otimes 
+	\Lambda^{0,2}) \to \Gamma(X, L\otimes \Lambda^{0,1})$. Consider:
+	\[         \Gamma(X, L \otimes \Lambda^{0,1})   \ni \phi = \phi_{\bar j} d\bar z^j \Rightarrow  (\bar \p \phi)_{\bar j \bar k} =
+	 2 \nabla_{\bar k} \phi_{\bar j}      \]
+	\[      \Gamma(X, L \otimes \Lambda^{0,2})   \ni \psi =\frac{1}{2} \psi_{\bar l \bar m} d\bar z^m \wedge d\bar z^l    \]
+	Then $\langle \bar \p \phi, \psi \rangle = \langle \phi, \bar \p^{\dagger} \psi \rangle$ gives:
+	\[    \frac{1}{2!}    \int_X 2 (\nabla_{\bar k} \phi_{\bar j}) \overline{\psi_{\bar l\bar m}} h g^{l\bar j}g^{m\bar k} \frac{\omega^n}{n!}  
+	= \int_X \phi_{\bar j} \overline{(\bar \p^{\dagger} \psi)_{\bar l}} h g^{l\bar j} \frac{\omega^n}{n!}  \]
+	We integrate by parts on the LHS, using the analogue of Problem 1 for derivatives in the $\bar z$ directions. Since the metric is Kahler,
+	the torsion term vanishes, and we obtain:
+	\[     -   \int_X   \phi_{\bar j} \nabla_{\bar k} (\overline{\psi_{\bar l \bar m} h g^{j \bar l } g^{k \bar m }}) \frac{\omega^n}{n!}
+	=   \int_X \phi_{\bar j} \overline{(\bar \p^{\dagger} \psi)_{\bar l}} h g^{l\bar j} \frac{\omega^n}{n!} \]
+	\[     \int_X \phi_{\bar j} \overline{(- g^{k \bar m } \nabla_k \psi_{\bar l \bar m})} h g^{l \bar j} \frac{\omega^n}{n!}  = 
+	 \int_X \phi_{\bar j} \overline{(\bar \p^{\dagger} \psi)_{\bar l}} h g^{l\bar j} \frac{\omega^n}{n!}   \]
+	Therefore we can identify:
+	\[     (\bar \p^{\dagger} \psi)_{\bar l} =   - g^{k \bar m } \nabla_k \psi_{\bar l \bar m}   \]
+	Now we look at $\bar \p^{\dagger} : \Gamma(X,L\otimes \Lambda^{0,3}) \to \Gamma(X, L\otimes \Lambda^{0,2})$ and proceed 
+	analogously. Consider:
+	\[         \Gamma(X, L \otimes \Lambda^{0,2})   \ni \phi =\frac{1}{2} \phi_{\bar j\bar k} d \bar z^k \wedge d\bar z^j \Rightarrow 
+	 (\bar \p \phi)_{\bar j \bar k \bar p} = 3 \nabla_{\bar p} \phi_{\bar j\bar k}      \]
+	\[      \Gamma(X, L \otimes \Lambda^{0,3})   \ni \psi =\frac{1}{3!} \psi_{\bar l \bar m\bar q}d\bar z^q\wedge d\bar z^m \wedge
+	d\bar z^l    \]
+	Then $\langle \bar \p \phi, \psi \rangle = \langle \phi, \bar \p^{\dagger} \psi \rangle$ gives:
+	\[     \frac{1}{3!}   \int_X 3 (\nabla_{\bar p} \phi_{\bar j\bar k}) \overline{\psi_{\bar l\bar m \bar q}} h g^{l\bar j}g^{m\bar k}g^{q\bar p} 
+	\frac{\omega^n}{n!}  = \frac{1}{2!}\int_X \phi_{\bar j\bar k} \overline{(\bar \p^{\dagger} \psi)_{\bar l\bar m}} h g^{l\bar j} g^{m\bar k}
+	 \frac{\omega^n}{n!}  \]
+	We integrate by parts on the LHS, and the torsion term vanishes again. We obtain:
+	\[     -   \int_X   \phi_{\bar j\bar k} \nabla_{\bar p} (\overline{\psi_{\bar l \bar m\bar q} h g^{j \bar l } g^{k \bar m } g^{p \bar q}}) 
+	\frac{\omega^n}{n!} =  \int_X \phi_{\bar j\bar k} \overline{(\bar \p^{\dagger} \psi)_{\bar l\bar m}} h g^{l\bar j} g^{m\bar k}
+	 \frac{\omega^n}{n!} \]
+	\[     \int_X \phi_{\bar j\bar k} \overline{(- g^{p \bar q } \nabla_p \psi_{\bar l \bar m\bar q})} h g^{l \bar j}g^{m \bar k} 
+	\frac{\omega^n}{n!}  =  \int_X \phi_{\bar j\bar k} \overline{(\bar \p^{\dagger} \psi)_{\bar l\bar m}} h g^{l\bar j} g^{m\bar k} 
+	\frac{\omega^n}{n!}  \]
+	Therefore we can identify:
+	\[     (\bar \p^{\dagger} \psi)_{\bar l\bar m} =   - g^{p \bar q } \nabla_p \psi_{\bar l \bar m \bar q}   \]
+\item Consider again $\phi = \frac{1}{2!} \phi_{\bar j \bar k} d\bar z^k \wedge d\bar z^j \in \Gamma(X, L\otimes \Lambda^{0,2})$. We need to 
+	compute $\bar \p \bar \p^{\dagger} \phi$ and $\bar \p^{\dagger} \bar \p \phi$. In order to obtain a formula that contains the metric Laplacian
+	and curvature terms, it is convenient to antisymmetrize $\bar \p \phi$:
+	\[         (\bar \p \phi)_{\bar j \bar k \bar p} = 3 \nabla_{\bar p} \phi_{\bar j \bar k} = \nabla_{\bar p} \phi_{\bar j \bar k} - 
+	\nabla_{\bar j} \phi_{\bar p \bar k} - \nabla_{\bar k} \phi_{\bar j \bar p}        \]
+	Now we can write the terms in the Laplacian as:
+	\begin{align*}
+	(\bar \p \bar \p^{\dagger} \phi )_{\bar j \bar k} &= \nabla_{\bar k} ( \bar \p^{\dagger} \phi)_{\bar j} - \nabla_{\bar j}
+	( \bar \p^{\dagger} \phi)_{\bar k}  \\
+	&= \nabla_{\bar k} ( - g^{p \bar m } \nabla_p \phi_{\bar j \bar m}) -  \nabla_{\bar j} ( - g^{p \bar m } \nabla_p \phi_{\bar k \bar m}) \\
+	&= - g^{p \bar m} \nabla_{\bar k} \nabla_p \phi_{\bar j \bar m} + g^{p \bar m} \nabla_{\bar j} \nabla_p \phi_{\bar k \bar m}  \\
+	(\bar \p^{\dagger} \bar \p \phi)_{\bar j \bar k} &= - g^{p\bar q} \nabla_p (\bar \p \phi)_{\bar j \bar k \bar q} \\
+	&= - g^{p \bar q}  \nabla_p (\nabla_{\bar q} \phi_{\bar j \bar k} - \nabla_{\bar j} \phi_{\bar q \bar k} - \nabla_{\bar k} \phi_{\bar j \bar q}) \\
+	&= - g^{p \bar q} \nabla_p \nabla_{\bar q} \phi_{\bar j \bar k} + g^{p\bar q} \nabla_p \nabla_{\bar j} \phi_{\bar q \bar k} + 
+	g^{p \bar q} \nabla_p \nabla_{\bar k} \phi_{\bar j \bar q} \\
+	(\Delta \phi)_{\bar j \bar k} &= - g^{p \bar q} \nabla_p \nabla_{\bar q} \phi_{\bar j \bar k} + g^{p \bar q} (\nabla_p \nabla_{\bar j} \phi_{\bar q
+	\bar k} + \nabla_{\bar j} \nabla_p \phi_{\bar k \bar q}) + g^{p \bar q} [\nabla_p, \nabla_{\bar k}] \phi_{\bar j \bar q} \\
+	&=  - g^{p \bar q} \nabla_p \nabla_{\bar q} \phi_{\bar j \bar k} + g^{p \bar q} [\nabla_p, \nabla_{\bar j}] \phi_{\bar q \bar k} - g^{p \bar q} 				[\nabla_p, \nabla_{\bar k}] \phi_{\bar q \bar j}
+	\end{align*}
+	On the last line we used the fact that $\phi$ is a 0,2-form, and therefore we can antisymmetrize its components to get $\phi_{\bar j \bar q} = 
+	- \phi_{\bar q \bar j}$. Finally, the commutators of covariant derivatives are by definition curvatures. But we have to keep track of all the curvature
+	terms: one for the line bundle $L$, and then two terms for the curvature of $\Lambda^{0,2}$.
+	\begin{align*}
+	(\Delta \phi)_{\bar j \bar k} = - g^{p \bar q} \nabla_p \nabla_{\bar q} \phi_{\bar j \bar k} &+ g^{p \bar q} F_{\bar j p} \phi_{\bar q \bar k}
+	+ g^{p \bar q} {R_{\bar j p \bar q}}^{\bar m} \phi_{\bar m \bar k} + \underline{g^{p \bar q} {R_{\bar j p \bar k}}^{\bar m} 
+	\phi_{\bar q \bar m}}	\\
+	& - g^{p \bar q} F_{\bar k p} \phi_{\bar q \bar j} - g^{p \bar q} {R_{\bar k p \bar q}}^{\bar m} \phi_{\bar m \bar j} - \underline{g^{p \bar q}
+	{R_{\bar k p \bar j}}^{\bar m} \phi_{\bar q \bar m}}
+	\end{align*}
+	Since $g$ is Kahler, ${R_{\bar j \bar p \bar k}}^{\bar m} = {R_{\bar k \bar p \bar j}}^{\bar m}$, therefore the two underlined
+	terms cancel out. Moreover, we can contract the $p$ and $\bar q$ indices in the remaining curvature terms, and we are left with:
+	\[	(\Delta \phi)_{\bar j \bar k} = - g^{p \bar q} \nabla_p \nabla_{\bar q} \phi_{\bar j \bar k} + ({F_{\bar j}}^{\bar m} + 
+	{R_{\bar j}}^{\bar m}) \phi_{\bar m \bar k} - ({F_{\bar k}}^{\bar m} + {R_{\bar k}}^{\bar m}) \phi_{\bar m \bar j}	\]
+\item We look at the inner product of $\Delta \phi$ and $\phi$, which makes sense since they are both sections of $L \otimes \Lambda^{0,2}$.
+	\begin{align*}
+	\langle \Delta \phi, \phi\rangle =& \frac{1}{2!} \int_X (\Delta \phi)_{\bar j \bar k} \overline{\phi_{\bar l \bar m}} h g^{l \bar j} g^{m \bar k}
+	\frac{\omega^n}{n!} \\
+	=&  \frac{1}{2} \int_X - g^{p \bar q} \nabla_p \nabla_{\bar q} \phi_{\bar j \bar k}  \overline{\phi_{\bar l \bar m}} h g^{l \bar j} 
+	g^{m \bar k} \frac{\omega^n}{n!} + \frac{1}{2} \int_X ({F_{\bar j}}^{\bar q} + {R_{\bar j}}^{\bar q}) \phi_{\bar q \bar k}
+	 \overline{\phi_{\bar l \bar m}} h g^{l \bar j} g^{m \bar k} \frac{\omega^n}{n!} \\
+	&- \frac{1}{2} \int_X ({F_{\bar k}}^{\bar q} + {R_{\bar k}}^{\bar q}) \phi_{\bar q \bar j} \overline{\phi_{\bar l \bar m}} h g^{l \bar j} 
+	g^{m \bar k} \frac{\omega^n}{n!}
+	\end{align*}
+	To simplify matters, we relabel the dummy indices in the last term: $j\leftrightarrow k$, $l \leftrightarrow m$. Upon incorporating the 
+	negative sign in front of this term into $\overline {\phi_{\bar l \bar m}}$, we see that this term is actually equal to the second, i.e:
+	\[	\langle \Delta \phi, \phi\rangle = \frac{1}{2} \int_X - g^{p \bar q} \nabla_p \nabla_{\bar q} \phi_{\bar j \bar k}  
+	\overline{\phi_{\bar l \bar m}} h g^{l \bar j} g^{m \bar k} \frac{\omega^n}{n!} +  \int_X ({F_{\bar j}}^{\bar q} + 
+	{R_{\bar j}}^{\bar q}) \phi_{\bar q \bar k} \overline{\phi_{\bar l \bar m}} h g^{l \bar j} g^{m \bar k} \frac{\omega^n}{n!}	\]
+	In the first term, we integrate by parts, and there are no torsion terms since the metric is Kahler. We recognize the result as the
+	$L^2$ norm of $\overline{\nabla} \phi \in \Gamma(L \otimes \Lambda^{0,1} \otimes \Lambda^{0,1})$.
+	\begin{align*}
+	\langle \Delta \phi, \phi\rangle &= \frac{1}{2} \int_X  g^{p \bar q} (\nabla_{\bar q} \phi_{\bar j \bar k} ) \overline{(\nabla_{\bar p} 
+	\phi_{\bar l \bar m})} h g^{l \bar j} g^{m \bar k} \frac{\omega^n}{n!} +  \int_X ({F_{\bar j}}^{\bar q} + {R_{\bar j}}^{\bar q}) 
+	\phi_{\bar q \bar k} \overline{\phi_{\bar l \bar m}} h g^{l \bar j} g^{m \bar k} \frac{\omega^n}{n!}	\\
+	&= ||\overline{ \nabla} \phi ||^2 +  \int_X (F^{l \bar q} + R^{l \bar q}) 
+	\phi_{\bar q \bar k} \overline{\phi_{\bar l \bar m}} h  g^{m \bar k} \frac{\omega^n}{n!}
+	\end{align*}
+	The first term is nonnegative, since it is a norm. Therefore it suffices to show that $F^{l\bar q} + R^{l \bar q}$ is a positive definite
+	matrix, as this would imply that $\langle \Delta \phi, \phi\rangle = 0$ only if $\phi = 0$. If we replace $L$ by $L^m$, then $F^{l\bar q}$
+	is replaced by $m F^{l \bar q}$, and $R^{l \bar q}$ is unchanged. Since $F$ is positive definite by assumption, choosing $m$ large
+	enough will guarantee that $m F^{l \bar q} + R^{l \bar q}$ is positive definite, as desired.
+\end{enumerate}
+
+
+\subsection*{Problem 4}
+We have shown that, for $g(z)$ holomorphic, $\log |g(z)|^2$ is PSH. In particular, $(n+5) \log |z|^2$ is PSH. WLOG we can consider that
+the neighborhood $U$ is a ball $B_{\rho}(0)$ around the origin, since we can restrict the domain of integration to such a ball contained in $U$
+if necessary. Then the hypothesis becomes:
+\[              \int_{B_{\rho}(0)} |f(z)|^2 |z|^{-2(n+5)} < \infty      \]
+On $B_{\rho}(0)$, we can expand $f(z) = \sum_{|\alpha|\leq n+5} a_{\alpha} z^{\alpha} + E(z)$, with $|E(z)| \leq C |z|^{n+6}$. By the
+tirangle inequality we obtain:
+\[        \int_{B_{\rho}(0)} \big| \sum_{|\alpha| \leq n+5} a_{\alpha} z^{\alpha}  \big|^2   |z|^{-2(n+5)} \leq \int_{B_{\rho}(0)} \big( |f|^2 
++ |E(z)|^2 \big)  |z|^{-2(n+5)} < \infty     \]
+Since $\int |E(z)|^2 |z|^{-2(n+5)} \leq \int C |z|^2 < \infty$. We compute the integral on the LHS in polar coordinates $z = r \omega$, with
+$\omega \in S^{2n-1}$.
+\[      \int_0^{\rho} \int_{S^{2n-1}} \big| \sum_{\alpha \leq n+5} a_{\alpha} r^{|\alpha|} \omega^{\alpha}  \big|^2  r^{-2(n+5)} r^{2n-1}
+dr d\sigma(\omega) < \infty    \]
+In the integrand, we rewrite:
+\[ \big| \sum_{\alpha \leq n+5} a_{\alpha} r^{|\alpha|} \omega^{\alpha}  \big|^2 = \sum_{\alpha} \sum_{\beta} a_{\alpha} \bar a_{\beta}
+r^{|\alpha| + |\beta|} \omega^{\alpha} \overline{\omega^{\beta}} \]
+This has the advantage that integrating over $S^{2n-1}$ gives $\int \omega^{\alpha}  \overline{\omega^{\beta}} d\sigma(\omega) =
+C_{\alpha} \delta_{\alpha \beta}$. Therefore we only need to keep the terms with $\alpha = \beta$:
+\[       \int_0^{\rho} \sum_{|\alpha|\leq n+5} |a_{\alpha}|^2 r^{2|\alpha|} r^{-11} \left\{ \int_{S^{2n-1}} |\omega^{\alpha}|^2 d\sigma 
+(\omega)  \right\} dr < \infty    \]
+In order for the integral to converge, we must have $a_{\alpha} = 0$ whenever $2|\alpha| - 11 \leq -1$, i.e. whenever $|\alpha| \leq 5$. By
+definition, this means that $f(z)$ vanishes to order 5 at 0.
+
+
+
+
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
