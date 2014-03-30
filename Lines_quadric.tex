@@ -1,0 +1,183 @@
+\documentclass[12 pt]{article}
+\usepackage{amsmath,amssymb,amsthm,fullpage,amsfonts,enumerate,textcomp, eurosym, tikz-cd, fullpage}
+\title{Ruling of lines on a quadric surface}
+\author{Matei Ionita}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\CP}{\mathbb{C}\mathbb{P}}
+\newcommand{\RP}{\mathbb{R}\mathbb{P}}
+\newcommand{\Proj}{\mathbb{P}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\p}{\partial}
+\newcommand{\fr}{\mathfrak}
+
+\DeclareMathOperator{\Mor}{Mor}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\length}{length}
+\DeclareMathOperator{\res}{Res}
+\DeclareMathOperator{\Int}{Int}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\Lie}{Lie}
+\DeclareMathOperator{\id}{Id}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\irr}{irr}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\trdeg}{trdeg}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Nm}{Nm}
+\DeclareMathOperator{\ord}{ord}
+\DeclareMathOperator{\imag}{Im}
+
+\begin{document}
+  \maketitle
+
+\section{Roadmap}
+Today I will talk about quadric surfaces in $\Proj^3$. As the name suggests, a quadric surface is the zero locus of a quadratic homogenous
+polynomial. As usual, it's more convenient to work over the field of complex numbers, as this will allow us to easily classify all quadric surfaces.
+In particular, we will see that all nonsingular quadrics are isomorphic. Using this result, it will be easy to prove the main theorem of the day. It
+says that, on each nonsingular quadric, there exist two infinite families of lines, with certain intersection properties. After this, I will briefly talk
+about another way in which we can count the lines, which is faster, but doesn't allow us to explicitly find equations for the embedded lines.
+
+\section{Classification of quadrics}
+In $\Proj^3$, a quadric is given by a vanishing of a polynomial which, in general, is pretty disgusting:
+\[	a X_0^2 + bX_1^2 + cX_2^2 + dX_3^2 + e X_0 X_1 + fX_0 X_2 + g X_0 X_3 + hX_1X_2 + iX_1X_3 + jX_2X_3 = 0	\]
+The natural thing to try is to perform a linear change of variables that brings this to a much simpler form. We have already seen this procedure
+before, in Robert's talk, when we showed that all conics in $\Proj^2$ are isomorphic, and this proof uses the same argument. We begin by
+writing the above equation in matrix form:
+\[	\left( \begin{array} {cccc}  X_0 & X_1 & X_2 & X_3  \end{array} \right)
+	\left( \begin{array} {cccc}  a & e/2 & f/2 & g/2 \\ e/2 & b& h/2 & i/2 \\ f/2 & h/2 & c & j/2 \\ g/2 & i/2 & j/2 & d \end{array} \right)
+	\left( \begin{array} {c}  X_0 \\ X_1 \\ X_2 \\ X_3 \end{array} \right)  = 0	\]
+The matrix that we obtained is symmetric, therefore it can be written in the form $O^T D O$, where $O$ is orthogonal and $D$ is diagonal.
+Thus, acting by $O$ on the vector of old variables gives us the new variables, which by abuse of language we also call $X_0, \dots, X_3$. We
+we have reduced our quadratic polynomial to:
+\[	f(X_0, X_1, X_2, X_3) = a X_0^2 + bX_1^2 + cX_2^2 + dX_3^2 = 0	\]
+Provided that $a \neq 0$, we can let $\sqrt{a} X_0 \to X_0$ in order to incorporate the constant into the variable, and similarly for the other
+constants. Therefore we're only interested in whether the constants are zero or not. From this, we conclude that there are four isomorphism classes of
+quadrics, with one, two, three or four nonzero constants in the polynomial $f$. The latter is the class of nonsingular quadrics: it's easy to see
+that the $1\times 4$ matrix of partial derivatives of $f$ has full rank at all points of the zero locus iff all the constants are nonzero.
+\[             Df = \left( \begin{array} {cccc} 2aX_0 & 2bX_1 & 2cX_2 & 2dX_3 \end{array} \right)            \]
+Indeed, if $a,b,c,d \neq 0$, then the only way for $Df$ to have rank 0 would be $X_0 = X_1 = X_2 = X_3 = 0$, which does not belong to $\Proj^3$.
+However, if, say, $a = 0$, then $[1:0:0:0]$ is a singular point.
+
+Let's take each of these four classes and discuss it briefly. In the figure below you can see an example of a nonsingular quadric, which we will use 
+in our following discussion of embedded lines. Whatever statement we prove about lines on this surface, it will of course be true for all 
+nonsingular quadrics.
+\begin{figure}[h!]
+  \caption{Nonsingular quadric, given by equation $X_0X_1 - X_2X_3 =0$.}
+  \centering
+    \includegraphics[width=0.5\textwidth]{Hyperbolic-paraboloid}
+\end{figure}
+
+If $a=0$, but $b,c,d \neq 0$, we are left with an equation of the type $X_1^2+ X_2^2 - X_3^2 = 0$, whose real points form a cone. The singular point
+$[1:0:0:0]$ is the vertex of the cone. If $a, b =0$ and $c,d \neq 0$, the quadratic is reducible:
+\[ X_2^2 - X_3^2 = (X_2 - X_3)(X_2 + X_3) = 0 \]
+Therefore the surface is the union of the two hyperplanes $X_2 - X_3 = 0, X_2 + X_3 = 0$. Finally, the fourth class is a bit silly. If only $d\neq 0$, we
+have $X_3^2 = 0$, which simply gives the hyperplane $X_3 = 0$ with multiplicity 2.
+
+
+\section{The Segre embedding}
+Before counting lines on quadrics, it's useful to introduce a preliminary construction called Segre embedding. It is a map $\psi : \Proj^m \times
+\Proj^n \to \Proj^{(n+1)(m+1) - 1}$ given by:
+\[      \big( ( X_0, \dots, X_n) , (Y_0, \dots, Y_m  )\big)  \mapsto (X_i Y_j)    \]
+In order to visualize this, we can arrange the homogenous coordinates of $\Proj^{(n+1)(m+1) - 1}$ into an array as follows:
+\[  \left(  \begin{array} {ccc} Z_{00} &\cdots & Z_{0m} \\ \vdots & \ddots & \vdots \\ Z_{n0} &\cdots & Z_{nm} \end{array} \right) \]
+Then the image of the Segre embedding is:
+\[  \left(  \begin{array} {ccc} X_0 Y_0 &\cdots & X_0 Y_m \\ \vdots & \ddots & \vdots \\ X_n Y_0 &\cdots & X_nY_m \end{array} \right) \]
+The dimension of $\psi(\Proj^m \times \Proj^n)$ is $m+n$, which is generally much smaller than that of $\Proj^{(n+1)(m+1) - 1}$. More
+concretely, we can characterize the image of $\psi$ as the subspace of $\Proj^{(n+1)(m+1) - 1}$ where
+\[  \text{rank} \left(  \begin{array} {ccc} Z_{00} &\cdots & Z_{0m} \\ \vdots & \ddots & \vdots \\ Z_{n0} &\cdots & Z_{nm} \end{array} \right)
+\leq 1 \]
+In other words, $\left|  \begin{array} {cc} Z_{ik} & Z_{il} \\ Z_{jk} & Z_{jl} \end{array} \right| = 0$, for all $0 \leq i,j \leq n$ and all $0\leq k,l\leq m$.
+
+
+\section{Line counting}
+The concept of a line seems self-explanatory, but it may be worth it to define a line in projective space. We take a line in $\Proj^3$ to be the image
+of a nonzero linear map $\phi: \Proj^1 \to \Proj^3$. The most general line therefore looks like:
+\[      [t:s] \mapsto [at + bs : ct+ds : et+fs : gt+hs]    \]
+(There exists another way to define lines, which is more easily generalizable to linar variaties of higher dimensions. A line in $\Proj^n$ can 
+be taken to be the locus of simultaneous vanishing of $n-1$ linearly independent homogenous, linear polynomials. It's not hard to see that 
+these definitions are equivalent, so in this talk I'll just use the first one, which is easier to operate with.) The space of lines in $\Proj^3$ 
+is pretty large, 7-dimensional in fact. We are interested in describing those lines that are contained in a given nonsingular quadric, and 
+since all such quadrics are isomorphic, it suffices to analyze the one given by $XY - ZW = 0$, which was pictured in Figure 1.
+
+Describing lines contained in a surface has an important practical application. Quadrics are used in architecture, for constructions such as 
+saddle roofs and cooling towers. Generally, curved surfaces are more difficult to construct than flat ones, and they also need more complicated 
+reinforcement to keep them from collapsing. However, if enough straight lines are contained in the curved surface, engineers can first
+construct a skeleton out of straight steel rods, and then add the rest of the material around the skeleton. As we shall see, this is especially
+easy to do for quadrics.
+
+Returning to the surface $Q$ given by $XY-ZW = 0$, we make the important observation that $Q$ is the image of the Segre embedding 
+$\psi: \Proj^1 \times \Proj^1 \to \Proj^3$. To see this, note that the embedding gives:
+\[   ([t:s] , [u:v] )  \mapsto [tu : tv : su : sv]   \]
+Therefore if we let $X$ be the first homogenous coordinate in $\Proj^3$, $Y$ be the fourth, and $Z,W$ be the second and third, we obtain:
+\[     XY - ZW = tusv - tvsu = 0   \]
+Conversely, for any point $P= [X:Z:W:Y] \in Q$, we want to show that $P \in \imag \psi$. Since $P \in \Proj^3$, at least one of the 
+coordinates must be nonzero. Say $X \neq 0$, then the defining equation of $Q$ can be rewritten as $Y = ZW/X$. We take $[t:s] = [X : W]$ 
+and $[u:v] = [X : Z]$. Then:
+\[ \psi ([t:s] , [u:v] ) = [X^2 : XZ : XW : ZW] = [X : Z : W : ZW/X] = [X:Z:W:Y] \]
+
+The Segre embedding now allows us to parametrize two families of lines in $Q$. Let $[t:s]$ vary over all of $\Proj^1$, and fix $[u:v] =
+[\alpha: \beta]$. Then for each value of the parameters $\alpha, \beta$ the image of $\psi$ is a line:
+\[     [t:s] \mapsto [\alpha t : \beta t: \alpha s: \beta s]     \]
+This is an infinite family of lines $\{L_{\alpha \beta}\}$; actually there is a bijection between lines and points $[\alpha, \beta] \in \Proj^1$.
+Moreover, all these lines are disjoint.
+
+We obtain another family of lines $\{M_{\gamma \delta}\}$ by holding $[t:s] = [\gamma : \delta]$ fixed, and letting $[u:v]$ vary over 
+$\Proj^1$. Similarly, all lines in this family are disjoint. We want now to look at the intersection $L_{\alpha \beta} \cap M_{\gamma \delta}$:
+\[      [\alpha t : \beta t : \alpha s : \beta s] = [\gamma u : \gamma v : \delta u : \delta v]       \]
+\[     \Rightarrow \left\{ \begin{array} {c}  {[t:u] = [\gamma : \alpha]} \\ {[t:v] = [\gamma : \beta]} \\ {[s:u] = [\delta : \alpha]} \\ 
+	{[s:v] = [\delta : \beta]} \end{array} \right.  \Rightarrow  \left\{ \begin{array} {c}  {[t:s] = [\gamma : \delta]} \\  
+	{[u:v] = [\alpha : \beta]} \end{array} \right.  \]
+This means there is a unique point of intersection:
+ \[ L_{\alpha \beta} \cap M_{\gamma \delta} = [\alpha \gamma : \beta \gamma : \alpha \delta : \beta \delta] = \psi \big( [\gamma : \delta] ,
+ [\alpha : \beta] \big)  \]
+These two families of lines and the intersections can be seen in figure 2, as the exterior structure of the Sydney tower.
+
+\begin{figure}[h!]
+  \caption{Sydney tower}
+  \centering
+    \includegraphics[width=0.3\textwidth]{tower}
+\end{figure}
+
+The previous discussion applies only to nonsingular quadrics. In the case of the singular cone, for example, it's easy to see that
+the two families of lines collapse into a single family, and all lines intersect at the vertex of the cone. The reducible quadrics consist of planes,
+which contain lines with arbitrary orientations.
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
